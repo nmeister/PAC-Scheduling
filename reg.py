@@ -74,7 +74,7 @@ def database(commands, DATABASE_NAME):
             stmtStr +=  ' AND ' + keys[i][1:] + ' COLLATE UTF8_GENERAL_CI LIKE ?'
         stmtStr += 'ORDER BY dept ASC, coursenum ASC, classid ASC'
         cursor.execute(stmtStr, values)
-        print(stmtStr)
+        # print(stmtStr)
         """row = cursor.fetchone()
         print(row)
         print(stmtStr)
@@ -103,20 +103,30 @@ def format(rows):
             #print('\t')
         print(pstr)
 
+# need to right justify and also 72 characters, not end in words 
 def readable(rows): 
     headers = ['ClsId', 'Dept', 'CrsNum', 'Area', 'Title']
     print('ClsId Dept CrsNum Area Title')
     print('----- ---- ------ ---- -----')
+    total = 23 
     for x in rows: 
         pstr = ''
         count = 0
-        rightJ = 0 
+        rightJ = 0
         for j in x: 
             rightJ = len(headers[count])
-            pstr += (str(j)).rjust(rightJ)
-            # print(str(j).rjust(rightJ))
+            # pstr += (str(j)).rjust(rightJ)
+            if (count == 4): 
+                split = str(j).split(' ')
+                for word in split:         
+                    if (total + len(word) > 72): 
+                        print('\n', end = '')
+                        total += len(word)
+            else: 
+                print(str(j).rjust(rightJ), end = ' ')
             count += 1
-        print(pstr)
+        # print(pstr)
+        print('\n', end = '')
 
 
 def main(argv):
