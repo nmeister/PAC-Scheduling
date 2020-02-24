@@ -23,14 +23,6 @@ def parse(argv):
     else:
         commands['-h'] = 'NO'
 
-    if (len(argv) % 2 != 0) and (i == 2):
-        print('reg: missing value')
-        exit(1)
-
-    if (len(argv) % 2 == 0) and (i != 2):
-        print('reg: missing value')
-        exit(1)
-
     while i < len(argv): 
         if ((argv[i] != '-dept') and (argv[i] != '-coursenum') and (argv[i] != '-area') and 
             (argv[i] !='-title')):
@@ -39,6 +31,12 @@ def parse(argv):
         if argv[i] in commands:
             print('reg: duplicate key')
             exit(1)
+        if (len(argv) % 2 != 0) and (i == 2):
+            print('reg: missing value')
+            exit(1)
+        if (len(argv) % 2 == 0) and (i != 2):
+            print('reg: missing value')
+            exit(1)   
         if '_' in argv[i+1]:
             udscr = argv[i+1].find('_')
             oldarg = argv[i+1]
@@ -49,6 +47,8 @@ def parse(argv):
             argv[i+1] = oldarg[0:udscr-1] + '\\' + oldarg[udscr:]
         commands[argv[i]] = '%' + argv[i+1] + '%'
         i += 2
+
+  
 
     return(commands)
 
@@ -61,29 +61,18 @@ def database(commands, DATABASE_NAME):
     if(len(commands) != 0):
         values.pop(0)
         keys.pop(0)
-        #row   = cursor.fetchall()
-        stmtStr = 'SELECT classid, dept, coursenum, area, title FROM crosslistings INNER JOIN courses ON crosslistings.courseid = courses.courseid INNER JOIN classes ON crosslistings.courseid = classes.courseid '
-        """stmtStr += keys[0][1:]
-        for i in range(1, len(keys)):
-             stmtStr += ', ' + keys[i][1:] 
-        print(stmtStr)
-        stmtStr += ' FROM crosslistings INNER JOIN courses ON crosslistings.courseid = courses.courseid '    """
+
+        stmtStr = 'SELECT classid, dept, coursenum, area, title ' 
+        stmtStr += 'FROM crosslistings INNER JOIN courses ON crosslistings.courseid = courses.courseid '
+        stmtStr += 'INNER JOIN classes ON crosslistings.courseid = classes.courseid '
+       
         stmtStr += 'WHERE '
         stmtStr += keys[0][1:] + ' COLLATE UTF8_GENERAL_CI LIKE ?'
         for i in range(1, len(keys)):
             stmtStr +=  ' AND ' + keys[i][1:] + ' COLLATE UTF8_GENERAL_CI LIKE ?'
         stmtStr += 'ORDER BY dept ASC, coursenum ASC, classid ASC'
         cursor.execute(stmtStr, values)
-        # print(stmtStr)
-        """row = cursor.fetchone()
-        print(row)
-        print(stmtStr)
-
-        while row is not None:
-            print(row)
-            row = cursor.fetchone() 
-        cursor.close()
-        connection.close()"""
+     
     else: 
         stmtStr = 'SELECT classid, dept, coursenum, area, title FROM crosslistings INNER JOIN courses ON crosslistings.courseid = courses.courseid INNER JOIN classes ON crosslistings.courseid = classes.courseid '
         stmtStr += 'ORDER BY dept ASC, coursenum ASC, classid ASC'
@@ -95,42 +84,47 @@ def database(commands, DATABASE_NAME):
 
 
 def format(rows):
-    # row is a big list that contains tuples 
+   
     for x in rows: 
         pstr = ''
         for j in x: 
             pstr += str(j) + '\t'
-            #print('\t')
         print(pstr)
 
-# need to right justify and also 72 characters, not end in words 
+
 def readable(rows): 
     headers = ['ClsId', 'Dept', 'CrsNum', 'Area', 'Title']
     print('ClsId Dept CrsNum Area Title')
     print('----- ---- ------ ---- -----')
     
-    for x in rows: 
+    for row in rows: 
         pstr = ''
         count = 0
         rightJ = 0
-        total = 23 
-        for j in x: 
+        total = len(headers[0]) + len(headers[1]) + len(headers[2]) + len(headers[3])
+        for col in row: 
             rightJ = len(headers[count])
-            # pstr += (str(j)).rjust(rightJ)
             if (count == 4): 
-                split = str(j).split(' ')
-                for word in split:        
+                title = str(col).split(' ')
+                line = ''
+                lineCount = 0 
+                for word in title:   
                     if (total + len(word) + 1 > 72): 
-                        print('\n', end = '')
-                        print(word.rjust(23), end = ' ')
-                        total = 22
-                    else:     
-                        print(word, end = ' ')
-                        total += len(word)
+                        print(line.ljust(49))
+                        total = len(headers[0]) + len(headers[1]) + len(headers[2]) + len(headers[3])
+                        line = word + ' '
+                        lineCount += 1
+                    else:   
+                        line += word + ' '
+                        total += len(word) + 1
+                if (line != '' and lineCount > 0): 
+                    print('%-23s' % ' ', end = '')
+                    print(line.ljust(49), end = '')
+                else: 
+                    print(line.ljust(49), end = '')
             else: 
-                print(str(j).rjust(rightJ), end = ' ')
+                print(str(col).rjust(rightJ), end = ' ')
             count += 1
-        # print(pstr)
         print('\n', end = '')
 
 
@@ -139,15 +133,12 @@ def main(argv):
 
     DATABASE_NAME = 'reg.sqlite'
     if not path.isfile(DATABASE_NAME):
-        raise Exception('Database connection failed')
+        raise Exception('reg: database reg.sqlite not found')
     commands = parse(argv)
-    # print('outside')
-    # print(commands)
     values = list(commands.values())
-    # print(values)
     check = values.pop(0)
     rows = database(commands, DATABASE_NAME)
-    #print(rows)
+
     if (check == 'YES'):
         readable(rows)
     else: 

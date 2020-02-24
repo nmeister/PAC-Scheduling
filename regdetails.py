@@ -18,7 +18,8 @@ def database(DATABASE_NAME, classId):
 	stuff = ['courseid', 'days', 'starttime', 'endtime', 'bldg', 'roomnum', 'dept', 'coursenum', 'area', 'title', 'descrip', 'prereqs', 'profname']
 	stmtStr = 'SELECT crosslistings.courseid, days, starttime, endtime, bldg, roomnum, dept, coursenum, area, title, descrip, prereqs, profname '
 	stmtStr += 'FROM crosslistings INNER JOIN courses ON crosslistings.courseid = courses.courseid INNER JOIN classes ON '
-	stmtStr += 'crosslistings.courseid = classes.courseid INNER JOIN coursesprofs ON classes.courseid = coursesprofs.courseid INNER JOIN profs ON coursesprofs.profid = profs.profid '
+	stmtStr += 'crosslistings.courseid = classes.courseid INNER JOIN coursesprofs ON '
+	stmtStr += 'classes.courseid = coursesprofs.courseid INNER JOIN profs ON coursesprofs.profid = profs.profid '
 	stmtStr += 'WHERE classes.classid= ? '
 	stmtStr += 'ORDER BY dept, coursenum, profname'
 	cursor.execute(stmtStr, [classId])
@@ -46,29 +47,33 @@ def dets(results):
 			else: 
 				print(y)
 
+def check_argv(argv): 
+	length = len(argv)
+	classId = 0
+	if length == 1:
+		print('regdetails: missing classid')
+		exit(1)
+	if length == 2: 
+		if (isinstance(int(argv[1]), int) == False):
+			print('regdetails: classid is not an integer')
+			exit(1)
+		else: 
+			classId = argv[1]
+	if length >= 3: 
+		if (argv[1].isnumeric() and argv[2].isnumeric()): 
+			print('regdetails: too many arguments')
+			exit(1)
+		if not isinstance(argv[2], int): 
+			print('regdetails: classid is not an integer')
+			exit(1)
+	return(classId)
+
 
 def main(argv):
     DATABASE_NAME = 'reg.sqlite'
     if not path.isfile(DATABASE_NAME):
         raise Exception('Database connection failed')
-    length = len(argv)
-    classId = 0
-    if length == 1:
-    	print('regdetails: missing classid')
-    	exit(1)
-    if length == 2: 
-    	if (isinstance(int(argv[1]), int) == False):
-    		print('regdetails: classid is not an integer 1 ')
-    		exit(1)
-    	else: 
-    		classId = argv[1]
-    if length >= 3: 
-    	if (argv[1].isnumeric() and argv[2].isnumeric()): 
-    		print('regdetails: too many arguments')
-    		exit(1)
-    	if not isinstance(argv[2], int): 
-    		print('regdetails: classid is not an integer 2')
-    		exit(1)
+    classId = check_argv(argv)
     results = database(DATABASE_NAME, classId)
     dets(results)
 
