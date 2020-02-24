@@ -108,25 +108,31 @@ def readable(rows):
     headers = ['ClsId', 'Dept', 'CrsNum', 'Area', 'Title']
     print('ClsId Dept CrsNum Area Title')
     print('----- ---- ------ ---- -----')
-    total = 23 
+    
     for x in rows: 
         pstr = ''
         count = 0
         rightJ = 0
+        total = 23 
         for j in x: 
             rightJ = len(headers[count])
             # pstr += (str(j)).rjust(rightJ)
             if (count == 4): 
                 split = str(j).split(' ')
-                for word in split:         
-                    if (total + len(word) > 72): 
+                for word in split:        
+                    if (total + len(word) + 1 > 72): 
                         print('\n', end = '')
+                        print(word.rjust(23), end = ' ')
+                        total = 22
+                    else:     
+                        print(word, end = ' ')
                         total += len(word)
             else: 
                 print(str(j).rjust(rightJ), end = ' ')
             count += 1
         # print(pstr)
         print('\n', end = '')
+
 
 
 def main(argv):
