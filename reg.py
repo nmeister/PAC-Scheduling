@@ -19,8 +19,11 @@ def main(argv):
     if not path.isfile(DATABASE_NAME):
         raise Exception('reg: database reg.sqlite not found')
     commands = regParse(argv)
+    print(commands)
     values = list(commands.values())
-    check = values.pop(0)
+    check = False
+    if (len(commands) > 0):
+        check = values.pop(0)
     rows = regdatabase(commands, DATABASE_NAME)
 
     if (check == 'YES'):

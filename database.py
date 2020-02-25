@@ -14,7 +14,7 @@ def regdatabase(commands, DATABASE_NAME):
     cursor = connection.cursor()
     keys = list(commands.keys())
     values = list(commands.values())
-    if(len(commands) != 0):
+    if(len(commands) > 1):
         values.pop(0)
         keys.pop(0)
 

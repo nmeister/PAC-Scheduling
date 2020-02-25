@@ -7,14 +7,14 @@
 def regParse(argv):
     i = 1
     commands = {}
-    if (len(argv) == 1) or (len(argv) == 2 and argv[1] == '-h'):
+#    if (len(argv) == 1) or (len(argv) == 2 and argv[1] == '-h'):
+    if (len(argv) == 1):
         return (commands)
 
+    commands['-h'] = 'NO'
     if argv[1] == '-h':
         commands['-h'] = 'YES'
         i+=1
-    else:
-        commands['-h'] = 'NO'
 
     while i < len(argv): 
         if ((argv[i] != '-dept') and (argv[i] != '-coursenum') and (argv[i] != '-area') and 
@@ -33,11 +33,11 @@ def regParse(argv):
         if '_' in argv[i+1]:
             udscr = argv[i+1].find('_')
             oldarg = argv[i+1]
-            argv[i+1] = oldarg[0:udscr-1] + '\\' + oldarg[udscr:]
+            argv[i+1] = oldarg[0:udscr] + '\_' + oldarg[udscr+1:]
         if '%' in argv[i+1]:
             udscr = argv[i+1].find('%')
             oldarg = argv[i+1]
-            argv[i+1] = oldarg[0:udscr-1] + '\\' + oldarg[udscr:]
+            argv[i+1] = oldarg[0:udscr] + '\%' + oldarg[udscr+1:]
         commands[argv[i]] = '%' + argv[i+1] + '%'
         i += 2
     return(commands)
