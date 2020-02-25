@@ -56,8 +56,6 @@ An indication of how much time you spent doing the assignment.
 
 Your assessment of the assignment: Did it help you to learn? What did it help 
 you to learn? Do you have any suggestions for improvement? Etc.
-(Optionally) Any information that will help us to grade your work in the most 
-favorable light. In particular you must describe all known bugs.
 
 This assignment was relatively helpful in terms of learning how to use SELECT 
 statements, writing them to be tailored to our needs, and also figuring how
@@ -70,3 +68,6 @@ memory of Sqlite and teach Helen what SELECT statements can do. Overall,
 we think this was quite an interesting assignment, however, the formatting 
 portion of this assignment got quite confusing and hard especially because
 we were not familiar with functions such as rjust or ljust. 
+
+(Optionally) Any information that will help us to grade your work in the most 
+favorable light. In particular you must describe all known bugs.
