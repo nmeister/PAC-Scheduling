@@ -1,0 +1,73 @@
+#---------------------------------------------------------------------
+# readme
+# Name: Helen Chen (hc20)
+# Partner: Angela Li (al24)
+# Assignment #: 1
+#---------------------------------------------------------------------
+
+A paragraph describing your contribution, and another paragraph 
+describing your teammate's contribution. Please be thorough; 
+we're looking for two substantial paragraphs, not a sentence or two.
+
+I led the typing of the code for reg.py. I helped write and think about the 
+argument parsing function regParse() as well as the formatting for reg.py
+in regdFormat() and readable() functions. I also led the writing and thinking
+for argument parsing function checkRegDetailsargv() and regdformat(). I helped figure out
+how to do the human-readable printing with the underscores and also
+most of the right justifying. I helped to debug the database functions in 
+terms of the cursor.execute portions as well as parsing the data retrieved 
+in regdetails.py into a list to be returned so that there are no duplicate items. 
+
+Angela led the writing for the database SELECT for both reg.py and regdetails.py. She 
+helped to come up with the INNER JOIN for both of the functions 
+because we were having trouble obtaining actual results from the database. Angela 
+also helped debug with the ON statement for the profnames because initially we
+were having all the profnames getting returned and then figured out that we had
+to INNER JOIN them by profid. Angela also helped figure out and write up the bash 
+scripts for reg and regdetails. She also led the writing and debugging for pregdformat()
+in regdetails.py. Angela helped with the debugging of the formatting for readable() 
+function in reg.py as well as for regparse() in reg.py. 
+
+We worked and debugged entirely side by side during the entirety of this 
+assignment. We each led and came up with ideas for some individual sections but
+largely done together. 
+
+A description of whatever help (if any) you received from other people while 
+doing the assignment, as prescribed by the course Policies web page.
+
+We used Stack overflow and a few other python tutorial/documentation websites to 
+get a better understanding of python syntax and for understanding the different 
+types of functions that are available to us in Python and for sqlite. We also 
+used the course handouts from class and also other websites from online to help 
+us in learning how to use sqlite functions and calls. 
+Websites that were used include: 
+https://docs.python.org/
+stackoverflow.com
+w3schools.com
+tutorialspoint.com
+https://www.sqlitetutorial.net/sqlite-python/
+https://docs.python.org/2/library/sqlite3.html
+https://www.sqlitetutorial.net/sqlite-inner-join/
+w3resource.com
+
+
+An indication of how much time you spent doing the assignment.
+10 hours 
+
+Your assessment of the assignment: Did it help you to learn? What did it help 
+you to learn? Do you have any suggestions for improvement? Etc.
+
+This assignment was relatively helpful in terms of learning how to use SELECT 
+statements, writing them to be tailored to our needs, and also figuring how
+to use python functions or what functions were available to us to help us 
+parse the information and write what we needed. We would say that this was 
+largely an experience in learning how to write in Python since (Helen) first
+learned it back in high school but has not coded in Python since and this 
+is Angela's first time coding in Python. This also helped refresh Angela's 
+memory of Sqlite and teach Helen what SELECT statements can do. Overall,
+we think this was quite an interesting assignment, however, the formatting 
+portion of this assignment got quite confusing and hard especially because
+we were not familiar with functions such as rjust or ljust. 
+
+(Optionally) Any information that will help us to grade your work in the most 
+favorable light. In particular you must describe all known bugs.

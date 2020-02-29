@@ -26,7 +26,8 @@ def regdatabase(commands, DATABASE_NAME):
         stmtStr += keys[0][1:] + ' COLLATE UTF8_GENERAL_CI LIKE ?'
         for i in range(1, len(keys)):
             stmtStr +=  ' AND ' + keys[i][1:] + ' COLLATE UTF8_GENERAL_CI LIKE ?'
-        stmtStr += 'ORDER BY dept ASC, coursenum ASC, classid ASC'
+        stmtStr += ' ESCAPE "#" '
+        stmtStr += ' ORDER BY dept ASC, coursenum ASC, classid ASC'
         cursor.execute(stmtStr, values)
      
     else: 

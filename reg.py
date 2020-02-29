@@ -18,18 +18,17 @@ def main(argv):
     DATABASE_NAME = 'reg.sqlite'
     if not path.isfile(DATABASE_NAME):
         raise Exception('reg: database reg.sqlite not found')
-    commands = regParse(argv)
-    print(commands)
-    values = list(commands.values())
-    check = False
-    if (len(commands) > 0):
-        check = values.pop(0)
-    rows = regdatabase(commands, DATABASE_NAME)
+    parsedArgs = regParse(argv)
+    parsedArgsValues = list(parsedArgs.values())
+    isHumanReadable = False
+    if (len(parsedArgs) > 0):
+        isHumanReadable = parsedArgsValues.pop(0)
+    results = regdatabase(parsedArgs, DATABASE_NAME)
 
-    if (check == 'YES'):
-        readable(rows)
+    if (isHumanReadable == 'YES'):
+        readable(results)
     else: 
-        regformat(rows)
+        regformat(results)
 
 #---------------------------------------------------------------------
 

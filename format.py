@@ -45,6 +45,7 @@ def readable(rows):
                 for word in title:   
                     if (total + len(word) + 1 > 72): 
                         print(line.ljust(49))
+                        print('%-23s' % ' ', end = '')
                         total = len(headers[0]) + len(headers[1]) + len(headers[2]) + len(headers[3])
                         line = word + ' '
                         lineCount += 1
@@ -52,10 +53,11 @@ def readable(rows):
                         line += word + ' '
                         total += len(word) + 1
                 if (line != '' and lineCount > 0): 
-                    print('%-23s' % ' ', end = '')
                     print(line.ljust(49), end = '')
+                # for the first line to be printed out 
                 else: 
-                    print(line.ljust(49), end = '')
+                	print(line.ljust(49), end = '')
+       
             else: 
                 print(str(col).rjust(rightJ), end = ' ')
             count += 1

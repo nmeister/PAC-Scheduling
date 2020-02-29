@@ -33,11 +33,11 @@ def regParse(argv):
         if '_' in argv[i+1]:
             udscr = argv[i+1].find('_')
             oldarg = argv[i+1]
-            argv[i+1] = oldarg[0:udscr] + '\_' + oldarg[udscr+1:]
+            argv[i+1] = oldarg[0:udscr] + str('#_') + oldarg[udscr+1:]
         if '%' in argv[i+1]:
             udscr = argv[i+1].find('%')
             oldarg = argv[i+1]
-            argv[i+1] = oldarg[0:udscr] + '\%' + oldarg[udscr+1:]
+            argv[i+1] = oldarg[0:udscr] + str('#%') + oldarg[udscr+1:]
         commands[argv[i]] = '%' + argv[i+1] + '%'
         i += 2
     return(commands)
