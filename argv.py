@@ -4,6 +4,17 @@
 # Authors: Helen Chen & Angela Li
 #---------------------------------------------------------------------
 
+
+def regServerArg(argv): 
+    # first command arg = program name
+    # argv[1] = IP address/domain name 
+    # argv[2] = number of port listening at 
+    # reg takes somehost and someport 
+    ipAddress = argv[1]
+    portNum = argv[2]
+    
+
+
 def regParse(argv):
     i = 1
     commands = {}
