@@ -4,13 +4,23 @@
 # Authors: Helen Chen & Angela Li
 #---------------------------------------------------------------------
 
+
+def regform(rows):
+	final = ''
+	for x in rows: 
+		pstr = ''
+		for j in x: 
+			pstr += str(j) + '\t'
+		final += pstr + '\n'
+	return final
+
+
 def regformat(rows):
-   
-    for x in rows: 
-        pstr = ''
-        for j in x: 
-            pstr += str(j) + '\t'
-        print(pstr)
+	for x in rows: 
+		pstr = ''
+		for j in x: 
+			pstr += str(j) + '\t'
+			print(pstr)
 
 
 def regdformat(results): 
@@ -25,6 +35,15 @@ def regdformat(results):
 			else: 
 				print(y)
 
+def read(row):
+        pstr = ''
+        pstr += str(row[0]).rjust(5) 
+        pstr += str(row[1]).rjust(4)
+        pstr += str(row[2]).rjust(5)
+        pstr += str(row[3]).rjust(4)
+        pstr += ' ' + row[4]
+        return pstr
+                                
 
 def readable(rows): 
     headers = ['ClsId', 'Dept', 'CrsNum', 'Area', 'Title']
@@ -126,3 +145,48 @@ def pregdformat(results):
 				print(entry)
 		print('\n', end='')
 
+
+
+
+
+
+def readableTruncate(row, label):
+    charcount = len(label)
+    phrase = str(row[0]).split(' ')
+    line = ''
+    for word in phrase:
+        if (charcount + len(word) + 1 > 72):
+            print(line)
+            charcount = len(word)
+            line = word + ' '
+        else:
+            line += word + ' '
+            charcount += len(word) + 1
+    if (line != ''):
+        print(line + '\n')
+
+
+def readableRegResults(row, col):  # prints human readable form for single column query
+    if col == 'courseid':
+        print('Course Id: ' + str(row[0]) + '\n')
+    if col == 'days':
+        print('Days: ' + row[0])
+    if col == 'starttime':
+        print('Start time: ' + row[0])
+    if col == 'endtime':
+        print('End time: ' + row[0])
+    if col == 'bldg':
+        print('Building: ' + row[0])
+    if col == 'roomnum':
+        print('Room: ' + row[0] + '\n')
+    if col == 'area':
+        print('Area: ' + row[0] + '\n')
+    if col == 'title':
+        print('Title: ', end='')
+        readableTruncate(row, 'Title: ')
+    if col == 'descrip':
+        print('Description: ', end='')
+        readableTruncate(row, 'Description: ')
+    if col == 'prereqs':
+        print('Prerequisites: ', end='')
+        readableTruncate(row, 'Prerequisites: ')

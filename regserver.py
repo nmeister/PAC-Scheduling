@@ -16,7 +16,7 @@ from socket import AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 #---------------------------------------------------------------------
 # mangela
 
-
+# connect to a port 
 def main(argv): 
 
 	BACKLOG = 5 

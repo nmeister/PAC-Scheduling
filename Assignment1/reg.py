@@ -14,7 +14,7 @@ from sys import argv, stderr, exit
 # mangela
 
 def main(argv):
-
+    print(argv)
     DATABASE_NAME = 'reg.sqlite'
     if not path.isfile(DATABASE_NAME):
         raise Exception('reg: database reg.sqlite not found')
