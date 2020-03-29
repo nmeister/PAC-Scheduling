@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-java -jar /u/cos333/Asgt1Solution/Reg.jar "$@"
