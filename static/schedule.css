@@ -1,0 +1,21 @@
+ul {
+	list-style-type: none;
+}
+
+.studiodiv {
+	margin-left: 50px
+}
+.studio {
+	display: inline;
+	text-align: center;
+  	margin: 30px;
+  	padding: 10px;
+  	background-color:black;
+  	color:white;
+  	
+}
+
+.time li {
+	display:block;
+	padding: 20px;
+}
