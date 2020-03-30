@@ -16,3 +16,4 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pacSite.settings')
 
 application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
+# hello 
