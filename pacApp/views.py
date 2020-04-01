@@ -7,8 +7,8 @@ from django.conf.urls.static import static
 
 def index(request):
 	#return HttpResponse("Hello, World")
-	html = render_to_string('home.html')
-	#return HttpResponse(html)
+	html = render_to_string('templates/pacApp/home.html')
+	return HttpResponse(html)
 
 def schedule(request):
-	return render(request, "home2.html")
+	return render(request, "templates/pacApp/home2.html")

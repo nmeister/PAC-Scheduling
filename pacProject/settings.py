@@ -50,12 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'pacSite.urls'
-
+ROOT_URLCONF = 'pacProject.urls'
+SETTINGS_PATH = os.path.realpath(os.path.dirname(__file__))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/Users/helenchen/Desktop/CS/COS333/PAC-Scheduling/templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'pacApp'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pacSite.wsgi.application'
+WSGI_APPLICATION = 'pacProject.wsgi.application'
 
 
 # Database
