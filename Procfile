@@ -1,1 +1,1 @@
-web: gunicorn pacSite.pacSite.wsgi --log-file - 
+web: gunicorn pacSite.wsgi --log-file - 
