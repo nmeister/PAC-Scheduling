@@ -90,6 +90,7 @@
 </form>
 Results of DB:
 <ul class="list-group">
+	<!-- this space list comes from views.py-->
 	{% for item in space_list %}
 	<li class="list-group-item">{{item.company_name}}{{item.time_start}}{{item.time_end}}{{item.studio}}</li>
 	{% endfor %}
