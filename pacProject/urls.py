@@ -19,5 +19,6 @@ from django.urls import path, include
 urlpatterns = [
  	# this is just what url you will be going to for this 
 	path('', include('pacApp.urls')),
+    path('pacApp/', include('pacApp.urls')),
     path('admin/', admin.site.urls),
 ]
