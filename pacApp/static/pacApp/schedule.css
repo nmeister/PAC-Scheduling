@@ -1,0 +1,25 @@
+ul {
+	list-style-type: none;
+}
+
+.studiodiv {
+	margin-left: 50px
+}
+.studio {
+	text-align: center;
+  	background-color:black;
+  	color:white;
+  	
+}
+
+.time {
+	display:block;
+	background-color:#b19cd9;
+  	color:white;
+	padding: 20px;
+	text-align:center;
+}
+
+td {
+	text-align:center;
+}
