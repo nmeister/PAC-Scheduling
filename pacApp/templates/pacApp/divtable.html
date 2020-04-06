@@ -1,0 +1,15 @@
+<div class="schedule">
+		<div class="header">
+		{% for item in space_list %}
+			<div class ="col">
+				<div class ="col">{{item.name}}
+					{% for key, value in item.times.items %}
+						{% for i in value %}
+							<div class="row" id=row{{i}}>{{key}}{{i}}</div>
+						{% endfor %}
+					{% endfor %}
+				</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
