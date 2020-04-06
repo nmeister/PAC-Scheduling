@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'pacProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbtf24cs7336is', # *** change the name if you change the db name
-        'USER': 'ujdkczujgerjnq',
-        'PASSWORD': '4a3dd8176764c6d42aefaddae926ab027b65fcb6c90e4b8c2e685d896e3a105e',
-        'HOST': 'ec2-54-147-209-121.compute-1.amazonaws.com', 
-        'PORT': '5432'
+        'NAME': 'dvdrental', # *** change the name if you change the db name
+        'USER': 'postgres',
+        'PASSWORD': 'dondero',
+        'HOST': 'localhost', 
+        'PORT': '5433'
     }
 }
 

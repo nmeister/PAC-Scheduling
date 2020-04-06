@@ -16,9 +16,9 @@ def index(request):
 	return HttpResponse(html)
 
 def schedule(request):
-	t1 = models.TimeSlot(company_name="Sympoh", time_start=5, time_end=7,
-		studio="Wilcox")
-	context = {t1.company_name:t1}
+	# t1 = models.TimeSlot(company_name="Sympoh", time_start=5, time_end=7,
+		# studio="Wilcox")
+	# context = {t1.company_name:t1}
 
 	context = {'space_list' : TimeSlot.objects.all()}
 	#args = {}

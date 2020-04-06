@@ -23,3 +23,43 @@ ul {
 td {
 	text-align:center;
 }
+
+
+.schedule {
+    display: table;
+    text-align:center;
+ 
+}
+
+.header {
+
+	display:table-header-group;
+	
+}
+
+.col {
+	display:table-column;
+	text-align:center;
+  	float: left;
+  	padding:10px;
+}
+
+/* Clear floats after the columns */
+.row {
+  	display: table-row;
+  	text-align:center;
+
+}
+
+.cell {
+	display:table-cell;
+	text-align:center;
+}
+
+
+#row5 {
+	display:table-row;
+	text-align:center;
+	background-color:pink;
+
+}

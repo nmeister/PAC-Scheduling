@@ -7,8 +7,8 @@
       </head>
    <body>
       <!-- {% include 'templates/pacApp/header.html' %}-->
-      {% include 'templates/pacApp/schedt.html' %}
-      <!-- {% include 'templates/pacApp/divtable.html' %} -->
+      <!-- {% include 'templates/pacApp/schedt.html' %}-->
+      {% include 'templates/pacApp/divtable.html' %}
 
    </body>
  </html>
