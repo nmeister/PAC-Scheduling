@@ -1,0 +1,12 @@
+<div class="schedule">
+<div class="header">
+	{% for item in space_list %}
+		<div class = "col">
+			<div class ="col">{{item.name}}</div>
+			{% for slot in item.times %}
+					<div class="row">{{slot}}</div>
+			{% endfor %}
+		</div>
+	{% endfor %}
+</div>
+</div>
