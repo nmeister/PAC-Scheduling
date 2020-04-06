@@ -26,7 +26,7 @@ SECRET_KEY = '59c!&ax&$m&aoy#!&((_l741@@-s6(86f4g8qxu1w!4^v!65d9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pac-schedule.herokuapp.com/']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'pac-schedule.herokuapp.com/']
 
 
 # Application definition
@@ -137,6 +137,7 @@ STATICFILES_DIRS = (
 
 STATIC_URL = '/pacApp/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedMainfestStaticFilesStorage'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'pacApp/static'),
 
