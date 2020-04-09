@@ -1,0 +1,20 @@
+<form action="{% url 'insert_space_item' %}" method="POST" autocomplete="=off">
+		{% csrf_token %}
+		<div style="padding:0px" class="input-group">
+			Company_Name: <input type="text" class="form-control" name="company_name"> <br>
+			Company Day: <input type="text" class="form-control" name="company_day"><br>
+			Artistic Director: <input type="text" class="form-control" name="ad"><br>
+			Number of Rehearsals Needed: <input type="text" class="form-control" name="reho"><br>
+			Number of Members: <input type="text" class="form-control" name="members"><br>
+			Ranking of Studios:<input type="text" class = "form-control" name="studio"><br>
+			<div class="input-group-append text-info">
+				<span class="input-grou-text bg-white py-0">
+					<button type="submit" class="btn btn-sm text-info">
+						<i class="fa fa-plus-circle fa-lg">
+						</i>
+						Submit
+					</button>
+				</span>
+			</div>
+		</div>
+	</form>

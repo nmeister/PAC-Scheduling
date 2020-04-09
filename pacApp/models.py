@@ -16,3 +16,4 @@ class Hours(models.Model):
 	end = models.IntegerField()
 	duration = models.IntegerField()
 
+
