@@ -1,12 +1,20 @@
-<form action="{% url 'insert_space_item' %}" method="POST" autocomplete="=off">
+
+<form action="{% url 'insert_ad_request' %}" method="POST" autocomplete="=off">
 		{% csrf_token %}
 		<div style="padding:0px" class="input-group">
-			Company_Name: <input type="text" class="form-control" name="company_name"> <br>
+			Company Name: <input type="text" class="form-control" name="name"> <br>
 			Company Day: <input type="text" class="form-control" name="company_day"><br>
-			Artistic Director: <input type="text" class="form-control" name="ad"><br>
-			Number of Rehearsals Needed: <input type="text" class="form-control" name="reho"><br>
-			Number of Members: <input type="text" class="form-control" name="members"><br>
-			Ranking of Studios:<input type="text" class = "form-control" name="studio"><br>
+			Company Start Time: <input type="text" class="form-control" name="company_start_time"><br>
+			Company End Time: <input type="text" class="form-control" name="company_end_time"><br>
+			Desired Company Studio: <input type="text" class="form-control" name="company_studio"><br>
+			Ranking of Studios:<br>
+			Rank #1: <input type="text" class = "form-control" name="rank_1"><br>
+			Rank #2: <input type="text" class = "form-control" name="rank_2"><br>
+			Rank #3: <input type="text" class = "form-control" name="rank_3"><br>
+			Rank #4: <input type="text" class = "form-control" name="rank_4"><br>
+			Rank #5: <input type="text" class = "form-control" name="rank_5"><br>
+			Number of Rehearsals Needed: <input type="text" class="form-control" name="num_reho"><br>
+			Number of Members: <input type="text" class="form-control" name="num_members"><br>
 			<div class="input-group-append text-info">
 				<span class="input-grou-text bg-white py-0">
 					<button type="submit" class="btn btn-sm text-info">
@@ -18,3 +26,10 @@
 			</div>
 		</div>
 	</form>
+ 
+Results of DB:
+	<ul class="list-group">
+		{% for item in all_requests %}
+		<li class="list-group-item">{{item.name}}{{item.company_day}}{{item.company_start_time}}{{item.company_end_time}}</li>
+		{% endfor %}
+	</ul>
