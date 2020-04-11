@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string 
 from django.conf.urls.static import static
 from . import models, studio, hours
-from .models import TimeSlot, Hours, ADRequest
+from .models import TimeSlot, Hours, ADRequest, CompanyChoice
 from .studio import Studio
 
 
@@ -33,16 +33,49 @@ def insert_space_item(request: HttpResponse):
 	return redirect('/schedule')
 
 def insert_ad_request(request: HttpResponse):
-	ad_req = ADRequest(name = request.POST['name'], company_day = request.POST['company_day'], 
-						company_start_time = request.POST['company_start_time'], company_end_time = request.POST['company_end_time'], 
-						company_studio = request.POST['company_studio'], rank_1 = request.POST['rank_1'], rank_2 = request.POST['rank_2'],  rank_3 = request.POST['rank_3'],  
-						rank_4 = request.POST['rank_4'], rank_5 = request.POST['rank_5'],  num_reho = request.POST['num_reho'], num_members = request.POST['num_members'])
+	"""companyc1 = CompanyChoice(company_name=request.POST['company_name'],
+							company_day=request.POST.get('company_day_1'),
+							company_start_time=request.POST['company_start_time_1'],
+							company_end_time=request.POST['company_end_time_1'],
+							studio=request.POST.get('company_studio_1'))
+	companyc2 = CompanyChoice(company_name=request.POST['company_name'],
+							company_day=request.POST.get('company_day_2'),
+							company_start_time=request.POST['company_start_time_2'],
+							company_end_time=request.POST['company_end_time_2'],
+							studio=request.POST.get('company_studio_2'))
+	companyc3 = CompanyChoice(company_name=request.POST['company_name'],
+							company_day=request.POST.get('company_day_3'),
+							company_start_time=request.POST['company_start_time_3'],
+							company_end_time=request.POST['company_end_time_3'],
+							studio=request.POST.get('company_studio_3'))"""
+	ad_req = ADRequest(name = request.POST['name'], 
+		company_day_1 = request.POST.get('company_day_1'),
+		company_start_time_1 = request.POST['company_start_time_1'],
+		company_end_time_1 = request.POST['company_end_time_1'],
+		company_studio_1 = request.POST.get('company_studio_1'),
+		company_day_2 = request.POST.get('company_day_2'),
+		company_start_time_2 = request.POST['company_start_time_2'],
+		company_end_time_2 = request.POST['company_end_time_2'],
+		company_studio_2 = request.POST.get('company_studio_2'),
+		company_day_3 = request.POST.get('company_day_3'),
+		company_start_time_3 = request.POST['company_start_time_3'],
+		company_end_time_3 = request.POST['company_end_time_3'],
+		company_studio_3 = request.POST.get('company_studio_3'),
+		rank_1 = request.POST.get('rank1s'), 
+		rank_2 = request.POST.get('rank2s'), 
+		rank_3 = request.POST.get('rank3s'),
+		rank_4 = request.POST.get('rank4s'),
+		rank_5 = request.POST.get('rank5s'),
+		num_reho = request.POST['num_reho'],
+		num_members = request.POST['num_members'])
 	ad_req.save()
-	return redirect('/fors')
+	return redirect('/adminForm')
 
-def fors(request):
+def adminForm(request):
 	context = {'all_requests' : ADRequest.objects.all()}
-	return render(request, "templates/pacApp/fors.html", context)
+	for item in context['all_requests']:
+		print(item.name)
+	return render(request, "templates/pacApp/adminForm.html", context)
 
 def div(request):
 	args = {}

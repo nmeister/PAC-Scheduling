@@ -1,35 +1,69 @@
 
 <form action="{% url 'insert_ad_request' %}" method="POST" autocomplete="=off">
-		{% csrf_token %}
-		<div style="padding:0px" class="input-group">
-			Company Name: <input type="text" class="form-control" name="name"> <br>
-			Company Day: <input type="text" class="form-control" name="company_day"><br>
-			Company Start Time: <input type="text" class="form-control" name="company_start_time"><br>
-			Company End Time: <input type="text" class="form-control" name="company_end_time"><br>
-			Desired Company Studio: <input type="text" class="form-control" name="company_studio"><br>
-			Ranking of Studios:<br>
-			Rank #1: <input type="text" class = "form-control" name="rank_1"><br>
-			Rank #2: <input type="text" class = "form-control" name="rank_2"><br>
-			Rank #3: <input type="text" class = "form-control" name="rank_3"><br>
-			Rank #4: <input type="text" class = "form-control" name="rank_4"><br>
-			Rank #5: <input type="text" class = "form-control" name="rank_5"><br>
-			Number of Rehearsals Needed: <input type="text" class="form-control" name="num_reho"><br>
-			Number of Members: <input type="text" class="form-control" name="num_members"><br>
-			<div class="input-group-append text-info">
+	{% csrf_token %}
+<div style="padding:0px" class="input-group">
+Company Name: <input type="text" class="form-control" name="name"> <hr>
+
+<!-- Tab links -->
+Company Day: Input top three choices for company
+<div class="tab">
+  <div class="tablinks" onclick="openTab(event, 'company_day_1')">Choice 1</div>
+
+  <div class="tablinks" onclick="openTab(event, 'company_day_2')">Choice 2</div>
+
+  <div class="tablinks" onclick="openTab(event, 'company_day_3')">Choice 3</div>
+</div>
+
+{% include 'templates/pacApp/companydays.html' %}
+
+<br>
+
+Number of Rehearsals Needed: <input type="text" class="form-control" name="num_reho"><br>
+Number of Members: <input type="text" class="form-control" name="num_members"><br>
+
+Studio Rankings: Input top five choices for studios
+<div class="tab">
+  <div class="tablinks" onclick="openTab(event, 'rank1')">Studio Rank 1</div>
+  <div class="tablinks" onclick="openTab(event, 'rank2')">Studio Rank 2</div>
+  <div class="tablinks" onclick="openTab(event, 'rank3')">Studio Rank 3</div>
+  <div class="tablinks" onclick="openTab(event, 'rank4')">Studio Rank 4</div>
+  <div class="tablinks" onclick="openTab(event, 'rank5')">Studio Rank 5</div>
+</div>
+
+{% include 'templates/pacApp/rankstudiotabs.html' %}
+
+
+<script>
+function openTab(evt, tab) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tab).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+<div class="input-group-append text-info">
 				<span class="input-grou-text bg-white py-0">
 					<button type="submit" class="btn btn-sm text-info">
-						<i class="fa fa-plus-circle fa-lg">
-						</i>
 						Submit
 					</button>
 				</span>
 			</div>
-		</div>
-	</form>
- 
+	</div>
+</form>
+
+
 Results of DB:
 	<ul class="list-group">
 		{% for item in all_requests %}
-		<li class="list-group-item">{{item.name}}{{item.company_day}}{{item.company_start_time}}{{item.company_end_time}}</li>
+		<li class="list-group-item">{{item.name}}{{item.company_day_1}}{{item.company_start_time_1}}{{item.company_end_time_1}}</li>
 		{% endfor %}
 	</ul>
+
