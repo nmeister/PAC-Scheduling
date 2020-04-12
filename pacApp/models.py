@@ -2,16 +2,9 @@ from django.db import models
 
 # Create your models here.
 
-
-class TimeSlot(models.Model):	
-	company_name = models.CharField(max_length=50)
-	time_start = models.IntegerField()
-	time_end = models.IntegerField()
-	studio = models.CharField(max_length=50)
-
-
+# AD request form for rehearsals and company 
 class ADRequest(models.Model):	
-	name = models.CharField(max_length=50)
+	company_name = models.CharField(max_length=50)
 	company_day_1 = models.CharField(max_length=50)
 	company_start_time_1 = models.IntegerField()
 	company_end_time_1 = models.IntegerField()
@@ -30,21 +23,26 @@ class ADRequest(models.Model):
 	rank_4 = models.CharField(max_length=50)
 	rank_5 = models.CharField(max_length=50)
 	num_reho = models.IntegerField()
-	num_members = models.IntegerField()
+	company_size = models.IntegerField()
 
+class Studio(models.Model):
+	name = models.CharField(max_length=50)
+	address = models.CharField(max_length=50)
 
-class CompanyChoice(models.Model): 
+class Group(models.Model):
+	name = models.CharField(max_length=50)
+	showtime = models.DateField()
+	contact = models.CharField(max_length=50)
+	size = models.IntegerField()
+
+class Booking(models.Model):
+	studio_id = models.IntegerField()
+	company_id = models.IntegerField()
 	company_name = models.CharField(max_length=50)
-	company_day = models.CharField(max_length=50)
-	company_start_time = models.IntegerField()
-	company_end_time = models.IntegerField()
-	studio = models.CharField(max_length=50)
+	showtime = models.DateField()
+	start_time = models.DateTimeField()
+	end_time = models.DateTimeField()
+	booking_date = models.DateTimeField()
 
-
-
-class Hours(models.Model):
-	start = models.IntegerField()
-	end = models.IntegerField()
-	duration = models.IntegerField()
 
 
