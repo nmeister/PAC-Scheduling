@@ -11,11 +11,12 @@
 								<td class="column100 column1" data-column="column1">Wilcox</td>
 								<!-- grabs context['Wilcox'] -->
 								{% for booking in Wilcox %}
-										{% for i in range %}
-											<td class="column100 column3" data-column=column{{i}}>{{booking.company_name}}</td>
-										{% endfor %}
+									{% for i in booking.start_time|get_range:booking.end_time %}
+										<td class="column100 column{{i}}" data-column="column{{i}}">
+										{{booking.company_name}}</td>
 									{% endfor %}
-
+								{% endfor %}
+							</tr>
 								<!-- {% if context|length %}
 									
 								{% else %}
@@ -25,7 +26,10 @@
 							<tr class="row100">
 								<td class="column100 column1" data-column="column1">Bloomberg</td>
 								{% for booking in Bloomberg %}
-										<td class="column100 column3" data-column=column{{booking.start_time}}>{{booking.company_name}}</td>
+									{% for i in booking.start_time|get_range:booking.end_time %}
+										<td data-column="column{{i}}">
+										{{booking.company_name}}</td>
+									{% endfor %}
 								{% endfor %}
 							</tr>
 							<tr class="row100">

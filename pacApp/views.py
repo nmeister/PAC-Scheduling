@@ -30,8 +30,8 @@ def schedule(request):
 	book2 = Booking(studio_id=1,
 					company_id=0,
 					company_name='Sympoh',
-					start_time=5, 
-					end_time=7, 
+					start_time=9, 
+					end_time=12, 
 					week_day=0)
 	wilcox = []
 	wilcox.append(book1)
@@ -72,7 +72,9 @@ def insert_ad_request(request: HttpResponse):
 
 @register.filter
 def get_range(start,end):
-    return range(start,end+1)
+	print(start)
+	print(end)
+	return range(start,end+1)
 
 def adminForm(request):
 	context = {'all_requests' : ADRequest.objects.all()}
