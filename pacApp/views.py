@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse 
-from django.template.loader import render_to_string 
+from django.template.loader import render_to_string
+from django.template.defaulttags import register
 from django.conf.urls.static import static
 from . import models, studio, hours
 from .models import ADRequest, Booking
@@ -69,6 +70,9 @@ def insert_ad_request(request: HttpResponse):
 	ad_req.save()
 	return redirect('/adminForm')
 
+@register.filter
+def get_range(value):
+    return range(value)
 
 def adminForm(request):
 	context = {'all_requests' : ADRequest.objects.all()}

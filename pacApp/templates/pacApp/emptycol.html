@@ -1,13 +1,6 @@
-<td class="column100 column1" data-column="column1"> </td>
-<td class="column100 column6" data-column="column3"> </td>
-<td class="column100 column5" data-column="column4"> </td>
-<td class="column100 column6" data-column="column5"> </td>
-<td class="column100 column7" data-column="column6"> </td>
-<td class="column100 column8" data-column="column7"> </td>
-<td class="column100 column2" data-column="column8"> </td>
-<td class="column100 column3" data-column="column9"> </td>
-<td class="column100 column4" data-column="column10"> </td>
-<td class="column100 column5" data-column="column11"></td>
-<td class="column100 column6" data-column="column12"></td>
-<td class="column100 column7" data-column="column13"></td>
-<td class="column100 column8" data-column="column14"></td>
+<tr class="row100">
+    <td class="column100 column1" data-column="column1">Studio Name</td>
+    {% for i in 12|get_range %}
+    <td class="column100 column3" data-column="column3">--</td>
+    {% endfor %}
+</tr>

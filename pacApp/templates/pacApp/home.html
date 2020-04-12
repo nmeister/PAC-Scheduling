@@ -111,13 +111,9 @@
 
 							<tr class="row100">
 								<td class="column100 column1" data-column="column1">Bloomberg</td>
-								<td class="column100 column2" data-column="column2">--</td>
-								<td class="column100 column3" data-column="column3">5:00 PM</td>
-								<td class="column100 column4" data-column="column4">5:00 PM</td>
-								<td class="column100 column5" data-column="column5">--</td>
-								<td class="column100 column6" data-column="column6">9:00 AM</td>
-								<td class="column100 column7" data-column="column7">--</td>
-								<td class="column100 column8" data-column="column8">--</td>
+								{% for i in 12|get_range %}
+								<td class="column100 column3" data-column="column3">--</td>
+								{% endfor %}
 							</tr>
 
 							<tr class="row100">
