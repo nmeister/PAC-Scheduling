@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string 
 from django.conf.urls.static import static
 from . import models, studio, hours
-from .models import ADRequest
+from .models import ADRequest, Booking
 from .studio import Studio
 
 
@@ -16,8 +16,28 @@ def homepage(request):
 	return HttpResponse(html)
 
 # displays the calendar schedule 
+
+
 def schedule(request):
-	context = {}
+	#ook1 = Booking(studio_id=0, company_id=0, start_time=)
+	book1 = Booking(studio_id=0,
+					company_id=0,
+					company_name='Sympoh',
+					start_time=5, 
+					end_time=7, 
+					week_day=0)
+	book2 = Booking(studio_id=1,
+					company_id=0,
+					company_name='Sympoh',
+					start_time=5, 
+					end_time=7, 
+					week_day=0)
+	wilcox = []
+	wilcox.append(book1)
+	bloomberg = []
+	bloomberg.append(book2)
+	# wilcox = [Booking1, Booking2]
+	context = {'Wilcox': wilcox, 'Bloomberg': bloomberg}
 	return render(request, "templates/pacApp/home2.html",context)
 
 def insert_space_item(request: HttpResponse):

@@ -19,18 +19,27 @@
 								<th class="column100 column8" data-column="column14">2</th>
 							</tr>
 						</thead>
+
 						<tbody>
+
+
 							<tr class="row100">
 								<td class="column100 column1" data-column="column1">Wilcox</td>
-								{% for timeslot in Wilcox %}
-										<td class="column100 column3" data-column=column{{timeslot.time_start}}>
-										{{timeslot.company_name}}</td>
-								{% endfor %}
+								{% if context|length %}
+									<!-- grabs context['Wilcox'] -->
+									{% for booking in Wilcox %}
+											<td class="column100 column3" data-column=column{{booking.start_time}}>
+											{{booking.company_name}}</td>
+									{% endfor %}
+								
+								{% else %}
+									{% include 'templates/pacApp/emptycol.html' %}
+								{% endif %}
 							</tr>
 							<tr class="row100">
 								<td class="column100 column1" data-column="column1">Bloomberg</td>
-								{% for timeslot in Bloomberg %}
-										<td class="column100 column3" data-column=column{{timeslot.time_start}}>{{timeslot.company_name}}</td>
+								{% for booking in Bloomberg %}
+										<td class="column100 column3" data-column=column{{booking.start_time}}>{{booking.company_name}}</td>
 								{% endfor %}
 							</tr>
 							<tr class="row100">
