@@ -71,8 +71,8 @@ def insert_ad_request(request: HttpResponse):
 	return redirect('/adminForm')
 
 @register.filter
-def get_range(value):
-    return range(value)
+def get_range(start,end):
+    return range(start,end+1)
 
 def adminForm(request):
 	context = {'all_requests' : ADRequest.objects.all()}

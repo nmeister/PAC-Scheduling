@@ -2,39 +2,25 @@
 	<div class="wrap-table100">
 		<div class="table100 ver1 m-b-110">
 			<table data-vertable="ver1">
-						<thead>
-							<tr class="row100 head">
-								<th class="column100 column1" data-column="column1"></th>
-								<th class="column100 column6" data-column="column3">3</th>
-								<th class="column100 column5" data-column="column4">4</th>
-								<th class="column100 column6" data-column="column5">5</th>
-								<th class="column100 column7" data-column="column6">6</th>
-								<th class="column100 column8" data-column="column7">7</th>
-								<th class="column100 column2" data-column="column8">8</th>
-								<th class="column100 column3" data-column="column9">9</th>
-								<th class="column100 column4" data-column="column10">10</th>
-								<th class="column100 column5" data-column="column11">11</th>
-								<th class="column100 column6" data-column="column12">12</th>
-								<th class="column100 column7" data-column="column13">1</th>
-								<th class="column100 column8" data-column="column14">2</th>
-							</tr>
-						</thead>
+						{% include 'templates/pacApp/tableheader.html' %}
 
 						<tbody>
 
 
 							<tr class="row100">
 								<td class="column100 column1" data-column="column1">Wilcox</td>
-								{% if context|length %}
-									<!-- grabs context['Wilcox'] -->
-									{% for booking in Wilcox %}
-											<td class="column100 column3" data-column=column{{booking.start_time}}>
-											{{booking.company_name}}</td>
+								<!-- grabs context['Wilcox'] -->
+								{% for booking in Wilcox %}
+										{% for i in range %}
+											<td class="column100 column3" data-column=column{{i}}>{{booking.company_name}}</td>
+										{% endfor %}
 									{% endfor %}
-								
+
+								<!-- {% if context|length %}
+									
 								{% else %}
 									{% include 'templates/pacApp/emptycol.html' %}
-								{% endif %}
+								{% endif %} --> 
 							</tr>
 							<tr class="row100">
 								<td class="column100 column1" data-column="column1">Bloomberg</td>
@@ -44,7 +30,7 @@
 							</tr>
 							<tr class="row100">
 								<td class="column100 column1" data-column="column1">Dillion Dance</td>
-								{% for timeslot in Bloomberg %}
+								{% for timeslot in DillionDance %}
 										<td class="column100 column3" data-column=column{{timeslot.time_start}}>{{timeslot.company_name}}</td>
 								{% endfor %}
 							</tr>
