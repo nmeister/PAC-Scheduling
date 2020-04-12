@@ -9,19 +9,16 @@ from .studio import Studio
 
 
 # Create your views here.
-
-def index(request):
+# our home page 
+def homepage(request):
 	#return HttpResponse("Hello, World")
 	html = render_to_string('templates/pacApp/home.html')
 	return HttpResponse(html)
 
+# displays the calendar schedule 
 def schedule(request):
-
-
-	#{'Wilcox': [t1, t2]} t1 = company name, time start, time end 
-	# context = {'Wilcox': TimeSlot.objects.all(), 'Bloomberg': TimeSlot.objects.all()}
-	# context['space_list'] = TimeSlot.objects.all()
-	return render(request, "templates/pacApp/home2.html", context)
+	context = {}
+	return render(request, "templates/pacApp/home2.html",context)
 
 def insert_space_item(request: HttpResponse):
 	
@@ -51,6 +48,7 @@ def insert_ad_request(request: HttpResponse):
 		company_size = request.POST['num_members'])
 	ad_req.save()
 	return redirect('/adminForm')
+
 
 def adminForm(request):
 	context = {'all_requests' : ADRequest.objects.all()}
