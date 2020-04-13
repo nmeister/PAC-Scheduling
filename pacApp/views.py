@@ -13,8 +13,64 @@ from .studio import Studio
 # our home page 
 def homepage(request):
 	#return HttpResponse("Hello, World")
-	html = render_to_string('templates/pacApp/home.html')
-	return HttpResponse(html)
+	# create bookings
+	book1 = Booking(studio_id=0,
+					company_id=0,
+					company_name='sympoh',
+					start_time=18,
+					end_time=20,
+					week_day=5)
+	book3 = Booking(studio_id=0,
+					company_id=0,
+					company_name='disiac',
+					start_time=21,
+					end_time=24,
+					week_day=4)
+	book4 = Booking(studio_id=0,
+					company_id=0,
+					company_name='bac',
+					start_time=18,
+					end_time=20,
+					week_day=3)
+	book2 = Booking(studio_id=1,
+					company_id=0,
+					company_name='pub',
+					start_time=21,
+					end_time=24,
+					week_day=1)
+	book5 = Booking(studio_id=2,
+					company_id=0,
+					company_name='sympoh',
+					start_time=15,
+					end_time=17,
+					week_day=0)
+	book6 = Booking(studio_id=4,
+					company_id=0,
+					company_name='bac',
+					start_time=17,
+					end_time=20,
+					week_day=1)
+	# each studio has a list which will be passed in together as a studio
+	wilcox = []
+	wilcox.append(book1)
+	wilcox.append(book3)
+	wilcox.append(book4)
+	bloomberg = []
+	dilliondance = []
+	dilliondance.append(book5)
+	roberts = []
+	roberts.append(book2)
+	roberts.append(book6)
+	# wilcox = [Booking1, Booking2]
+	context = {'Wilcox': wilcox,
+			   'Bloomberg': bloomberg,
+			   'DillionDance': dilliondance,
+			   'Roberts': roberts}
+
+	return render(request, "templates/pacApp/home.html",context)
+
+	#html = render_to_string('templates/pacApp/home.html')
+	#return HttpResponse(html)
 
 # displays the calendar schedule 
 
@@ -74,7 +130,7 @@ def schedule(request):
 	'DillionDance': dilliondance,
 	'Roberts': roberts}
 	
-	return render(request, "templates/pacApp/home.html",context)
+	return render(request, "templates/pacApp/schedule.html",context)
 
 def insert_space_item(request: HttpResponse):
 	
