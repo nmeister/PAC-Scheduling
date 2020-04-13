@@ -22,3 +22,4 @@ urlpatterns = [
     path('pacApp/', include('pacApp.urls')),
     path('admin/', admin.site.urls),
 ]
+
