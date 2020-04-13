@@ -6,6 +6,7 @@
       <link rel="stylesheet" href="static/pacApp/assets/css/table.css" />
       <link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
       <script src="/static/pacApp/assets/js/input.js"></script> 
+      <script src="/static/pacApp/assets/js/schedule.js"></script> 
       </head>
    <body>
           <div class='backToHome'>
@@ -118,6 +119,8 @@
          let group = item.company_name;
          $(col).addClass(group);
          $(col).html(item.company_name);
+         // don't allow it to be bookable 
+         $(col).attr('onclick','');
       }  
 
    }
