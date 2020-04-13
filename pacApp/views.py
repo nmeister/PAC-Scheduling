@@ -24,8 +24,14 @@ def schedule(request):
 	book1 = Booking(studio_id=0,
 					company_id=0,
 					company_name='Sympoh',
-					start_time=5, 
-					end_time=7, 
+					start_time=17, 
+					end_time=19, 
+					week_day=0)
+	book3 = Booking(studio_id=0,
+					company_id=0,
+					company_name='Sympoh',
+					start_time=21, 
+					end_time=24, 
 					week_day=0)
 	book2 = Booking(studio_id=1,
 					company_id=0,
@@ -35,6 +41,7 @@ def schedule(request):
 					week_day=0)
 	wilcox = []
 	wilcox.append(book1)
+	wilcox.append(book3)
 	bloomberg = []
 	bloomberg.append(book2)
 	# wilcox = [Booking1, Booking2]
@@ -72,15 +79,18 @@ def insert_ad_request(request: HttpResponse):
 
 @register.filter
 def get_range(start,end):
-	print(start)
-	print(end)
+
 	return range(start,end+1)
+
+@register.filter
+def get_duration(start,end):
+	return end-start+1
 
 def adminForm(request):
 	context = {'all_requests' : ADRequest.objects.all()}
 	for item in context['all_requests']:
 		print(item.name)
-	return render(request, "templates/pacApp/adminForm.html", context)
+	return render(request, "templates/pacApp/form/adminForm.html", context)
 
 def div(request):
 	args = {}

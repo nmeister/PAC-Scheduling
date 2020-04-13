@@ -5,12 +5,89 @@
  
       <link rel="stylesheet"  type="text/css" href="/static/pacApp/assets/css/schedule.css">
       <link rel="stylesheet" href="static/pacApp/assets//css/table.css" />
-	<link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
+	   <link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
+       <script src="/static/pacApp/assets/js/input.js"></script> 
 
       </head>
    <body>
-      {% include 'templates/pacApp/schedt.html' %}
-      {% include 'templates/pacApp/db.html' %}
+      <div class="tab">
+      <div class="tablinks" id="d0" onclick="openTab(event, 'sun')">Sunday</div>
+      <div class="tablinks" id="d1" onclick="openTab(event, 'mon')">Monday</div>
+      <div class="tablinks" id="d2" onclick="openTab(event, 'tue')">Tuesday</div>
+      <div class="tablinks" id="d3"onclick="openTab(event, 'wed')">Wednesday</div>
+      <div class="tablinks" id="d4" onclick="openTab(event, 'thu')">Thursday</div>
+      <div class="tablinks" id="d5" onclick="openTab(event, 'fri')">Friday</div>
+      <div class="tablinks" id="d6" onclick="openTab(event, 'sun')">Saturday</div>
+   </div>
+   <div class="tabcontent" id="sun"> {% include 'templates/pacApp/schedt.html' %}</div>
+   <div class="tabcontent" id="mon"> {% include 'templates/pacApp/schedt.html' %}</div>
+   <div class="tabcontent" id="tue"> {% include 'templates/pacApp/schedt.html' %}</div>
+   <div class="tabcontent" id="wed"> {% include 'templates/pacApp/schedt.html' %}</div>
+   <div class="tabcontent" id="thur"> {% include 'templates/pacApp/schedt.html' %}</div>
+   <div class="tabcontent" id="fri"> {% include 'templates/pacApp/schedt.html' %}</div>
+   <div class="tabcontent" id="sat"> {% include 'templates/pacApp/schedt.html' %}</div>
+  
+
+   <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+      </script>
+
+   <script>
+         function activateDay()
+         {  // getting today's date 
+            let today = new Date();
+            // getting the day of week for today
+            // returned as integers, 0 = sunday, 6 = saturday
+            let todayDay = today.getDay();
+            // creating the id descriptor
+            let selectTab = '#d' + todayDay;
+            // adding a class to element with id d(todayDay)
+            $(selectTab).addClass('today');
+            // activate it by clicking on this element 
+            $(selectTab).click();
+         }
+
+         function setup()
+         {  // on input event, handle and calls getResults
+            activateDay();
+
+         }
+         $('document').ready(setup);
+   </script>
+
+   <script type="text/javascript">
+   // for each booking in wilcox, we make it a object here
+   // each object will also be within this list 
+    var list = [
+    {% for booking in Wilcox %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"wilcox"
+        },
+    {% endfor %}
+   ];
+
+   console.log(list);
+   // prints out each item in lists company name 
+   // for each of the bookings we call function called createBooking
+   list.forEach(createBooking);
+
+   function createBooking(item, index) {
+
+      for (let i = item.start_time; i <= item.end_time; i++) {
+         // ex. wilcox5
+         let col = '#' + String(item.studio + i);
+         $(col).addClass('test');
+         // $(col).html(item.company_name);
+      }  
+
+   }
+
+
+   </script>
+
 
    </body>
  </html>

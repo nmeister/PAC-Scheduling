@@ -1,4 +1,4 @@
-function openChoice(evt, day) {
+function openTab(evt, tab) {
   // Declare all variables
   var i, tabcontent, tablinks;
 
@@ -15,6 +15,6 @@ function openChoice(evt, day) {
   }
 
   // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(day).style.display = "block";
+  document.getElementById(tab).style.display = "block";
   evt.currentTarget.className += " active";
 }

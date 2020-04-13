@@ -1,41 +1,8 @@
-ul {
-	list-style-type: none;
-}
-
-.studiodiv {
-	margin-left: 50px
-}
 .studio {
 	text-align: center;
-  	background-color:black;
-  	color:white;
-  	
+	column-span: 2;
 }
 
-.time {
-	display:block;
-	background-color:#b19cd9;
-  	color:white;
-	padding: 20px;
-	text-align:center;
-}
-
-td {
-	text-align:center;
-}
-
-
-.schedule {
-    display: table;
-    text-align:center;
- 
-}
-
-.header {
-
-	display:table-header-group;
-	
-}
 
 .col {
 	display:table-column;
@@ -62,4 +29,49 @@ td {
 	text-align:center;
 	background-color:pink;
 
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  padding: 6px 12px;
+  width:100%;
+  position:relative;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tablinks {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab div:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab div.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  width: 100%;
+  font-family: 'Font Awesome 5 Free';
+}
+
+.today {
+  background-color:orange;
 }
