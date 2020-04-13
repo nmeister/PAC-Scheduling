@@ -20,40 +20,61 @@ def homepage(request):
 
 
 def schedule(request):
-	#ook1 = Booking(studio_id=0, company_id=0, start_time=)
+	# create bookings 
 	book1 = Booking(studio_id=0,
 					company_id=0,
-					company_name='Sympoh',
+					company_name='sympoh',
 					start_time=18, 
 					end_time=20, 
 					week_day=5)
 	book3 = Booking(studio_id=0,
 					company_id=0,
-					company_name='DISIAC',
+					company_name='disiac',
 					start_time=21, 
 					end_time=24, 
 					week_day=4)
 	book4 = Booking(studio_id=0,
 					company_id=0,
-					company_name='BAC',
+					company_name='bac',
 					start_time=18, 
 					end_time=20, 
 					week_day=3)
 	book2 = Booking(studio_id=1,
 					company_id=0,
-					company_name='PUB',
+					company_name='pub',
 					start_time=21, 
 					end_time=24, 
-					week_day=6)
+					week_day=1)
+	book5 = Booking(studio_id=2,
+					company_id=0,
+					company_name='sympoh',
+					start_time=15, 
+					end_time=17, 
+					week_day=0)
+	book6 = Booking(studio_id=4,
+					company_id=0,
+					company_name='bac',
+					start_time=17, 
+					end_time=20, 
+					week_day=1)
+	# each studio has a list which will be passed in together as a studio 
 	wilcox = []
 	wilcox.append(book1)
 	wilcox.append(book3)
 	wilcox.append(book4)
 	bloomberg = []
-	bloomberg.append(book2)
+	dilliondance = []
+	dilliondance.append(book5)
+	roberts = []
+	roberts.append(book2)
+	roberts.append(book6)
 	# wilcox = [Booking1, Booking2]
-	context = {'Wilcox': wilcox, 'Bloomberg': bloomberg}
-	return render(request, "templates/pacApp/home2.html",context)
+	context = {'Wilcox': wilcox, 
+	'Bloomberg': bloomberg, 
+	'DillionDance': dilliondance,
+	'Roberts': roberts}
+	
+	return render(request, "templates/pacApp/schedule.html",context)
 
 def insert_space_item(request: HttpResponse):
 	
@@ -85,8 +106,8 @@ def insert_ad_request(request: HttpResponse):
 	return redirect('/adminForm')
 
 @register.filter
+# creates a function that can be called directly from the template 
 def get_range(start,end):
-
 	return range(start,end)
 
 @register.filter
