@@ -10,6 +10,7 @@
 
       </head>
    <body>
+      <!-- setting up tabs for the different days --> 
       <div class="tab">
       <div class="tablinks" id="d0" onclick="openTab(event, 'sun')">Sunday</div>
       <div class="tablinks" id="d1" onclick="openTab(event, 'mon')">Monday</div>
@@ -19,15 +20,16 @@
       <div class="tablinks" id="d5" onclick="openTab(event, 'fri')">Friday</div>
       <div class="tablinks" id="d6" onclick="openTab(event, 'sun')">Saturday</div>
    </div>
+   <!-- setting up the tab content calendar to be show for each day --> 
    <div class="tabcontent" id="sun"> {% include 'templates/pacApp/schedt.html' %}</div>
    <div class="tabcontent" id="mon"> {% include 'templates/pacApp/schedt.html' %}</div>
    <div class="tabcontent" id="tue"> {% include 'templates/pacApp/schedt.html' %}</div>
    <div class="tabcontent" id="wed"> {% include 'templates/pacApp/schedt.html' %}</div>
-   <div class="tabcontent" id="thur"> {% include 'templates/pacApp/schedt.html' %}</div>
+   <div class="tabcontent" id="thu"> {% include 'templates/pacApp/schedt.html' %}</div>
    <div class="tabcontent" id="fri"> {% include 'templates/pacApp/schedt.html' %}</div>
    <div class="tabcontent" id="sat"> {% include 'templates/pacApp/schedt.html' %}</div>
-  
-
+   
+   <!-- importing jquery library --> 
    <script src=
 "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
       </script>
@@ -76,7 +78,7 @@
 
    function createBooking(item, index) {
 
-      for (let i = item.start_time; i <= item.end_time; i++) {
+      for (let i = item.start_time; i != item.end_time; i++) {
          // ex. wilcox5
          let col = '#' + String(item.studio + i);
          $(col).addClass('test');

@@ -33,7 +33,7 @@ table {
 th, td {
   font-weight: unset;
   padding-right: 10px;
-  text-align:center;
+  text-align:left;
 }
 
 .column100 {
