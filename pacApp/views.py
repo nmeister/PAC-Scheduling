@@ -99,15 +99,3 @@ def adminForm(request):
 		print(item.name)
 	return render(request, "templates/pacApp/form/adminForm.html", context)
 
-def div(request):
-	args = {}
-	args['bac'] = [4,5,6]
-	args['sympoh'] = [7,8,9]
-	args['disiac'] = [9,10,11,12]
-	wilcox = Studio('Wilcox', args)
-	bloomberg = Studio('Bloomberg', args)
-	studios = []
-	studios.append(wilcox)
-	studios.append(bloomberg)
-	context = {'space_list' : studios}
-	return render(request, "templates/pacApp/div.html", context)
