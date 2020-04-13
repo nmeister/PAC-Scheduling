@@ -1,0 +1,18 @@
+<!-- setting up tabs for the different days --> 
+<div class="tab">
+<div class="tablinks" id="d0" onclick="openTab(event, 'sun')">Sunday</div>
+<div class="tablinks" id="d1" onclick="openTab(event, 'mon')">Monday</div>
+<div class="tablinks" id="d2" onclick="openTab(event, 'tue')">Tuesday</div>
+<div class="tablinks" id="d3"onclick="openTab(event, 'wed')">Wednesday</div>
+<div class="tablinks" id="d4" onclick="openTab(event, 'thu')">Thursday</div>
+<div class="tablinks" id="d5" onclick="openTab(event, 'fri')">Friday</div>
+<div class="tablinks" id="d6" onclick="openTab(event, 'sat')">Saturday</div>
+</div>
+   <!-- setting up the tab content calendar to be show for each day --> 
+<div class="tabcontent" id="sun">{% include 'templates/pacApp/tableElements/sunday.html'%}</div>
+<div class="tabcontent" id="mon">{% include 'templates/pacApp/tableElements/monday.html'%}</div>
+<div class="tabcontent" id="tue">{% include 'templates/pacApp/tableElements/tuesday.html'%}</div>
+<div class="tabcontent" id="wed">{% include 'templates/pacApp/tableElements/wednesday.html'%}</div>
+<div class="tabcontent" id="thu">{% include 'templates/pacApp/tableElements/thursday.html'%}</div>
+<div class="tabcontent" id="fri">{% include 'templates/pacApp/tableElements/friday.html'%}</div>
+<div class="tabcontent" id="sat">{% include 'templates/pacApp/tableElements/saturday.html'%}</div>

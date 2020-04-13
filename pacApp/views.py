@@ -24,24 +24,31 @@ def schedule(request):
 	book1 = Booking(studio_id=0,
 					company_id=0,
 					company_name='Sympoh',
-					start_time=17, 
-					end_time=19, 
-					week_day=0)
+					start_time=18, 
+					end_time=20, 
+					week_day=5)
 	book3 = Booking(studio_id=0,
 					company_id=0,
-					company_name='Sympoh',
+					company_name='DISIAC',
 					start_time=21, 
 					end_time=24, 
-					week_day=0)
+					week_day=4)
+	book4 = Booking(studio_id=0,
+					company_id=0,
+					company_name='BAC',
+					start_time=18, 
+					end_time=20, 
+					week_day=3)
 	book2 = Booking(studio_id=1,
 					company_id=0,
-					company_name='Sympoh',
-					start_time=9, 
-					end_time=12, 
-					week_day=0)
+					company_name='PUB',
+					start_time=21, 
+					end_time=24, 
+					week_day=6)
 	wilcox = []
 	wilcox.append(book1)
 	wilcox.append(book3)
+	wilcox.append(book4)
 	bloomberg = []
 	bloomberg.append(book2)
 	# wilcox = [Booking1, Booking2]
@@ -80,7 +87,7 @@ def insert_ad_request(request: HttpResponse):
 @register.filter
 def get_range(start,end):
 
-	return range(start,end+1)
+	return range(start,end)
 
 @register.filter
 def get_duration(start,end):
