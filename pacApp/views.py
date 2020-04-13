@@ -74,7 +74,7 @@ def schedule(request):
 	'DillionDance': dilliondance,
 	'Roberts': roberts}
 	
-	return render(request, "templates/pacApp/schedule.html",context)
+	return render(request, "templates/pacApp/home.html",context)
 
 def insert_space_item(request: HttpResponse):
 	
