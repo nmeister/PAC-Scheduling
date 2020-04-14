@@ -83,10 +83,9 @@ function booking(studio,day,hour,id) {
 	zoneEnd = 'AM';
 	if (hour > 12) {
 		zoneStart = 'PM';
-		zoneEnd = 'PM'
-	}
-	if (hour == 23) {
-		zoneStart = 'AM';
+		if (hour < 23) {
+			zoneEnd = 'PM';
+		}
 	}
 	var starttime = Math.trunc(hour % 12); 
 	var endtime = Math.trunc(hour % 12) + 1; 
