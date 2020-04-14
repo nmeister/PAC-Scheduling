@@ -10,13 +10,13 @@ function book(id) {
 	var hour = studioNum[1] / 10;
 	console.log(day);
 	console.log(Math.trunc(hour));
-	booking(studio,day,hour);
+	booking(studio,day,hour,id);
 }
 
 function getDayWeek(day) {
 
-	var days = ['Sunday','Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-	return days[day]
+	var days = ['Sunday','Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	return days[day];
 }
 
 function findStudioName(studio) {
@@ -29,12 +29,13 @@ function findStudioName(studio) {
 	'ns': 'New South',
 	'forbes': 'Forbes Dance',
 	'ellie': 'Ellie LCA'
-	}
-	return studioList[studio]
+	};
+	return studioList[studio];
 }
 
-function booking(studio,day,hour) {
-	console.log('hello')
+
+function booking(studio,day,hour,id) {
+	console.log('hello');
 	var modal = document.getElementById("myModal");
 
 	// Get the <span> element that closes the modal
@@ -51,44 +52,80 @@ function booking(studio,day,hour) {
 	    modal.style.display = "none";
 	  }
 	}
-	nameStudio = findStudioName(studio)
+	nameStudio = findStudioName(studio);
 	var bookstudio = document.getElementById("bookstudio");
 	bookstudio.innerHTML = 'Studio: ' + nameStudio;
 	var bookstarttime = document.getElementById("bookstarttime");
-	zone1 = 'AM';
-	zone2 = 'AM';
+	zoneStart = 'AM';
+	zoneEnd = 'AM';
 	if (hour > 12) {
-		zone1 = 'PM';
-		zone2 = 'PM'
+		zoneStart = 'PM';
+		zoneEnd = 'PM'
+	}
+	if (hour == 23) {
+		zoneStart = 'AM';
 	}
 	var starttime = Math.trunc(hour % 12); 
 	var endtime = Math.trunc(hour % 12) + 1; 
 	if (starttime == 0) {
 		starttime = 12; 
-		zone1 = 'AM';
-		zone2 = 'AM';
+		zoneStart = 'AM';
+		zoneEnd = 'AM';
 	}
 	if (endtime == 0) {
 		endtime = 12;
-		zone2 = 'AM';
+		zoneEnd = 'AM';
 	}
-	bookstarttime.innerHTML = 'Time: ' + starttime + zone1 
-	+ '-' + endtime + zone2;
+	bookstarttime.innerHTML = 'Time: ' + starttime + zoneStart + '-' + endtime + zoneEnd;
 	// var dayofweek = document.getElementById('dayofweek');
 	// dayofweek.innerHTML = getDayWeek(day);
 	var date = new Date();
 	console.log(date);
 	if (day >= date.getDay()) {
-		currdate = date.getDate()
-		date.setDate(currdate + (day - date.getDay()))
-		console.log(date)
+		currdate = date.getDate();
+		date.setDate(currdate + (day - date.getDay()));
+		console.log(date);
 	}
 	else {
-		currdate = date.getDate()
-		date.setDate(currdate + (7 - date.getDay()) + day)
-		console.log(date)
+		currdate = date.getDate();
+		date.setDate(currdate + (7 - date.getDay()) + day);
+		console.log(date);
 	}
 	var bookdate = document.getElementById('bookdate');
 	bookdate.innerHTML = "Booked Day: " + date.toDateString();
 
+
+	var confirm = document.getElementById("confirm");
+	confirm.value = id;
+	confirm.value += '.';
+	confirm.value += date.toDateString();
+}
+
+ function handleResponse(response) {  // get the response and show that in inner html 
+ 	console.log('success')
+ 	window.location.reload()
+ }
+
+function sendbook(id) {
+	var modal = document.getElementById("myModal");
+	modal.style.display = "none";
+	var info = id.split('.');
+	let url = 'create_booking';
+	var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
+	var day = Math.trunc(studioNum[1] % 10); 
+	var hour = Math.trunc(studioNum[1] / 10);
+	request = $.ajax(
+               {
+                  type: "GET",
+                  url: url,
+                  data: {'studio': studioNum[0],
+                  		'date': info[1],
+                  		'starttime': hour,
+                  		'endtime': hour +1, 
+                  		'day': day,
+              		},
+                  success: handleResponse,
+               }
+            );
+	
 }

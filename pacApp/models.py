@@ -41,7 +41,7 @@ class Booking(models.Model):
 	company_name = models.CharField(max_length=50)
 	start_time = models.IntegerField()
 	end_time = models.IntegerField()
-	week_day = models.IntegerField() # Sun = 0 Sat = 6 
+	week_day = models.IntegerField()
 	booking_date = models.DateTimeField(auto_now_add=True) #2018/12/19
 
 

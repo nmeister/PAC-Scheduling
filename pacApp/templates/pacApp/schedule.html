@@ -19,6 +19,7 @@
         <div class="modal-content">
           <span class="close">&times;</span>
             {% include 'templates/pacApp/bookForm.html' %}
+          <button id='confirm' onclick="sendbook(this.value)" style="float:right;padding:15px">Confirm</button>
         </div>
       </div>
 
@@ -93,6 +94,18 @@
     {% endfor %}
    ];
 
+   var dillionmpr = [
+    {% for booking in DillionMPR %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillionmpr",
+         week_day:"{{booking.week_day}}"
+        },
+    {% endfor %}
+   ];
+
    var roberts = [
     {% for booking in Roberts %}
         {
@@ -104,15 +117,70 @@
         },
     {% endfor %}
    ];
+
+   var murphy = [
+    {% for booking in Murphy %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"murphy",
+         week_day:"{{booking.week_day}}"
+        },
+    {% endfor %}
+   ];
+
+    var ns = [
+    {% for booking in NewSouth %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ns",
+         week_day:"{{booking.week_day}}"
+        },
+    {% endfor %}
+   ];
+
+    var forbes = [
+    {% for booking in Forbes %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"forbes",
+         week_day:"{{booking.week_day}}"
+        },
+    {% endfor %}
+   ];
+
+    var ellie = [
+    {% for booking in Ellie %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ellie",
+         week_day:"{{booking.week_day}}"
+        },
+    {% endfor %}
+   ];
+
+
    // prints - just for testing 
-   console.log(wilcox);
-   console.log(bloomberg);
+   //console.log(wilcox);
+   //console.log(bloomberg);
   
    // for each of the studio we call function called createBooking
    wilcox.forEach(createBooking);
    bloomberg.forEach(createBooking);
    dilliondance.forEach(createBooking);
+   dillionmpr.forEach(createBooking);
    roberts.forEach(createBooking);
+   murphy.forEach(createBooking);
+   ns.forEach(createBooking);
+   forbes.forEach(createBooking);
+   ellie.forEach(createBooking);
    // here is the function createBooking defined 
    function createBooking(item, index) {
 
@@ -129,7 +197,6 @@
          // don't allow it to be bookable 
          $(col).attr('onclick','');
       }  
-
    }
 
    </script>
