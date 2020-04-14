@@ -2,20 +2,27 @@
  <html>
    <div>
       <title>PrincetonDance.com</title>
-      <link rel="stylesheet"  type="text/css" href="/static/pacApp/assets/css/schedule.css">
+      <link rel="stylesheet" href="/static/pacApp/assets/css/schedule.css">
       <link rel="stylesheet" href="static/pacApp/assets/css/table.css" />
       <link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
       <script src="/static/pacApp/assets/js/input.js"></script> 
       <script src="/static/pacApp/assets/js/schedule.js"></script> 
+
       </div>
    <div>
-         <!-- <div class='backToHome'>
-          directs us back to the home page 
-          <a href="/">Home</a>
-        </div>--> 
       <!-- tabs for all of the days of the week --> 
       {% include 'templates/pacApp/tableElements/daystab.html' %}
-     
+      
+
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            {% include 'templates/pacApp/bookForm.html' %}
+        </div>
+      </div>
+
+   </div>
    
    <!-- importing jquery library --> 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
