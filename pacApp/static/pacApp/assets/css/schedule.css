@@ -1,12 +1,12 @@
 .studio {
 	text-align: center;
 	column-span: 2;
+  padding:15px;
 }
 
-h1.scheduleheader {
-  font-size:35px;
-  padding: 10px;
-  font-family: 'Font Awesome 5 Free';
+th tr{
+  text-align:left;
+
 }
 
 .col {

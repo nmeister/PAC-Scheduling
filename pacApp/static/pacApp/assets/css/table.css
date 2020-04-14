@@ -32,12 +32,10 @@ th, td {
 
 .column100 {
   width: 130px;
-  padding-left: 25px;
 }
 
 .column100.column1 {
   width: 265px;
-  padding-left: 42px;
 }
 
 .row100.head th {
@@ -74,6 +72,6 @@ th, td {
 }
 
 .table100.ver1 .row100 td:hover {
-  background-color: #6c7ae0;
+  background-color: #723875;
   color: #fff;
 }
