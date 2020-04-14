@@ -120,8 +120,19 @@ th tr{
 }
 
 
+.hello {
+  background-color: #b76e79;
+  text-align:center;
+  color:white;
+}
 
-/* The Modal (background) */
+.helen {
+  background-color: #b76e79;
+  text-align:center;
+  color:white;
+}
+
+/* THE POP UP TO CONFIRM BOOKING TIME ETC */ 
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */

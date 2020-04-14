@@ -1,3 +1,26 @@
+function openDay(evt, tab) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tab).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+
+
 function book(id) {
 	console.log('booking')
 	let col = id;
@@ -101,9 +124,16 @@ function booking(studio,day,hour,id) {
 	confirm.value += date.toDateString();
 }
 
- function handleResponse(response) {  // get the response and show that in inner html 
- 	console.log('success')
- 	window.location.reload()
+ function handleResponse(day) {  // get the response and show that in inner html 
+ 	window.location.reload();
+ 	console.log('success');
+ 	console.log(day);
+ 	let id = "d" + day;
+ 	console.log(id)
+ 	let curr = document.getElementById(id);
+ 	curr.click();
+
+
  }
 
 function sendbook(id) {
@@ -114,6 +144,7 @@ function sendbook(id) {
 	var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
 	var day = Math.trunc(studioNum[1] % 10); 
 	var hour = Math.trunc(studioNum[1] / 10);
+	var name = document.getElementById('username').value;
 	request = $.ajax(
                {
                   type: "GET",
@@ -121,10 +152,11 @@ function sendbook(id) {
                   data: {'studio': studioNum[0],
                   		'date': info[1],
                   		'starttime': hour,
-                  		'endtime': hour +1, 
+                  		'endtime': hour+1, 
                   		'day': day,
+                  		'name':name,
               		},
-                  success: handleResponse,
+                  success: handleResponse(day),
                }
             );
 	

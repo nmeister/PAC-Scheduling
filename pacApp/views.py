@@ -62,17 +62,13 @@ def create_booking(request: HttpResponse):
 
 	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts':4, 'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
 	if request.is_ajax and request.method == "GET":
-		start = (request.GET.get('starttime'))
-		end = (request.GET.get('endtime'))
 		date = (request.GET.get('date'))
-		studio = (request.GET.get('studio'))
-		day = (request.GET.get('day'))
-		book = Booking(studio_id=studioList[studio],
+		book = Booking(studio_id=studioList[(request.GET.get('studio'))],
 				company_id=0, 
-				company_name="sympoh",
-				start_time=int(start), 
-				end_time=int(end),
-				week_day=int(day))
+				company_name=request.GET.get('name'),
+				start_time=(request.GET.get('starttime')), 
+				end_time=(request.GET.get('endtime')),
+				week_day=(request.GET.get('day')))
 		#print(book.end_time) 
 		book.save()
 	return redirect('/')
