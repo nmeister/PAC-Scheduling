@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
  <html>
    <div>
       <title>PrincetonDance.com</title>
@@ -7,9 +7,9 @@
       <link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
       <script src="/static/pacApp/assets/js/input.js"></script> 
       <script src="/static/pacApp/assets/js/schedule.js"></script> 
-
-      </div>
-   <div>
+      </div> -->
+   <div id="schedule">
+    <div>
       <!-- tabs for all of the days of the week --> 
       {% include 'templates/pacApp/tableElements/daystab.html' %}
       
@@ -19,7 +19,6 @@
         <div class="modal-content">
           <span class="close">&times;</span>
             {% include 'templates/pacApp/bookForm.html' %}
-          <button id='confirm' onclick="sendbook(this.value)" style="float:right;padding:15px">Confirm</button>
         </div>
       </div>
 
@@ -202,6 +201,6 @@
 
    </script>
 
-
-   </div>
- </html>
+</div>
+  <!--</div>
+ </html>-->

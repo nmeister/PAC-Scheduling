@@ -37,7 +37,6 @@ function book(id) {
 }
 
 function getDayWeek(day) {
-
 	var days = ['Sunday','Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	return days[day];
 }
@@ -56,6 +55,39 @@ function findStudioName(studio) {
 	return studioList[studio];
 }
 
+// upon clicking on the BOOK button will make a future booking 
+function futurebooks() {
+	console.log('future booking');
+	var futureinput = document.getElementById("future");
+	var modal = document.getElementById("myModal");
+	var regConfirm = document.getElementById("confirm");
+	var futureConfirm = document.getElementById("futureConfirm");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	modal.style.display = "block";
+	regConfirm.style.display = "none";
+	futureinput.style.display = "block";
+	futureConfirm.style.display = "block";
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	  modal.style.display = "none";
+	  futureinput.style.display = "none";
+	  futureConfirm.style.display = "none";
+	  regConfirm.style.display = "block";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	    futureinput.style.display = "none";
+	    futureConfirm.style.display = "none";
+	    regConfirm.style.display = "block";
+	  }
+	}
+}
 
 function booking(studio,day,hour,id) {
 	console.log('hello');
@@ -125,12 +157,13 @@ function booking(studio,day,hour,id) {
 
  function handleResponse(day) {  // get the response and show that in inner html 
  	window.location.reload();
+ 	// document.getElementById("schedule").load();
  	console.log('success');
  	console.log(day);
  	let id = "d" + day;
  	console.log(id)
- 	let curr = document.getElementById(id);
- 	curr.click();
+ 	//let curr = document.getElementById(id);
+ 	//curr.click();
 
 
  }

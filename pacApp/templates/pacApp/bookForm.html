@@ -3,5 +3,15 @@
 	<div id="bookstarttime"></div>
 	<div id="dayofweek"></div>
 	<div id="bookdate"></div>
+
 	Name: <input id="username" type="text"></input>
+	<div id="future" style="display:none"> 
+		Studio: <div id="futurestudio"><input type="text"></input></div>
+		Date: <div id="futuredate"><input type="date"></input></div>
+		<button id="futureConfirm" onclick="console.log('future')" style="float:right;padding:15px">Confirm</button>
+	</div>
+	<!-- onclick="console.log('reg')" for testing purposes, make sure the right button getting clicked--> 
+	<button id='confirm' onclick="sendbook(this.value)" style="float:right;padding:15px">Confirm</button>
+
 </form>
+

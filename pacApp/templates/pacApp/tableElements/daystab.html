@@ -7,10 +7,10 @@
 <div class="tablinks" id="d4" onclick="openDay(event, 'thu')">Thursday</div>
 <div class="tablinks" id="d5" onclick="openDay(event, 'fri')">Friday</div>
 <div class="tablinks" id="d6" onclick="openDay(event, 'sat')">Saturday</div>
-<div class="tablinks" class='book' id="book" onclick="" style="float:right;background-color:#723875;color:white">Book</div>
+<div class="tablinks" class='book' id="book" onclick="futurebooks()" style="float:right;background-color:#723875;color:white">Book</div>
 </div>
-   <!-- setting up the tab content calendar to be show for each day --> 
 
+<!-- setting up the tab content calendar to be show for each day --> 
 <div class="tabcontent" id="sun">{% include 'templates/pacApp/tableElements/sunday.html'%}</div>
 <div class="tabcontent" id="mon">{% include 'templates/pacApp/tableElements/monday.html'%}</div>
 <div class="tabcontent" id="tue">{% include 'templates/pacApp/tableElements/tuesday.html'%}</div>
