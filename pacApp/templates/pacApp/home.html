@@ -14,8 +14,6 @@
       	<link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
       	<script src="/static/pacApp/assets/js/input.js"></script> 
       	<script src="/static/pacApp/assets/js/schedule.js"></script> 
-		<link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
-		<link rel="stylesheet" href="static/pacApp/assets//css/table.css" />
 		<noscript><link rel="stylesheet" href="static/pacApp/assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="homepage is-preload">
@@ -285,98 +283,14 @@
             $(selectTab).addClass('today');
             // activate it by clicking on this element
             $(selectTab).click();
+      
          }
 
          function setup()
          {  // on input event, handle and calls getResults
             activateDay();
-
          }
          $('document').ready(setup);
-   </script>
-
-   <script type="text/javascript">
-   // for each booking in wilcox, we make it a object here
-   // each object will also be within this list
-    var wilcox = [
-    // we passed in a context argument which is a list containing
-    // an element called 'Wilcox'
-    // Wilcox value is a list of bookings
-    {% for booking in Wilcox %}
-        { // for each of the booking, create a new object booking with such fields
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"wilcox",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-
-    var bloomberg = [
-    {% for booking in Bloomberg %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"bloomberg",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-  var dilliondance = [
-    {% for booking in DillionDance %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"dilliondance",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-   var roberts = [
-    {% for booking in Roberts %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"roberts",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-   // prints - just for testing
-   console.log(wilcox);
-   console.log(bloomberg);
-
-   // for each of the studio we call function called createBooking
-   wilcox.forEach(createBooking);
-   bloomberg.forEach(createBooking);
-   dilliondance.forEach(createBooking);
-   roberts.forEach(createBooking);
-   // here is the function createBooking defined
-   function createBooking(item, index) {
-
-      for (let i = item.start_time; i != item.end_time; i++) {
-         // ex. wilcox5
-         console.log(item.studio)
-         // creating a specified id that we already had in place
-         let col = '#' + String(item.studio + i + item.week_day);
-         console.log(col)
-         // for that element with particular id, add a class called test
-         let group = item.company_name;
-         $(col).addClass(group);
-         $(col).html(item.company_name);
-         // don't allow it to be bookable
-         $(col).attr('onclick','');
-      }
-
-   }
-
    </script>
 
 

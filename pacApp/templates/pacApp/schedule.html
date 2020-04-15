@@ -27,11 +27,14 @@
    <!-- importing jquery library --> 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-   <script>
+  <!-- <script>
          function activateDay()
          {  // getting today's date 
             let today = new Date();
             // getting the day of week for today
+            var onejan = new Date(this.getFullYear(), 0, 1);
+            var week = Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+            console.log(week);
             // returned as integers, 0 = sunday, 6 = saturday
             let todayDay = today.getDay();
             // creating the id descriptor
@@ -48,7 +51,7 @@
 
          }
          $('document').ready(setup);
-   </script>
+   </script> -->
 
    <script type="text/javascript">
    // for each booking in wilcox, we make it a object here
@@ -185,10 +188,10 @@
 
       for (let i = item.start_time; i != item.end_time; i++) {
          // ex. wilcox5
-         console.log(item.studio)
+         // console.log(item.studio)
          // creating a specified id that we already had in place 
          let col = '#' + String(item.studio + i + item.week_day);
-         console.log(col)
+         // console.log(col)
          // for that element with particular id, add a class called test 
          let group = item.company_name;
          $(col).addClass('helen');

@@ -81,11 +81,9 @@ th tr{
   background-color:#fed8b1;
 }
 
-.book {
-  background-color:pink;
-  overflow: hidden;
+.weekselector {
   float: right;
-  padding: 15px;
+  padding: 10px;
   transition: 0.3s;
 }
 
