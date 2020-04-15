@@ -92,7 +92,15 @@ DATABASES = {
         'PORT': '5432'
     }
 }
+ #adding CAS backend
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'uniauth.backends.CASBackend',
+]
 
+LOGIN_URL = "/accounts/login/"
+UNIAUTH_LOGIN_DISPLAY_STANDARD = False
+UNIAUTH_LOGOUT_CAS_COMPLETELY = True
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -147,4 +155,6 @@ STATICFILES_DIRS = [
 ]
 
 import django_heroku
+#if 'uniauth' in INSTALLED_APPS:
+#    from . idp_pysaml2 import *
 django_heroku.settings(locals())

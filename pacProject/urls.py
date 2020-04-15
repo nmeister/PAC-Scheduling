@@ -21,5 +21,7 @@ urlpatterns = [
 	path('', include('pacApp.urls')),
     path('pacApp/', include('pacApp.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('uniauth.urls.cas_only', namespace='uniauth')),
+    #url('accounts/', include('uniauth.urls.cas_only', namespace='uniauth')),
 ]
 
