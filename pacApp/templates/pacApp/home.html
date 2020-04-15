@@ -78,68 +78,19 @@
 			{% include 'templates/pacApp/schedule.html' %}
 
 			<!-- Carousel -->
-				<section class="carousel">
-					<div class="reel">
+				<section id="second">
+					<header>
+						<br>
+						<h2 style="text-align:center; padding=30px"> Looking for a studio ? <br>
+							<strong> Dance spaces open right now.</strong> </h2>
 
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic01.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">Dillion Dance</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">Dillion MAC</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic03.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">Wilcox Dance</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic04.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">Lewis Arts Center</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic05.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">Whitman Dance</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic01.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">RoMA Dance</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">Virtual-Zoom Dance</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-					</div>
+					</header>
 				</section>
+			{% include 'templates/pacApp/carousel.html' %}
+
 				<section>
-					<form action="{% url 'insert_space_item' %}" method="POST" autocomplete="=off">
+
+					<!-- <form action="{% url 'insert_space_item' %}" method="POST" autocomplete="=off">
 						{% csrf_token %}
 						<div class="input-gtoup">
 							Company_Name: <input type="text" class="form-control" name="company_name"> <br>
@@ -162,7 +113,7 @@
 						{% for item in space_list %}
 						<li class="list-group-item">{{item.company_name}}{{item.time_start}}{{item.time_end}}{{item.studio}}</li>
 						{% endfor %}
-					</ul>
+					</ul> -->
 				</section>
 			<!-- Main -->
 				<div class="wrapper style2">

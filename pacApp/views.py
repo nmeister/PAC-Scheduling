@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from . import models, studio, hours
 from .models import ADRequest, Booking
 from .studio import Studio
-
+import datetime
 
 
 # Create your views here.
@@ -33,8 +33,7 @@ def homepage(request):
 			   'Forbes': Booking.objects.filter(studio_id=7),
 			   'Ellie': Booking.objects.filter(studio_id=8)}
 	return render(request, "templates/pacApp/home.html", context)
-# displays the calendar schedule 
-
+# displays the calendar schedule
 
 def schedule(request):
 	studioList = {'wilcox':0,
@@ -46,6 +45,10 @@ def schedule(request):
 	'ns': 6,
 	'forbes': 7,
 	'ellie': 8};
+
+	#Return the day of the week as an integer, where Monday is 0 and Sunday is 6.
+	weekday = datetime.datetime.today().weekday()
+
 	context = {'Wilcox': Booking.objects.filter(studio_id=0),
 			   'Bloomberg': Booking.objects.filter(studio_id=1),
 			   'DillionDance': Booking.objects.filter(studio_id=2),
@@ -54,8 +57,8 @@ def schedule(request):
 			   'Murphy': Booking.objects.filter(studio_id=5),
 			   'NewSouth': Booking.objects.filter(studio_id=6), 
 			   'Forbes': Booking.objects.filter(studio_id=7),
-			   'Ellie': Booking.objects.filter(studio_id=8)}
-	
+			   'Ellie': Booking.objects.filter(studio_id=8),
+				'Weekday' : weekday}
 	return render(request, "templates/pacApp/schedule.html",context)
 
 def create_booking(request: HttpResponse):
