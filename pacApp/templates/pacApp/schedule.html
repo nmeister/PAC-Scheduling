@@ -27,162 +27,26 @@
    <!-- importing jquery library --> 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-  <!-- <script>
-         function activateDay()
-         {  // getting today's date 
-            let today = new Date();
-            // getting the day of week for today
-            var onejan = new Date(this.getFullYear(), 0, 1);
-            var week = Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-            console.log(week);
-            // returned as integers, 0 = sunday, 6 = saturday
-            let todayDay = today.getDay();
-            // creating the id descriptor
-            let selectTab = '#d' + todayDay;
-            // adding a class to element with id d(todayDay)
-            $(selectTab).addClass('today');
-            // activate it by clicking on this element 
-            $(selectTab).click();
-         }
-
-         function setup()
-         {  // on input event, handle and calls getResults
-            activateDay();
-
-         }
-         $('document').ready(setup);
-   </script> -->
-
    <script type="text/javascript">
    // for each booking in wilcox, we make it a object here
    // each object will also be within this list 
-    var wilcox = [
-    // we passed in a context argument which is a list containing
-    // an element called 'Wilcox'
-    // Wilcox value is a list of bookings 
-    {% for booking in Wilcox %}
-        { // for each of the booking, create a new object booking with such fields
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"wilcox",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-
-    var bloomberg = [
-    {% for booking in Bloomberg %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"bloomberg",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-  var dilliondance = [
-    {% for booking in DillionDance %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"dilliondance",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-   var dillionmpr = [
-    {% for booking in DillionMPR %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"dillionmpr",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-   var roberts = [
-    {% for booking in Roberts %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"roberts",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-   var murphy = [
-    {% for booking in Murphy %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"murphy",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-    var ns = [
-    {% for booking in NewSouth %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"ns",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-    var forbes = [
-    {% for booking in Forbes %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"forbes",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
-    var ellie = [
-    {% for booking in Ellie %}
-        {
-         company_name:"{{booking.company_name}}",
-         start_time:"{{booking.start_time}}",
-         end_time:"{{booking.end_time}}",
-         studio:"ellie",
-         week_day:"{{booking.week_day}}"
-        },
-    {% endfor %}
-   ];
-
+   function schedule(data) {
 
    // prints - just for testing 
    //console.log(wilcox);
    //console.log(bloomberg);
   
    // for each of the studio we call function called createBooking
-   wilcox.forEach(createBooking);
-   bloomberg.forEach(createBooking);
-   dilliondance.forEach(createBooking);
-   dillionmpr.forEach(createBooking);
-   roberts.forEach(createBooking);
-   murphy.forEach(createBooking);
-   ns.forEach(createBooking);
-   forbes.forEach(createBooking);
-   ellie.forEach(createBooking);
+   data['wilcox'].forEach(createBooking);
+   data['bloomberg'].forEach(createBooking);
+   data['dilliondance'].forEach(createBooking);
+   data['dillionmpr'].forEach(createBooking);
+   data['roberts'].forEach(createBooking);
+   data['murphy'].forEach(createBooking);
+   data['ns'].forEach(createBooking);
+   data['forbes'].forEach(createBooking);
+   data['ellie'].forEach(createBooking);
+ }
    // here is the function createBooking defined 
    function createBooking(item, index) {
 
@@ -191,6 +55,7 @@
          // console.log(item.studio)
          // creating a specified id that we already had in place 
          let col = '#' + String(item.studio + i + item.week_day);
+
          // console.log(col)
          // for that element with particular id, add a class called test 
          let group = item.company_name;
@@ -201,6 +66,7 @@
          $(col).attr('onclick','');
       }  
    }
+
 
    </script>
 

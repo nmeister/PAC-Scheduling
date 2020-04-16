@@ -42,7 +42,7 @@ class Booking(models.Model):
 	start_time = models.IntegerField()
 	end_time = models.IntegerField()
 	week_day = models.IntegerField()
-	booking_date = models.DateTimeField(auto_now_add=True) #2018/12/19
+	booking_date = models.DateField(auto_now_add=False) #2018/12/19
 
 
 

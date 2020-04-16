@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 from . import models, studio, hours
 from .models import ADRequest, Booking
 from .studio import Studio
-
+import datetime
+from datetime import date, timedelta
 
 
 # Create your views here.
@@ -14,24 +15,27 @@ from .studio import Studio
 def homepage(request):
 	#return HttpResponse("Hello, World")
 	# create bookings
-	studioList = {'wilcox':0,
-	'bloomberg':1, 
-	'dilliondance':2,
-	'dillionmpr': 3,
-	'roberts':4,
-	'murphy':5,
-	'ns': 6,
-	'forbes': 7,
-	'ellie': 8};
-	context = {'Wilcox': Booking.objects.filter(studio_id=0),
-			   'Bloomberg': Booking.objects.filter(studio_id=1),
-			   'DillionDance': Booking.objects.filter(studio_id=2),
-			   'DillionMPR': Booking.objects.filter(studio_id=3),
-			   'Roberts': Booking.objects.filter(studio_id=4),
-			   'Murphy': Booking.objects.filter(studio_id=5),
-			   'NewSouth': Booking.objects.filter(studio_id=6), 
-			   'Forbes': Booking.objects.filter(studio_id=7),
-			   'Ellie': Booking.objects.filter(studio_id=8)}
+	if request.GET.get('newdate') == None:
+		startdate = date.today()
+		endweek = startdate + timedelta(days=6)
+	else: 
+		retdate = request.GET.get('newdate').split('-')
+		# print(retdate)
+		startdate = datetime.date(int(retdate[0]),int(retdate[1]),int(retdate[2]))
+		endweek = startdate + timedelta(days=6)
+		
+	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts': 4, 'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
+	# filter by date range, but not sure where the date should be coming from 
+	context = {'Wilcox': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, endweek]),
+			   'Bloomberg': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, endweek]),
+			   'DillionDance': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, endweek]),
+			   'DillionMPR': Booking.objects.filter(studio_id=3).filter(booking_date__range=[startdate, endweek]),
+			   'Roberts': Booking.objects.filter(studio_id=4).filter(booking_date__range=[startdate, endweek]),
+			   'Murphy': Booking.objects.filter(studio_id=5).filter(booking_date__range=[startdate, endweek]),
+			   'NewSouth': Booking.objects.filter(studio_id=6).filter(booking_date__range=[startdate, endweek]), 
+			   'Forbes': Booking.objects.filter(studio_id=7).filter(booking_date__range=[startdate, endweek]),
+			   'Ellie': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, endweek])}
+
 	return render(request, "templates/pacApp/home.html", context)
 # displays the calendar schedule 
 
@@ -45,7 +49,7 @@ def schedule(request):
 	'murphy':5,
 	'ns': 6,
 	'forbes': 7,
-	'ellie': 8};
+	'ellie': 8}
 	context = {'Wilcox': Booking.objects.filter(studio_id=0),
 			   'Bloomberg': Booking.objects.filter(studio_id=1),
 			   'DillionDance': Booking.objects.filter(studio_id=2),
@@ -54,27 +58,29 @@ def schedule(request):
 			   'Murphy': Booking.objects.filter(studio_id=5),
 			   'NewSouth': Booking.objects.filter(studio_id=6), 
 			   'Forbes': Booking.objects.filter(studio_id=7),
-			   'Ellie': Booking.objects.filter(studio_id=8)}
+			   'Ellie': Booking.objects.filter(studio_id=8)} 
 	
 	return render(request, "templates/pacApp/schedule.html",context)
 
 def create_booking(request: HttpResponse):
 
-	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts':4, 'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
+	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts':4, 
+	'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
 	if request.is_ajax and request.method == "GET":
-		date = (request.GET.get('date'))
+		date = (request.GET.get('date')).split('-')
+		# print('received date is' + date)
 		book = Booking(studio_id=studioList[(request.GET.get('studio'))],
 				company_id=0, 
 				company_name=request.GET.get('name'),
 				start_time=(request.GET.get('starttime')), 
 				end_time=(request.GET.get('endtime')),
-				week_day=(request.GET.get('day')))
-		#print(book.end_time) 
+				week_day=(request.GET.get('day')),
+				booking_date=(datetime.date(int(date[0]),int(date[1]),int(date[2]))))
+		# print('booked date is ' + book.booking_date) 
 		book.save()
 	return redirect('/')
 
 def insert_space_item(request: HttpResponse):
-	
 	return redirect('/schedule')
 
 def insert_ad_request(request: HttpResponse):

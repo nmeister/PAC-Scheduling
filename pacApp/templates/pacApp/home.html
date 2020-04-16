@@ -271,24 +271,279 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
    <script>
+   		// for getting the week number of a given date 
+		 Date.prototype.getWeekNumber = function() { 
+  
+            var oneJan =  
+                new Date(this.getFullYear(), 0, 1); 
+  
+            // calculating number of days  
+            //in given year before given date 
+  
+            var numberOfDays =  
+                Math.floor((this - oneJan) / (24 * 60 * 60 * 1000)); 
+  
+            // adding 1 since this.getDay() 
+            //returns value starting from 0 
+  
+            return Math.ceil((this.getDay() + 1 + numberOfDays) / 7); 
+  
+        } 
+	
+        // setting up the week selector function 
          function activateDay()
          {  // getting today's date
             let today = new Date();
             // getting the day of week for today
             // returned as integers, 0 = sunday, 6 = saturday
             let todayDay = today.getDay();
+            let todayWeek = today.getWeekNumber(); 
+            // console.log(todayWeek);
             // creating the id descriptor
             let selectTab = '#d' + todayDay;
             // adding a class to element with id d(todayDay)
-            $(selectTab).addClass('today');
-            // activate it by clicking on this element
-            $(selectTab).click();
-      
+            let weekValue = today.getFullYear() + '-W' + todayWeek;
+            let formattedDate = buildDate(today);
+            // $('#currweek').val(weekValue);
+            // sets the value for the date picker default 
+            $('#curr').val(formattedDate);
+            // set a field called data-week to be the week number 
+            $('#curr').attr('data-week', weekValue);
+            // to retrieve that data value use .data('nameofdata')
+            // console.log($('#curr').data('week'));
+            // sets up the week initially 
+            setupWeek(false);
          }
 
+         function parse() {
+         	 var wilcox = [
+    // we passed in a context argument which is a list containing
+    // an element called 'Wilcox'
+    // Wilcox value is a list of bookings 
+    {% for booking in Wilcox %}
+        { // for each of the booking, create a new object booking with such fields
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"wilcox",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+    var bloomberg = [
+    {% for booking in Bloomberg %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"bloomberg",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+  var dilliondance = [
+    {% for booking in DillionDance %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dilliondance",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+   var dillionmpr = [
+    {% for booking in DillionMPR %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillionmpr",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+   var roberts = [
+    {% for booking in Roberts %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"roberts",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+   var murphy = [
+    {% for booking in Murphy %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"murphy",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+    var ns = [
+    {% for booking in NewSouth %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ns",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+    var forbes = [
+    {% for booking in Forbes %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"forbes",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+    var ellie = [
+    {% for booking in Ellie %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ellie",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+   
+   		var list = {'wilcox':wilcox, 'bloomberg': bloomberg, 'dilliondance': dilliondance,
+   		'dillionmpr': dillionmpr, 'roberts': roberts, 'murphy': murphy, 'ns': ns, 'forbes': forbes, 
+   		'ellie':  ellie
+         };
+        
+       return list;
+   }
+
+         function setupWeek(update)
+         	// date = yyyy-mm-dd
+       	{
+       		// in prepation for the today tab - if it is on the current day, has this feature 
+       		var actualDate = new Date();
+       		var actualweek = actualDate.getWeekNumber();
+       		var actualDay = actualDate.getDay();
+       		let selectTab = '#d' + actualDay;
+       		
+       		
+       		var currweek = $('#curr').data('week');
+       		var curr = $('#curr').val();
+       		// var curr = $('#curr').val(date)
+       		// console.log(curr);
+       		var year = parseInt(curr.slice(0,4));
+       		// need to subtract 1 from month because months start indexing at 0
+       		var month = parseInt(curr.slice(6,8))-1;
+       		var date = parseInt(curr.slice(curr.length-2));
+       		// console.log(date);
+       		var currDate = new Date(year, month, date);
+       		// console.log(currDate.getWeekNumber())
+       		if (currDate.getWeekNumber() != actualweek) {
+       			$(selectTab).removeClass('today');
+       		}
+       		else {
+       			$(selectTab).addClass('today');
+       		}
+       		// console.log(currDate);
+       		var currDay = currDate.getDay();
+       		var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
+
+       		openDay(daysofweek[currDay],'d'+ currDay);
+       		var id = '#d' + currDay;
+       		// $(id).addClass('today');
+       		// console.log(currDay);
+       		
+       		// use .data('name of data', value) to set the data-key = value 
+       		$(id).data('date', currDate);
+       		// console.log($(id).data('date'));
+       		for (var i = 0; i < 7; i++) {
+       			var d = new Date(year, month, date); 
+       			d.setDate(d.getDate() + i);
+       			// console.log(d);
+       			var idnew = '#d' + d.getDay();
+       			// need to use .data to set the field as well 
+       			$(idnew).data('date',d);
+       		}
+       		// console.log(update)
+       		if (update) {
+       			let url = '';
+       			request = $.ajax(
+               {
+                  type: "GET",
+                  url: url,
+                  data: {'newdate': curr},
+                  success: handleweekchange(),
+               }
+            );
+       		}
+       		// TESTING---------------------------------------
+       		/* CONFIRMS THAT THE CORRECT DATES HAVE BEEN SET 
+       		for (var j = 0; j < 7; j++) {
+       			console.log($('#d'+j).data('date'));
+       		} */
+       		// console.log($(id).data('date'));
+       		// console.log(currDate);
+       		// console.log(currDate.toDateString());
+       		// console.log(currday.slice(currday.length-2));
+			// console.log(currweek);
+
+			/* if (day >= date.getDay()) {
+				currdate = date.getDate();
+			date.setDate(currdate + (day - date.getDay()));
+			console.log(date);
+			}
+			else {
+				currdate = date.getDate();
+				date.setDate(currdate + (7 - date.getDay()) + day);
+				console.log(date);
+			} */ 
+       	}
+
+       	function handleweekchange() {
+       		var data = parse();
+       		for (var i in data) {
+       			console.log(data[i])
+       		}
+       		schedule(data);
+       		// $('document').load('templates/pacApp/schedule.html');
+       		console.log('success after week update');
+
+       	}
+
          function setup()
-         {  // on input event, handle and calls getResults
+         { 
+         	
             activateDay();
+            var data = parse();
+            schedule(data);
+
          }
          $('document').ready(setup);
    </script>

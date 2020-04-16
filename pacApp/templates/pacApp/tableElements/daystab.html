@@ -1,13 +1,17 @@
 <!-- setting up tabs for the different days --> 
 <div class="tab">
-<div class="tablinks" id="d0" onclick="openDay(event, 'sun')">Sunday</div>
-<div class="tablinks" id="d1" onclick="openDay(event, 'mon')">Monday</div>
-<div class="tablinks" id="d2" onclick="openDay(event, 'tue')">Tuesday</div>
-<div class="tablinks" id="d3"onclick="openDay(event, 'wed')">Wednesday</div>
-<div class="tablinks" id="d4" onclick="openDay(event, 'thu')">Thursday</div>
-<div class="tablinks" id="d5" onclick="openDay(event, 'fri')">Friday</div>
-<div class="tablinks" id="d6" onclick="openDay(event, 'sat')">Saturday</div>
-<div class="tablinks" class="weekselector"><input type="date" autocomplete="on" id="currweek"></div>
+
+<!-- data-date is a data field with name date retrieve using .data(key) --> 
+<div class="tablinks" id="d0" data-date="" onclick="openDay('sun', this.id)">Sunday</div>
+<div class="tablinks" id="d1" data-date="" onclick="openDay('mon', this.id)">Monday</div>
+<div class="tablinks" id="d2" data-date="" onclick="openDay('tue', this.id)">Tuesday</div>
+<div class="tablinks" id="d3" data-date="" onclick="openDay('wed', this.id)">Wednesday</div>
+<div class="tablinks" id="d4" data-date="" onclick="openDay('thu', this.id)">Thursday</div>
+<div class="tablinks" id="d5" data-date="" onclick="openDay('fri', this.id)">Friday</div>
+<div class="tablinks" id="d6" data-date="" onclick="openDay('sat', this.id)">Saturday</div>
+<div class="tablinks" class="dayselector">
+	<input type="date" data-week="" autocomplete="on" id="curr" onchange="setupWeek(true)"></input>
+</div>
 <!-- <div class="tablinks" class='book' id="book" onclick="futurebooks()" style="float:right;background-color:#723875;color:white">Book</div> --> 
 </div>
 
