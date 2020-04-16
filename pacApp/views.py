@@ -88,8 +88,8 @@ def insert_space_item(request: HttpResponse):
 	return redirect('/schedule')
 
 def insert_ad_request(request: HttpResponse):
-	
-	ad_req = ADRequest(company_name = request.POST['name'], 
+	print(request.POST.get('rankone'))
+	ad_req = ADRequest(company_name = request.POST['company_name'],
 		company_day_1 = request.POST.get('company_day_1'),
 		company_start_time_1 = request.POST['company_start_time_1'],
 		company_end_time_1 = request.POST['company_end_time_1'],
@@ -102,13 +102,12 @@ def insert_ad_request(request: HttpResponse):
 		company_start_time_3 = request.POST['company_start_time_3'],
 		company_end_time_3 = request.POST['company_end_time_3'],
 		company_studio_3 = request.POST.get('company_studio_3'),
-		rank_1 = request.POST.get('rank1s'), 
+		num_reho = request.POST['num_reho'],
+		company_size = request.POST['num_members'],
 		rank_2 = request.POST.get('rank2s'), 
 		rank_3 = request.POST.get('rank3s'),
 		rank_4 = request.POST.get('rank4s'),
-		rank_5 = request.POST.get('rank5s'),
-		num_reho = request.POST['num_reho'],
-		company_size = request.POST['num_members'])
+		rank_5 = request.POST.get('rank5s'))
 	ad_req.save()
 	return redirect('/adminForm')
 
@@ -123,7 +122,7 @@ def get_duration(start,end):
 
 def adminForm(request):
 	context = {'all_requests' : ADRequest.objects.all()}
-	for item in context['all_requests']:
-		print(item.name)
+	#for item in context['all_requests']:
+	#	print(item.name)
 	return render(request, "templates/pacApp/form/adminForm.html", context)
 

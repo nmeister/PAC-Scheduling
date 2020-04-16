@@ -17,13 +17,13 @@ class ADRequest(models.Model):
 	company_start_time_3 = models.IntegerField()
 	company_end_time_3 = models.IntegerField()
 	company_studio_3 = models.CharField(max_length=50)
-	rank_1 = models.CharField(max_length=50)
+	num_reho = models.IntegerField()
+	company_size = models.IntegerField()
+	rank_1 = models.CharField(max_length=50, default='wilcox', editable=True)
 	rank_2 = models.CharField(max_length=50)
 	rank_3 = models.CharField(max_length=50)
 	rank_4 = models.CharField(max_length=50)
 	rank_5 = models.CharField(max_length=50)
-	num_reho = models.IntegerField()
-	company_size = models.IntegerField()
 
 class Studio(models.Model):
 	name = models.CharField(max_length=50)
