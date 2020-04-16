@@ -9,6 +9,11 @@ from .studio import Studio
 import datetime
 from datetime import date, timedelta
 
+import pandas as pd
+import numpy as np
+import copy
+import random
+
 
 # Create your views here.
 # our home page 
@@ -66,7 +71,7 @@ def schedule(request):
 			   'Weekday' : weekday}
 	return render(request, "templates/pacApp/schedule.html",context)
 
-def create_booking(request: HttpResponse):
+def create_booking(request:HttpResponse):
 
 	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts':4, 
 	'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
@@ -81,6 +86,7 @@ def create_booking(request: HttpResponse):
 				week_day=(request.GET.get('day')),
 				booking_date=(datetime.date(int(date[0]),int(date[1]),int(date[2]))))
 		# print('booked date is ' + book.booking_date) 
+
 		book.save()
 	return redirect('/')
 
@@ -126,4 +132,166 @@ def adminForm(request):
 	#for item in context['all_requests']:
 	#	print(item.name)
 	return render(request, "templates/pacApp/form/adminForm.html", context)
+
+def scheduling_alg(request):
+	all_requests = ADRequest.objects.all()
+	df_request = pd.DataFrame(data=None, columns=['name', 'company_day', 'company_start_time', 'company_end_time', 'company_studio', 
+								'rank_1', 'rank_2',  'rank_3',  'rank_4', 'rank_5',  'num_reho', 'num_members'])
+
+	for group in all_requests:
+		group_request = pd.DataFrame(data={'name': [group.company_name], 'company_day': [group.company_day_1], 'company_start_time': [group.company_start_time_1], 'company_end_time': [group.company_end_time_1], 'company_studio': [group.company_studio_1], 
+								'rank_1': [group.rank_1], 'rank_2': [group.rank_2],  'rank_3': [group.rank_3],  'rank_4': [group.rank_4], 'rank_5': [group.rank_5], 
+								'num_reho': [group.num_reho], 'num_members': [group.company_size]})
+		df_request = pd.concat([group_request, df_request], ignore_index=True, sort=False)
+
+	df_results = pd.DataFrame(data=None, columns=['Name','Studio','Day','Start_Time','End_Time'])
+
+	# fill in the unavailable times for each studio
+	unavailable = {}
+
+	dance_studios = ['wilcox','bloomberg', 'dilliondance','dillionmpr','roberts','murphy','ns','forbes','ellie']
+	days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+	groups = df_request['name']
+
+	# given a list hours, return the dictionary that gives initial availability of each day
+	def get_init_avail(hours):
+		hours_dance_stud_num = []
+		for item in dance_studios:
+			hours_dance_stud_num.append(copy.deepcopy(hours))
+		initial_availability = dict(zip(copy.deepcopy(dance_studios), copy.deepcopy(hours_dance_stud_num)))
+		return initial_availability
+
+	# create avail a dictionary that stores the times the dance studios are free
+	# initial_availability = dict(zip(copy.deepcopy(dance_studios), copy.deepcopy(hours_dance_stud_num)))
+	# avail is a dictionary containing a dictionary for each day of the week.
+	# the day of the week dictionary has studios as its keys and then 0:24 hours that it is available
+
+	avail = {}
+	for day in copy.deepcopy(days_of_week):
+		hours = [i for i in range(0,24)]
+		if (day is 'Sunday') or (day is 'Saturday'): 
+			for i in range(1, 9):
+				hours.remove(i)
+		else: 
+			for i in range(1, 17):
+				hours.remove(i)
+		avail[day] = copy.deepcopy(get_init_avail(copy.deepcopy(hours)))
+
+	reho_count = dict(zip(df_request['name'], df_request['num_reho']))
+	for group in reho_count:
+		reho_count[group] = int(reho_count[group])
+
+	"""Schedule Company For Every Group"""
+
+	# identify conflicts
+	# conflict(studio, day, start_time, end_time)
+
+	'''group_info=df_request[df_request.name=='BAC']
+	studio = group_info.iloc[:, df_request.columns.get_loc('company_studio')].values[0]
+	day = group_info.iloc[:, df_request.columns.get_loc('company_day')].values[0]
+	start_time = group_info.iloc[:, df_request.columns.get_loc('company_start_time')].values[0]
+	end_time = group_info.iloc[:, df_request.columns.get_loc('company_end_time')].values[0]
+	'''
+
+	'''df_results[df_results.Studio == "NS Main"]'''
+
+	# randomize the rows of the dataframe
+	df_request = df_request.sample(frac=1).reset_index(drop=True)
+
+	# for each group, schedule the company rehearsal space
+	for group in df_request['name']:
+		group_info=df_request[df_request.name==group]
+		studio = group_info.iloc[:, df_request.columns.get_loc('company_studio')].values[0]
+		day = group_info.iloc[:, df_request.columns.get_loc('company_day')].values[0]
+		start_time = group_info.iloc[:, df_request.columns.get_loc('company_start_time')].values[0]
+		end_time = group_info.iloc[:, df_request.columns.get_loc('company_end_time')].values[0]
+		# if conflict --> conflict can just be a try/except thing
+		# cant do times from 23-1
+		# remove times from list
+		'''if ((int(start_time) not in avail[day][studio]) or 
+		(int(start_time)+1 not in avail[day][studio]) or 
+		(int(start_time)+1 not in avail[day][studio])):'''
+			# get company 2nd choice TO DO FOR NICOLE!!
+
+		(avail[day][studio]).remove(int(start_time))
+		(avail[day][studio]).remove(int(start_time)+1)
+		(avail[day][studio]).remove(int(start_time)+2)
+		
+		group_results = pd.DataFrame(data={'Name': [group], 
+											'Studio': [studio], 
+											'Day': [day], 
+											'Start_Time': [start_time], 
+											'End_Time': [end_time]})
+									
+		df_results = pd.concat([group_results, df_results], ignore_index=True, sort=False)
+
+	"""Cycle through the list of requests until everyone's requests are filled"""
+
+
+
+	# while there are still spaces to book
+	while (int(max(reho_count.values()))>0): 
+		# randomize the order of groups
+		for group in groups.sample(frac=1):
+			# print(group)
+			# if the group still has spaces to book, book a space
+			if reho_count[group] != 0: 
+				
+				group_info=df_request[df_request.name==group]
+				rank_1 = group_info.iloc[:, df_request.columns.get_loc('rank_1')].values[0]
+				rank_2 = group_info.iloc[:, df_request.columns.get_loc('rank_2')].values[0]
+				rank_3 = group_info.iloc[:, df_request.columns.get_loc('rank_3')].values[0]
+				rank_4 = group_info.iloc[:, df_request.columns.get_loc('rank_4')].values[0]
+				rank_5 = group_info.iloc[:, df_request.columns.get_loc('rank_5')].values[0]
+				# if conflict --> conflict can just be a try/except thing
+				# cant do times from 23-1
+				# remove times from list
+
+				# pick a random day 
+				random.shuffle(days_of_week)
+				day = days_of_week[0]
+				studio = rank_1
+				times_to_pick_from = [i for i in avail[day][studio] if (i>0 and ((i+1) in avail[day][studio]))]
+				if (sum(times_to_pick_from) == 0): 
+					studio = rank_2
+					times_to_pick_from = [i for i in avail[day][studio] if (i>0 and ((i+1) in avail[day][studio]))]
+				elif (sum(times_to_pick_from) == 0): 
+					studio = rank_3
+					times_to_pick_from = [i for i in avail[day][studio] if (i>0 and ((i+1) in avail[day][studio]))]
+				elif (sum(times_to_pick_from) == 0): 
+					studio = rank_4
+					times_to_pick_from = [i for i in avail[day][studio] if (i>0 and ((i+1) in avail[day][studio]))]
+				elif (sum(times_to_pick_from) == 0): 
+					studio = rank_5
+					times_to_pick_from = [i for i in avail[day][studio] if (i>0 and ((i+1) in avail[day][studio]))]
+				elif (sum(times_to_pick_from) == 0):
+					for free_studio in avail[day]:
+						if sum(avail[day][free_studio]) > 0:
+							studio = free_studio
+				start_time = times_to_pick_from[0]
+				(avail[day][studio]).remove(int(start_time))
+				(avail[day][studio]).remove(int(start_time)+1)
+				
+				group_results = pd.DataFrame(data={'Name': [group], 
+													'Studio': [studio], 
+													'Day': [day], 
+													'Start_Time': [int(start_time)], 
+													'End_Time': [int(start_time)+1]})
+				df_results = pd.concat([group_results, df_results], ignore_index=True, sort=False)   
+				reho_count[group]-= 1
+
+	studioList = dict(zip(dance_studios, list(range(0,9))))
+	daysList = dict(zip(days_of_week, range(0,7)))
+	
+	for i, space in df_results.iterrows():
+		book = Booking(studio_id=studioList[space['Studio']],
+				company_id=0, 
+				company_name=space['Name'],
+				start_time=space['Start_Time'], 
+				end_time=space['End_Time'],
+				week_day=daysList[space['Day']],
+				booking_date=datetime.datetime.today())
+		book.save()
+
+	return redirect('/')
 

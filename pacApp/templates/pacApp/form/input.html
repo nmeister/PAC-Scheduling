@@ -50,4 +50,19 @@ Results of DB:
 		<li class="list-group-item">{{item.name}}{{item.company_day_1}}{{item.company_start_time_1}}{{item.company_end_time_1}}</li>
 		{% endfor %}
 	</ul>
+<br>
+<br>
+<br>
+
+<form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off">
+	{% csrf_token %}
+<div class="input-group-append text-info">
+	<span class="input-grou-text bg-white py-0">
+		<button type="submit" style="height: 100px; width: 250px" class="btn btn-sm text-info">
+			Schedule All Groups
+		</button>
+	</span>
+</div>
+</form>
+
 

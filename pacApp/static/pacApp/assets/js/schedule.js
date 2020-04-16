@@ -182,12 +182,18 @@ function booking(studio,day,hour,id) {
 }
 
  function handleResponse(day) {  // get the response and show that in inner html 
- 	window.location.reload();
- 	// document.getElementById("schedule").load();
+ 	console.log('before parse');
+ 	// var data = parse();
+    // schedule(data);
+ 	// document.getElementById("scheduleOnHome").load();
  	console.log('success after booking');
  	// console.log(day);
- 	let id = "d" + day;
+ 	
  	// console.log(id)
+ 	let id = "d" + day;
+ 	var days = ['sun','mon','tue','wed','thu','fri','sat'];
+ 	openDay(days[day],id);
+ 	
  }
 
 function sendbook(id) {
