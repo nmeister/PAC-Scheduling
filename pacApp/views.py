@@ -104,6 +104,7 @@ def insert_ad_request(request: HttpResponse):
 		company_studio_3 = request.POST.get('company_studio_3'),
 		num_reho = request.POST['num_reho'],
 		company_size = request.POST['num_members'],
+		rank_1 = request.POST.get('rank1s'),
 		rank_2 = request.POST.get('rank2s'), 
 		rank_3 = request.POST.get('rank3s'),
 		rank_4 = request.POST.get('rank4s'),
