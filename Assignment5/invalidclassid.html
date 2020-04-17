@@ -1,0 +1,13 @@
+<!-- error handling for invalid class --> 
+
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <hr>
+    {% if error == "NaN" %}
+    	<p>given classid is not a number. classid should be an integer value</p>
+    {% else %}
+		<p>invalid classid. please enter a valid classid</p>
+	{% endif %}
+	{% include 'footer.html' %}
+</html>

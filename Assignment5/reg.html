@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+        {% include 'header.html' %}
+        <h2>Class Search</h2>
+        <hr>
+        <div id ="results"> 
+      	{% include 'form.html' %}
+        </div>
+        {% include 'footer.html' %}
+    
+    	 <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script> 
+
+		 function setup() 
+		 {  // on input event, handle and calls getResults
+		 	// $('#dept').focus();
+		 	$('#dept').on('input', getResults);
+		  	// $('#stuff').change(getResults);
+		    // $('#dept').change(getResults);
+		    // console.log('change')
+		   // console.log($('#dept').val());
+
+		    $('#num').on('input', getResults); 
+
+		    $('#area').on('input', getResults); 
+
+			$('#title').on('input', getResults); 
+		}
+		         
+		function handleResponse(response) 
+		{  // get the response and show that in inner html 
+		    $('#results').html(response);
+		}
+		    
+		let request = null;
+		         
+		function getResults(id)
+		{  // makes it easy to get the value   
+			$(id).focus();
+		    let dept= encodeURIComponent($('#dept').val());
+		    let num= encodeURIComponent($('#num').val());
+		    let area= encodeURIComponent($('#area').val());
+		    let title= encodeURIComponent($('#title').val());
+		    let url = '/results?dept=' + dept + '&num=' + num + '&area=' + area + '&title=' + title;
+		    if (request != null)
+		        request.abort(); 
+		   	// ajax request 
+		    request = $.ajax(
+		    {
+		        type: "GET",
+		        url: url,
+		        success: handleResponse
+		   	}
+		   	);
+		}
+		$('document').ready(setup);
+		</script>
+
+ </body>
+
+
+
+</html>

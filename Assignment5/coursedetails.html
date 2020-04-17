@@ -1,0 +1,17 @@
+<h2>Course Details (course id {{details.getCourseId()}})</h2>
+{%	for dn in details.getDeptnum() %}
+	<strong>Dept and Number: </strong>{{dn}}
+	<br>
+{% endfor %}
+<strong>Area: </strong>{{details.getArea()}}
+<br>
+<strong>Title: </strong>{{details.getTitle()}}
+<br>
+<strong>Description: </strong>{{details.getDescrip()}}
+<br>
+<strong>Prerequisites: </strong>{{details.getPreq()}}
+<br>
+{%	for p in details.getProf() %}
+	<strong>Professor: </strong>{{p}}
+	<br>
+{% endfor %}

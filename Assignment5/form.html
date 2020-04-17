@@ -1,0 +1,52 @@
+
+<form action="reg" method="GET" id="stuff">
+    <table style= "width:1%">
+     <tr>
+        <th style = "text-align:right">Dept: </th>
+        <th><input type="text" id="dept" oninput="getResults('#dept')" value ="{{query[0]}}"></th>
+    </tr>
+    <tr>
+        <th style = "text-align:right">Number: </th>
+        <th><input type="text" id="num" oninput="getResults('#num')" value ="{{query[1]}}"></th>
+    </tr>
+    <tr>
+        <th style = "text-align:right">Area: </th>
+        <th><input type="text" id="area" oninput="getResults('#area')" value ="{{query[2]}}"></th>
+    </tr>
+    <tr>
+        <th style = "text-align:right">Title: </th>
+        <!-- need to have " " to capture the entire string --> 
+        <!-- w/o quotes around curly brackets it would be independent not independent study --> 
+        <th><input type="text" id="title" oninput="getResults('#title')" value ="{{query[3]}}"></th>
+    </tr>
+
+    <tr>
+    </table>
+</form>
+<hr>
+ <table>
+            <tr>
+                <th style = "font-weight: bold">ClassId</th>
+                <th style = "font-weight: bold">Dept</th>
+                <th style = "font-weight: bold">Num</th>
+                <th style = "font-weight: bold">Area</th>
+                <th style = "font-weight: bold">Title</th>
+            </tr>
+           
+            {%  for course in courses: %}
+            <tr>
+                <th>
+                    <!-- opening up a secondary page --> 
+                    <a method="get" href="{{ url_for('regdetail', classid=course.getClassId()) }}" 
+                    target="_blank" id = "{{course.getClassId()}}">{{course.getClassId()}}</a>
+                </th>
+                <th>{{course.getDept()}}</th>
+                <th>{{course.getNum()}}</th>
+                <th>{{course.getArea()}}</th>
+                <th>{{course.getTitle()}}</th>
+            </tr>
+            {%  endfor %}
+       
+</table>
+
+

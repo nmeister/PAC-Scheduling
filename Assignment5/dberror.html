@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <hr>
+    {% if error == "corrupt" %}
+    	<p> database corrupt </p>
+    {% else %}
+		<p> database req.sqlite not found</p>
+	{% endif %}
+	{% include 'footer.html' %}
+</html>
