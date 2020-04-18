@@ -1,26 +1,43 @@
 <!-- setting up tabs for the different days --> 
-<div class="tab">
-
+<div id="daystab" class="tab">
 <!-- data-date is a data field with name date retrieve using .data(key) --> 
-<div class="tablinks" id="d0" data-date="" onclick="openDay('sun', this.id)">Sunday</div>
-<div class="tablinks" id="d1" data-date="" onclick="openDay('mon', this.id)">Monday</div>
-<div class="tablinks" id="d2" data-date="" onclick="openDay('tue', this.id)">Tuesday</div>
-<div class="tablinks" id="d3" data-date="" onclick="openDay('wed', this.id)">Wednesday</div>
-<div class="tablinks" id="d4" data-date="" onclick="openDay('thu', this.id)">Thursday</div>
-<div class="tablinks" id="d5" data-date="" onclick="openDay('fri', this.id)">Friday</div>
-<div class="tablinks" id="d6" data-date="" onclick="openDay('sat', this.id)">Saturday</div>
-<div class="tablinks" class="dayselector">
-	<input type="date" data-week="" autocomplete="on" id="curr" onchange="setupWeek(true)"></input>
+  <div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)">Sunday</div>
+  <div class="tablinks" id="d1" data-date="{{mon}}" onclick="openDay('mon', this.id)">Monday</div>
+  <div class="tablinks" id="d2" data-date="{{tue}}" onclick="openDay('tue', this.id)">Tuesday</div>
+  <div class="tablinks" id="d3" data-date="{{wed}}" onclick="openDay('wed', this.id)">Wednesday</div>
+  <div class="tablinks" id="d4" data-date="{{thu}}" onclick="openDay('thu', this.id)">Thursday</div>
+  <div class="tablinks" id="d5" data-date="{{fri}}" onclick="openDay('fri', this.id)">Friday</div>
+  <div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)">Saturday</div>
+  <div class="tablinks"><input type="date" autocomplete="on" id="curr"></div>
 </div>
-<!-- <div class="tablinks" class='book' id="book" onclick="futurebooks()" style="float:right;background-color:#723875;color:white">Book</div> --> 
-</div>
+<!-- <script>
+  function setTabs() {
+	var w = [
+    {% for d in week %}
+        {
+         year:"{{d|date:'Y'}}",
+         month:"{{d|date:'n'}}",
+         date: "{{d|date:'d'}}",
+         day: "{{d|date:'D'}}",
+         dateObj: new Date(parseInt("{{d|date:'Y'}}"), parseInt("{{d|date:'n'}}") - 1,parseInt("{{d|date:'d'}}")),
+        },
+    {% endfor %}
+   ];
 
-<!-- setting up the tab content calendar to be show for each day --> 
-<div class="tabcontent" id="sun">{% include 'templates/pacApp/tableElements/sunday.html'%}</div>
-<div class="tabcontent" id="mon">{% include 'templates/pacApp/tableElements/monday.html'%}</div>
-<div class="tabcontent" id="tue">{% include 'templates/pacApp/tableElements/tuesday.html'%}</div>
-<div class="tabcontent" id="wed">{% include 'templates/pacApp/tableElements/wednesday.html'%}</div>
-<div class="tabcontent" id="thu">{% include 'templates/pacApp/tableElements/thursday.html'%}</div>
-<div class="tabcontent" id="fri">{% include 'templates/pacApp/tableElements/friday.html'%}</div>
-<div class="tabcontent" id="sat">{% include 'templates/pacApp/tableElements/saturday.html'%}</div>
+   w.forEach(matchweekdates);
 
+
+   function matchweekdates(item,index) {
+   		var weekds = {'Sun':0, 'Mon':1, 'Tue':2, 'Wed':3, 'Thu':4, 'Fri':5, 'Sat':6};
+   		var day = weekds[item.day];
+   		// console.log(day)
+   		var id = '#d' + day;
+   		$(id).data('date', item.dateObj);
+   		console.log($(id).data('date'));
+   }
+   console.log('success')
+	}
+
+ // $('#daystab').ready(setTabs);
+
+</script> --> 

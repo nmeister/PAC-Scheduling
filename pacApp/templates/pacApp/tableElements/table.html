@@ -1,0 +1,177 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<div id="schedule">
+<!-- setting up the tab content calendar to be show for each day --> 
+<div class="tabcontent" id="sun">{% include 'templates/pacApp/tableElements/sunday.html'%}</div>
+<div class="tabcontent" id="mon">{% include 'templates/pacApp/tableElements/monday.html'%}</div>
+<div class="tabcontent" id="tue">{% include 'templates/pacApp/tableElements/tuesday.html'%}</div>
+<div class="tabcontent" id="wed">{% include 'templates/pacApp/tableElements/wednesday.html'%}</div>
+<div class="tabcontent" id="thu">{% include 'templates/pacApp/tableElements/thursday.html'%}</div>
+<div class="tabcontent" id="fri">{% include 'templates/pacApp/tableElements/friday.html'%}</div>
+<div class="tabcontent" id="sat">{% include 'templates/pacApp/tableElements/saturday.html'%}</div>
+</div>
+
+<!-- for setting up the data initially --> 
+<script type="text/javascript">
+   // for each booking in wilcox, we make it a object here
+   // each object will also be within this list 
+   
+    var wilcox = [
+    // we passed in a context argument which is a list containing
+    // an element called 'Wilcox'
+    // Wilcox value is a list of bookings 
+    {% for booking in Wilcox %}
+        { // for each of the booking, create a new object booking with such fields
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"wilcox",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+    var bloomberg = [
+    {% for booking in Bloomberg %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"bloomberg",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+  var dilliondance = [
+    {% for booking in DillionDance %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dilliondance",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+  console.log(dilliondance);
+   var dillionmpr = [
+    {% for booking in DillionMPR %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillionmpr",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+   var roberts = [
+    {% for booking in Roberts %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"roberts",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+   console.log(roberts);
+   var murphy = [
+    {% for booking in Murphy %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"murphy",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+    var ns = [
+    {% for booking in NewSouth %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ns",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+    var forbes = [
+    {% for booking in Forbes %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"forbes",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+    var ellie = [
+    {% for booking in Ellie %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ellie",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+
+   // for each of the studio we call function called createBooking
+   wilcox.forEach(createBooking);
+   bloomberg.forEach(createBooking);
+   dilliondance.forEach(createBooking);
+   dillionmpr.forEach(createBooking);
+   roberts.forEach(createBooking);
+   murphy.forEach(createBooking);
+   ns.forEach(createBooking);
+   forbes.forEach(createBooking);
+   ellie.forEach(createBooking);
+
+   // here is the function createBooking defined 
+   function createBooking(item, index) {
+
+      for (let i = item.start_time; i != item.end_time; i++) {
+         // ex. wilcox5
+         // console.log(item.studio)
+         // creating a specified id that we already had in place 
+         let col = '#' + String(item.studio + i + item.week_day);
+
+         // console.log(col)
+         // for that element with particular id, add a class called test 
+         let group = item.company_name;
+         $(col).addClass('helen');
+         $(col).addClass(group);
+         $(col).html(item.company_name);
+         // don't allow it to be bookable 
+         $(col).attr('onclick','');
+      }  
+   }
+
+    var weekday = parseInt("{{weekday}}");
+    // console.log(weekday);
+    var current = "{{currentdate}}";
+    var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
+    openDay(daysofweek[weekday], 'd'+weekday);
+
+   </script>

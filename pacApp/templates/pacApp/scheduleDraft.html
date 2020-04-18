@@ -1,0 +1,46 @@
+<script>
+
+      function sendbook(id) {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        var info = id.split('.');
+        
+        // parse the studio and the after numbers
+        var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
+        // what day is the booking occuring on 
+        var day = Math.trunc(studioNum[1] % 10); 
+        // start time of booking
+        var hour = Math.trunc(studioNum[1] / 10);
+        // gets name of the person who wants to book it 
+        var name = document.getElementById('username').value;
+        var date = info[1];
+        console.log($('#curr').val());
+        var currweek = $('#curr').val()
+        // var date = info[1].replace('-', '/');
+        // date = date.replace('-', '/');
+        // console.log(date);
+        // request made to create booking 
+        let url = 'update';
+        request = $.ajax(
+                   {
+                      type: "GET",
+                      url: url,
+                      data: {'studio': studioNum[0], // studio name 
+                          'date': date, // in the form of yyyy/mm/dd
+                          'starttime': hour, // int start time 
+                          'endtime': hour+1, 
+                          'day': day, // day of the week 
+                          'name': name, // name of person who is booking
+                          'newdate': currweek, 
+                      },
+                      success: handleresponse,
+                   }
+                );
+     }
+
+  </script>
+
+
+<!-- </div> -->
+  <!--</div>
+ </html>-->

@@ -11,4 +11,5 @@ urlpatterns = [
     path('scheduling_alg/', views.scheduling_alg, name='scheduling_alg'),
     path('adminForm', views.adminForm, name='adminForm'),
     path('create_booking', views.create_booking, name='create_booking'),
+    path('update', views.update, name='update'),
 ]

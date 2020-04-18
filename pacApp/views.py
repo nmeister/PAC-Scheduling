@@ -17,20 +17,18 @@ import random
 
 # Create your views here.
 # our home page 
-def homepage(request):
-	#return HttpResponse("Hello, World")
-	# create bookings
-	if request.GET.get('newdate') == None:
-		startdate = date.today()
-		endweek = startdate + timedelta(days=6)
-	else: 
-		retdate = request.GET.get('newdate').split('-')
-		# print(retdate)
-		startdate = datetime.date(int(retdate[0]),int(retdate[1]),int(retdate[2]))
-		endweek = startdate + timedelta(days=6)
-		
-	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts': 4, 'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
+
+def createContext(startdate, endweek, newdate):
+	week = {}
+	for i in range(7):
+		# week.append((startdate + timedelta(days=i)).strftime('%Y-%m-%d-%w'))
+		week[(startdate + timedelta(days=i)).strftime('%w')] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d-%w')
+	print(week)
+
+	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts': 4, 'murphy':5, 
+	'ns': 6, 'forbes': 7, 'ellie': 8}
 	# filter by date range, but not sure where the date should be coming from 
+	# creating context for each day of the week plus the data 
 	context = {'Wilcox': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, endweek]),
 			   'Bloomberg': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, endweek]),
 			   'DillionDance': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, endweek]),
@@ -39,56 +37,62 @@ def homepage(request):
 			   'Murphy': Booking.objects.filter(studio_id=5).filter(booking_date__range=[startdate, endweek]),
 			   'NewSouth': Booking.objects.filter(studio_id=6).filter(booking_date__range=[startdate, endweek]), 
 			   'Forbes': Booking.objects.filter(studio_id=7).filter(booking_date__range=[startdate, endweek]),
-			   'Ellie': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, endweek])}
+			   'Ellie': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, endweek]), 
+			   'newdate': newdate, 'weekday': int(startdate.strftime('%w')), 'sun': week['0'], 
+			   'mon': week['1'], 'tue': week['2'], 'wed': week['3'], 
+			   'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
+	return context
 
+# rendering the home page with today's date 
+def homepage(request):
+	startdate = date.today()
+	endweek = startdate + timedelta(days=6)
+	context = createContext(startdate, endweek, startdate)
+	context['currentdate'] = startdate.strftime('%Y-%m-%d')
 	return render(request, "templates/pacApp/home.html", context)
+
 # displays the calendar schedule
-
 def schedule(request):
-	studioList = {'wilcox':0,
-	'bloomberg':1, 
-	'dilliondance':2,
-	'dillionmpr': 3,
-	'roberts':4,
-	'murphy':5,
-	'ns': 6,
-	'forbes': 7,
-	'ellie': 8}
-
-	#Return the day of the week as an integer, where Monday is 0 and Sunday is 6.
-	weekday = datetime.datetime.today().weekday()
-
-
-	context = {'Wilcox': Booking.objects.filter(studio_id=0),
-			   'Bloomberg': Booking.objects.filter(studio_id=1),
-			   'DillionDance': Booking.objects.filter(studio_id=2),
-			   'DillionMPR': Booking.objects.filter(studio_id=3),
-			   'Roberts': Booking.objects.filter(studio_id=4),
-			   'Murphy': Booking.objects.filter(studio_id=5),
-			   'NewSouth': Booking.objects.filter(studio_id=6), 
-			   'Forbes': Booking.objects.filter(studio_id=7),
-			   'Ellie': Booking.objects.filter(studio_id=8),
-			   'Weekday' : weekday}
+	# render with today's date 
+	startdate = date.today()
+	endweek = startdate + timedelta(days=6)
+	context = createContext(startdate, endweek, startdate)
+	context['currentdate'] = startdate.strftime('%Y-%m-%d')
 	return render(request, "templates/pacApp/schedule.html",context)
 
-def create_booking(request:HttpResponse):
-
-	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts':4, 
-	'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
-	if request.is_ajax and request.method == "GET":
-		date = (request.GET.get('date')).split('-')
+def create_booking(date, studio, name, starttime, endtime, day):
+	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts': 4, 'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
+	date = date.split('-')
 		# print('received date is' + date)
-		book = Booking(studio_id=studioList[(request.GET.get('studio'))],
-				company_id=0, 
-				company_name=request.GET.get('name'),
-				start_time=(request.GET.get('starttime')), 
-				end_time=(request.GET.get('endtime')),
-				week_day=(request.GET.get('day')),
-				booking_date=(datetime.date(int(date[0]),int(date[1]),int(date[2]))))
-		# print('booked date is ' + book.booking_date) 
+	book = Booking(studio_id=studioList[studio],
+			company_id=0, 
+			company_name=name,
+			start_time=starttime, 
+			end_time=endtime,
+			week_day=day,
+			booking_date=(datetime.date(int(date[0]),int(date[1]),int(date[2]))))
+		# print('booked date is ' + book.booking_date) 	
+	book.save()
+	return book.week_day
 
-		book.save()
-	return redirect('/')
+
+
+def update(request:HttpResponse):
+	# if there is a booking involved
+	weekday = None
+	if (request.GET.get('studio') != None):
+		weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), request.GET.get('name'), request.GET.get('starttime'),
+			request.GET.get('endtime'), request.GET.get('day'))
+	retdate = request.GET.get('newdate').split('-')
+	startdate = datetime.date(int(retdate[0]),int(retdate[1]),int(retdate[2]))
+	endweek = startdate + timedelta(days=6)
+	newdate = request.GET.get('newdate')
+
+	context = createContext(startdate, endweek, newdate)
+	if weekday != None:
+		context['weekday'] = weekday
+	return render(request, "templates/pacApp/tableElements/table.html", context)
+
 
 def insert_space_item(request: HttpResponse):
 	return redirect('/schedule')

@@ -15,14 +15,73 @@ function openDay(tab, id) {
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
-  // console.log('#' + id);
-  // console.log($('#' + id).data('date'));
+
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(tab).style.display = "block";
   document.getElementById(id).className += " active";
-  // $(id).addClass(" active");
-  // evt.currentTarget.className += " active";
+
 }
+
+function handleresponse(response) 
+{
+    $('#schedule').html(response);
+
+}
+
+function setupWeek()
+	// date = yyyy-mm-dd
+	{	
+    // in prepation for the today tab - if it is on the current day, has this feature 
+        console.log('in setupweek');
+
+		 var curr = $('#curr').val();
+          let url = 'update';
+          request = $.ajax(
+               {
+                  type: "GET",
+                  url: url,
+                  data: {'newdate': curr},
+                  success: handleresponse,
+               }
+            );
+          }
+
+
+function sendbook(id) {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        var info = id.split('.');
+        
+        // parse the studio and the after numbers
+        var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
+        // what day is the booking occuring on 
+        var day = Math.trunc(studioNum[1] % 10); 
+        // start time of booking
+        var hour = Math.trunc(studioNum[1] / 10);
+        // gets name of the person who wants to book it 
+        var name = document.getElementById('username').value;
+        var date = info[1];
+        console.log($('#curr').val());
+        var currweek = $('#curr').val()
+
+        // request made for booking which updates schedule
+        let url = 'update';
+        request = $.ajax(
+                   {
+                      type: "GET",
+                      url: url,
+                      data: {'studio': studioNum[0], // studio name 
+                          'date': date, // in the form of yyyy/mm/dd
+                          'starttime': hour, // int start time 
+                          'endtime': hour+1, 
+                          'day': day, // day of the week 
+                          'name': name, // name of person who is booking
+                          'newdate': currweek, 
+                      },
+                      success: handleresponse,
+                   }
+                );
+     }
 
 
 function book(id) {
@@ -59,39 +118,6 @@ function findStudioName(studio) {
 	return studioList[studio];
 }
 
-// upon clicking on the BOOK button will make a future booking 
-/* function futurebooks() {
-	console.log('future booking');
-	var futureinput = document.getElementById("future");
-	var modal = document.getElementById("myModal");
-	var regConfirm = document.getElementById("confirm");
-	var futureConfirm = document.getElementById("futureConfirm");
-
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
-	modal.style.display = "block";
-	regConfirm.style.display = "none";
-	futureinput.style.display = "block";
-	futureConfirm.style.display = "block";
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	  modal.style.display = "none";
-	  futureinput.style.display = "none";
-	  futureConfirm.style.display = "none";
-	  regConfirm.style.display = "block";
-	}
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	  if (event.target == modal) {
-	    modal.style.display = "none";
-	    futureinput.style.display = "none";
-	    futureConfirm.style.display = "none";
-	    regConfirm.style.display = "block";
-	  }
-	}
-} */ 
 
 // date is built as yyyy-mm-dd
 function buildDate(date) {
@@ -106,6 +132,21 @@ function buildDate(date) {
     let year = date.getFullYear(); 
     return year + '-' + month + '-' + day; 
 }
+
+
+// for getting the week number of a given date 
+Date.prototype.getWeekNumber = function() { 
+  var oneJan = new Date(this.getFullYear(), 0, 1); 
+  
+ // calculating number of days  
+ //in given year before given date 
+  
+  var numberOfDays = Math.floor((this - oneJan) / (24 * 60 * 60 * 1000)); 
+  // adding 1 since this.getDay() 
+  //returns value starting from 0 
+  
+  return Math.ceil((this.getDay() + 1 + numberOfDays) / 7); 
+} 
 
 
 function booking(studio,day,hour,id) {
@@ -150,25 +191,17 @@ function booking(studio,day,hour,id) {
 		zoneEnd = 'AM';
 	}
 	bookstarttime.innerHTML = 'Time: ' + starttime + zoneStart + '-' + endtime + zoneEnd;
-	// var dayofweek = document.getElementById('dayofweek');
+	// vardayofweek = document.getElementById('dayofweek');
 	// dayofweek.innerHTML = getDayWeek(day);
-	// console.log($('#d'+day).data('date'));
-	var date = $('#d'+day).data('date');
-	/* var date = new Date();
-	// console.log(date);
-	if (day >= date.getDay()) {
-		currdate = date.getDate();
-		date.setDate(currdate + (day - date.getDay()));
-		console.log(date);
-	}
-	else {
-		currdate = date.getDate();
-		date.setDate(currdate + (7 - date.getDay()) + day);
-		console.log(date);
-	}
+	
+	// console.log(daysofweek[day])
+	var content = '#content' + day;
+	console.log($(content).data('date'));
+	var dateArr = $(content).data('date').split('-');
+	var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
+
 	var bookdate = document.getElementById('bookdate');
-	bookdate.innerHTML = "Booked Day: " + date.toDateString(); */ 
-	var bookdate = document.getElementById('bookdate');
+	// console.log(date)
 	bookdate.innerHTML = "Booked Day: " + date.toDateString();
 
 	var confirm = document.getElementById("confirm");
@@ -177,56 +210,6 @@ function booking(studio,day,hour,id) {
 	confirm.value += '.';
 	// dilliondance203.2020-04-15
 	confirm.value += buildDate(date);
-	
-	
-}
-
- function handleResponse(day) {  // get the response and show that in inner html 
- 	console.log('before parse');
- 	// var data = parse();
-    // schedule(data);
- 	// document.getElementById("scheduleOnHome").load();
- 	console.log('success after booking');
- 	// console.log(day);
- 	
- 	// console.log(id)
- 	let id = "d" + day;
- 	var days = ['sun','mon','tue','wed','thu','fri','sat'];
- 	openDay(days[day],id);
- 	
- }
-
-function sendbook(id) {
-	var modal = document.getElementById("myModal");
-	modal.style.display = "none";
-	var info = id.split('.');
-	let url = 'create_booking';
-	// parse the studio and the after numbers
-	var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
-	// what day is the booking occuring on 
-	var day = Math.trunc(studioNum[1] % 10); 
-	// start time of booking
-	var hour = Math.trunc(studioNum[1] / 10);
-	// gets name of the person who wants to book it 
-	var name = document.getElementById('username').value;
-	var date = info[1];
-	// var date = info[1].replace('-', '/');
-	// date = date.replace('-', '/');
-	// console.log(date);
-	// request made to create booking 
-	request = $.ajax(
-               {
-                  type: "GET",
-                  url: url,
-                  data: {'studio': studioNum[0], // studio name 
-                  		'date': date, // in the form of yyyy/mm/dd
-                  		'starttime': hour, // int start time 
-                  		'endtime': hour+1, 
-                  		'day': day, // day of the week 
-                  		'name': name, // name of person who is booking 
-              		},
-                  success: handleResponse(day),
-               }
-            );
+	console.log(confirm.value)
 	
 }

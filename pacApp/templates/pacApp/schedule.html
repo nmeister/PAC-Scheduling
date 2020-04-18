@@ -1,18 +1,23 @@
-<!--<!DOCTYPE html>
- <html>
-   <div>
-      <title>PrincetonDance.com</title>
-      <link rel="stylesheet" href="/static/pacApp/assets/css/schedule.css">
-      <link rel="stylesheet" href="static/pacApp/assets/css/table.css" />
-      <link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
-      <script src="/static/pacApp/assets/js/input.js"></script> 
-      <script src="/static/pacApp/assets/js/schedule.js"></script> 
-      </div> -->
-   <div id="schedule">
+<!DOCTYPE html>
+<html>
+<head> 
+	<title> Schedule </title>
+	<link rel="stylesheet" href="/static/pacApp/assets/css/schedule.css">
+	<link rel="stylesheet" href="static/pacApp/assets/css/table.css" />
+	<link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
+	<script src="/static/pacApp/assets/js/input.js"></script> 
+	<script src="/static/pacApp/assets/js/schedule.js"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+	{% include 'templates/pacApp/tableElements/daystab.html' %}
+	{% include 'templates/pacApp/tableElements/table.html' %}
+	  <!-- the pop up modal --> 
     <div>
       <!-- tabs for all of the days of the week --> 
-      {% include 'templates/pacApp/tableElements/daystab.html' %}
-      
 
       <div id="myModal" class="modal">
         <!-- Modal content -->
@@ -23,53 +28,30 @@
       </div>
 
    </div>
-   
-   <!-- importing jquery library --> 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-   <script type="text/javascript">
-   // for each booking in wilcox, we make it a object here
-   // each object will also be within this list 
-   function schedule(data) {
+</body>
+<script> 
+// very initial set up of the document, we use today's date to set up active tab 
+function activateDay()
+  {  
+     var weekday = parseInt("{{weekday}}");
+     var current = "{{currentdate}}";
+     console.log(current);
+      // $('#currweek').val(weekValue);
+      // sets the value for the date picker default 
+      $('#curr').val(current);
+      // set a field called data-week to be the week number 
+      $('#curr').on('change', setupWeek);
+      // to retrieve that data value use .data('nameofdata')
+      // console.log($('#curr').data('week'));
+      var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
+      openDay(daysofweek[weekday], 'd'+weekday);
+      // sets up the week initially 
+  }
+ 	// this sets things up initially for the first case
+ 	$('document').ready(activateDay);
 
-   // prints - just for testing 
-   //console.log(wilcox);
-   //console.log(bloomberg);
-  
-   // for each of the studio we call function called createBooking
-   data['wilcox'].forEach(createBooking);
-   data['bloomberg'].forEach(createBooking);
-   data['dilliondance'].forEach(createBooking);
-   data['dillionmpr'].forEach(createBooking);
-   data['roberts'].forEach(createBooking);
-   data['murphy'].forEach(createBooking);
-   data['ns'].forEach(createBooking);
-   data['forbes'].forEach(createBooking);
-   data['ellie'].forEach(createBooking);
- }
-   // here is the function createBooking defined 
-   function createBooking(item, index) {
-
-      for (let i = item.start_time; i != item.end_time; i++) {
-         // ex. wilcox5
-         // console.log(item.studio)
-         // creating a specified id that we already had in place 
-         let col = '#' + String(item.studio + i + item.week_day);
-
-         // console.log(col)
-         // for that element with particular id, add a class called test 
-         let group = item.company_name;
-         $(col).addClass('helen');
-         $(col).addClass(group);
-         $(col).html(item.company_name);
-         // don't allow it to be bookable 
-         $(col).attr('onclick','');
-      }  
-   }
+</script>
 
 
-   </script>
-
-</div>
-  <!--</div>
- </html>-->
+</html>
