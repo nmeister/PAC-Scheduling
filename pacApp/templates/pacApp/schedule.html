@@ -36,8 +36,8 @@ function activateDay()
   {  
      var weekday = parseInt("{{weekday}}");
      var current = "{{currentdate}}";
+     $('#d'+weekday).addClass('today');
      console.log(current);
-      // $('#currweek').val(weekValue);
       // sets the value for the date picker default 
       $('#curr').val(current);
       // set a field called data-week to be the week number 

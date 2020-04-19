@@ -21,7 +21,7 @@ def createContext(startdate, endweek, newdate):
 	week = {}
 	for i in range(7):
 		# week.append((startdate + timedelta(days=i)).strftime('%Y-%m-%d-%w'))
-		week[(startdate + timedelta(days=i)).strftime('%w')] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d-%w')
+		week[(startdate + timedelta(days=i)).strftime('%w')] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d')
 	print(week)
 
 	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts': 4, 'murphy':5, 
