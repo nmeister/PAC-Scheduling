@@ -8,7 +8,6 @@ from .models import ADRequest, Booking
 from .studio import Studio
 import datetime
 from datetime import date, timedelta
-
 import pandas as pd
 import numpy as np
 import copy
@@ -45,6 +44,7 @@ def createContext(startdate, endweek, newdate):
 
 # rendering the home page with today's date 
 def homepage(request):
+	
 	startdate = date.today()
 	print(startdate)
 	endweek = startdate + timedelta(days=6)
@@ -61,6 +61,7 @@ def schedule(request):
 	context = createContext(startdate, endweek, startdate)
 	context['currentdate'] = startdate.strftime('%Y-%m-%d')
 	context['editable'] = True
+	context['cursor'] = "pointer"
 	return render(request, "templates/pacApp/schedule.html",context)
 
 def create_booking(date, studio, name, starttime, endtime, day):

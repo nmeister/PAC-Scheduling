@@ -22,67 +22,6 @@ function openDay(tab, id) {
 
 }
 
-function handleresponse(response) 
-{
-    $('#schedule').html(response);
-
-}
-
-function setupWeek()
-	// date = yyyy-mm-dd
-	{	
-    // in prepation for the today tab - if it is on the current day, has this feature 
-        console.log('in setupweek');
-
-		 var curr = $('#curr').val();
-          let url = 'update';
-          request = $.ajax(
-               {
-                  type: "GET",
-                  url: url,
-                  data: {'newdate': curr},
-                  success: handleresponse,
-               }
-            );
-          }
-
-
-function sendbook(id) {
-        var modal = document.getElementById("myModal");
-        modal.style.display = "none";
-        var info = id.split('.');
-        
-        // parse the studio and the after numbers
-        var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
-        // what day is the booking occuring on 
-        var day = Math.trunc(studioNum[1] % 10); 
-        // start time of booking
-        var hour = Math.trunc(studioNum[1] / 10);
-        // gets name of the person who wants to book it 
-        var name = document.getElementById('username').value;
-        var date = info[1];
-        console.log($('#curr').val());
-        var currweek = $('#curr').val()
-
-        // request made for booking which updates schedule
-        let url = 'update';
-        request = $.ajax(
-                   {
-                      type: "GET",
-                      url: url,
-                      data: {'studio': studioNum[0], // studio name 
-                          'date': date, // in the form of yyyy/mm/dd
-                          'starttime': hour, // int start time 
-                          'endtime': hour+1, 
-                          'day': day, // day of the week 
-                          'name': name, // name of person who is booking
-                          'newdate': currweek, 
-                      },
-                      success: handleresponse,
-                   }
-                );
-     }
-
 function canEdit(id) {
 	var editable = $('#schedule').data('editable');
 	console.log(editable);
@@ -220,7 +159,7 @@ function booking(studio,day,hour,id) {
 
 	var bookdate = document.getElementById('bookdate');
 	// console.log(date)
-	bookdate.innerHTML = "Booked Day: " + date.toDateString();
+	bookdate.innerHTML = "Booking Day: " + date.toDateString();
 
 	var confirm = document.getElementById("confirm");
 	// should have studio[start_time][dayofweek].yyyy-mm-dd
@@ -229,5 +168,73 @@ function booking(studio,day,hour,id) {
 	// dilliondance203.2020-04-15
 	confirm.value += buildDate(date);
 	console.log(confirm.value)
-	
+}
+
+
+function handleresponse(response) 
+{
+    $('#schedule').html(response);
+    showConfirm(); 
+
+}
+
+function setupWeek()
+	// date = yyyy-mm-dd
+	{	
+    // in prepation for the today tab - if it is on the current day, has this feature 
+        console.log('in setupweek');
+
+		 var curr = $('#curr').val();
+          let url = 'update';
+          request = $.ajax(
+               {
+                  type: "GET",
+                  url: url,
+                  data: {'newdate': curr},
+                  success: handleresponse,
+               }
+            );
+    }
+
+
+function sendbook(id) {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        var info = id.split('.');
+        
+        // parse the studio and the after numbers
+        var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
+        // what day is the booking occuring on 
+        var day = Math.trunc(studioNum[1] % 10); 
+        // start time of booking
+        var hour = Math.trunc(studioNum[1] / 10);
+        // gets name of the person who wants to book it 
+        var name = document.getElementById('username').value;
+        var date = info[1];
+        console.log($('#curr').val());
+        var currweek = $('#curr').val()
+
+        // request made for booking which updates schedule
+        let url = 'update';
+        request = $.ajax(
+                   {
+                      type: "GET",
+                      url: url,
+                      data: {'studio': studioNum[0], // studio name 
+                          'date': date, // in the form of yyyy/mm/dd
+                          'starttime': hour, // int start time 
+                          'endtime': hour+1, 
+                          'day': day, // day of the week 
+                          'name': name, // name of person who is booking
+                          'newdate': currweek, 
+                      },
+                      success: handleresponse,
+                   }
+                );
+     }
+
+
+function showConfirm() {
+	console.log('has been booked!');
+
 }
