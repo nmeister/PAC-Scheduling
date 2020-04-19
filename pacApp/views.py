@@ -46,9 +46,11 @@ def createContext(startdate, endweek, newdate):
 # rendering the home page with today's date 
 def homepage(request):
 	startdate = date.today()
+	print(startdate)
 	endweek = startdate + timedelta(days=6)
 	context = createContext(startdate, endweek, startdate)
 	context['currentdate'] = startdate.strftime('%Y-%m-%d')
+	context['editable'] = False
 	return render(request, "templates/pacApp/home.html", context)
 
 # displays the calendar schedule
@@ -58,6 +60,7 @@ def schedule(request):
 	endweek = startdate + timedelta(days=6)
 	context = createContext(startdate, endweek, startdate)
 	context['currentdate'] = startdate.strftime('%Y-%m-%d')
+	context['editable'] = True
 	return render(request, "templates/pacApp/schedule.html",context)
 
 def create_booking(date, studio, name, starttime, endtime, day):

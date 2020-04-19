@@ -83,9 +83,26 @@ function sendbook(id) {
                 );
      }
 
+function canEdit(id) {
+	var editable = $('#schedule').data('editable');
+	console.log(editable);
+	if (editable == 'True') {
+		book(id);
+	}
+	else {
+		console.log('Not allowed to book on this page. Please login to book')
+		return;
+	}
+}
 
 function book(id) {
 	// console.log('booking')
+	var editable = $('#schedule').data('editable');
+	console.log(editable);
+	if (editable == 'False') {
+		console.log('here')
+		$('#' + id).on('click', '');
+	}
 	let col = id;
 	// console.log(col);
 	var studioNum= col.match(/[a-z]+|[^a-z]+/gi);
@@ -96,6 +113,7 @@ function book(id) {
 	var hour = studioNum[1] / 10;
 	// console.log(day);
 	// console.log(Math.trunc(hour));
+
 	booking(studio,day,hour,id);
 }
 
