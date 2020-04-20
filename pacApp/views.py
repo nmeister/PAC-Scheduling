@@ -20,6 +20,17 @@ import random
 # Create your views here.
 # our home page 
 
+
+def error_404(request, exception):
+        data = {}
+        return render(request,'templates/pacApp/404.html', data)
+
+def error_500(request):
+        data = {}
+        return render(request,'templates/pacApp/404.html', data)
+
+
+
 def createContext(startdate, endweek, newdate):
 	week = {}
 	for i in range(7):
