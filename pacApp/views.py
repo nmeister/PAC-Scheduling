@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 from django.template.loader import render_to_string
 from django.template.defaulttags import register
+from django.contrib import messages
 from django.conf.urls.static import static
 from . import models, studio, hours
 from .models import ADRequest, Booking
@@ -12,6 +13,9 @@ import pandas as pd
 import numpy as np
 import copy
 import random
+# import sweetify
+
+
 
 # Create your views here.
 # our home page 
@@ -23,19 +27,19 @@ def createContext(startdate, endweek, newdate):
 		week[(startdate + timedelta(days=i)).strftime('%w')] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d')
 	print(week)
 
-	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts': 4, 'murphy':5, 
-	'ns': 6, 'forbes': 7, 'ellie': 8}
+	studioList = {'bloomberg':0, 'dillondance':1, 'dillonmar':2, 'dillonmpr': 3, 'murphy': 4, 'ns':5,'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
 	# filter by date range, but not sure where the date should be coming from 
 	# creating context for each day of the week plus the data 
-	context = {'Wilcox': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, endweek]),
-			   'Bloomberg': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, endweek]),
-			   'DillionDance': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, endweek]),
-			   'DillionMPR': Booking.objects.filter(studio_id=3).filter(booking_date__range=[startdate, endweek]),
-			   'Roberts': Booking.objects.filter(studio_id=4).filter(booking_date__range=[startdate, endweek]),
-			   'Murphy': Booking.objects.filter(studio_id=5).filter(booking_date__range=[startdate, endweek]),
-			   'NewSouth': Booking.objects.filter(studio_id=6).filter(booking_date__range=[startdate, endweek]), 
-			   'Forbes': Booking.objects.filter(studio_id=7).filter(booking_date__range=[startdate, endweek]),
-			   'Ellie': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, endweek]), 
+	context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, endweek]),
+			   'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, endweek]),
+			   'DillonMAR': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, endweek]),
+			   'DillonMPR': Booking.objects.filter(studio_id=3).filter(booking_date__range=[startdate, endweek]),
+			   'Murphy': Booking.objects.filter(studio_id=4).filter(booking_date__range=[startdate, endweek]),
+			   'NewSouth': Booking.objects.filter(studio_id=5).filter(booking_date__range=[startdate, endweek]),
+			   'NSWarmup': Booking.objects.filter(studio_id=6).filter(booking_date__range=[startdate, endweek]), 
+			   'NSTheatre': Booking.objects.filter(studio_id=7).filter(booking_date__range=[startdate, endweek]),
+			   'Whitman': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, endweek]), 
+			   'Wilcox': Booking.objects.filter(studio_id=9).filter(booking_date__range=[startdate, endweek]), 
 			   'newdate': newdate, 'weekday': int(startdate.strftime('%w')), 'sun': week['0'], 
 			   'mon': week['1'], 'tue': week['2'], 'wed': week['3'], 
 			   'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
@@ -64,7 +68,7 @@ def schedule(request):
 	return render(request, "templates/pacApp/schedule.html",context)
 
 def create_booking(date, studio, name, starttime, endtime, day):
-	studioList = {'wilcox':0, 'bloomberg':1, 'dilliondance':2, 'dillionmpr': 3, 'roberts': 4, 'murphy':5, 'ns': 6, 'forbes': 7, 'ellie': 8}
+	studioList = {'bloomberg':0, 'dillondance':1, 'dillonmar':2, 'dillonmpr': 3, 'murphy': 4, 'ns':5,'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
 	date = date.split('-')
 		# print('received date is' + date)
 	book = Booking(studio_id=studioList[studio],
@@ -101,6 +105,12 @@ def insert_space_item(request: HttpResponse):
 	return redirect('/schedule')
 
 def insert_ad_request(request: HttpResponse):
+	
+	# messages.info(request, 'Your password has been changed successfully!')
+	# sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
+
+
+	'''
 	print(request.POST.get('rankone'))
 	ad_req = ADRequest(company_name = request.POST['company_name'],
 		company_day_1 = request.POST.get('company_day_1'),
@@ -123,6 +133,7 @@ def insert_ad_request(request: HttpResponse):
 		rank_4 = request.POST.get('rank4s'),
 		rank_5 = request.POST.get('rank5s'))
 	ad_req.save()
+	'''
 	return redirect('/adminForm')
 
 @register.filter
@@ -140,15 +151,7 @@ def adminForm(request):
 	#	print(item.name)
 	return render(request, "templates/pacApp/form/adminForm.html", context)
 
-
-def error_404(request, exception):
-        data = {}
-        return render(request,'templates/pacApp/404.html', data)
-
-def error_500(request):
-        data = {}
-        return render(request,'templates/pacApp/404.html', data)
-
+# code for the scheduling algorithm
 def scheduling_alg(request):
 	all_requests = ADRequest.objects.all()
 	df_request = pd.DataFrame(data=None, columns=['name', 'company_day', 'company_start_time', 'company_end_time', 'company_studio', 
@@ -165,7 +168,7 @@ def scheduling_alg(request):
 	# fill in the unavailable times for each studio
 	unavailable = {}
 
-	dance_studios = ['wilcox','bloomberg', 'dilliondance','dillionmpr','roberts','murphy','ns','forbes','ellie']
+	dance_studios = ['wilcox','bloomberg', 'dillondance','dillonmar','dillonmpr','whitman','ns','nswarmup','nstheatre']
 	days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 	groups = df_request['name']
 
@@ -296,7 +299,7 @@ def scheduling_alg(request):
 				df_results = pd.concat([group_results, df_results], ignore_index=True, sort=False)   
 				reho_count[group]-= 1
 
-	studioList = dict(zip(dance_studios, list(range(0,9))))
+	studioList = dict(zip(dance_studios, list(range(0,10))))
 	daysList = dict(zip(days_of_week, range(0,7)))
 	
 	for i, space in df_results.iterrows():
