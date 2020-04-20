@@ -53,45 +53,58 @@
     {% endfor %}
    ];
 
-  var dilliondance = [
-    {% for booking in DillionDance %}
+  var dillondance = [
+    {% for booking in DillonDance %}
         {
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
-         studio:"dilliondance",
+         studio:"dillondance",
          week_day:"{{booking.week_day}}",
          booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
-  console.log(dilliondance);
-   var dillionmpr = [
-    {% for booking in DillionMPR %}
+  console.log(dillondance);
+   var dillonmpr = [
+    {% for booking in DillonMPR %}
         {
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
-         studio:"dillionmpr",
+         studio:"dillonmpr",
          week_day:"{{booking.week_day}}",
          booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
 
-   var roberts = [
-    {% for booking in Roberts %}
+   var dillonmar = [
+    {% for booking in DillonMAR %}
         {
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
-         studio:"roberts",
+         studio:"dillonmar",
          week_day:"{{booking.week_day}}",
          booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
-   console.log(roberts);
+
+   var whitman = [
+    {% for booking in Whitman %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"whitman",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}"
+        },
+    {% endfor %}
+   ];
+   console.log(whitman);
    var murphy = [
     {% for booking in Murphy %}
         {
@@ -118,26 +131,26 @@
     {% endfor %}
    ];
 
-    var forbes = [
-    {% for booking in Forbes %}
+    var nswarmup = [
+    {% for booking in NSWarmup %}
         {
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
-         studio:"forbes",
+         studio:"nswarmup",
          week_day:"{{booking.week_day}}",
          booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
 
-    var ellie = [
-    {% for booking in Ellie %}
+    var nstheatre = [
+    {% for booking in NSTheatre %}
         {
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
-         studio:"ellie",
+         studio:"nstheatre",
          week_day:"{{booking.week_day}}",
          booking_date:"{{booking.booking_date}}"
         },
@@ -147,13 +160,14 @@
    // for each of the studio we call function called createBooking
    wilcox.forEach(createBooking);
    bloomberg.forEach(createBooking);
-   dilliondance.forEach(createBooking);
-   dillionmpr.forEach(createBooking);
-   roberts.forEach(createBooking);
+   dillondance.forEach(createBooking);
+   dillonmar.forEach(createBooking);
+   dillonmpr.forEach(createBooking);
+   whitman.forEach(createBooking);
    murphy.forEach(createBooking);
    ns.forEach(createBooking);
-   forbes.forEach(createBooking);
-   ellie.forEach(createBooking);
+   nswarmup.forEach(createBooking);
+   nstheatre.forEach(createBooking);
 
    // here is the function createBooking defined 
    function createBooking(item, index) {
