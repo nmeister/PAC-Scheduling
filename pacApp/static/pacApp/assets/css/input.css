@@ -28,7 +28,7 @@ textarea {
 }
 
 /* Style the buttons that are used to open the tab content */
-.tablinks {
+input[type="text"] .tab .tablinks {
   background-color: inherit;
   float: left;
   border: none;
@@ -44,7 +44,7 @@ textarea {
 }
 
 /* Create an active/current tablink class */
-.tab div.active {
+input[type="text"] .tab div.active {
   background-color: #ccc;
 }
 
