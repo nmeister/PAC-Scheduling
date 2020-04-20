@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404, handler500
+from pacApp import views
 
 urlpatterns = [
  	# this is just what url you will be going to for this 
@@ -25,3 +27,5 @@ urlpatterns = [
     #url('accounts/', include('uniauth.urls.cas_only', namespace='uniauth')),
 ]
 
+handler404 = views.error_404
+handler500 = views.error_500

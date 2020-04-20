@@ -1,5 +1,5 @@
 from django.urls import path
-
+from django.conf.urls import handler404, handler500
 from . import views
 
 urlpatterns = [
@@ -14,3 +14,6 @@ urlpatterns = [
     path('create_booking', views.create_booking, name='create_booking'),
     path('update', views.update, name='update'),
 ]
+
+handler404 = views.error_404
+handler500 = views.error_500

@@ -13,7 +13,6 @@ import numpy as np
 import copy
 import random
 
-
 # Create your views here.
 # our home page 
 
@@ -140,6 +139,15 @@ def adminForm(request):
 	#for item in context['all_requests']:
 	#	print(item.name)
 	return render(request, "templates/pacApp/form/adminForm.html", context)
+
+
+def error_404(request, exception):
+        data = {}
+        return render(request,'templates/pacApp/404.html', data)
+
+def error_500(request):
+        data = {}
+        return render(request,'templates/pacApp/404.html', data)
 
 def scheduling_alg(request):
 	all_requests = ADRequest.objects.all()
