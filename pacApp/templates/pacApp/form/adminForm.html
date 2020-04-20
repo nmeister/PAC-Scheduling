@@ -3,43 +3,13 @@
    <head>
       <title>PrincetonDance.com</title>
 
-       <script src="static/pacApp/assets/js/jquery.dropotron.min.js"></script>
-       <link rel="stylesheet" href="static/pacApp/assets/css/main.css" />
-        <link rel="stylesheet"  type="text/css" href="/static/pacApp/assets/css/input.css">
-        <script src="/static/pacApp/assets/js/input.js"></script>
-        <script src="static/pacApp/assets/js/main.js"></script>
-
+    	 <link rel="stylesheet"  type="text/css" href="/static/pacApp/assets/css/input.css">
+    	 <script src="/static/pacApp/assets/js/input.js"></script> 
+    	 
       </head>
-   <!-- Nav -->
-        <body class="homepage is-preload">
-		<div id="page-wrapper">
-            <div id="header">
+   <body>
+ 	{% include 'templates/pacApp/form/input.html' %}
 
-            <nav id="nav">
-                <ul>
-                    <li><a href="/homepage">Home</a></li>
-                    <li>
-                        <a href="/homepage">What's Open</a>
-                        <ul>
-                            <li><a href="/homepage#scheduleOnHome">Schedule</a></li>
-                            <li><a href="/homepage#openNow">Open Now</a></li>
-
-
-                        </ul>
-                    </li>
-                    <li><a href="accounts/login">Booking</a>
-                        <ul>
-                            <li><a href="schedule">Dancer Booking</a></li>
-                            <li><a href="adminForm">PAC Booking</a></li>
-                            <li><a href="accounts/login">CAS Login</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-                <div class="inner">
-                {% include 'templates/pacApp/form/input.html' %}
-                </div>
-            </div>
-        </div>
+	
 	</body>
 </html>

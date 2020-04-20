@@ -1,8 +1,9 @@
-
-<form action="{% url 'insert_ad_request' %}" method="POST" autocomplete="=off">
+<!-- {% load sweetify %}
+{% sweetify %} -->
+<form class="myform" method="POST" action="{% url 'insert_ad_request' %}" autocomplete="=off">
 	{% csrf_token %}
 <div style="padding:0px" class="input-group">
-Company Name: <input type="text" class="form-control" name="company_name"> <hr>
+Company Name: <input type="text" class="form-control" id="companyInput" placeholder="Enter Company Name" name="company_name"> <hr>
 
 <!-- Tab links -->
 Company Day: Input top three choices for company
@@ -32,15 +33,15 @@ Studio Rankings: Input top five choices for studios
 
 {% include 'templates/pacApp/form/rankstudiotabs.html' %}
 
-
-<div class="input-group-append text-info">
+			<div class="input-group-append text-info">
 				<span class="input-grou-text bg-white py-0">
-					<button type="submit" class="btn btn-sm text-info">
+					<button type="submit" id="submit_button" class="btn btn-sm text-info">
 						Submit
 					</button>
 				</span>
 			</div>
-	</div>
+			
+</div>
 </form>
 
 
@@ -64,4 +65,21 @@ Results of DB:
 	</span>
 </div>
 </form>
-</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--
+	<script>
+	function setup()
+	{
+		$('#submit-button').click(function(event){
+			
+			console.log("This form did not submit")
+			alert('This form did not submit');
+			event.preventDefault()
+		});
+	}
+	$(document).ready(setup);
+</script>
+-->
+
