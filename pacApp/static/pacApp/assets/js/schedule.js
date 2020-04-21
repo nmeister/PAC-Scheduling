@@ -1,6 +1,6 @@
+
 function openDay(tab, id) {
-	// console.log(tab);
-	// console.log(id);
+
   // Declare all variables
   var i, tabcontent, tablinks;
 
@@ -22,6 +22,7 @@ function openDay(tab, id) {
 
 }
 
+/* gets called when you click on a cell, checks if you can book */ 
 function canEdit(id) {
 	var editable = $('#schedule').data('editable');
 	console.log(editable);
@@ -34,33 +35,29 @@ function canEdit(id) {
 	}
 }
 
+/* called by canEdit if you are on the right page */ 
 function book(id) {
-	// console.log('booking')
+
 	var editable = $('#schedule').data('editable');
-	console.log(editable);
-	if (editable == 'False') {
-		console.log('here')
-		$('#' + id).on('click', '');
-	}
 	let col = id;
-	// console.log(col);
+
 	var studioNum= col.match(/[a-z]+|[^a-z]+/gi);
-	// console.log(studioNum[0])
-	// console.log(studioNum[1]);
+
 	var studio = studioNum[0]
 	var day = studioNum[1] % 10; 
 	var hour = studioNum[1] / 10;
-	// console.log(day);
-	// console.log(Math.trunc(hour));
+
 
 	booking(studio,day,hour,id);
 }
 
+/* matching numeric day to day of the week */ 
 function getDayWeek(day) {
 	var days = ['Sunday','Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	return days[day];
 }
 
+/* matching studio to studio formal name */ 
 function findStudioName(studio) {
 	var studioList = {'wilcox':'Wilcox',
 	'bloomberg':'Bloomberg', 
@@ -80,14 +77,16 @@ function findStudioName(studio) {
 
 // date is built as yyyy-mm-dd
 function buildDate(date) {
-	// console.log(date);
+	// gets the dd 
 	let day = date.getDate();
 	// JANUARY = 0 , FEB = 2
+	// gets mm 
     let month = date.getMonth() + 1;
-    // console.log(month)
+  
     if (month < 10) {
       	month = '0' + String(month); 
      }
+    // gets yyyy
     let year = date.getFullYear(); 
     return year + '-' + month + '-' + day; 
 }
@@ -107,11 +106,11 @@ Date.prototype.getWeekNumber = function() {
   return Math.ceil((this.getDay() + 1 + numberOfDays) / 7); 
 } 
 
-
+// gets called by book after parses the id 
 function booking(studio,day,hour,id) {
 	console.log('hello @ booking');
+	/* opens the little confirmation popup */ 
 	var modal = document.getElementById("myModal");
-
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 	modal.style.display = "block";
@@ -126,6 +125,7 @@ function booking(studio,day,hour,id) {
 	    modal.style.display = "none";
 	  }
 	}
+
 	nameStudio = findStudioName(studio);
 	var bookstudio = document.getElementById("bookstudio");
 	bookstudio.innerHTML = 'Studio: ' + nameStudio;
@@ -150,10 +150,7 @@ function booking(studio,day,hour,id) {
 		zoneEnd = 'AM';
 	}
 	bookstarttime.innerHTML = 'Time: ' + starttime + zoneStart + '-' + endtime + zoneEnd;
-	// vardayofweek = document.getElementById('dayofweek');
-	// dayofweek.innerHTML = getDayWeek(day);
 	
-	// console.log(daysofweek[day])
 	var content = '#content' + day;
 	console.log($(content).data('date'));
 	var dateArr = $(content).data('date').split('-');
@@ -172,7 +169,7 @@ function booking(studio,day,hour,id) {
 	console.log(confirm.value)
 }
 
-
+/* handles the response when need to update the database etc after booking or week change */ 
 function handleresponse(response) 
 {
     $('#schedule').html(response);
@@ -198,7 +195,7 @@ function setupWeek()
             );
     }
 
-
+/* sends the booking time to the backend */ 
 function sendbook(id) {
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
