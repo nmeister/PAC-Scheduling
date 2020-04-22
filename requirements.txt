@@ -16,3 +16,4 @@ whitenoise==5.0.1
 django-uniauth==1.2.2
 pandas==1.0.3
 numpy==1.18.2
+# sweetify==2.0.0

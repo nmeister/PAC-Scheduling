@@ -1,5 +1,4 @@
-<!-- {% load sweetify %}
-{% sweetify %} -->
+
 <form class="myform" method="POST" action="{% url 'insert_ad_request' %}" autocomplete="=off">
 	{% csrf_token %}
 <div style="padding:0px" class="input-group">
@@ -66,20 +65,20 @@ Results of DB:
 </div>
 </form>
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!--
-	<script>
+
+<script>
+	function getResponse(event) 
+	{
+		console.log("This form did not submit");
+		alert('This form did not submit');
+		event.preventDefault();
+	}
 	function setup()
 	{
-		$('#submit-button').click(function(event){
-			
-			console.log("This form did not submit")
-			alert('This form did not submit');
-			event.preventDefault()
-		});
+		$('#submit-button').click(getResponse(event));
 	}
 	$(document).ready(setup);
 </script>
--->
+
 
