@@ -10,37 +10,19 @@
   <div class="tablinks" id="d5" data-date="{{fri}}" onclick="openDay('fri', this.id)">Friday</div>
   <div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)">Saturday</div>
   <div class="tablinks"><input type="date" autocomplete="on" id="curr"></div>
-  <div class="tablinks" class="button" style="background-color:#b76e79; color:white; float:right"><a style="text-decoration-line:none;" href="homepage">Home</a></div>
+  <div class="tablinks" id="homeButton" style="background-color:#b76e79; color:white; float:right;">
+    <a style="text-decoration-line:none;" href="homepage">Home</a>
+  </div>
+
+
 </div>
 
-<!-- <script>
-  function setTabs() {
-	var w = [
-    {% for d in week %}
-        {
-         year:"{{d|date:'Y'}}",
-         month:"{{d|date:'n'}}",
-         date: "{{d|date:'d'}}",
-         day: "{{d|date:'D'}}",
-         dateObj: new Date(parseInt("{{d|date:'Y'}}"), parseInt("{{d|date:'n'}}") - 1,parseInt("{{d|date:'d'}}")),
-        },
-    {% endfor %}
-   ];
-
-   w.forEach(matchweekdates);
-
-
-   function matchweekdates(item,index) {
-   		var weekds = {'Sun':0, 'Mon':1, 'Tue':2, 'Wed':3, 'Thu':4, 'Fri':5, 'Sat':6};
-   		var day = weekds[item.day];
-   		// console.log(day)
-   		var id = '#d' + day;
-   		$(id).data('date', item.dateObj);
-   		console.log($(id).data('date'));
-   }
-   console.log('success')
-	}
-
- // $('#daystab').ready(setTabs);
-
-</script> --> 
+<script>
+  // makes the home button hidden on the home page 
+  var edit = "{{editable}}";
+  console.log(edit);
+  if (edit == 'False') {
+    console.log('is false and already on home page');
+    $('#homeButton').css('display','none');
+  }
+</script>
