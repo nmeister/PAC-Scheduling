@@ -1,0 +1,109 @@
+ 
+	<div id ="content0" class="container-table100" data-date="{{sun}}">
+		<div class="wrap-table100">
+			<div class="table100 ver1 m-b-110">
+				<table data-vertable="ver1">
+						{% include 'templates/pacApp/tableElements/weekendtimeheader.html' %}
+
+						<tbody>
+
+							<tr class="row100">
+								<td class="studio" data-column="column1">Wilcox</td>
+								{% for i in 9|get_range:25 %}
+								<!-- wilcox00 -->
+								<td id="wilcox{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="wilcox10" onclick="canEdit(this.id)"></td>
+								<!-- <td id="wilcox20" onclick="book(this.id)"></td>-->
+							</tr>
+							<tr class="row100">
+								<td class="studio" data-column="column1">Bloomberg</td>
+								{% for i in 9|get_range:25 %}
+								<td id="bloomberg{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="bloomberg10" onclick="canEdit(this.id)"></td>
+								<td id="bloomberg20" onclick="canEdit(this.id)"></td>
+				
+							</tr>
+
+							<tr class="row100">
+								<td class="studio" data-column="column1">Dillon Dance</td>
+								{% for i in 9|get_range:25 %}
+								<td id="dilliondance{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="dilliondance10" onclick="canEdit(this.id)"></td>
+								<td id="dilliondance20" onclick="canEdit(this.id)"></td>
+							
+							</tr>
+
+							<tr class="row100">
+								<td class="studio" data-column="column1">Dillon MPR</td>
+								{% for i in 9|get_range:25 %}
+								<td id="dillionmpr{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="dillionmpr10" onclick="canEdit(this.id)"></td>
+								<td id="dillionmpr20" onclick="canEdit(this.id)"></td>
+					
+							</tr>
+
+							<tr class="row100">
+								<td class="studio" data-column="column1">Roberts</td>
+								{% for i in 9|get_range:25 %}
+								<td id="roberts{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="roberts10" onclick="canEdit(this.id)"></td>
+								<td id="roberts20" onclick="canEdit(this.id)"></td>
+					
+					
+							</tr>
+
+							<tr class="row100">
+								<td class="studio" data-column="column1">Murphy</td>
+								{% for i in 9|get_range:25 %}
+								<td id="murphy{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="murphy10" onclick="canEdit(this.id)"></td>
+								<td id="murphy20" onclick="canEdit(this.id)"></td>
+					
+							</tr>
+
+							<tr class="row100">
+								<td class="studio" data-column="column1">New South</td>
+								{% for i in 9|get_range:25 %}
+								<td id="ns{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="ns10" onclick="canEdit(this.id)"></td>
+								<td id="ns20" onclick="canEdit(this.id)"></td>
+								
+							</tr>
+								
+							
+							</tr>
+
+							<tr class="row100">
+								<td class="studio" data-column="column1">Forbes Dance</td>
+								{% for i in 9|get_range:25 %}
+								<td id="forbes{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="forbes10" onclick="canEdit(this.id)"></td>
+								<td id="forbes20" onclick="canEdit(this.id)"></td>
+							
+							</tr>
+
+							<tr class="row100">
+								<td class="studio" data-column="column1">Ellie</td>
+								{% for i in 9|get_range:25 %}
+								<td id="ellie{{i}}0" onclick="canEdit(this.id)"></td>
+								{% endfor %}
+								<td id="ellie10" onclick="canEdit(this.id)"></td>
+								<td id="ellie20" onclick="canEdit(this.id)"></td>
+								
+							</tr>
+
+
+
+						</tbody>
+				</table>
+			</div>
+		</div>
+	</div>

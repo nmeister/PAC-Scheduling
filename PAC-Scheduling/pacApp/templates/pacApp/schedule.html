@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<title> Schedule </title>
+	<link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css" />
+	<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/table.css" />
+	<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css" />
+	<script type="application/javascript" src="/static/pacApp/assets/js/input.js"></script> 
+	<script type="application/javascript" src="/static/pacApp/assets/js/schedule.js"></script> 
+	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+	{% include 'templates/pacApp/tableElements/daystab.html' %}
+	{% include 'templates/pacApp/tableElements/table.html' %}
+	  <!-- the pop up modal --> 
+    <div>
+      <!-- tabs for all of the days of the week --> 
+
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            {% include 'templates/pacApp/bookForm.html' %}
+        </div>
+      </div>
+
+   </div>
+
+</body>
+<script> 
+// very initial set up of the document, we use today's date to set up active tab 
+function activateDay()
+  {  
+     var weekday = parseInt("{{weekday}}");
+     var current = "{{currentdate}}";
+     $('#d'+weekday).addClass('today');
+     console.log(current);
+      // sets the value for the date picker default 
+      $('#curr').val(current);
+      // set a field called data-week to be the week number 
+      $('#curr').on('change', setupWeek);
+      // to retrieve that data value use .data('nameofdata')
+      // console.log($('#curr').data('week'));
+      var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
+      openDay(daysofweek[weekday], 'd'+weekday);
+      // sets up the week initially 
+  }
+ 	// this sets things up initially for the first case
+ 	$('document').ready(activateDay);
+
+</script>
+
+
+</html>
