@@ -176,27 +176,46 @@ function booking(studio,day,hour,id) {
 function handleresponse(response) 
 {
     $('#schedule').html(response);
-    showConfirm(); 
-
+    // showConfirm(); 
 }
+
 
 function setupWeek()
 	// date = yyyy-mm-dd
 	{	
     // in prepation for the today tab - if it is on the current day, has this feature 
-        console.log('in setupweek');
+    	console.log('in setupweek');
+    	var groups = setGroups()
+    	if (groups.length == 0) {
+    		groups = 'None'
+    	}
+    	console.log(groups);
 
 		 var curr = $('#curr').val();
-          let url = 'update';
-          request = $.ajax(
-               {
-                  type: "GET",
-                  url: url,
-                  data: {'newdate': curr},
-                  success: handleresponse,
+         let url = 'update';
+         request = $.ajax(
+              {
+                 type: "GET",
+                 url: url,
+                 data: {'newdate': curr,
+             			'selectgroups': groups},
+                 success: handleresponse,
                }
             );
     }
+
+function setGroups() {
+	console.log('in set group');
+	var groups = ""; 
+    $("input:checkbox[name=selectGroups]:checked").each(addGroup)
+    // a function handled for each needs to be index then item 
+    function addGroup(index, item) { 
+        groups += ($(item).val()) + '-';
+     } 
+     console.log(groups);
+     return groups
+}
+
 
 
 function sendbook(id) {
@@ -235,6 +254,12 @@ function sendbook(id) {
         console.log($('#curr').val());
         var currweek = $('#curr').val()
 
+        var groups = setGroups()
+    	if (groups.length == 0) {
+    		groups = 'None'
+    	}
+    	console.log(groups);
+
         // request made for booking which updates schedule
         let url = 'update';
         request = $.ajax(
@@ -247,7 +272,8 @@ function sendbook(id) {
                           'endtime': hour+1, 
                           'day': day, // day of the week 
                           'name': user, // name of person who is booking
-                          'newdate': currweek,  
+                          'newdate': currweek, 
+                          'selectgroups': groups, 
 
                       },
                       success: handleresponse,

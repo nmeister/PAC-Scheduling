@@ -1,8 +1,7 @@
 <!-- setting up tabs for the different days --> 
 <div id="daystab" class="tab">
 <!-- data-date is a data field with name date retrieve using .data(key) --> 
-<div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)">Sunday</div>
-
+  <div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)">Sunday</div>
   <div class="tablinks" id="d1" data-date="{{mon}}" onclick="openDay('mon', this.id)">Monday</div>
   <div class="tablinks" id="d2" data-date="{{tue}}" onclick="openDay('tue', this.id)">Tuesday</div>
   <div class="tablinks" id="d3" data-date="{{wed}}" onclick="openDay('wed', this.id)">Wednesday</div>
@@ -13,7 +12,8 @@
   <div class="tablinks" id="homeButton" style="background-color:#b76e79; color:white; float:right;">
     <a style="text-decoration-line:none;" href="homepage">Home</a>
   </div>
-</div>
+  <br>
+  </div>
 
 <script>
   // makes the home button hidden on the home page 
