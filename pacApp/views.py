@@ -15,11 +15,8 @@ import copy
 import random
 # import sweetify
 
-
-
 # Create your views here.
 # our home page 
-
 
 def error_404(request, exception):
         data = {}
@@ -28,8 +25,6 @@ def error_404(request, exception):
 def error_500(request):
         data = {}
         return render(request,'templates/pacApp/404.html', data)
-
-
 
 def createContext(startdate, endweek, newdate):
 	week = {}
@@ -56,6 +51,24 @@ def createContext(startdate, endweek, newdate):
 			   'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
 	return context
 
+def carouselAvailable():
+	startdate = date.today()
+	endweek = startdate + timedelta(days=6)
+
+	#gt current time
+	#notfree = Booking.objects.filter(booking_start_time[currentime]).filter(booking_date_range=[startdate,endweek])
+	#studioList = {'wilcox': 1, 'bloomberg': 1, 'dillondance': 1, 'dillonmar': 1, 'dillonmpr': 1, 'murphy': 1, 'ns': 1, 'nswarmup': 1,
+	#			  'nstheatre': 1, 'whitman': 1}
+	# if not in the notfreee , then is available, append to a list
+	#studioList['bloomberg'] = 0
+	#studioList['nstheatre'] = 0
+	#studioList['dillonmar'] = 0
+	#studioList['dillonmpr'] = 0
+
+	studioList = [1,1,1,1,1,1]
+
+	return studioList
+
 # rendering the home page with today's date 
 def homepage(request):
 	
@@ -65,6 +78,7 @@ def homepage(request):
 	context = createContext(startdate, endweek, startdate)
 	context['currentdate'] = startdate.strftime('%Y-%m-%d')
 	context['editable'] = False
+	context['available'] = carouselAvailable()
 	return render(request, "templates/pacApp/home.html", context)
 
 # displays the calendar schedule
@@ -92,8 +106,6 @@ def create_booking(date, studio, name, starttime, endtime, day):
 		# print('booked date is ' + book.booking_date) 	
 	book.save()
 	return book.week_day
-
-
 
 def update(request:HttpResponse):
 	# if there is a booking involved
