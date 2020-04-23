@@ -172,36 +172,76 @@ function booking(studio,day,hour,id) {
 	console.log(confirm.value)
 }
 
-
+// handles ajax response callback by changing the schedule 
 function handleresponse(response) 
 {
     $('#schedule').html(response);
-    showConfirm(); 
-
+    // showConfirm(); 
 }
+
 
 function setupWeek()
 	// date = yyyy-mm-dd
 	{	
     // in prepation for the today tab - if it is on the current day, has this feature 
-        console.log('in setupweek');
+    	console.log('in setupweek');
+    	var groups = setGroups()
+    	if (groups.length == 0) {
+    		groups = 'None'
+    	}
+    	console.log(groups);
 
 		 var curr = $('#curr').val();
-          let url = 'update';
-          request = $.ajax(
-               {
-                  type: "GET",
-                  url: url,
-                  data: {'newdate': curr},
-                  success: handleresponse,
+         let url = 'update';
+         request = $.ajax(
+              {
+                 type: "GET",
+                 url: url,
+                 data: {'newdate': curr,
+             			'selectgroups': groups},
+                 success: handleresponse,
                }
             );
     }
 
+function setGroups() {
+	console.log('in set group');
+	var groups = ""; 
+    $("input:checkbox[name=selectGroups]:checked").each(addGroup)
+    // a function handled for each needs to be index then item 
+    function addGroup(index, item) { 
+        groups += ($(item).val()) + '-';
+     } 
+     console.log(groups);
+     return groups
+}
 
+
+// sendbook gathers all the stuff necessary to make a booking 
 function sendbook(id) {
+		// checks whether or not there are selected groups 
+		console.log('in confirm');
+		if (!$("input:radio[name='usertype']").is(":checked")) {
+			console.log('bad');
+			alert('User type is required');
+			return;
+		}
+		var selectedUser = $("input[name='usertype']:checked").val();
+        console.log(selectedUser);
+        if (selectedUser == 'self') {
+        	var user = $('#selfname').val();
+        	console.log(user);
+        }
+        else {
+        	var user = $("input[name='dgroup']:checked").val();
+        	console.log(user);
+        }
+       
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
+        $("input[name='usertype']:checked").prop('checked', false); 
+        $("input[name='dgroup']:checked").prop('checked', false);
+       	// splits from id and helps parse each detail 
         var info = id.split('.');
         
         // parse the studio and the after numbers
@@ -211,10 +251,16 @@ function sendbook(id) {
         // start time of booking
         var hour = Math.trunc(studioNum[1] / 10);
         // gets name of the person who wants to book it 
-        var name = document.getElementById('username').value;
+        
         var date = info[1];
         console.log($('#curr').val());
         var currweek = $('#curr').val()
+
+        var groups = setGroups()
+    	if (groups.length == 0) {
+    		groups = 'None'
+    	}
+    	console.log(groups);
 
         // request made for booking which updates schedule
         let url = 'update';
@@ -227,9 +273,12 @@ function sendbook(id) {
                           'starttime': hour, // int start time 
                           'endtime': hour+1, 
                           'day': day, // day of the week 
-                          'name': name, // name of person who is booking
+                          'name': user, // name of person who is booking
                           'newdate': currweek, 
+                          'selectgroups': groups, 
+
                       },
+                      // upon ajax request callback
                       success: handleresponse,
                    }
                 );
@@ -239,4 +288,10 @@ function sendbook(id) {
 function showConfirm() {
 	console.log('has been booked!');
 
+}
+
+
+
+function drop() {
+	console.log('in drop');
 }

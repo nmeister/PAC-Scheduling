@@ -26,12 +26,12 @@ def error_500(request):
         data = {}
         return render(request,'templates/pacApp/404.html', data)
 
-def createContext(startdate, endweek, newdate):
+def createContext(startdate, endweek, newdate, groups, getGroups):
 	week = {}
 	for i in range(7):
 		# week.append((startdate + timedelta(days=i)).strftime('%Y-%m-%d-%w'))
 		week[(startdate + timedelta(days=i)).strftime('%w')] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d')
-	print(week)
+	# print(week)
 
 	studioList = {'bloomberg':0, 'dillondance':1, 'dillonmar':2, 'dillonmpr': 3, 'murphy': 4, 'ns':5,'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
 	# filter by date range, but not sure where the date should be coming from 
@@ -49,6 +49,18 @@ def createContext(startdate, endweek, newdate):
 			   'newdate': newdate, 'weekday': int(startdate.strftime('%w')), 'sun': week['0'], 
 			   'mon': week['1'], 'tue': week['2'], 'wed': week['3'], 
 			   'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
+	if getGroups == True:
+
+		context['Bloomberg'] = context['Bloomberg'].filter(company_name__in=groups)
+		context['DillonDance'] = context['DillonDance'].filter(company_name__in=groups)
+		context['DillonMAR'] = context['DillonMAR'].filter(company_name__in=groups)
+		context['DillonMPR'] = context['DillonMPR'].filter(company_name__in=groups)
+		context['Murphy'] = context['Murphy'].filter(company_name__in=groups)
+		context['NewSouth'] = context['NewSouth'].filter(company_name__in=groups)
+		context['NSWarmup'] = context['NSWarmup'].filter(company_name__in=groups)
+		context['NSTheatre'] = context['NSTheatre'].filter(company_name__in=groups)
+		context['Whitman'] = context['Whitman'].filter(company_name__in=groups)
+		context['Wilcox'] = context['Wilcox'].filter(company_name__in=groups)
 	return context
 
 def carouselAvailable():
@@ -75,7 +87,9 @@ def homepage(request):
 	startdate = date.today()
 	print(startdate)
 	endweek = startdate + timedelta(days=6)
-	context = createContext(startdate, endweek, startdate)
+	groups = None
+	getGroups = False
+	context = createContext(startdate, endweek, startdate, groups, getGroups)
 	context['currentdate'] = startdate.strftime('%Y-%m-%d')
 	context['editable'] = False
 	context['available'] = carouselAvailable()
@@ -86,7 +100,9 @@ def schedule(request):
 	# render with today's date 
 	startdate = date.today()
 	endweek = startdate + timedelta(days=6)
-	context = createContext(startdate, endweek, startdate)
+	groups = None
+	getGroups = False
+	context = createContext(startdate, endweek, startdate, groups, getGroups)
 	context['currentdate'] = startdate.strftime('%Y-%m-%d')
 	context['editable'] = True
 	context['cursor'] = "pointer"
@@ -109,6 +125,7 @@ def create_booking(date, studio, name, starttime, endtime, day):
 
 def update(request:HttpResponse):
 	# if there is a booking involved
+	print('update')
 	weekday = None
 	if (request.GET.get('studio') != None):
 		weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), request.GET.get('name'), request.GET.get('starttime'),
@@ -117,8 +134,15 @@ def update(request:HttpResponse):
 	startdate = datetime.date(int(retdate[0]),int(retdate[1]),int(retdate[2]))
 	endweek = startdate + timedelta(days=6)
 	newdate = request.GET.get('newdate')
-
-	context = createContext(startdate, endweek, newdate)
+	groups = request.GET.get('selectgroups')
+	if (groups == 'None' or groups == None):
+		groups = None
+		getGroups = False
+	else: 
+		groups = groups.split('-')
+		groups.pop(-1)
+		getGroups = True
+	context = createContext(startdate, endweek, newdate, groups, getGroups)
 	if weekday != None:
 		context['weekday'] = weekday
 	return render(request, "templates/pacApp/tableElements/table.html", context)
