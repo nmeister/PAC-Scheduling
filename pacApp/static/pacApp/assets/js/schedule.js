@@ -110,9 +110,11 @@ Date.prototype.getWeekNumber = function() {
 
 function booking(studio,day,hour,id) {
 	console.log('hello @ booking');
+	
+	// handles all modal - make it seen 
 	var modal = document.getElementById("myModal");
-
-	// Get the <span> element that closes the modal
+	// $('#myModal').css('display','block');
+	// Get the <span> element that closes the modal on the x button 
 	var span = document.getElementsByClassName("close")[0];
 	modal.style.display = "block";
 	// When the user clicks on <span> (x), close the modal
@@ -126,6 +128,7 @@ function booking(studio,day,hour,id) {
 	    modal.style.display = "none";
 	  }
 	}
+
 	nameStudio = findStudioName(studio);
 	var bookstudio = document.getElementById("bookstudio");
 	bookstudio.innerHTML = 'Studio: ' + nameStudio;
