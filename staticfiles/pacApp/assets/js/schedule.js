@@ -172,7 +172,7 @@ function booking(studio,day,hour,id) {
 	console.log(confirm.value)
 }
 
-
+// handles ajax response callback by changing the schedule 
 function handleresponse(response) 
 {
     $('#schedule').html(response);
@@ -217,8 +217,9 @@ function setGroups() {
 }
 
 
-
+// sendbook gathers all the stuff necessary to make a booking 
 function sendbook(id) {
+		// checks whether or not there are selected groups 
 		console.log('in confirm');
 		if (!$("input:radio[name='usertype']").is(":checked")) {
 			console.log('bad');
@@ -240,6 +241,7 @@ function sendbook(id) {
         modal.style.display = "none";
         $("input[name='usertype']:checked").prop('checked', false); 
         $("input[name='dgroup']:checked").prop('checked', false);
+       	// splits from id and helps parse each detail 
         var info = id.split('.');
         
         // parse the studio and the after numbers
@@ -276,6 +278,7 @@ function sendbook(id) {
                           'selectgroups': groups, 
 
                       },
+                      // upon ajax request callback
                       success: handleresponse,
                    }
                 );
@@ -285,4 +288,10 @@ function sendbook(id) {
 function showConfirm() {
 	console.log('has been booked!');
 
+}
+
+
+
+function drop() {
+	console.log('in drop');
 }
