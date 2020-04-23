@@ -85,7 +85,12 @@ th, td {
   background-color: #484848 !important;
 }
 
+
 .table100.ver1 .row100 td:hover {
   background-color: #723875;
   color: #fff;
+}
+
+.disable:hover {
+  background-color: #f2f2f2;
 }

@@ -1,11 +1,4 @@
 <!-- if allows for booking we make pointer clickable hand --> 
-{% if cursor == 'pointer' %}
-  <style> 
-    th, td {
-      cursor: pointer;
-    }
-  </style>
-{% endif %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
@@ -58,7 +51,11 @@
 <script type="text/javascript">
    // for each booking in wilcox, we make it a object here
    // each object will also be within this list 
-   
+    var schedule = "{{editable}}"
+    if (schedule == 'False') {
+        console.log('schedule');
+       $('td').addClass("disable");
+    }
     var wilcox = [
     // we passed in a context argument which is a list containing
     // an element called 'Wilcox'
@@ -204,9 +201,9 @@
    nswarmup.forEach(createBooking);
    nstheatre.forEach(createBooking);
 
+
    // here is the function createBooking defined 
    function createBooking(item, index) {
-
       for (let i = item.start_time; i != item.end_time; i++) {
          // ex. wilcox5
          // console.log(item.studio)
@@ -218,6 +215,7 @@
          let group = item.company_name;
          $(col).addClass('helen');
          $(col).addClass(group);
+         $(col).removeClass('disable');
          $(col).html(item.company_name);
          // don't allow it to be bookable 
          // $(col).attr('onclick','');
@@ -225,7 +223,7 @@
          $(col).attr('onclick','drop()');
       }  
    }
-  
+    // $('td').css('cursor','pointer');
     var weekday = parseInt("{{weekday}}");
     // console.log(weekday);
     var current = "{{currentdate}}";

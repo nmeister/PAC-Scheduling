@@ -99,6 +99,7 @@ def homepage(request):
 	context = createContext(startdate, endweek, startdate.strftime('%Y-%m-%d'), groups, getGroups)
 	context['currentdate'] = startdate.strftime('%Y-%m-%d')
 	context['editable'] = False
+	context['cursor'] = 'not'
 	context['available'] = carouselAvailable()
 	return render(request, "templates/pacApp/home.html", context)
 
