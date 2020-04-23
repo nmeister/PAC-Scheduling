@@ -12,6 +12,7 @@
 
 <div id="schedule" data-editable="{{editable}}">
 
+<!-- want to update days tab with the new dates --> 
   <div id="daystab" class="tab">
 <!-- data-date is a data field with name date retrieve using .data(key) --> 
   <div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)">Sunday
@@ -41,6 +42,7 @@
   </div> --> 
   <br>
   </div>
+  
 <!-- setting up the tab content calendar to be show for each day --> 
 <div class="tabcontent" id="sun">{% include 'templates/pacApp/tableElements/sunday.html'%}</div>
 <div class="tabcontent" id="mon">{% include 'templates/pacApp/tableElements/monday.html'%}</div>

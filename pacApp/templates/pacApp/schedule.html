@@ -67,7 +67,7 @@
     $('#scheduletable').css('margin', '20px');
   }
 // very initial set up of the document, we use today's date to set up active tab 
-/* function activateDay()
+ function activateDay()
   {   
      console.log('in activate');
      var weekday = parseInt("{{weekday}}");
@@ -75,18 +75,18 @@
      $('#d'+weekday).addClass('today');
      console.log(current);
       // sets the value for the date picker default 
-      $('#curr').val(current);
+     //  $('#curr').val(current);
       // set a field called data-week to be the week number 
-      $('#curr').on('change', setupWeek);
+      // $('#curr').on('change', setupWeek);
       // to retrieve that data value use .data('nameofdata')
       // console.log($('#curr').data('week'));
-      var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
-      openDay(daysofweek[weekday], 'd'+weekday);
+     //  var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
+     //  openDay(daysofweek[weekday], 'd'+weekday);
       // sets up the week initially 
   }
   // this sets things up initially for the first case
-  $('#curr').on('change', setupWeek);
-  $('document').ready(activateDay); */ 
+
+  $('document').ready(activateDay); 
 
 </script>
 
