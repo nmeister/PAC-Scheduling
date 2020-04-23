@@ -78,7 +78,6 @@ def carouselAvailable():
 	#studioList['dillonmpr'] = 0
 
 	studioList = [1,1,1,1,1,1]
-
 	return studioList
 
 # rendering the home page with today's date 
