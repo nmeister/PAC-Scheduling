@@ -1,8 +1,10 @@
 input[type="radio"], {
     -webkit-appearance: radio;
+    cursor: pointer;
 }
 input[type="checkbox"], {
    -webkit-appearance: checkbox;
+   cursor: pointer;
 }
 
 .reveal-if-activeSelf {
