@@ -3,25 +3,60 @@
 	<div id="bookstarttime"></div>
 	<div id="dayofweek"></div>
 	<div id="bookdate"></div>
+	<div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:10px">Confirm </div>
 	
-
-		<!-- <input type="radio" class="form-control" id="self"><label for="self">Self</label>
-
-		<div class="reveal-if-active">
-  			Name: <input class="require-if-active" id="username" type="text"></input>
+  <span> Who are you booking for? </span>
+  <br>
+  <input type="radio" id="self" name="usertype" value="self" required><label for="self">Self</label>
+		<div class="reveal-if-activeSelf">
+  			Name: <input class="require-if-active" id="selfname" type="text" />
   		</div>
-  
-
-
-		<input type="radio" class="form-control" id="group"><label for="group">Group</label>
-		<div class="reveal-if-active">
-  			<input type="radio">
-  		</div> --> 
-
-
-	Name: <input class="require-if-active" id="username" type="text"></input>
 	
-	<div class= "button" id='confirm' onclick="sendbook(this.value)" style="float:right;padding:15px">Confirm
-	</div>
+	<input type="radio" id="group" name="usertype" value="group"><label for="group">Group</label> 
+		<div class="reveal-if-activeGroup">
+  			<table style="width:40%">
+  				<tr>
+  					<td>
+  						<input type="radio" id="BAC" name="dgroup" value="BAC"><label for="bac">BAC</label> 
+  					</td>
+  					<td>
+  						<input type="radio" id="Sympoh" name="dgroup" value="Sympoh"><label for="sympoh">Sympoh</label> 
+ 					</td>
+  				</tr>
+
+  				<tr>
+  					<td>
+  						<input type="radio" id="Disiac" name="dgroup" value="Disiac"><label for="disiac">Disiac</label> 
+  					</td>
+  					<td>
+  						<input type="radio" id="Sympoh" name="dgroup" value="Sympoh"><label for="sympoh">Sympoh</label> 
+ 					</td>
+  				</tr>
+
+  				<tr>
+  					<td>
+  						<input type="radio" id="BodyHype" name="dgroup" value="BodyHype"><label for="BodyHype">BodyHype</label> 
+  					</td>
+  					<td>
+  						<input type="radio" id="PUB" name="dgroup" value="PUB"><label for="pub">PUB</label> 
+ 					</td>
+  				</tr>
+  			</table>
+  		</div>
 </form>
 
+
+<script> 
+	function revealMore() {
+		$('.moreGroups').css('display','inline');
+		$('#more').css('display','none');
+		$('#less').css('display','block');
+	}
+	function hideMore() {
+		$('#less').css('display','none');
+		$('#more').css('display','block');
+		$('.moreGroups').css('display','none');
+	}
+
+
+</script>

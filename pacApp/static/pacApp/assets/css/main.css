@@ -2048,6 +2048,10 @@ input, select, textarea {
 			}
 */
 /* Button */
+	
+	input[type="radio"] {
+    -webkit-appearance: radio;
+	}
 
 	input[type="button"],
 	input[type="submit"],

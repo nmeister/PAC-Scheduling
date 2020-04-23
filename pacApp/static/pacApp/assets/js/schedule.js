@@ -200,8 +200,27 @@ function setupWeek()
 
 
 function sendbook(id) {
+		console.log('in confirm');
+		if (!$("input:radio[name='usertype']").is(":checked")) {
+			console.log('bad');
+			alert('User type is required');
+			return;
+		}
+		var selectedUser = $("input[name='usertype']:checked").val();
+        console.log(selectedUser);
+        if (selectedUser == 'self') {
+        	var user = $('#selfname').val();
+        	console.log(user);
+        }
+        else {
+        	var user = $("input[name='dgroup']:checked").val();
+        	console.log(user);
+        }
+       
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
+        $("input[name='usertype']:checked").prop('checked', false); 
+        $("input[name='dgroup']:checked").prop('checked', false);
         var info = id.split('.');
         
         // parse the studio and the after numbers
@@ -211,7 +230,7 @@ function sendbook(id) {
         // start time of booking
         var hour = Math.trunc(studioNum[1] / 10);
         // gets name of the person who wants to book it 
-        var name = document.getElementById('username').value;
+        
         var date = info[1];
         console.log($('#curr').val());
         var currweek = $('#curr').val()
@@ -227,8 +246,9 @@ function sendbook(id) {
                           'starttime': hour, // int start time 
                           'endtime': hour+1, 
                           'day': day, // day of the week 
-                          'name': name, // name of person who is booking
-                          'newdate': currweek, 
+                          'name': user, // name of person who is booking
+                          'newdate': currweek,  
+
                       },
                       success: handleresponse,
                    }
