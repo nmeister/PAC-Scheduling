@@ -15,10 +15,20 @@ function openDay(tab, id) {
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
+  for (i = 0; i < 7; i++) {
+  	 $('#d'+i+'date').css('display','none');
+  }
 
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(tab).style.display = "block";
   document.getElementById(id).className += " active";
+  var date = $('#'+id).data('date').split('-');
+  console.log(date)
+  var reformatted = date[1] + '/' + date[2] + '/' + date[0].substring(2,4); 
+  console.log(date[0].substring(2));
+  console.log(date[0].substring(2))
+  $('#'+id+'date').html(reformatted);
+  $('#'+id+'date').css('display','block');
 
 }
 
@@ -178,6 +188,7 @@ function booking(studio,day,hour,id) {
 // handles ajax response callback by changing the schedule 
 function handleresponse(response) 
 {
+	console.log('handle after update');
     $('#schedule').html(response);
     // showConfirm(); 
 }
@@ -233,9 +244,17 @@ function sendbook(id) {
         console.log(selectedUser);
         if (selectedUser == 'self') {
         	var user = $('#selfname').val();
+        	if (user == "") {
+        		alert('Name is required');
+        		return;
+        	}
         	console.log(user);
         }
         else {
+        	if (!$("input:radio[name='dgroup']").is(":checked")) {
+        		alert('Group selection is required');
+        		return;
+        	}
         	var user = $("input[name='dgroup']:checked").val();
         	console.log(user);
         }

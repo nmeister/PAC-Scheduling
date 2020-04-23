@@ -9,7 +9,38 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
+
 <div id="schedule" data-editable="{{editable}}">
+
+  <div id="daystab" class="tab">
+<!-- data-date is a data field with name date retrieve using .data(key) --> 
+  <div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)">Sunday
+    <br><span id="d0date" style="display:none"></span>
+  </div>
+  <div class="tablinks" id="d1" data-date="{{mon}}" onclick="openDay('mon', this.id)">Monday
+    <br><span id="d1date" style="display:none"></span>
+  </div>
+  <div class="tablinks" id="d2" data-date="{{tue}}" onclick="openDay('tue', this.id)">Tuesday
+     <br><span id="d2date" style="display:none"></span>
+  </div>
+  <div class="tablinks" id="d3" data-date="{{wed}}" onclick="openDay('wed', this.id)">Wednesday 
+    <br><span id="d3date" style="display:none"></span>
+  </div>
+  <div class="tablinks" id="d4" data-date="{{thu}}" onclick="openDay('thu', this.id)">Thursday
+     <br><span id="d4date" style="display:none"></span>
+  </div>
+  <div class="tablinks" id="d5" data-date="{{fri}}" onclick="openDay('fri', this.id)">Friday
+     <br><span id="d5date" style="display:none"></span>
+  </div>
+  <div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)">Saturday
+     <br><span id="d6date" style="display:none"></span>
+  </div>
+  <div class="tablinks"><input type="date" max="2999-12-31" autocomplete="on" id="curr"></div>
+  <!-- <div class="tablinks" id="homeButton" style="background-color:#b76e79; color:white; float:right;">
+    <a style="text-decoration-line:none;" href="homepage">Home</a>
+  </div> --> 
+  <br>
+  </div>
 <!-- setting up the tab content calendar to be show for each day --> 
 <div class="tabcontent" id="sun">{% include 'templates/pacApp/tableElements/sunday.html'%}</div>
 <div class="tabcontent" id="mon">{% include 'templates/pacApp/tableElements/monday.html'%}</div>
@@ -196,6 +227,8 @@
     var weekday = parseInt("{{weekday}}");
     // console.log(weekday);
     var current = "{{currentdate}}";
+    $('#curr').val("{{formatdate}}");
+    $('#curr').on('change', setupWeek);
     var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
     openDay(daysofweek[weekday], 'd'+weekday);
 

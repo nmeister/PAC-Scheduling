@@ -34,9 +34,17 @@ th, td {
   width: 130px;
 }
 
+.column100:hover {
+  background-color: #f2f2f2;
+}
+
 .column100.column1 {
   width: 265px;
 
+}
+
+.column100.column1:hover {
+  background-color: #f2f2f2;
 }
 
 .row100.head th {
@@ -63,6 +71,11 @@ th, td {
 .table100.ver1 .row100:hover {
   background-color: #f2f2f2;
 }
+
+.table100.ver1 .column100:hover {
+  background-color: #f2f2f2;
+}
+
 
 .table100.ver1 .hov-column-ver1 {
   background-color: #f2f2f2;

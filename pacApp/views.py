@@ -41,6 +41,13 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
 	studioList = {'bloomberg':0, 'dillondance':1, 'dillonmar':2, 'dillonmpr': 3, 'murphy': 4, 'ns':5,'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
 	# filter by date range, but not sure where the date should be coming from 
 	# creating context for each day of the week plus the data 
+	if isinstance(newdate, str):
+		print('str')
+		formatdate = newdate.split('-')[0] + '-' + newdate.split('-')[1] + '-' + newdate.split('-')[2]
+	else:
+		print('date')
+		# formatdate = str(newdate.year) + '-' + str(newdate.month) + '-' + str(newdate.day)
+		formatdate = newdate.strftime('%Y-%m-%d')
 	context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, endweek]),
 			   'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, endweek]),
 			   'DillonMAR': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, endweek]),
@@ -51,7 +58,7 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
 			   'NSTheatre': Booking.objects.filter(studio_id=7).filter(booking_date__range=[startdate, endweek]),
 			   'Whitman': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, endweek]), 
 			   'Wilcox': Booking.objects.filter(studio_id=9).filter(booking_date__range=[startdate, endweek]), 
-			   'newdate': newdate, 'weekday': int(startdate.strftime('%w')), 'sun': week['0'], 
+			   'newdate': newdate, 'formatdate': formatdate, 'weekday': int(startdate.strftime('%w')), 'sun': week['0'], 
 			   'mon': week['1'], 'tue': week['2'], 'wed': week['3'], 
 			   'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
 	if getGroups == True:
@@ -66,6 +73,7 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
 		context['NSTheatre'] = context['NSTheatre'].filter(company_name__in=groups)
 		context['Whitman'] = context['Whitman'].filter(company_name__in=groups)
 		context['Wilcox'] = context['Wilcox'].filter(company_name__in=groups)
+	print(context['formatdate'])
 	return context
 
 # rendering the home page with today's date 
@@ -76,7 +84,7 @@ def homepage(request):
 	endweek = startdate + timedelta(days=6)
 	groups = None
 	getGroups = False
-	context = createContext(startdate, endweek, startdate, groups, getGroups)
+	context = createContext(startdate, endweek, startdate.strftime('%Y-%m-%d'), groups, getGroups)
 	context['currentdate'] = startdate.strftime('%Y-%m-%d')
 	context['editable'] = False
 	return render(request, "templates/pacApp/home.html", context)
@@ -122,6 +130,7 @@ def update(request:HttpResponse):
 	startdate = datetime.date(int(retdate[0]),int(retdate[1]),int(retdate[2]))
 	endweek = startdate + timedelta(days=6)
 	newdate = request.GET.get('newdate')
+	print(newdate)
 	groups = request.GET.get('selectgroups')
 	if (groups == 'None' or groups == None):
 		groups = None
