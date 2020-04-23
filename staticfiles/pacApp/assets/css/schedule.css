@@ -144,7 +144,7 @@ th tr{
   padding: 25px;
   border: 1px solid #888;
   width: 40%; /* Could be more or less, depending on screen size */
-  height:40%;
+  height:60%;
 }
 
 /* The Close Button */
@@ -161,7 +161,5 @@ th tr{
   text-decoration: none;
   cursor: pointer;
 }
-
-
 
 
