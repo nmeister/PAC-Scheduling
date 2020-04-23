@@ -1,55 +1,64 @@
+<style>
+	#wilcox {
+	  display: none;
+	}
+	#bloomberg
+	{
+	  display: none;
+	}
+</style>
 <section class="carousel" id = "carousel">
 					<div class="reel" id = "art1">
-                            <article>
-                            <a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
+						<article id = "wilcox">
+							<a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
 							<header>
 								<h3><a>Wilcox</a></h3>
 							</header>
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-                            </article>
+						</article>
 
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
+						<article id = "bloomberg">
+							<a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
 							<header>
-								<h3><a href="#">Bloomberg</a></h3>
+								<h3><a>Bloomberg</a></h3>
+							</header>
+							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+						</article>
+
+						<article id = dillon>
+							<a class="image featured"><img src="static/pacApp/images/pic03.jpg" alt="" /></a>
+							<header>
+								<h3><a>Dillon Dance</a></h3>
+							</header>
+							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+						</article>
+
+						<article style = "display:none">
+							<a class="image featured"><img src="static/pacApp/images/pic04.jpg" alt="" /></a>
+							<header>
+								<h3><a>Lewis Arts Center</a></h3>
 							</header>
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
 						</article>
 
 						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic03.jpg" alt="" /></a>
+							<a class="image featured"><img src="static/pacApp/images/pic05.jpg" alt="" /></a>
 							<header>
-								<h3><a href="#">Dillon Dance</a></h3>
+								<h3>Whitman Dance</h3>
 							</header>
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
 						</article>
 
 						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic04.jpg" alt="" /></a>
+							<a class="image featured"><img src="static/pacApp/images/pic01.jpg" alt="" /></a>
 							<header>
-								<h3><a href="#">Lewis Arts Center</a></h3>
+								<h3><a>RoMA Dance</a></h3>
 							</header>
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
 						</article>
 
 						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic05.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">Whitman Dance</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic01.jpg" alt="" /></a>
-							<header>
-								<h3><a href="#">RoMA Dance</a></h3>
-							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
-						</article>
-
-						<article>
-							<a href="#" class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
+							<a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
 							<header>
 								<h3><a href="#">Virtual-Zoom Dance</a></h3>
 							</header>
@@ -59,5 +68,26 @@
 </section>
 
 <script type="text/javascript">
+
+
+function display() {
+	var available = $('#carousel').data('available');
+	var list = {{available | safe }}
+	console.log("available")
+	if (!list[0])
+	{
+		document.getElementById("wilcox").style.display = "block";
+	}
+	if (!list[1])
+	{
+		document.getElementById("bloomberg").style.display = "block";
+	}
+	if (!list[2])
+		document.getElementById("dillon").style.display = "block";
+	console.log("reached");
+}
+
+display();
+
 </script>
 
