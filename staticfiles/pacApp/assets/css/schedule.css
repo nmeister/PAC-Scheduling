@@ -80,6 +80,7 @@ th tr{
 
 .today {
   background-color:#fed8b1;
+
 }
 
 .weekselector {
@@ -92,6 +93,7 @@ th tr{
   background-color: #b76e79;
   text-align:center;
   color:white;
+
 }
 
 /* CSS FOR EACH OF THE DIFFERENT GROUPS */
@@ -100,6 +102,7 @@ th tr{
   background-color: #008080;
   text-align:center;
   color: white;
+
 }
 
 
@@ -107,6 +110,7 @@ th tr{
   background-color:#6a0dad;
   text-align:center;
   color:white;
+ 
 }
 
 
@@ -115,12 +119,14 @@ th tr{
   text-align:center;
   color:white;
 
+
 }
 
 .PUB {
   background-color: pink;
   text-align:center;
   color:white;
+
 }
 
 
@@ -128,6 +134,7 @@ th tr{
   background-color: #b76e79;
   text-align:center;
   color:white;
+
 }
 
 
