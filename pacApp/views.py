@@ -161,12 +161,7 @@ def insert_space_item(request: HttpResponse):
 	return redirect('/schedule')
 
 def insert_ad_request(request: HttpResponse):
-	
-	# messages.info(request, 'Your password has been changed successfully!')
-	# sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
 
-
-	'''
 	print(request.POST.get('rankone'))
 	ad_req = ADRequest(company_name = request.POST['company_name'],
 		company_day_1 = request.POST.get('company_day_1'),
@@ -189,8 +184,7 @@ def insert_ad_request(request: HttpResponse):
 		rank_4 = request.POST.get('rank4s'),
 		rank_5 = request.POST.get('rank5s'))
 	ad_req.save()
-	'''
-	return redirect('/adminForm')
+	return redirect('/adminForm#')
 
 @register.filter
 # creates a function that can be called directly from the template 

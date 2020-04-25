@@ -1,9 +1,10 @@
 
-<form class="myform" method="POST" action="{% url 'insert_ad_request' %}" autocomplete="=off">
+<form class="myform" method="POST" action="{% url 'insert_ad_request' %}" 
+	autocomplete="=off" onsubmit="return validateResponse()">
 	{% csrf_token %}
 <div style="padding:0px" class="input-group">
-Company Name: <input type="text" class="form-control" id="companyInput" placeholder="Enter Company Name" name="company_name"> <hr>
-
+	
+Company Name: <input type="text" class="form-control" id="companyInput" placeholder="Enter Company Name" name="company_name"> 
 <!-- Tab links -->
 Company Day: Input top three choices for company
 <div class="tab">
@@ -58,7 +59,7 @@ Results of DB:
 	{% csrf_token %}
 <div class="input-group-append text-info">
 	<span class="input-grou-text bg-white py-0">
-		<button type="submit" style="background-color:#b76e79; color:white; padding:15px">
+		<button type="submit" id='schedule_button' style="background-color:#b76e79; color:white; padding:15px">
 			<a style="text-decoration-line:none;"> Schedule All Groups </a>
 		</button>
 
@@ -66,18 +67,18 @@ Results of DB:
 </div>
 </form>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script>
-	function getResponse(event) 
+	function validateResponse(event) 
 	{
 		console.log("This form did not submit");
-		alert('This form did not submit');
-		event.preventDefault();
+		// alert('This form did not submit');
 	}
 	function setup()
 	{
-		$('#submit-button').click(getResponse(event));
+		$('#submit_button').click(getResponse(event));
 	}
 	$(document).ready(setup);
 </script>
