@@ -30,10 +30,9 @@
      <br><span id="d6date" style="display:none"></span>
   </div>
   <div class="tablinks"><input type="date" max="2999-12-31" autocomplete="on" id="curr"></div>
-  <!-- <div class="tablinks" id="homeButton" style="background-color:#b76e79; color:white; float:right;">
-    <a style="text-decoration-line:none;" href="homepage">Home</a>
-  </div> --> 
-  <br>
+   <div class="tablinks" id="booking" style="background-color:#b76e79; color:white; float:right; margin-top:15px">
+    <a style="text-decoration-line:none;" href="schedule">Booking</a>
+  </div> 
   </div>
   
 <!-- setting up the tab content calendar to be show for each day --> 
@@ -54,7 +53,9 @@
     var schedule = "{{editable}}"
     if (schedule == 'False') {
         console.log('schedule');
-       $('td').addClass("disable");
+       $('tr').removeClass("row100");
+      // $('tr').addClass('disable');
+      $('tr').addClass('row200');
     }
     var wilcox = [
     // we passed in a context argument which is a list containing

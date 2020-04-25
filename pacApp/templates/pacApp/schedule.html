@@ -45,7 +45,7 @@
       </div>
     </div>
       <div id="scheduletable">
-        {% include 'templates/pacApp/tableElements/daystab.html' %}
+              {% include 'templates/pacApp/tableElements/daystab.html' %}
               {% include 'templates/pacApp/tableElements/table.html' %}
               {% include 'templates/pacApp/tableElements/groupSelection.html' %}
       </div>
@@ -72,6 +72,7 @@
   }
   else {
     $('#scheduletable').css('margin', '20px');
+    $('#booking').css('display','none');
   }
 // very initial set up of the document, we use today's date to set up active tab 
  function activateDay()

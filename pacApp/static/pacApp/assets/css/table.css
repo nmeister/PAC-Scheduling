@@ -91,6 +91,20 @@ th, td {
   color: #fff;
 }
 
-.disable:hover {
+.disable td:hover {
   background-color: #f2f2f2;
+}
+
+.table100.ver1 .row200:hover {
+  background-color: #f2f2f2;
+}
+
+.row200.head th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.row200 td {
+  padding-top: 10px;
+  padding-bottom: 14px;
 }
