@@ -6,6 +6,34 @@
 	{
 	  display: none;
 	}
+	#dillon1 {
+	  display: none;
+	}
+	#dillon2
+	{
+	  display: none;
+	}
+	#dillon3 {
+	  display: none;
+	}
+	#whitman
+	{
+	  display: none;
+	}
+	#murphy {
+	  display: none;
+	}
+	#ns1
+	{
+	  display: none;
+	}
+	#ns2 {
+	  display: none;
+	}
+	#ns3
+	{
+	  display: none;
+	}
 </style>
 <section class="carousel" id = "carousel">
 					<div class="reel" id = "art1">
@@ -14,7 +42,7 @@
 							<header>
 								<h3><a>Wilcox</a></h3>
 							</header>
-							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+							<p>Second floor of Wilcox Hall facing East Terrace. Equipped with sound system and wooden floor </br> Capacity: 35</p>
 						</article>
 
 						<article id = "bloomberg">
@@ -25,7 +53,7 @@
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
 						</article>
 
-						<article id = dillon>
+						<article id = "dillon1">
 							<a class="image featured"><img src="static/pacApp/images/pic03.jpg" alt="" /></a>
 							<header>
 								<h3><a>Dillon Dance</a></h3>
@@ -33,30 +61,57 @@
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
 						</article>
 
-						<article style = "display:none">
+						<article id = "dillon2">
 							<a class="image featured"><img src="static/pacApp/images/pic04.jpg" alt="" /></a>
 							<header>
-								<h3><a>Lewis Arts Center</a></h3>
+								<h3><a>Dillon MAR</a></h3>
 							</header>
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
 						</article>
 
-						<article>
+						<article id = "dillon3">
 							<a class="image featured"><img src="static/pacApp/images/pic05.jpg" alt="" /></a>
 							<header>
-								<h3>Whitman Dance</h3>
+								<h3>Dillon MPR</h3>
 							</header>
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
 						</article>
 
-						<article>
+						<article id="whitman">
 							<a class="image featured"><img src="static/pacApp/images/pic01.jpg" alt="" /></a>
 							<header>
-								<h3><a>RoMA Dance</a></h3>
+								<h3><a>Whitman Dance</a></h3>
 							</header>
 							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
 						</article>
-
+						<article id="murphy">
+							<a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
+							<header>
+								<h3>Murphy Studio</h3>
+							</header>
+							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+						</article>
+						<article id="ns1">
+							<a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
+							<header>
+								<h3>New South Main</h3>
+							</header>
+							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+						</article>
+						<article id="ns2">
+							<a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
+							<header>
+								<h3>New South Warmup</h3>
+							</header>
+							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+						</article>
+						<article id = "ns3">
+							<a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
+							<header>
+								<h3>New South Theatre</h3>
+							</header>
+							<p>Commodo id natoque malesuada sollicitudin elit suscipit magna.</p>
+						</article>
 						<article>
 							<a class="image featured"><img src="static/pacApp/images/pic02.jpg" alt="" /></a>
 							<header>
@@ -74,17 +129,26 @@ function display() {
 	var available = $('#carousel').data('available');
 	var list = {{available | safe }}
 	console.log("available")
-	if (!list[0])
-	{
-		document.getElementById("wilcox").style.display = "block";
-	}
-	if (!list[1])
-	{
-		document.getElementById("bloomberg").style.display = "block";
-	}
-	if (!list[2])
-		document.getElementById("dillon").style.display = "block";
-	console.log("reached");
+	if (list[0])
+		document.getElementById("wilcox").style.display = "inline-block";
+	if (list[1])
+		document.getElementById("bloomberg").style.display = "inline-block";
+	if (list[2])
+		document.getElementById("dillon1").style.display = "inline-block";
+	if (list[3])
+		document.getElementById("dillon2").style.display = "inline-block";
+	if (list[4])
+		document.getElementById("dillon3").style.display = "inline-block";
+	if (list[5])
+		document.getElementById("whitman").style.display = "inline-block";
+	if (list[6])
+		document.getElementById("murphy").style.display = "inline-block";
+	if (list[7])
+		document.getElementById("ns1").style.display = "inline-block";
+	if (list[8])
+		document.getElementById("ns2").style.display = "inline-block";
+	if (list[9])
+		document.getElementById("ns3").style.display = "inline-block";
 }
 
 display();
