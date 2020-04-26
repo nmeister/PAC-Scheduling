@@ -1,7 +1,5 @@
 @import url("fontawesome-all.min.css");
 
-
-
 input[type="text"],
 textarea {
 		-webkit-appearance: none;
@@ -12,12 +10,19 @@ textarea {
 		border-radius: 0.5em;
 		border: solid 1px #E5E5E5;
 		padding: 1em;
-    font-family: 'Font Awesome 5 Free';
+    /* font-family: 'Arial'; */
 		-moz-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
 		-webkit-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
 		-ms-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
 		transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
 }
+
+/*
+input::placeholder {
+	color: #B0B0B0;
+	color: red;
+	opacity: 1;
+} */
 
 
 /* Style the tab */
@@ -39,6 +44,7 @@ input[type="text"] .tab .tablinks {
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
+  /* font-family: 'Arial'; */
 }
 
 /* Change background color of buttons on hover */
@@ -58,7 +64,7 @@ input[type="text"] .tab div.active {
   border: 1px solid #ccc;
   border-top: none;
   width: 100%;
-  font-family: 'Font Awesome 5 Free';
+  /* font-family: 'Font Awesome 5 Free'; */
 }
 
 
