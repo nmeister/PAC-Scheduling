@@ -1,0 +1,184 @@
+input[type="radio"], {
+    -webkit-appearance: radio;
+    cursor: pointer;
+}
+input[type="checkbox"], {
+   -webkit-appearance: checkbox;
+   cursor: pointer;
+}
+
+.reveal-if-activeSelf {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.reveal-if-activeGroup {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+
+input[type="radio"]#self:checked ~ .reveal-if-activeSelf,
+input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
+  opacity: 1;
+  max-height: 100px; /* little bit of a magic number :( */
+  overflow: visible;
+}
+
+th tr{
+  text-align:left;
+
+}
+
+.studio {
+  padding:6px 12px;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  padding: 6px 12px;
+  width:100%;
+  position:relative;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tablinks {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  margin:2px;
+}
+
+/* Change background color of buttons on hover */
+.tab div:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab div.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  width: 100%;
+
+}
+
+.today {
+  background-color:#fed8b1;
+
+}
+
+.weekselector {
+  float: right;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.helen {
+  background-color: #b76e79;
+  text-align:center;
+  color:white;
+
+}
+
+/* CSS FOR EACH OF THE DIFFERENT GROUPS */
+
+.Sympoh {
+  background-color: #008080;
+  text-align:center;
+  color: white;
+
+}
+
+
+.BAC {
+  background-color:#6a0dad;
+  text-align:center;
+  color:white;
+ 
+}
+
+
+.Disiac {
+  background-color:#002366;
+  text-align:center;
+  color:white;
+
+
+}
+
+.PUB {
+  background-color: pink;
+  text-align:center;
+  color:white;
+
+}
+
+
+.hello {
+  background-color: #b76e79;
+  text-align:center;
+  color:white;
+
+}
+
+
+
+/* THE POP UP TO CONFIRM BOOKING TIME ETC */ 
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 25px;
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+  height:60%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+

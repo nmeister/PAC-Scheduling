@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<title> Schedule </title>
+	<link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css">
+	<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/table.css" />
+	<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css" />
+	<script type="application/javascript" src="/static/pacApp/assets/js/input.js"></script> 
+	<script type="application/javascript" src="/static/pacApp/assets/js/schedule.js"></script> 
+	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  {% if cursor == 'pointer' %}
+  <style> 
+    th, td {
+      cursor: pointer;
+    }
+  </style>
+{% endif %}
+
+</head>
+
+<body>
+  <div id="headerschedule">
+  <div id="header">
+          <!-- Inner -->
+            <div class="inner">
+              <header>
+                <h1>Booking Schedule</h1>
+                <hr />
+                <p>Book and view availabilities</p>
+                <p style="font-size:18px">Click an empty slot to book</p>
+              </header>
+            </div>
+            <nav id="nav">
+              <ul>
+                <li><a href="homepage">Home</a></li>
+                <li><a href="#">Booking</a>
+                  <ul>
+                    <li><a href="#">Booking</a></li>
+                    <li><a href="adminForm#">PAC Booking</a></li>
+                    <li><a href="accounts/login">CAS Login</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+      </div>
+    </div>
+      <div id="scheduletable">
+        {% include 'templates/pacApp/tableElements/daystab.html' %}
+              {% include 'templates/pacApp/tableElements/table.html' %}
+              {% include 'templates/pacApp/tableElements/groupSelection.html' %}
+      </div>
+	  
+    <!-- the pop up modal --> 
+    <div>
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            {% include 'templates/pacApp/bookForm.html' %}
+        </div>
+      </div>
+   </div>
+
+
+</body>
+<script> 
+  var edit = "{{editable}}";
+  console.log(edit);
+  if (edit == 'False') {
+      console.log('is false and already on home page');
+    $('#headerschedule').css('display','none');
+  }
+  else {
+    $('#scheduletable').css('margin', '20px');
+  }
+// very initial set up of the document, we use today's date to set up active tab 
+ function activateDay()
+  {   
+     console.log('in activate');
+     var weekday = parseInt("{{weekday}}");
+     var current = "{{currentdate}}";
+     $('#d'+weekday).addClass('today');
+     console.log(current);
+      // sets the value for the date picker default 
+     //  $('#curr').val(current);
+      // set a field called data-week to be the week number 
+      // $('#curr').on('change', setupWeek);
+      // to retrieve that data value use .data('nameofdata')
+      // console.log($('#curr').data('week'));
+     //  var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
+     //  openDay(daysofweek[weekday], 'd'+weekday);
+      // sets up the week initially 
+  }
+  // this sets things up initially for the first case
+
+  $('document').ready(activateDay); 
+
+</script>
+
+
+<!-- Scripts -->
+      <script src="static/pacApp/assets/js/jquery.min.js"></script>
+      <script src="static/pacApp/assets/js/jquery.dropotron.min.js"></script>
+      <script src="static/pacApp/assets/js/jquery.scrolly.min.js"></script>
+      <script src="static/pacApp/assets/js/jquery.scrollex.min.js"></script>
+      <script src="static/pacApp/assets/js/browser.min.js"></script>
+      <script src="static/pacApp/assets/js/breakpoints.min.js"></script>
+      <script src="static/pacApp/assets/js/util.js"></script>
+      <script src="static/pacApp/assets/js/main.js"></script>
+
+</html>
