@@ -45,6 +45,7 @@ table {
 .row100.head th {
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-left:5px;
 }
 
 .row100 td {
@@ -84,10 +85,6 @@ table {
 .table100.ver1 .row100 td:hover {
   background-color: #723875;
   color: #fff;
-}
-
-.disable td:hover {
-  background-color: #f2f2f2;
 }
 
 .table100.ver1 .row200:hover {

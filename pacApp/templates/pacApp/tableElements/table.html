@@ -217,9 +217,9 @@
          let group = item.company_name;
          $(col).addClass('helen');
          $(col).addClass(group);
-         $(col).removeClass('disable');
          $(col).html(item.company_name);
          // don't allow it to be bookable 
+
          // $(col).attr('onclick','');
          // upon click, calls drop() 
          $(col).attr('onclick','drop()');
@@ -242,10 +242,10 @@
   console.log(edit);
   if (edit == 'False') {
       console.log('is false and already on home page');
-    $('#headerschedule').css('display','none');
+      $('#headerschedule').css('display','none');
   }
   else {
-  
+   
     $('#booking').css('display','none');
   }
    </script>

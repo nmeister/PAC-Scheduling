@@ -32,9 +32,6 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   overflow: visible;
 }
 
-th {
-  text-align:left;
-}
 
 .studio {
    padding-left:20px;
@@ -185,6 +182,10 @@ th {
 }
 
 
+#groupselect {
+  padding:10px;
+  background-color:pink;
 
+}
 
 

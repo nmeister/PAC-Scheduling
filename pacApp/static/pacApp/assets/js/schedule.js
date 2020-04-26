@@ -33,9 +33,26 @@ function openDay(tab, id) {
 
 }
 
+function cannotEdit() {
+    console.log('cannot book');
+}
+
 function canEdit(id) {
 	var editable = $('#schedule').data('editable');
 	console.log(editable);
+  var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
+  var day = studioNum[1] % 10;
+  var hour = studioNum[1] / 10;
+  var content = '#content' + day;
+  var dateArr = $(content).data('date').split('-');
+  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour);
+  console.log(date);
+  var today = new Date();
+  console.log(today);
+  console.log(date.getTime());
+  if (date.getTime() < today.getTime()) {
+      editable = 'False'
+  }
 	if (editable == 'True') {
 		book(id);
 	}

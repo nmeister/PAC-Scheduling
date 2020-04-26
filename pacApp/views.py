@@ -135,17 +135,17 @@ def create_booking(date, studio, name, starttime, endtime, day):
 
 def update(request:HttpResponse):
 	# if there is a booking involved
-	print('update')
+
 	weekday = None
 	if (request.GET.get('studio') != None):
 		weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), request.GET.get('name'), request.GET.get('starttime'),
 			request.GET.get('endtime'), request.GET.get('day'))
 	retdate = request.GET.get('newdate').split('-')
 	startdate = datetime.date(int(retdate[0]),int(retdate[1]),int(retdate[2]))
-	print(startdate)
+
 	endweek = startdate + timedelta(days=6)
 	newdate = request.GET.get('newdate')
-	print(newdate)
+
 	groups = request.GET.get('selectgroups')
 	if (groups == 'None' or groups == None):
 		groups = None
@@ -158,12 +158,12 @@ def update(request:HttpResponse):
 	if weekday != None:
 		context['weekday'] = weekday
 	groupday = request.GET.get('groupday');
-	print(weekday)
-	print('groupday is')
-	print(groupday)
+	
 	if weekday == None and groupday != None:
 		context['weekday'] = groupday
 	context['editable'] = True
+	# if endweek < date.today():
+	#	context['editable'] = False
 
 	return render(request, "templates/pacApp/tableElements/table.html", context)
 
