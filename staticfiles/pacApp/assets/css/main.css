@@ -2228,11 +2228,11 @@ input, select, textarea {
 		#header .button {
 			display: inline-block;
 			border-radius: 100%;
-			width: 5.5em;
-			height: 5.5em;
+			width: 4.5em;
+			height: 4.5em;
 			line-height: 4.5em;
 			text-align: center;
-			font-size: 1.1em;
+			font-size: 1.25em;
 			padding: 0;
 		}
 
