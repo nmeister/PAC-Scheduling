@@ -233,4 +233,14 @@
     var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
     openDay(daysofweek[weekday], 'd'+weekday);
 
+  var edit = "{{editable}}";
+  console.log(edit);
+  if (edit == 'False') {
+      console.log('is false and already on home page');
+    $('#headerschedule').css('display','none');
+  }
+  else {
+    $('#scheduletable').css('margin', '20px');
+    $('#booking').css('display','none');
+  }
    </script>

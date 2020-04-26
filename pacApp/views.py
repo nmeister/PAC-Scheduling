@@ -154,6 +154,7 @@ def update(request:HttpResponse):
 	context = createContext(startdate, endweek, newdate, groups, getGroups)
 	if weekday != None:
 		context['weekday'] = weekday
+	context['editable'] = True
 	return render(request, "templates/pacApp/tableElements/table.html", context)
 
 
