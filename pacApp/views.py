@@ -73,19 +73,16 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
 
 def carouselAvailable():
 	startdate = date.today()
-	endweek = startdate + timedelta(days=6)
-
-	#gt current time
-	#notfree = Booking.objects.filter(booking_start_time[currentime]).filter(booking_date_range=[startdate,endweek])
-	#studioList = {'wilcox': 1, 'bloomberg': 1, 'dillondance': 1, 'dillonmar': 1, 'dillonmpr': 1, 'murphy': 1, 'ns': 1, 'nswarmup': 1,
-	#			  'nstheatre': 1, 'whitman': 1}
-	# if not in the notfreee , then is available, append to a list
-	#studioList['bloomberg'] = 0
-	#studioList['nstheatre'] = 0
-	#studioList['dillonmar'] = 0
-	#studioList['dillonmpr'] = 0
+	currenttime = int(datetime.datetime.now().time().hour)
+	#print(currenttime)
+	notfree = Booking.objects.filter(start_time__exact=currenttime).filter(booking_date__exact=startdate)
 
 	studioList = [1,1,1,1,1,1,1,1,1,1]
+	for i in notfree:
+		studioList[i.studio_id] = 0
+
+	#print(studioList)
+
 	return studioList
 
 # rendering the home page with today's date 
