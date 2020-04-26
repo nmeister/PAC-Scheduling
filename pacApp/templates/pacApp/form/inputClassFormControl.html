@@ -1,0 +1,102 @@
+<!-- creating form --> 
+<form action="{% url 'insert_ad_request' %}" method="POST" autocomplete="=off">
+
+		{% csrf_token %}
+
+		<div style="padding:0px" class="input-group">
+
+			Company Name: <input type="text" class="form-control" name="name"> <hr>
+			
+			Company Day (1st choice): 
+			<input type="radio" class="form-control" name="company_day_1" value="sun">
+				<label for="sun">Sunday</label>
+			<input type="radio" class="form-control" name="company_day_1" value="mon">	
+				<label for="mon">Monday</label>
+			<input type="radio" class="form-control" name="company_day_1" value="tues">
+				<label for="tues">Tuesday</label>
+			<input type="radio" class="form-control" name="company_day_1" value="wed">
+				<label for="wed">Wednesday</label>
+			<input type="radio" class="form-control" name="company_day_1" value="thurs">
+				<label for="thurs">Thursday</label>
+			<input type="radio" class="form-control" name="company_day_1" value="fri">
+				<label for="fri">Friday</label>
+			<input type="radio" class="form-control" name="company_day_1" value="sat">
+				<label for="sat">Saturday</label>
+			<br>
+			Company Start Time: <input type="text" class="form-control" name="company_start_time_1"><br>
+			Company End Time: <input type="text" class="form-control" name="company_end_time_1"><br>
+			Desired Company Studio: <input type="text" class="form-control" name="company_studio_1"><br>
+
+
+
+			Company Day (2nd choice): 
+			<input type="radio" class="form-control" name="company_day_2" value="sun">
+				<label for="sun">Sunday</label>
+			<input type="radio" class="form-control" name="company_day_2" value="mon">	
+				<label for="mon">Monday</label>
+			<input type="radio" class="form-control" name="company_day_2" value="tues">
+				<label for="tues">Tuesday</label>
+			<input type="radio" class="form-control" name="company_day_2" value="wed">
+				<label for="wed">Wednesday</label>
+			<input type="radio" class="form-control" name="company_day_2" value="thurs">
+				<label for="thurs">Thursday</label>
+			<input type="radio" class="form-control" name="company_day_2" value="fri">
+				<label for="fri">Friday</label>
+			<input type="radio" class="form-control" name="company_day_2" value="sat">
+				<label for="sat">Saturday</label>
+			<br>
+			Company Start Time: <input type="text" class="form-control" name="company_start_time_2"><br>
+			Company End Time: <input type="text" class="form-control" name="company_end_time_2"><br>
+			Desired Company Studio: <input type="text" class="form-control" name="company_studio_2"><br>
+
+
+
+			Company Day (3rd choice): 
+			<input type="radio" class="form-control" name="company_day_3" value="sun">
+				<label for="sun">Sunday</label>
+			<input type="radio" class="form-control" name="company_day_3" value="mon">	
+				<label for="mon">Monday</label>
+			<input type="radio" class="form-control" name="company_day_3" value="tues">
+				<label for="tues">Tuesday</label>
+			<input type="radio" class="form-control" name="company_day_3" value="wed">
+				<label for="wed">Wednesday</label>
+			<input type="radio" class="form-control" name="company_day_3" value="thurs">
+				<label for="thurs">Thursday</label>
+			<input type="radio" class="form-control" name="company_day_3" value="fri">
+				<label for="fri">Friday</label>
+			<input type="radio" class="form-control" name="company_day_3" value="sat">
+				<label for="sat">Saturday</label>
+			<br>
+			Company Start Time: <input type="text" class="form-control" name="company_start_time_3"><br>
+			Company End Time: <input type="text" class="form-control" name="company_end_time_3"><br>
+			Desired Company Studio: <input type="text" class="form-control" name="company_studio_3"><br>
+
+
+
+
+			Ranking of Studios:<br>
+			Rank #1: <input type="text" class = "form-control" name="rank_1"><br>
+			Rank #2: <input type="text" class = "form-control" name="rank_2"><br>
+			Rank #3: <input type="text" class = "form-control" name="rank_3"><br>
+			Rank #4: <input type="text" class = "form-control" name="rank_4"><br>
+			Rank #5: <input type="text" class = "form-control" name="rank_5"><br>
+			Number of Rehearsals Needed: <input type="text" class="form-control" name="num_reho"><br>
+			Number of Members: <input type="text" class="form-control" name="num_members"><br>
+			<div class="input-group-append text-info">
+				<span class="input-grou-text bg-white py-0">
+					<button type="submit" class="btn btn-sm text-info">
+						<i class="fa fa-plus-circle fa-lg">
+						</i>
+						Submit
+					</button>
+				</span>
+			</div>
+		</div>
+	</form>
+ 
+Results of DB:
+	<ul class="list-group">
+		{% for item in all_requests %}
+		<li class="list-group-item">{{item.name}}{{item.company_day}}{{item.company_start_time}}{{item.company_end_time}}</li>
+		{% endfor %}
+	</ul>
