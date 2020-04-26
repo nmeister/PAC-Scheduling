@@ -29,7 +29,7 @@
   <div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)">Saturday
      <br><span id="d6date" style="display:none"></span>
   </div>
-  <div class="tablinks"><input type="date" max="2999-12-31" autocomplete="on" id="curr"></div>
+  <div class="tablinks"><input type="date" max="2999-12-31" autocomplete="on" id="curr" onchange="setupWeek('week');"></div>
    <div class="tablinks" id="booking" style="background-color:#b76e79; color:white; float:right; margin-top:15px">
     <a style="text-decoration-line:none;" href="schedule">Booking</a>
   </div> 
@@ -44,6 +44,7 @@
 <div class="tabcontent" id="fri">{% include 'templates/pacApp/tableElements/friday.html'%}</div>
 <div class="tabcontent" id="sat">{% include 'templates/pacApp/tableElements/saturday.html'%}</div>
 </div>
+
 
 <!-- renders this page to be displayed when changes made --> 
 <!-- for setting up the data initially --> 
@@ -226,12 +227,16 @@
    }
     // $('td').css('cursor','pointer');
     var weekday = parseInt("{{weekday}}");
-    // console.log(weekday);
-    var current = "{{currentdate}}";
+    console.log(weekday);
+    var currday = "{{currday}}";
+    if (currday != 'None') {
+       $('#d'+currday).addClass('today');
+    }
     $('#curr').val("{{formatdate}}");
-    $('#curr').on('change', setupWeek);
+   
     var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
     openDay(daysofweek[weekday], 'd'+weekday);
+
 
   var edit = "{{editable}}";
   console.log(edit);
@@ -240,7 +245,7 @@
     $('#headerschedule').css('display','none');
   }
   else {
-    $('#scheduletable').css('margin', '20px');
+  
     $('#booking').css('display','none');
   }
    </script>

@@ -27,10 +27,14 @@ def error_500(request):
         return render(request,'templates/pacApp/404.html', data)
 
 def createContext(startdate, endweek, newdate, groups, getGroups):
+	actualdate = date.today()
+	currday = 'None'
 	week = {}
 	for i in range(7):
 		# week.append((startdate + timedelta(days=i)).strftime('%Y-%m-%d-%w'))
 		week[(startdate + timedelta(days=i)).strftime('%w')] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d')
+		if (startdate + timedelta(days=i)).strftime('%Y-%m-%d') == actualdate.strftime('%Y-%m-%d'):
+			currday = actualdate.strftime('%w')
 	# print(week)
 
 	studioList = {'bloomberg':0, 'dillondance':1, 'dillonmar':2, 'dillonmpr': 3, 'murphy': 4, 'ns':5,'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
@@ -54,6 +58,7 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
 			   'Whitman': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, endweek]), 
 			   'Wilcox': Booking.objects.filter(studio_id=9).filter(booking_date__range=[startdate, endweek]), 
 			   'newdate': newdate, 'formatdate': formatdate, 'weekday': int(startdate.strftime('%w')), 'sun': week['0'], 
+			   'currday':currday,
 			   'mon': week['1'], 'tue': week['2'], 'wed': week['3'], 
 			   'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
 	if getGroups == True:
@@ -137,6 +142,7 @@ def update(request:HttpResponse):
 			request.GET.get('endtime'), request.GET.get('day'))
 	retdate = request.GET.get('newdate').split('-')
 	startdate = datetime.date(int(retdate[0]),int(retdate[1]),int(retdate[2]))
+	print(startdate)
 	endweek = startdate + timedelta(days=6)
 	newdate = request.GET.get('newdate')
 	print(newdate)
@@ -151,8 +157,16 @@ def update(request:HttpResponse):
 	context = createContext(startdate, endweek, newdate, groups, getGroups)
 	if weekday != None:
 		context['weekday'] = weekday
+	groupday = request.GET.get('groupday');
+	print(weekday)
+	print('groupday is')
+	print(groupday)
+	if weekday == None and groupday != None:
+		context['weekday'] = groupday
 	context['editable'] = True
+
 	return render(request, "templates/pacApp/tableElements/table.html", context)
+
 
 
 def insert_space_item(request: HttpResponse):

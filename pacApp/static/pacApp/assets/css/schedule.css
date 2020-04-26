@@ -1,3 +1,8 @@
+table {
+  border-collapse:collapse;
+}
+
+
 input[type="radio"], {
     -webkit-appearance: radio;
     cursor: pointer;
@@ -27,21 +32,22 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   overflow: visible;
 }
 
-th tr{
+th {
   text-align:left;
-
 }
 
 .studio {
-  padding:6px 12px;
+   padding-left:20px;
+   padding-right:0px;
 }
+
 
 /* Style the tab */
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-  padding: 6px 12px;
+  padding: 6px 12px; 
   width:100%;
   position:relative;
 }
@@ -71,10 +77,10 @@ th tr{
 /* Style the tab content */
 .tabcontent {
   display: none;
-  padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
   width: 100%;
+  overflow:hidden;
 
 }
 

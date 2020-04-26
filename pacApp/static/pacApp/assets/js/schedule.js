@@ -22,6 +22,7 @@ function openDay(tab, id) {
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(tab).style.display = "block";
   document.getElementById(id).className += " active";
+  var weekdays= {'sun':0,'mon':1,'tue':2,'wed':3,'thu':4,'fri':5,'sat':6};
   var date = $('#'+id).data('date').split('-');
   console.log(date)
   var reformatted = date[1] + '/' + date[2] + '/' + date[0].substring(2,4); 
@@ -194,7 +195,7 @@ function handleresponse(response)
 }
 
 
-function setupWeek()
+function setupWeek(type)
 	// date = yyyy-mm-dd
 	{	
     // in prepation for the today tab - if it is on the current day, has this feature 
@@ -204,18 +205,36 @@ function setupWeek()
     		groups = 'None'
     	}
     	console.log(groups);
-
+  		
+    	 var active = document.getElementsByClassName('active')[0].id[1];
+    	 console.log(active);
+   		
 		 var curr = $('#curr').val();
+		 console.log(curr);
          let url = 'update';
-         request = $.ajax(
+         if (type == 'week') {
+         	request = $.ajax(
               {
                  type: "GET",
                  url: url,
                  data: {'newdate': curr,
              			'selectgroups': groups},
+             	success: handleresponse,
+               }
+            );
+         }
+         else if (type == 'group') {
+         request = $.ajax(
+              {
+                 type: "GET",
+                 url: url,
+                 data: {'newdate': curr,
+             			'selectgroups': groups,
+             			'groupday': active},
                  success: handleresponse,
                }
             );
+     }
     }
 
 function setGroups() {
@@ -229,6 +248,7 @@ function setGroups() {
      console.log(groups);
      return groups
 }
+
 
 
 // sendbook gathers all the stuff necessary to make a booking 

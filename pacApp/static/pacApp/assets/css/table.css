@@ -25,12 +25,6 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
-  font-weight: unset;
-  padding-right: 10px;
-  text-align:left;
-}
-
 .column100 {
   width: 130px;
 }
