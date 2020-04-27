@@ -11,23 +11,13 @@
   justify-content: center;
   flex-wrap: wrap;
   padding:0px 0px 0px 0px;
+  table-layout:fixed;
 }
 
 #SETUP AND SPACING
 
 .wrap-table100 {
   width: 1300px;
-}
-
-table {
-  width: 100%;
-  background-color: #fff;
-}
-
-th, td {
-  font-weight: unset;
-  padding-right: 10px;
-  text-align:left;
 }
 
 .column100 {
@@ -48,18 +38,31 @@ th, td {
 }
 
 .row100.head th {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  padding-left:0.1em;
+  font-size: 0.75em;
+
+}
+
+
+th.studio,
+td.studio {
+   padding:0 0.3em 0 0.3em;
+   font-size:0.85em;
+ 
 }
 
 .row100 td {
-  padding-top: 10px;
-  padding-bottom: 14px;
+  padding: 0.4em;
+  font-size: 0.8em;
+  width:0.3em;
+  height: 0.3em;
 }
 
 #TABLE STYLING
 .table100.ver1 td {
-  color: #808080;
+  /* color: #808080; */
   line-height: 1.4;
 }
 
@@ -91,21 +94,9 @@ th, td {
   color: #fff;
 }
 
-.disable td:hover {
-  background-color: #f2f2f2;
-}
-
 .table100.ver1 .row200:hover {
   background-color: #f2f2f2;
 }
 
-.row200.head th {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
 
-.row200 td {
-  padding-top: 10px;
-  padding-bottom: 14px;
-}
 

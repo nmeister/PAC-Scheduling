@@ -22,6 +22,7 @@ function openDay(tab, id) {
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(tab).style.display = "block";
   document.getElementById(id).className += " active";
+  var weekdays= {'sun':0,'mon':1,'tue':2,'wed':3,'thu':4,'fri':5,'sat':6};
   var date = $('#'+id).data('date').split('-');
   console.log(date)
   var reformatted = date[1] + '/' + date[2] + '/' + date[0].substring(2,4); 
@@ -32,17 +33,96 @@ function openDay(tab, id) {
 
 }
 
+function cannotEdit() {
+    console.log('cannot book');
+}
+
+function homeCannotBook() {
+  console.log('home cannot book error');
+  
+  // handles all modal - make it seen 
+  var modal = document.getElementById("errorHome");
+ 
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("errorHomeClose");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // closing with oK button 
+  var ok = document.getElementById("okHome");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+
+}
+
 function canEdit(id) {
 	var editable = $('#schedule').data('editable');
 	console.log(editable);
+  if (editable == 'False') {
+      homeCannotBook(); 
+      return;
+  }
+  var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
+  var day = studioNum[1] % 10;
+  var hour = studioNum[1] / 10;
+  var content = '#content' + day;
+  var dateArr = $(content).data('date').split('-');
+  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour);
+  console.log(date);
+  var today = new Date();
+  console.log(today);
+  console.log(date.getTime());
+  if (date.getTime() < today.getTime()) {
+      editable = 'False'
+  }
 	if (editable == 'True') {
 		book(id);
 	}
 	else {
-		console.log('Not allowed to book on this page. Please login to book')
-		return;
+		pastTime();
 	}
 }
+
+function pastTime() {
+  console.log('past the time error');
+  
+  // handles all modal - make it seen 
+  var modal = document.getElementById("errorPast");
+ 
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("errorClose");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // closing with oK button 
+  var ok = document.getElementById("okbutton");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+}
+
+
 
 function book(id) {
 	// console.log('booking')
@@ -130,12 +210,17 @@ function booking(studio,day,hour,id) {
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
 	  modal.style.display = "none";
+    $('#self').prop("checked", false);
+    $('#group').prop("checked", false);
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 	  if (event.target == modal) {
 	    modal.style.display = "none";
+      // make sure they are unchecked when we close 
+      $('#self').prop("checked", false);
+      $('#group').prop("checked", false);
 	  }
 	}
 
@@ -170,8 +255,13 @@ function booking(studio,day,hour,id) {
 	var content = '#content' + day;
 	console.log($(content).data('date'));
 	var dateArr = $(content).data('date').split('-');
-	var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
-
+  console.log(dateArr);
+  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
+  if (starttime == 12 || starttime == 1) {
+    var nextday = parseInt(dateArr[2]) + 1
+    date = new Date(dateArr[0], dateArr[1]-1, nextday);
+  }
+  console.log(date);
 	var bookdate = document.getElementById('bookdate');
 	// console.log(date)
 	bookdate.innerHTML = "Booking Day: " + date.toDateString();
@@ -189,12 +279,12 @@ function booking(studio,day,hour,id) {
 function handleresponse(response) 
 {
 	console.log('handle after update');
-    $('#schedule').html(response);
-    // showConfirm(); 
+  $('#schedule').html(response);
+  // showConfirm(); 
 }
 
 
-function setupWeek()
+function setupWeek(type)
 	// date = yyyy-mm-dd
 	{	
     // in prepation for the today tab - if it is on the current day, has this feature 
@@ -204,18 +294,36 @@ function setupWeek()
     		groups = 'None'
     	}
     	console.log(groups);
-
+  		
+    	 var active = document.getElementsByClassName('active')[0].id[1];
+    	 console.log(active);
+   		
 		 var curr = $('#curr').val();
+		 console.log(curr);
          let url = 'update';
-         request = $.ajax(
+         if (type == 'week') {
+         	request = $.ajax(
               {
                  type: "GET",
                  url: url,
                  data: {'newdate': curr,
              			'selectgroups': groups},
+             	success: handleresponse,
+               }
+            );
+         }
+         else if (type == 'group') {
+         request = $.ajax(
+              {
+                 type: "GET",
+                 url: url,
+                 data: {'newdate': curr,
+             			'selectgroups': groups,
+             			'groupday': active},
                  success: handleresponse,
                }
             );
+     }
     }
 
 function setGroups() {
@@ -231,28 +339,54 @@ function setGroups() {
 }
 
 
+function handleBadUser(msg) {
+  $('#badUserMsg').html(msg);
+  var modal = document.getElementById("handleBadUser");
+  // $('#myModal').css('display','block');
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("closeBadUser");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      // make sure they are unchecked when we close 
+    }
+  }
+  var ok = document.getElementById("okbad");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+}
+
 // sendbook gathers all the stuff necessary to make a booking 
 function sendbook(id) {
 		// checks whether or not there are selected groups 
 		console.log('in confirm');
 		if (!$("input:radio[name='usertype']").is(":checked")) {
 			console.log('bad');
-			alert('User type is required');
-			return;
+			handleBadUser('No user selected. <br> <strong>Please check a user type: Self or Group</strong>');
+      return;
 		}
 		var selectedUser = $("input[name='usertype']:checked").val();
         console.log(selectedUser);
         if (selectedUser == 'self') {
         	var user = $('#selfname').val();
         	if (user == "") {
-        		alert('Name is required');
+        		handleBadUser('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
         		return;
         	}
         	console.log(user);
         }
         else {
         	if (!$("input:radio[name='dgroup']").is(":checked")) {
-        		alert('Group selection is required');
+        		handleBadUser('Group Booking: No group selected. <br> <strong>Please select a group</strong>');
         		return;
         	}
         	var user = $("input[name='dgroup']:checked").val();
@@ -260,7 +394,9 @@ function sendbook(id) {
         }
        
         var modal = document.getElementById("myModal");
-        modal.style.display = "none";
+        modal.style.display = "none"; 
+        
+        // uncheck this upon sending confirm
         $("input[name='usertype']:checked").prop('checked', false); 
         $("input[name='dgroup']:checked").prop('checked', false);
        	// splits from id and helps parse each detail 

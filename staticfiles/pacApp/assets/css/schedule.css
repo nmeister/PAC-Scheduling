@@ -27,21 +27,14 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   overflow: visible;
 }
 
-th tr{
-  text-align:left;
 
-}
-
-.studio {
-  padding:6px 12px;
-}
 
 /* Style the tab */
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-  padding: 6px 12px;
+  padding: 3px 9px; 
   width:100%;
   position:relative;
 }
@@ -53,9 +46,10 @@ th tr{
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 0.5em 0.5em;
   transition: 0.3s;
-  margin:2px;
+  margin:0.3em;
+  font-size:0.9em;
 }
 
 /* Change background color of buttons on hover */
@@ -71,10 +65,11 @@ th tr{
 /* Style the tab content */
 .tabcontent {
   display: none;
-  padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
   width: 100%;
+  overflow:scroll;
+  margin-right:0px;
 
 }
 
@@ -118,15 +113,44 @@ th tr{
   background-color:#002366;
   text-align:center;
   color:white;
-
-
 }
 
 .PUB {
-  background-color: pink;
+  background-color: #DB7093;
   text-align:center;
   color:white;
 
+}
+
+.Naacho {
+  background-color: green;
+  text-align:center;
+  color:white;
+
+}
+
+.HighSteppers {
+  background-color: #0d98ba;
+  text-align:center;
+  color:white;
+}
+
+.Six14 {
+  background-color: lightblue;
+  text-align:center;
+  color:white;
+}
+
+.Bhangra {
+  background-color: orange;
+  text-align:center;
+  color:white;
+}
+
+.Triple8 {
+  background-color: #9b1c31;
+  text-align:center;
+  color:white;
 }
 
 
@@ -137,7 +161,23 @@ th tr{
 
 }
 
+.Kokopops {
+  background-color: #FF1493;
+  text-align:center;
+  color:white;
+}
 
+.BodyHype {
+  background-color: crimson;
+  text-align:center;
+  color:white;
+}
+
+.eXpressions {
+  background-color:#FFC0CB;
+  text-align:center;
+  color:white;
+}
 
 /* THE POP UP TO CONFIRM BOOKING TIME ETC */ 
 .modal {
@@ -163,6 +203,16 @@ th tr{
   height:60%;
 }
 
+/* Modal Content/Box */
+.modal-content-error {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 25px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
+  height: 30%;
+}
+
 /* The Close Button */
 .close {
   color: #aaa;
@@ -179,6 +229,27 @@ th tr{
 }
 
 
+#groupselect {
+  padding:10px;
+  background-color: #f1f1f1;
+  overflow:hidden;
+  margin:0 20px 20px 20px;
+}
 
 
+.selectgroup {
+  padding-right:0.5em;
+  font-size:0.85em;
+}
+
+.ingroup {
+  padding-right:2px;
+  padding-left:2px;
+  word-wrap: break-word;
+}
+
+
+.grouplabel {
+  padding: 0px 5px 0px 5px;
+}
 
