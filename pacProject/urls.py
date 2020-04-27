@@ -18,13 +18,13 @@ from django.urls import path, include
 from django.conf.urls import handler404, handler500
 from pacApp import views
 
+
 urlpatterns = [
- 	# this is just what url you will be going to for this 
-	path('', include('pacApp.urls')),
-    path('pacApp/', include('pacApp.urls')),
+    # this is just what url you will be going to for this
     path('admin/', admin.site.urls),
+    path('', include('pacApp.urls')),
+    path('pacApp/', include('pacApp.urls')),
     path('accounts/', include('uniauth.urls.cas_only', namespace='uniauth')),
-    #url('accounts/', include('uniauth.urls.cas_only', namespace='uniauth')),
 ]
 
 handler404 = views.error_404
