@@ -33,6 +33,32 @@ function openDay(tab, id) {
 
 }
 
+
+function handleBad(msg) {
+  $('#badmsg').html(msg);
+  var modal = document.getElementById("handlebad");
+  // $('#myModal').css('display','block');
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("closebad");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      // make sure they are unchecked when we close 
+    }
+  }
+  var ok = document.getElementById("byebad");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+}
+
 function cannotEdit() {
     console.log('cannot book');
 }
@@ -69,6 +95,56 @@ function homeCannotBook() {
 
 }
 
+// if we are within current hour and they still want to book 
+function withinCurrentHourBooking(left, id) {
+  console.log('within current hour booking');
+  $('#minLeft').html(left);
+  // handles all modal - make it seen 
+  var modal = document.getElementById("currHour");
+ 
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("currClose");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+     $("input[name='continue']:checked").prop('checked', false); 
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+       $("input[name='continue']:checked").prop('checked', false); 
+      modal.style.display = "none";
+    }
+  }
+
+  // should should login in button otherwise booking 
+  // need to fix once we have cas 
+  var input; 
+  var currOK = document.getElementById("currOK");
+  currOK.onclick = function() {
+    if (!$("input:radio[name='continue']").is(":checked")) {
+      console.log('bad user');
+      handleBad('Please select whether or not you would like to continue booking this time slot.');
+      return;
+    }
+    input = $("input[name='continue']:checked").val();
+    console.log(input);
+    $("input[name='continue']:checked").prop('checked', false); 
+    // if they want to book this go to book
+    if (input == 'yes') {
+      modal.style.display = "none";
+      book(id);
+    }
+    else {
+       modal.style.display = "none";
+      return;
+    }
+    modal.style.display = "none";
+  }
+}
+
 function canEdit(id) {
   console.log('id in canEdit' + id);
 	var editable = $('#schedule').data('editable');
@@ -86,15 +162,25 @@ function canEdit(id) {
   if (hour == 1) {
     dateArr[2] += 1; 
   }
-  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour);
-  console.log(date);
+  var strictdate = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour);
+  var nextHour = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour+1);
+ 
   var today = new Date();
-  console.log(today);
-  console.log(date.getTime());
-  if (date.getTime() < today.getTime()) {
+  console.log(today.getTime());
+  console.log(strictdate.getTime());
+
+  var stillBook = 'no'
+  if (strictdate.getTime() < today.getTime()) {
+      if (today.getTime() - strictdate.getTime() < 55 * 60000) {
+        console.log('still within 55 minutes');
+        var minLeft = Math.trunc((nextHour.getTime() - today.getTime()) / 60000)
+        var stillBook = withinCurrentHourBooking(minLeft, id);
+        return;
+      }
       editable = 'False'
   }
 	if (editable == 'True') {
+
 		book(id);
 	}
 	else {
@@ -430,7 +516,6 @@ function handleBadUser(msg) {
     $("input[name='usertype']:checked").prop('checked', false); 
     $("input[name='dgroup']:checked").prop('checked', false);
   }
-  
 }
 
 // sendbook gathers all the stuff necessary to make a booking 

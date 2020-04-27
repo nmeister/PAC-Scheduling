@@ -98,6 +98,31 @@
       </div>
    </div>
 
+   <div>
+      <div id="currHour" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content-error">
+          <span id="currClose" style="text-align:right;" class="close">&times;</span>
+          <p>You only have <span id="minLeft"></span> minutes left for this time slot. Do you want to continue booking?</p>
+          <input type="radio" name="continue" value="yes"><label for="yes" class="grouplabel">Yes</label> 
+          <input type="radio" name="continue" value="no"><label for="no" class="grouplabel">No</label> 
+          <div id="currOK" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</div>
+        </div>
+      </div>
+   </div>
+
+    <div>
+      <div id="handlebad" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content-error" style="height:20%;">
+          <span id="closebad" style="text-align:right;" class="close">&times;</span>
+          <p id="badmsg"></p>
+          <div id="byebad" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</div>
+        </div>
+      </div>
+   </div>
+
+
 </body>
 <script> 
   var edit = "{{editable}}";
