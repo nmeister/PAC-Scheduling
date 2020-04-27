@@ -1,8 +1,3 @@
-table {
-  border-collapse:collapse;
-}
-
-
 input[type="radio"], {
     -webkit-appearance: radio;
     cursor: pointer;
@@ -74,7 +69,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 /* Style the tab content */
 .tabcontent {
   display: none;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-top: none;
   width: 100%;
   overflow:hidden;
@@ -121,8 +116,6 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   background-color:#002366;
   text-align:center;
   color:white;
-
-
 }
 
 .PUB {
@@ -130,6 +123,37 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   text-align:center;
   color:white;
 
+}
+
+.Naacho {
+  background-color: green;
+  text-align:center;
+  color:white;
+
+}
+
+.HighSteppers {
+  background-color: #0d98ba;
+  text-align:center;
+  color:white;
+}
+
+.Six14 {
+  background-color: lightblue;
+  text-align:center;
+  color:white;
+}
+
+.Bhangra {
+  background-color: orange;
+  text-align:center;
+  color:white;
+}
+
+.Triple8 {
+  background-color: #9b1c31;
+  text-align:center;
+  color:white;
 }
 
 
@@ -140,7 +164,17 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 
 }
 
+.Kokopops {
+  background-color: #FF1493;
+  text-align:center;
+  color:white;
+}
 
+.BodyHype {
+  background-color: crimson;
+  text-align:center;
+  color:white;
+}
 
 /* THE POP UP TO CONFIRM BOOKING TIME ETC */ 
 .modal {
@@ -166,6 +200,16 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   height:60%;
 }
 
+/* Modal Content/Box */
+.modal-content-error {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 25px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
+  height: 30%;
+}
+
 /* The Close Button */
 .close {
   color: #aaa;
@@ -184,8 +228,23 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 
 #groupselect {
   padding:10px;
-  background-color:pink;
-
+  background-color: #f1f1f1;
+  overflow:hidden;
+  margin-bottom:10px;
 }
 
 
+.selectgroup {
+  padding-right:10px;
+}
+
+.ingroup {
+  padding-right:2px;
+  padding-left:2px;
+  word-wrap: break-word;
+}
+
+
+.grouplabel {
+  padding: 0px 5px 0px 5px;
+}

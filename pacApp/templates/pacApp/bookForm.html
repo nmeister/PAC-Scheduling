@@ -8,56 +8,76 @@
 	
   <span> Who are you booking for? </span>
   <br>
-  <input type="radio" id="self" name="usertype" value="self" required><label for="self">Self</label>
+  <input type="radio" id="self" name="usertype" value="self" required><label class="grouplabel" for="self">Self</label>
 		<div class="reveal-if-activeSelf">
   			Name: <input class="require-if-active" id="selfname" type="text" />
   		</div>
 	
-	<input type="radio" id="group" name="usertype" value="group"><label for="group">Group</label> 
+	<input type="radio" id="group" name="usertype" value="group"><label class="grouplabel" for="group">Group</label> 
 		<div class="reveal-if-activeGroup">
-  			<table style="width:40%">
-  				<tr>
-  					<td>
-  						<input type="radio" id="BAC" name="dgroup" value="BAC"><label for="bac" class="group">BAC</label> 
+  			<table style="width:100%">
+  				<tr class="ingroup">
+  					<td class="ingroup">
+  						<input type="radio" id="BACradio" name="dgroup" value="BAC"><label for="BACradio" class="grouplabel">BAC</label> 
   					</td>
-  					<td>
-  						<input type="radio" id="Sympoh" name="dgroup" value="Sympoh"><label for="sympoh" class="group">Sympoh</label> 
- 					</td>
+  					<td class="ingroup">
+  						<input type="radio" id="Sympohradio" name="dgroup" value="Sympoh"><label for="Sympohradio" class="grouplabel">Sympoh</label> 
+ 					  </td>
+            <td class="ingroup">
+              <input type="radio" id="Naachoradio" name="dgroup" value="Naacho"><label for="Naachoradio" class="grouplabel">Naacho</label> 
+            </td>
+            <td class="ingroup">
+              <input type="radio" id="Six14radio" name="dgroup" value="Six14"><label for="Six14radio" class="grouplabel">Six14</label> 
+            </td>
   				</tr>
 
   				<tr>
-  					<td>
-  						<input type="radio" id="Disiac" name="dgroup" value="Disiac"><label for="disiac" class="group">Disiac</label> 
+  					<td class="ingroup">
+  						<input type="radio" id="Disiacradio" name="dgroup" value="Disiac"><label for="Disiacradio" class="grouplabel">Disiac</label> 
   					</td>
-  					<td>
-  						<input type="radio" id="Expressions" name="dgroup" value="Expressions"><label for="expressions" class="group">Expressions</label> 
- 					</td>
+  					<td class="ingroup">
+  						<input type="radio" id="eXpressionsradio" name="dgroup" value="eXpressions"><label for="eXpressionsradio" class="grouplabel">eXpressions</label> 
+ 					  </td>
+            <td class="ingroup">
+              <input type="radio" id="Bhangraradio" name="dgroup" value="Bhangra"><label for="Bhangraradio" class="grouplabel">Bhangra</label> 
+            </td>
+             <td class="ingroup">
+              <input type="radio" id="Kokopopsradio" name="dgroup" value="Kokopops"><label for="Kokopopsradio" class="grouplabel">Kokopops</label> 
+            </td>
   				</tr>
 
   				<tr>
-  					<td>
-  						<input type="radio" id="BodyHype" name="dgroup" value="BodyHype"><label for="BodyHype" class="group">BodyHype</label> 
+  					<td class="ingroup">
+  						<input type="radio" id="BodyHyperadio" name="dgroup" value="BodyHype"><label for="BodyHyperadio" class="grouplabel">BodyHype</label> 
   					</td>
-  					<td>
-  						<input type="radio" id="PUB" name="dgroup" value="PUB"><label for="pub" class="group">PUB</label> 
- 					</td>
-  				</tr>
+  					<td class="ingroup">
+  						<input type="radio" id="PUBradio" name="dgroup" value="PUB"><label for="PUBradio" class="grouplabel">PUB</label> 
+ 					  </td>
+            <td class="ingroup">
+              <input type="radio" id="Triple8radio" name="dgroup" value="Triple8"><label for="Triple8radio" class="grouplabel">Triple 8</label> 
+            </td>
+            <td class="ingroup">
+              <input type="radio" id="HighSteppersradio" name="dgroup" value="HighSteppers"><label for="HighSteppersradio" class="grouplabel">HighSteppers</label> 
+            </td>
+          </tr>
   			</table>
   		</div>
 </form>
 
 
+  <div>
+      <div id="handleBadUser" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content-error">
+          <span id="closeBadUser" style="text-align:right;" class="close">&times;</span>
+          <p id="badUserMsg"></p>
+          <div id="okbad" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</div>
+        </div>
+      </div>
+   </div>
+
+
 <script> 
-	function revealMore() {
-		$('.moreGroups').css('display','inline');
-		$('#more').css('display','none');
-		$('#less').css('display','block');
-	}
-	function hideMore() {
-		$('#less').css('display','none');
-		$('#more').css('display','block');
-		$('.moreGroups').css('display','none');
-	}
 
 
 </script>

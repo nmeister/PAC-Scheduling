@@ -11,18 +11,13 @@
   justify-content: center;
   flex-wrap: wrap;
   padding:0px 0px 0px 0px;
+  table-layout:fixed;
 }
 
 #SETUP AND SPACING
 
 .wrap-table100 {
   width: 1300px;
-}
-
-table {
-  width: 100%;
-  background-color: #fff;
-  border-collapse: collapse;
 }
 
 .column100 {

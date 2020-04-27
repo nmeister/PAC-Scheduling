@@ -37,9 +37,42 @@ function cannotEdit() {
     console.log('cannot book');
 }
 
+function homeCannotBook() {
+  console.log('home cannot book error');
+  
+  // handles all modal - make it seen 
+  var modal = document.getElementById("errorHome");
+ 
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("errorHomeClose");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // closing with oK button 
+  var ok = document.getElementById("okHome");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+
+}
+
 function canEdit(id) {
 	var editable = $('#schedule').data('editable');
 	console.log(editable);
+  if (editable == 'False') {
+      homeCannotBook(); 
+      return;
+  }
   var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
   var day = studioNum[1] % 10;
   var hour = studioNum[1] / 10;
@@ -57,10 +90,39 @@ function canEdit(id) {
 		book(id);
 	}
 	else {
-		console.log('Not allowed to book on this page. Please login to book')
-		return;
+		pastTime();
 	}
 }
+
+function pastTime() {
+  console.log('past the time error');
+  
+  // handles all modal - make it seen 
+  var modal = document.getElementById("errorPast");
+ 
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("errorClose");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // closing with oK button 
+  var ok = document.getElementById("okbutton");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+}
+
+
 
 function book(id) {
 	// console.log('booking')
@@ -148,12 +210,17 @@ function booking(studio,day,hour,id) {
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
 	  modal.style.display = "none";
+    $('#self').prop("checked", false);
+    $('#group').prop("checked", false);
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 	  if (event.target == modal) {
 	    modal.style.display = "none";
+      // make sure they are unchecked when we close 
+      $('#self').prop("checked", false);
+      $('#group').prop("checked", false);
 	  }
 	}
 
@@ -207,8 +274,8 @@ function booking(studio,day,hour,id) {
 function handleresponse(response) 
 {
 	console.log('handle after update');
-    $('#schedule').html(response);
-    // showConfirm(); 
+  $('#schedule').html(response);
+  // showConfirm(); 
 }
 
 
@@ -267,6 +334,31 @@ function setGroups() {
 }
 
 
+function handleBadUser(msg) {
+  $('#badUserMsg').html(msg);
+  var modal = document.getElementById("handleBadUser");
+  // $('#myModal').css('display','block');
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("closeBadUser");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      // make sure they are unchecked when we close 
+    }
+  }
+  var ok = document.getElementById("okbad");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+}
 
 // sendbook gathers all the stuff necessary to make a booking 
 function sendbook(id) {
@@ -274,22 +366,22 @@ function sendbook(id) {
 		console.log('in confirm');
 		if (!$("input:radio[name='usertype']").is(":checked")) {
 			console.log('bad');
-			alert('User type is required');
-			return;
+			handleBadUser('No user selected. <br> <strong>Please check a user type: Self or Group</strong>');
+      return;
 		}
 		var selectedUser = $("input[name='usertype']:checked").val();
         console.log(selectedUser);
         if (selectedUser == 'self') {
         	var user = $('#selfname').val();
         	if (user == "") {
-        		alert('Name is required');
+        		handleBadUser('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
         		return;
         	}
         	console.log(user);
         }
         else {
         	if (!$("input:radio[name='dgroup']").is(":checked")) {
-        		alert('Group selection is required');
+        		handleBadUser('Group Booking: No group selected. <br> <strong>Please select a group</strong>');
         		return;
         	}
         	var user = $("input[name='dgroup']:checked").val();
@@ -297,7 +389,9 @@ function sendbook(id) {
         }
        
         var modal = document.getElementById("myModal");
-        modal.style.display = "none";
+        modal.style.display = "none"; 
+        
+        // uncheck this upon sending confirm
         $("input[name='usertype']:checked").prop('checked', false); 
         $("input[name='dgroup']:checked").prop('checked', false);
        	// splits from id and helps parse each detail 
