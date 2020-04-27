@@ -4,10 +4,10 @@ from django.conf.urls import handler404, handler500
 from . import views
 
 urlpatterns = [
-	# when referencing home page it eneds to be given url of '/'
+    # when referencing home page it eneds to be given url of '/'
     path('', views.homepage, name='homepage'),
     path('homepage', views.homepage, name='homepage'),
-    path('schedule', views.schedule, name ='schedule'),
+    path('schedule', views.schedule, name='schedule'),
     path('insert_space/', views.insert_space_item, name='insert_space_item'),
     path('insert_ad_request/', views.insert_ad_request, name='insert_ad_request'),
     path('scheduling_alg/', views.scheduling_alg, name='scheduling_alg'),
@@ -17,4 +17,4 @@ urlpatterns = [
 ]
 
 handler404 = views.error_404
-handler500 = views.error_500 
+handler500 = views.error_500

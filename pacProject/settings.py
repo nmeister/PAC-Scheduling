@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+import django_heroku
 from pathlib import Path
 import os
 
@@ -39,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pacApp',
-    'uniauth'
+    'uniauth',
+    'account',
     # 'sweetify'
 ]
 
@@ -64,7 +66,7 @@ SETTINGS_PATH = os.path.realpath(os.path.dirname(__file__))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'pacApp'),],
+        'DIRS': [os.path.join(BASE_DIR, 'pacApp'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,14 +89,14 @@ WSGI_APPLICATION = 'pacProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dfbjvbejvesiku', # *** change the name if you change the db name
+        'NAME': 'dfbjvbejvesiku',  # *** change the name if you change the db name
         'USER': 'cmfcejmvjeilbc',
         'PASSWORD': 'ef5c6a5c01b38cee3c5bf9bd6f87551ec27fe1c6443b04ab34e2b77e56df77ba',
-        'HOST': 'ec2-34-202-7-83.compute-1.amazonaws.com', 
+        'HOST': 'ec2-34-202-7-83.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }
- #adding CAS backend
+# adding CAS backend
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'uniauth.backends.CASBackend',
@@ -103,6 +105,8 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_URL = "/accounts/login/"
 UNIAUTH_LOGIN_DISPLAY_STANDARD = False
 UNIAUTH_LOGOUT_CAS_COMPLETELY = True
+
+AUTH_USER_MODEL = 'account.Account'
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -158,7 +162,6 @@ STATICFILES_DIRS = [
 
 ]
 
-import django_heroku
-#if 'uniauth' in INSTALLED_APPS:
+# if 'uniauth' in INSTALLED_APPS:
 #    from . idp_pysaml2 import *
 django_heroku.settings(locals())
