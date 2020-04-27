@@ -2,22 +2,22 @@
 <html>
 <head> 
 	<title> Schedule </title>
-	<link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  <!-- the css added after have priority --> 
 	<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css" />
- <link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/table.css" />
-	<script type="application/javascript" src="/static/pacApp/assets/js/input.js"></script> 
+  <link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css" />
+  <link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/table.css" />
 	<script type="application/javascript" src="/static/pacApp/assets/js/schedule.js"></script> 
 	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
   {% if cursor == 'pointer' %}
   <style> 
-    th, td {
+    td {
       cursor: pointer;
     }
   </style>
 {% endif %}
+
 
 </head>
 
@@ -48,7 +48,6 @@
       </div>
     </div>
       <div id="scheduletable">
-              {% include 'templates/pacApp/tableElements/daystab.html' %}
               {% include 'templates/pacApp/tableElements/table.html' %}
               {% include 'templates/pacApp/tableElements/groupSelection.html'%}
       </div>
@@ -58,12 +57,35 @@
       <div id="myModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
-          <span class="close">&times;</span>
+          <span class="close" style="text-align:right;">&times;</span>
             {% include 'templates/pacApp/bookForm.html' %}
         </div>
       </div>
    </div>
 
+   <div>
+      <div id="errorHome" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content-error">
+          <span id="errorHomeClose" class="close">&times;</span><br>
+          <span> You are not allowed to book on this page. Please login and go to booking page. </span>
+      <span id="okHome" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</span>
+
+        </div>
+      </div>
+   </div>
+
+    <div>
+      <div id="errorPast" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content-error">
+          <span id="errorClose" class="close">&times;</span><br>
+          <span> You cannot book at a time that has already past. Please click on a time slot in the future </span>
+      <span id="okbutton" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</span>
+
+        </div>
+      </div>
+   </div>
 
 </body>
 <script> 
@@ -74,7 +96,7 @@
     $('#headerschedule').css('display','none');
   }
   else {
-   /*  $('#scheduletable').css('margin', '20px'); */
+    $('#schedule').css('margin', '20px');
     $('#booking').css('display','none');
   }
 // very initial set up of the document, we use today's date to set up active tab 
