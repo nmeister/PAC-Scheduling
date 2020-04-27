@@ -58,10 +58,13 @@ function homeCannotBook() {
     }
   }
 
-  // closing with oK button 
-  var ok = document.getElementById("okHome");
-  ok.onclick = function() {
+  // login button will show up and then if not already logged in
+  // should should login in button otherwise booking 
+  // need to fix once we have cas 
+  var login = document.getElementById("okHome");
+  login.onclick = function() {
     modal.style.display = "none";
+    location.href = "schedule";
   }
 
 }
@@ -289,6 +292,8 @@ function setupWeek(type)
 	{	
     // in prepation for the today tab - if it is on the current day, has this feature 
     	console.log('in setupweek');
+      var editable = $('#schedule').data('editable');
+      console.log(editable);
     	var groups = setGroups()
     	if (groups.length == 0) {
     		groups = 'None'
@@ -306,8 +311,10 @@ function setupWeek(type)
               {
                  type: "GET",
                  url: url,
-                 data: {'newdate': curr,
-             			'selectgroups': groups},
+                 data: {
+                  'newdate': curr,
+             			'selectgroups': groups,
+                  'editable':editable},
              	success: handleresponse,
                }
             );
@@ -319,7 +326,8 @@ function setupWeek(type)
                  url: url,
                  data: {'newdate': curr,
              			'selectgroups': groups,
-             			'groupday': active},
+             			'groupday': active,
+                  'editable':editable},
                  success: handleresponse,
                }
             );

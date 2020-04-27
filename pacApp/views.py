@@ -161,7 +161,7 @@ def update(request:HttpResponse):
 	
 	if weekday == None and groupday != None:
 		context['weekday'] = groupday
-	context['editable'] = True
+	context['editable'] = request.GET.get('editable')
 	# if endweek < date.today():
 	#	context['editable'] = False
 

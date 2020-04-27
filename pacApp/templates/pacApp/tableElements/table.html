@@ -52,8 +52,9 @@
    // for each booking in wilcox, we make it a object here
    // each object will also be within this list 
     var schedule = "{{editable}}"
+    console.log('table first');
     if (schedule == 'False') {
-        console.log('schedule');
+        console.log('at home');
        $('tr').removeClass("row100");
       // $('tr').addClass('disable');
       $('tr').addClass('row200');
@@ -245,7 +246,6 @@
       $('#headerschedule').css('display','none');
   }
   else {
-   
     $('#booking').css('display','none');
   }
    </script>

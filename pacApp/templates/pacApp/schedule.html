@@ -47,7 +47,7 @@
             </nav>
       </div>
     </div>
-      <div id="scheduletable">
+      <div id="scheduletable" data-place="schedule">
               {% include 'templates/pacApp/tableElements/table.html' %}
               {% include 'templates/pacApp/tableElements/groupSelection.html'%}
       </div>
@@ -69,7 +69,7 @@
         <div class="modal-content-error">
           <span id="errorHomeClose" class="close">&times;</span><br>
           <span> You are not allowed to book on this page. Please login and go to booking page. </span>
-      <span id="okHome" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</span>
+      <span id="okHome" class="button" style="float:right;padding:4px 10px 4px 10px;display:block;">LOGIN</span>
 
         </div>
       </div>
@@ -80,7 +80,7 @@
         <!-- Modal content -->
         <div class="modal-content-error">
           <span id="errorClose" class="close">&times;</span><br>
-          <span> You cannot book at a time that has already past. Please click on a time slot in the future </span>
+          <span> You cannot book a time slot in the past. Please click on a time slot in the future </span>
       <span id="okbutton" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</span>
 
         </div>
@@ -107,6 +107,7 @@
      var current = "{{currentdate}}";
      $('#d'+weekday).addClass('today');
      console.log(current);
+     $('#scheduletable').data('place', 'schedule');
       // sets the value for the date picker default 
      //  $('#curr').val(current);
       // set a field called data-week to be the week number 
