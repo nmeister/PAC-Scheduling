@@ -176,13 +176,13 @@ function buildDate(date) {
 	// console.log(date);
 	let day = date.getDate();
 	// JANUARY = 0 , FEB = 2
-    let month = date.getMonth() + 1;
-    // console.log(month)
-    if (month < 10) {
-      	month = '0' + String(month); 
-     }
-    let year = date.getFullYear(); 
-    return year + '-' + month + '-' + day; 
+  let month = date.getMonth() + 1;
+  // console.log(month)
+  if (month < 10) {
+    month = '0' + String(month); 
+  }
+  let year = date.getFullYear(); 
+  return year + '-' + month + '-' + day; 
 }
 
 
@@ -215,6 +215,9 @@ function booking(studio,day,hour,id) {
 	  modal.style.display = "none";
     $('#self').prop("checked", false);
     $('#group').prop("checked", false);
+    $("#selfname").val('');
+    $("input[name='usertype']:checked").prop('checked', false); 
+    $("input[name='dgroup']:checked").prop('checked', false);
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
@@ -224,6 +227,9 @@ function booking(studio,day,hour,id) {
       // make sure they are unchecked when we close 
       $('#self').prop("checked", false);
       $('#group').prop("checked", false);
+      $("#selfname").val('');
+      $("input[name='usertype']:checked").prop('checked', false); 
+      $("input[name='dgroup']:checked").prop('checked', false);
 	  }
 	}
 
@@ -277,13 +283,38 @@ function booking(studio,day,hour,id) {
 	confirm.value += buildDate(date);
 	console.log(confirm.value)
 }
-
 // handles ajax response callback by changing the schedule 
 function handleresponse(response) 
 {
 	console.log('handle after update');
   $('#schedule').html(response);
   // showConfirm(); 
+}
+
+function handleBadDate() {
+  var modal = document.getElementById("badDate");
+  // $('#myModal').css('display','block');
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("closeBadDate");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      // make sure they are unchecked when we close 
+    }
+  }
+  var ok = document.getElementById("okbadDate");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+  var today = buildDate(new Date());
+  $('#curr').val(today);
 }
 
 
@@ -304,7 +335,12 @@ function setupWeek(type)
     	 console.log(active);
    		
 		 var curr = $('#curr').val();
-		 console.log(curr);
+     console.log(curr);
+     if (curr.trim() == "" || curr == null) {
+      handleBadDate();
+      return;
+     }
+		 
          let url = 'update';
          if (type == 'week') {
          	request = $.ajax(
@@ -357,18 +393,27 @@ function handleBadUser(msg) {
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
+    $("#selfname").val('');
+    $("input[name='usertype']:checked").prop('checked', false); 
+    $("input[name='dgroup']:checked").prop('checked', false);
   }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
+      $("#selfname").val('');
+      $("input[name='usertype']:checked").prop('checked', false); 
+      $("input[name='dgroup']:checked").prop('checked', false);
       // make sure they are unchecked when we close 
     }
   }
   var ok = document.getElementById("okbad");
   ok.onclick = function() {
     modal.style.display = "none";
+    $("#selfname").val('');
+    $("input[name='usertype']:checked").prop('checked', false); 
+    $("input[name='dgroup']:checked").prop('checked', false);
   }
   
 }
@@ -403,11 +448,11 @@ function sendbook(id) {
        
         var modal = document.getElementById("myModal");
         modal.style.display = "none"; 
-        
         // uncheck this upon sending confirm
         $("input[name='usertype']:checked").prop('checked', false); 
         $("input[name='dgroup']:checked").prop('checked', false);
-       	// splits from id and helps parse each detail 
+       	$("#selfname").val('');
+        // splits from id and helps parse each detail 
         var info = id.split('.');
         
         // parse the studio and the after numbers
@@ -458,6 +503,7 @@ function showConfirm() {
 
 
 
-function drop() {
+function drop(evt) {
 	console.log('in drop');
+
 }

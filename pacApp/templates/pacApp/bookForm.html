@@ -4,7 +4,7 @@
 	<div id="dayofweek"></div>
 	<div id="bookdate"></div>
   <!-- upon clicking this button, calls sendbook with the value of confirm previously made --> 
-	<div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:10px">Confirm </div>
+	<div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:10px">Confirm</div>
 	
   <span> Who are you booking for? </span>
   <br>
@@ -78,6 +78,23 @@
 
 
 <script> 
+  
+  // Execute a function when the user releases a key on the keyboard
+  // for the input typing one if user presses enter this will get executed 
+  $('#selfname').keydown(function (event) {
+  console.log('clicking enter');
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    sendbook($('#confirm').val());
+  }
+  });
+
+
+
+  
 
 
 </script>

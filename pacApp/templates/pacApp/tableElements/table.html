@@ -223,7 +223,8 @@
 
          // $(col).attr('onclick','');
          // upon click, calls drop() 
-         $(col).attr('onclick','drop()');
+         $(col).attr('onclick','drop(event)');
+         // $(col).attr('data-user',item.company_name);
       }  
    }
     // $('td').css('cursor','pointer');
