@@ -2,7 +2,7 @@
 <html>
 <head> 
 	<title> Schedule </title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  <!-- the css added after have priority --> 
 	<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css" />
   <link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css" />
@@ -105,6 +105,7 @@
   if (edit == 'False') {
       console.log('is false and already on home page');
     $('#headerschedule').css('display','none');
+    $('#schedule').css('margin', '20px');
   }
   else {
     $('#schedule').css('margin', '20px');

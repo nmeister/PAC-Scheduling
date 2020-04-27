@@ -58,15 +58,19 @@ function homeCannotBook() {
     }
   }
 
-  // closing with oK button 
-  var ok = document.getElementById("okHome");
-  ok.onclick = function() {
+  // login button will show up and then if not already logged in
+  // should should login in button otherwise booking 
+  // need to fix once we have cas 
+  var login = document.getElementById("okHome");
+  login.onclick = function() {
     modal.style.display = "none";
+    location.href = "schedule";
   }
 
 }
 
 function canEdit(id) {
+  console.log('id in canEdit' + id);
 	var editable = $('#schedule').data('editable');
 	console.log(editable);
   if (editable == 'False') {
@@ -74,10 +78,14 @@ function canEdit(id) {
       return;
   }
   var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
+  console.log(studioNum)
   var day = studioNum[1] % 10;
   var hour = studioNum[1] / 10;
   var content = '#content' + day;
   var dateArr = $(content).data('date').split('-');
+  if (hour == 1) {
+    dateArr[2] += 1; 
+  }
   var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour);
   console.log(date);
   var today = new Date();
@@ -140,7 +148,7 @@ function book(id) {
 	var studio = studioNum[0]
 	var day = studioNum[1] % 10; 
 	var hour = studioNum[1] / 10;
-	// console.log(day);
+	console.log(day);
 	// console.log(Math.trunc(hour));
 
 	booking(studio,day,hour,id);
@@ -173,13 +181,13 @@ function buildDate(date) {
 	// console.log(date);
 	let day = date.getDate();
 	// JANUARY = 0 , FEB = 2
-    let month = date.getMonth() + 1;
-    // console.log(month)
-    if (month < 10) {
-      	month = '0' + String(month); 
-     }
-    let year = date.getFullYear(); 
-    return year + '-' + month + '-' + day; 
+  let month = date.getMonth() + 1;
+  // console.log(month)
+  if (month < 10) {
+    month = '0' + String(month); 
+  }
+  let year = date.getFullYear(); 
+  return year + '-' + month + '-' + day; 
 }
 
 
@@ -212,6 +220,9 @@ function booking(studio,day,hour,id) {
 	  modal.style.display = "none";
     $('#self').prop("checked", false);
     $('#group').prop("checked", false);
+    $("#selfname").val('');
+    $("input[name='usertype']:checked").prop('checked', false); 
+    $("input[name='dgroup']:checked").prop('checked', false);
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
@@ -221,6 +232,9 @@ function booking(studio,day,hour,id) {
       // make sure they are unchecked when we close 
       $('#self').prop("checked", false);
       $('#group').prop("checked", false);
+      $("#selfname").val('');
+      $("input[name='usertype']:checked").prop('checked', false); 
+      $("input[name='dgroup']:checked").prop('checked', false);
 	  }
 	}
 
@@ -230,15 +244,24 @@ function booking(studio,day,hour,id) {
 	var bookstarttime = document.getElementById("bookstarttime");
 	zoneStart = 'AM';
 	zoneEnd = 'AM';
-	if (hour > 12) {
+	if (hour >= 12) {
 		zoneStart = 'PM';
 		if (hour < 23) {
 			zoneEnd = 'PM';
 		}
 	}
+  if (Math.trunc(hour) == 11) {
+    zoneEnd = 'PM';
+  }
 	var starttime = Math.trunc(hour % 12); 
+  console.log(starttime);
+  if (starttime == 0) {
+    starttime = 12;
+  }
+
 	var endtime = Math.trunc(hour % 12) + 1; 
-	if (starttime == 0) {
+  console.log('hour ' + hour);
+	if (Math.trunc(hour) > 23) {
 		starttime = 12; 
 		zoneStart = 'AM';
 		zoneEnd = 'AM';
@@ -251,13 +274,14 @@ function booking(studio,day,hour,id) {
 	// vardayofweek = document.getElementById('dayofweek');
 	// dayofweek.innerHTML = getDayWeek(day);
 	
-	// console.log(daysofweek[day])
+	
+  
 	var content = '#content' + day;
 	console.log($(content).data('date'));
 	var dateArr = $(content).data('date').split('-');
   console.log(dateArr);
   var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
-  if (starttime == 12 || starttime == 1) {
+  if (Math.trunc(hour) > 23) {
     var nextday = parseInt(dateArr[2]) + 1
     date = new Date(dateArr[0], dateArr[1]-1, nextday);
   }
@@ -274,7 +298,6 @@ function booking(studio,day,hour,id) {
 	confirm.value += buildDate(date);
 	console.log(confirm.value)
 }
-
 // handles ajax response callback by changing the schedule 
 function handleresponse(response) 
 {
@@ -283,12 +306,40 @@ function handleresponse(response)
   // showConfirm(); 
 }
 
+function handleBadDate() {
+  var modal = document.getElementById("badDate");
+  // $('#myModal').css('display','block');
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("closeBadDate");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      // make sure they are unchecked when we close 
+    }
+  }
+  var ok = document.getElementById("okbadDate");
+  ok.onclick = function() {
+    modal.style.display = "none";
+  }
+  var today = buildDate(new Date());
+  $('#curr').val(today);
+}
+
 
 function setupWeek(type)
 	// date = yyyy-mm-dd
 	{	
     // in prepation for the today tab - if it is on the current day, has this feature 
     	console.log('in setupweek');
+      var editable = $('#schedule').data('editable');
+      console.log(editable);
     	var groups = setGroups()
     	if (groups.length == 0) {
     		groups = 'None'
@@ -299,15 +350,22 @@ function setupWeek(type)
     	 console.log(active);
    		
 		 var curr = $('#curr').val();
-		 console.log(curr);
+     console.log(curr);
+     if (curr.trim() == "" || curr == null) {
+      handleBadDate();
+      return;
+     }
+		 
          let url = 'update';
          if (type == 'week') {
          	request = $.ajax(
               {
                  type: "GET",
                  url: url,
-                 data: {'newdate': curr,
-             			'selectgroups': groups},
+                 data: {
+                  'newdate': curr,
+             			'selectgroups': groups,
+                  'editable':editable},
              	success: handleresponse,
                }
             );
@@ -319,7 +377,8 @@ function setupWeek(type)
                  url: url,
                  data: {'newdate': curr,
              			'selectgroups': groups,
-             			'groupday': active},
+             			'groupday': active,
+                  'editable':editable},
                  success: handleresponse,
                }
             );
@@ -349,18 +408,27 @@ function handleBadUser(msg) {
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
+    $("#selfname").val('');
+    $("input[name='usertype']:checked").prop('checked', false); 
+    $("input[name='dgroup']:checked").prop('checked', false);
   }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
+      $("#selfname").val('');
+      $("input[name='usertype']:checked").prop('checked', false); 
+      $("input[name='dgroup']:checked").prop('checked', false);
       // make sure they are unchecked when we close 
     }
   }
   var ok = document.getElementById("okbad");
   ok.onclick = function() {
     modal.style.display = "none";
+    $("#selfname").val('');
+    $("input[name='usertype']:checked").prop('checked', false); 
+    $("input[name='dgroup']:checked").prop('checked', false);
   }
   
 }
@@ -395,30 +463,33 @@ function sendbook(id) {
        
         var modal = document.getElementById("myModal");
         modal.style.display = "none"; 
-        
         // uncheck this upon sending confirm
         $("input[name='usertype']:checked").prop('checked', false); 
         $("input[name='dgroup']:checked").prop('checked', false);
-       	// splits from id and helps parse each detail 
+       	$("#selfname").val('');
+        // splits from id and helps parse each detail 
         var info = id.split('.');
-        
+        console.log(info)
         // parse the studio and the after numbers
         var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
+        console.log(studioNum);
         // what day is the booking occuring on 
         var day = Math.trunc(studioNum[1] % 10); 
+        console.log(day)
         // start time of booking
         var hour = Math.trunc(studioNum[1] / 10);
         // gets name of the person who wants to book it 
         
         var date = info[1];
+        console.log(date);
         console.log($('#curr').val());
         var currweek = $('#curr').val()
 
         var groups = setGroups()
-    	if (groups.length == 0) {
-    		groups = 'None'
-    	}
-    	console.log(groups);
+      	if (groups.length == 0) {
+      		groups = 'None'
+      	}
+    	  console.log(groups);
 
         // request made for booking which updates schedule
         let url = 'update';
@@ -450,6 +521,7 @@ function showConfirm() {
 
 
 
-function drop() {
+function drop(evt) {
 	console.log('in drop');
+
 }
