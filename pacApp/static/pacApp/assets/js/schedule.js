@@ -70,6 +70,7 @@ function homeCannotBook() {
 }
 
 function canEdit(id) {
+  console.log('id in canEdit' + id);
 	var editable = $('#schedule').data('editable');
 	console.log(editable);
   if (editable == 'False') {
@@ -77,10 +78,14 @@ function canEdit(id) {
       return;
   }
   var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
+  console.log(studioNum)
   var day = studioNum[1] % 10;
   var hour = studioNum[1] / 10;
   var content = '#content' + day;
   var dateArr = $(content).data('date').split('-');
+  if (hour == 1) {
+    dateArr[2] += 1; 
+  }
   var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour);
   console.log(date);
   var today = new Date();
@@ -143,7 +148,7 @@ function book(id) {
 	var studio = studioNum[0]
 	var day = studioNum[1] % 10; 
 	var hour = studioNum[1] / 10;
-	// console.log(day);
+	console.log(day);
 	// console.log(Math.trunc(hour));
 
 	booking(studio,day,hour,id);
@@ -239,15 +244,24 @@ function booking(studio,day,hour,id) {
 	var bookstarttime = document.getElementById("bookstarttime");
 	zoneStart = 'AM';
 	zoneEnd = 'AM';
-	if (hour > 12) {
+	if (hour >= 12) {
 		zoneStart = 'PM';
 		if (hour < 23) {
 			zoneEnd = 'PM';
 		}
 	}
+  if (Math.trunc(hour) == 11) {
+    zoneEnd = 'PM';
+  }
 	var starttime = Math.trunc(hour % 12); 
+  console.log(starttime);
+  if (starttime == 0) {
+    starttime = 12;
+  }
+
 	var endtime = Math.trunc(hour % 12) + 1; 
-	if (starttime == 0) {
+  console.log('hour ' + hour);
+	if (Math.trunc(hour) > 23) {
 		starttime = 12; 
 		zoneStart = 'AM';
 		zoneEnd = 'AM';
@@ -260,13 +274,14 @@ function booking(studio,day,hour,id) {
 	// vardayofweek = document.getElementById('dayofweek');
 	// dayofweek.innerHTML = getDayWeek(day);
 	
-	// console.log(daysofweek[day])
+	
+  
 	var content = '#content' + day;
 	console.log($(content).data('date'));
 	var dateArr = $(content).data('date').split('-');
   console.log(dateArr);
   var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
-  if (starttime == 12 || starttime == 1) {
+  if (Math.trunc(hour) > 23) {
     var nextday = parseInt(dateArr[2]) + 1
     date = new Date(dateArr[0], dateArr[1]-1, nextday);
   }
@@ -454,24 +469,27 @@ function sendbook(id) {
        	$("#selfname").val('');
         // splits from id and helps parse each detail 
         var info = id.split('.');
-        
+        console.log(info)
         // parse the studio and the after numbers
         var studioNum = info[0].match(/[a-z]+|[^a-z]+/gi); 
+        console.log(studioNum);
         // what day is the booking occuring on 
         var day = Math.trunc(studioNum[1] % 10); 
+        console.log(day)
         // start time of booking
         var hour = Math.trunc(studioNum[1] / 10);
         // gets name of the person who wants to book it 
         
         var date = info[1];
+        console.log(date);
         console.log($('#curr').val());
         var currweek = $('#curr').val()
 
         var groups = setGroups()
-    	if (groups.length == 0) {
-    		groups = 'None'
-    	}
-    	console.log(groups);
+      	if (groups.length == 0) {
+      		groups = 'None'
+      	}
+    	  console.log(groups);
 
         // request made for booking which updates schedule
         let url = 'update';

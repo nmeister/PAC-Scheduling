@@ -88,7 +88,6 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   background-color: #b76e79;
   text-align:center;
   color:white;
-
 }
 
 /* CSS FOR EACH OF THE DIFFERENT GROUPS */

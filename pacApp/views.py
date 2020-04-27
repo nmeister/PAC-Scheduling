@@ -142,19 +142,17 @@ def schedule(request):
 
 
 def create_booking(date, studio, name, starttime, endtime, day):
-	studioList = {'bloomberg':0, 'dillondance':1, 'dillonmar':2, 'dillonmpr': 3, 'murphy': 4, 'ns':5,'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
-	date = date.split('-')
-		# print('received date is' + date)
-	book = Booking(studio_id=studioList[studio],
+  studioList = {'bloomberg':0, 'dillondance':1, 'dillonmar':2, 'dillonmpr': 3, 'murphy': 4, 'ns':5,'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+  date = date.split('-')
+  book = Booking(studio_id=studioList[studio],
 			company_id=0, 
 			company_name=name,
 			start_time=starttime, 
 			end_time=endtime,
 			week_day=day,
 			booking_date=(datetime.date(int(date[0]),int(date[1]),int(date[2]))))
-		# print('booked date is ' + book.booking_date) 	
-	book.save()
-	return book.week_day
+  book.save()
+  return book.week_day
 
 def update(request:HttpResponse):
 	# if there is a booking involved
