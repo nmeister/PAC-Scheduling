@@ -38,14 +38,26 @@
 }
 
 .row100.head th {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left:5px;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  padding-left:0.1em;
+  font-size: 0.75em;
+
+}
+
+
+th.studio,
+td.studio {
+   padding:0 0.3em 0 0.3em;
+   font-size:0.85em;
+ 
 }
 
 .row100 td {
-  padding-top: 10px;
-  padding-bottom: 14px;
+  padding: 0.4em;
+  font-size: 0.8em;
+  width:0.3em;
+  height: 0.3em;
 }
 
 #TABLE STYLING
@@ -86,13 +98,5 @@
   background-color: #f2f2f2;
 }
 
-.row200.head th {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
 
-.row200 td {
-  padding-top: 10px;
-  padding-bottom: 14px;
-}
 

@@ -255,8 +255,13 @@ function booking(studio,day,hour,id) {
 	var content = '#content' + day;
 	console.log($(content).data('date'));
 	var dateArr = $(content).data('date').split('-');
-	var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
-
+  console.log(dateArr);
+  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
+  if (starttime == 12 || starttime == 1) {
+    var nextday = parseInt(dateArr[2]) + 1
+    date = new Date(dateArr[0], dateArr[1]-1, nextday);
+  }
+  console.log(date);
 	var bookdate = document.getElementById('bookdate');
 	// console.log(date)
 	bookdate.innerHTML = "Booking Day: " + date.toDateString();

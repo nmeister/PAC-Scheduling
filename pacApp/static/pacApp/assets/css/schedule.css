@@ -28,18 +28,13 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 }
 
 
-.studio {
-   padding-left:20px;
-   padding-right:0px;
-}
-
 
 /* Style the tab */
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-  padding: 6px 12px; 
+  padding: 3px 9px; 
   width:100%;
   position:relative;
 }
@@ -51,9 +46,10 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 0.5em 0.5em;
   transition: 0.3s;
-  margin:2px;
+  margin:0.3em;
+  font-size:0.9em;
 }
 
 /* Change background color of buttons on hover */
@@ -69,10 +65,11 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 /* Style the tab content */
 .tabcontent {
   display: none;
-  /* border: 1px solid #ccc; */
+  border: 1px solid #ccc;
   border-top: none;
   width: 100%;
-  overflow:hidden;
+  overflow:scroll;
+  margin-right:0px;
 
 }
 
@@ -119,7 +116,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 }
 
 .PUB {
-  background-color: pink;
+  background-color: #DB7093;
   text-align:center;
   color:white;
 
@@ -172,6 +169,12 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 
 .BodyHype {
   background-color: crimson;
+  text-align:center;
+  color:white;
+}
+
+.eXpressions {
+  background-color:#FFC0CB;
   text-align:center;
   color:white;
 }
@@ -230,12 +233,13 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   padding:10px;
   background-color: #f1f1f1;
   overflow:hidden;
-  margin-bottom:10px;
+  margin:0 20px 20px 20px;
 }
 
 
 .selectgroup {
-  padding-right:10px;
+  padding-right:0.5em;
+  font-size:0.85em;
 }
 
 .ingroup {
@@ -248,3 +252,4 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .grouplabel {
   padding: 0px 5px 0px 5px;
 }
+
