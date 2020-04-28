@@ -646,7 +646,12 @@ function pastTime_drop() {
 
 function handleDrop(event) {
   console.log('handle drop');
-  
+  var editable = $('#schedule').data('editable');
+  console.log(editable);
+  if (editable == 'False') {
+      homeCannotBook(); 
+      return;
+  }
   // handles all modal - make it seen 
   var modal = document.getElementById("confirmdrop");
  
