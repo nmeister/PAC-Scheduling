@@ -123,18 +123,7 @@ function withinCurrentHourBooking(left, id) {
   // need to fix once we have cas 
   var input; 
   var currOK = document.getElementById("currOK");
-  var yes = document.getElementById("yes");
-  yes.onclick = function() {
-    modal.style.display = "none";
-    book(id);
-  }
-  var no = document.getElementById("no");
-  no.onclick = function() {
-     modal.style.display = "none";
-     return;
-  }
-
-  /* currOK.onclick = function() {
+  currOK.onclick = function() {
     if (!$("input:radio[name='continue']").is(":checked")) {
       console.log('bad user');
       handleBad('Please select whether or not you would like to continue booking this time slot.');
@@ -149,10 +138,11 @@ function withinCurrentHourBooking(left, id) {
       book(id);
     }
     else {
-      
+       modal.style.display = "none";
+      return;
     }
     modal.style.display = "none";
-  } */ 
+  }
 }
 
 function canEdit(id) {
@@ -174,11 +164,10 @@ function canEdit(id) {
   }
   var strictdate = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour);
   var nextHour = new Date(dateArr[0], dateArr[1]-1, dateArr[2], hour+1);
+ 
   var today = new Date();
-  console.log(today);
-  console.log(strictdate);
-  console.log('current right now' + today.getTime());
-  console.log('this timeslot' + strictdate.getTime());
+  console.log(today.getTime());
+  console.log(strictdate.getTime());
 
   var stillBook = 'no'
   if (strictdate.getTime() < today.getTime()) {

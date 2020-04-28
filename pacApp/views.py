@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.template.defaulttags import register
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.decorators import login_required
+from uniauth.decorators import login_required
 from django.conf.urls.static import static
 from . import models, studio, hours
 from .models import ADRequest, Booking
@@ -14,7 +16,7 @@ import pandas as pd
 import numpy as np
 import copy
 import random
-# import sweetify
+import calendar
 
 # Create your views here.
 # our home page
@@ -142,51 +144,54 @@ def schedule(request):
 
 
 def create_booking(date, studio, name, starttime, endtime, day):
-  studioList = {'bloomberg':0, 'dillondance':1, 'dillonmar':2, 'dillonmpr': 3, 'murphy': 4, 'ns':5,'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
-  date = date.split('-')
-  book = Booking(studio_id=studioList[studio],
-			company_id=0, 
-			company_name=name,
-			start_time=starttime, 
-			end_time=endtime,
-			week_day=day,
-			booking_date=(datetime.date(int(date[0]),int(date[1]),int(date[2]))))
-  book.save()
-  return book.week_day
+    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
+                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+    date = date.split('-')
+    book = Booking(studio_id=studioList[studio],
+                   company_id=0,
+                   company_name=name,
+                   start_time=starttime,
+                   end_time=endtime,
+                   week_day=day,
+                   booking_date=(datetime.date(int(date[0]), int(date[1]), int(date[2]))))
+    book.save()
+    return book.week_day
 
-def update(request:HttpResponse):
-	# if there is a booking involved
 
-	weekday = None
-	if (request.GET.get('studio') != None):
-		weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), request.GET.get('name'), request.GET.get('starttime'),
-			request.GET.get('endtime'), request.GET.get('day'))
-	retdate = request.GET.get('newdate').split('-')
-	startdate = datetime.date(int(retdate[0]),int(retdate[1]),int(retdate[2]))
+def update(request: HttpResponse):
+    # if there is a booking involved
 
-	endweek = startdate + timedelta(days=6)
-	newdate = request.GET.get('newdate')
+    weekday = None
+    if (request.GET.get('studio') != None):
+        weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), request.GET.get('name'), request.GET.get('starttime'),
+                                 request.GET.get('endtime'), request.GET.get('day'))
+    retdate = request.GET.get('newdate').split('-')
+    startdate = datetime.date(
+        int(retdate[0]), int(retdate[1]), int(retdate[2]))
 
-	groups = request.GET.get('selectgroups')
-	if (groups == 'None' or groups == None):
-		groups = None
-		getGroups = False
-	else: 
-		groups = groups.split('-')
-		groups.pop(-1)
-		getGroups = True
-	context = createContext(startdate, endweek, newdate, groups, getGroups)
-	if weekday != None:
-		context['weekday'] = weekday
-	groupday = request.GET.get('groupday');
-	
-	if weekday == None and groupday != None:
-		context['weekday'] = groupday
-	context['editable'] = request.GET.get('editable')
-	# if endweek < date.today():
-	#	context['editable'] = False
+    endweek = startdate + timedelta(days=6)
+    newdate = request.GET.get('newdate')
 
-	return render(request, "templates/pacApp/tableElements/table.html", context)
+    groups = request.GET.get('selectgroups')
+    if (groups == 'None' or groups == None):
+        groups = None
+        getGroups = False
+    else:
+        groups = groups.split('-')
+        groups.pop(-1)
+        getGroups = True
+    context = createContext(startdate, endweek, newdate, groups, getGroups)
+    if weekday != None:
+        context['weekday'] = weekday
+    groupday = request.GET.get('groupday')
+
+    if weekday == None and groupday != None:
+        context['weekday'] = groupday
+    context['editable'] = request.GET.get('editable')
+    # if endweek < date.today():
+    #	context['editable'] = False
+
+    return render(request, "templates/pacApp/tableElements/table.html", context)
 
 
 def create_booking(date, studio, name, starttime, endtime, day):
@@ -204,6 +209,90 @@ def create_booking(date, studio, name, starttime, endtime, day):
     # print('booked date is ' + book.booking_date)
     book.save()
     return book.week_day
+
+
+# transform str "April 27, 2020" into list [yyyy, mm, dd]
+def handledate(date):
+    date = date.replace(',', '')
+    date = date.split(' ')
+    month = date[0]
+    day = date[1]
+    year = date[2]
+
+    # chance month to a number
+    abbr_to_num = {name: num for num,
+                   name in enumerate(calendar.month_abbr) if num}
+    month = abbr_to_num[month[0:3]]
+
+    return year, month, day
+
+# preparation to drop the space
+
+
+def drop_space(request: HttpResponse):
+
+    # if (request.is_ajax and request.method == "POST"):
+
+    print('in drop space')
+
+    # get variables from post resuts
+    studio = request.POST['studio']
+    date = request.POST['date']  # booking date
+    starttime = request.POST['starttime']
+    endtime = request.POST['endtime']
+    day = request.POST['day']  # weekday
+    name = request.POST['name']
+    groups = request.POST['selectgroups']
+    print('date and day: ' + date + ' ' + day)
+
+    if (groups == 'None' or groups == None):
+        groups = None
+        getGroups = False
+    else:
+        groups = groups.split('-')
+        groups.pop(-1)
+        getGroups = True
+
+    y, m, d = handledate(date)  # format the date
+
+    # delete the booking from the db
+    delete_booking(y, m, d, studio, name, starttime, endtime, day)
+    print('day: ' + day)
+    # create context
+    startdate = datetime.date(int(y), int(m), (int(d)))
+
+    endweek = startdate + timedelta(days=(6 - int(day)))
+    startdate = startdate + timedelta(days=(-int(day)))
+    groups = None
+    getGroups = False
+    context = createContext(startdate, endweek, startdate, groups, getGroups)
+
+    context['weekday'] = day
+    context['editable'] = True
+
+    return render(request, "templates/pacApp/tableElements/table.html", context)
+    # return JsonResponse({"error": ""}, status=400)
+
+# delete the booking
+
+
+def delete_booking(y, m, d, studio, name, starttime, endtime, day):
+    print('in delete booking')
+    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
+                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+
+    print(y, m, d)
+
+    # grab the booking you want to delete
+    book_to_del = Booking.objects.get(studio_id=studioList[studio],
+                                      company_id=0,
+                                      company_name=name,
+                                      start_time=starttime,
+                                      end_time=endtime,
+                                      week_day=day,
+                                      booking_date=(datetime.date(int(y), int(m), int(d))))
+    book_to_del.delete()
+    return day
 
 
 def update(request: HttpResponse):

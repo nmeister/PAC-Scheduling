@@ -219,12 +219,18 @@
          $(col).addClass('helen');
          $(col).addClass(group);
          $(col).html(item.company_name);
+         // console.log(item);
          // don't allow it to be bookable 
 
-         // $(col).attr('onclick','');
+         $(col).attr('onclick', 'drop(event)');
+         $(col).attr('data-name', item.company_name);
+         $(col).attr('data-starttime', item.start_time);
+         $(col).attr('data-endtime', item.end_time);
+         $(col).attr('data-studio', item.studio);
+         $(col).attr('data-weekday', item.week_day);
+         $(col).attr('data-bookingdate', item.booking_date);
          // upon click, calls drop() 
-         $(col).attr('onclick','drop(event)');
-         // $(col).attr('data-user',item.company_name);
+         // $(col).attr('onclick','drop()');
       }  
    }
     // $('td').css('cursor','pointer');

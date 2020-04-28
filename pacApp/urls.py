@@ -13,6 +13,8 @@ urlpatterns = [
     path('scheduling_alg/', views.scheduling_alg, name='scheduling_alg'),
     path('adminForm', views.adminForm, name='adminForm'),
     path('create_booking', views.create_booking, name='create_booking'),
+    path('drop_space', views.drop_space, name='drop_space'),
+    path('delete_booking', views.delete_booking, name='delete_booking'),
     path('update', views.update, name='update'),
 ]
 
