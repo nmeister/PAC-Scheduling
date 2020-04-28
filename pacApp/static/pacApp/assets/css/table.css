@@ -54,6 +54,7 @@ td.studio {
   text-align:left;
   max-width:8em;
   line-height: 1.2em;
+  white-space: nowrap;
 }
 
 
