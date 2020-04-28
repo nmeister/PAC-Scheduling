@@ -231,8 +231,6 @@ def handledate(date):
 
 def drop_space(request: HttpResponse):
 
-    # if (request.is_ajax and request.method == "POST"):
-
     print('in drop space')
 
     # get variables from post resuts
@@ -243,7 +241,6 @@ def drop_space(request: HttpResponse):
     day = request.POST['day']  # weekday
     name = request.POST['name']
     groups = request.POST['selectgroups']
-    print('date and day: ' + date + ' ' + day)
 
     if (groups == 'None' or groups == None):
         groups = None
@@ -263,8 +260,8 @@ def drop_space(request: HttpResponse):
 
     endweek = startdate + timedelta(days=(6 - int(day)))
     startdate = startdate + timedelta(days=(-int(day)))
-    groups = None
-    getGroups = False
+    # groups = None
+    # getGroups = False
     context = createContext(startdate, endweek, startdate, groups, getGroups)
 
     context['weekday'] = day
