@@ -5,6 +5,9 @@ from django.template.loader import render_to_string
 from django.template.defaulttags import register
 from django.contrib import messages
 #from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.models import Group
 from uniauth.decorators import login_required
 from django.conf.urls.static import static
 from . import models, studio, hours
@@ -372,7 +375,16 @@ def get_duration(start, end):
     return end-start+1
 
 
+def must_be_pac(user):
+    return user.groups.filter(name='Pac').count()
+
+#my_group = Group.objects.get(name='Pac')
+# my_group.user_set.add('test@pac.com')
+
+
+@user_passes_test(must_be_pac)
 @login_required
+# @permission_required("pacApp.add_ad_request")
 def adminForm(request):
     context = {'all_requests': ADRequest.objects.all()}
     # for item in context['all_requests']:
