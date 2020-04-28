@@ -319,7 +319,7 @@ function booking(studio,day,hour,id) {
     $('#group').prop("checked", false);
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
-    $("input[name='dgroup']:checked").prop('checked', false);
+    $('#selectgroup option').prop('selected', false);
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
@@ -331,7 +331,7 @@ function booking(studio,day,hour,id) {
       $('#group').prop("checked", false);
       $("#selfname").val('');
       $("input[name='usertype']:checked").prop('checked', false); 
-      $("input[name='dgroup']:checked").prop('checked', false);
+      $('#selectgroup option').prop('selected', false);
 	  }
 	}
 
@@ -507,7 +507,7 @@ function handleBadUser(msg) {
     modal.style.display = "none";
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
-    $("input[name='dgroup']:checked").prop('checked', false);
+    $('#selectgroup option').prop('selected', false);
   }
 
   // When the user clicks anywhere outside of the modal, close it
@@ -516,7 +516,7 @@ function handleBadUser(msg) {
       modal.style.display = "none";
       $("#selfname").val('');
       $("input[name='usertype']:checked").prop('checked', false); 
-      $("input[name='dgroup']:checked").prop('checked', false);
+      $('#selectgroup option').prop('selected', false);
       // make sure they are unchecked when we close 
     }
   }
@@ -525,7 +525,7 @@ function handleBadUser(msg) {
     modal.style.display = "none";
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
-    $("input[name='dgroup']:checked").prop('checked', false);
+    $('#selectgroup option').prop('selected', false);
   }
 }
 
@@ -549,11 +549,12 @@ function sendbook(id) {
         	console.log(user);
         }
         else {
-        	if (!$("input:radio[name='dgroup']").is(":checked")) {
+        	if ($( "#selectgroup option:selected" ).val() == "" || 
+            $( "#selectgroup option:selected" ).val() == "Select a group to book for") {
         		handleBadUser('Group Booking: No group selected. <br> <strong>Please select a group</strong>');
         		return;
         	}
-        	var user = $("input[name='dgroup']:checked").val();
+        	var user = $( "#selectgroup option:selected" ).val()
         	console.log(user);
         }
        
@@ -561,7 +562,8 @@ function sendbook(id) {
         modal.style.display = "none"; 
         // uncheck this upon sending confirm
         $("input[name='usertype']:checked").prop('checked', false); 
-        $("input[name='dgroup']:checked").prop('checked', false);
+        $('#selectgroup option').prop('selected', false);
+        // $("input[name='dgroup']:checked").prop('checked', false);
        	$("#selfname").val('');
         // splits from id and helps parse each detail 
         var info = id.split('.');

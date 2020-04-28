@@ -11,62 +11,32 @@
 		<div class="reveal-if-activeSelf">
   			Name: <input class="require-if-active" id="selfname" type="text" />
   		</div>
-	
-	<input type="radio" id="group" name="usertype" value="group"><label class="grouplabel" for="group">Group</label> 
-		<div class="reveal-if-activeGroup text-nowrap">
-  			<table style="width:inherit" class="table-responsive">
-  				<tr class="ingroup">
-  					<td class="ingroup">
-  						<input type="radio" id="BACradio" name="dgroup" value="BAC"><label for="BACradio" class="grouplabel">BAC</label> 
-  					</td>
-  					<td class="ingroup">
-  						<input type="radio" id="Sympohradio" name="dgroup" value="Sympoh"><label for="Sympohradio" class="grouplabel">Sympoh</label> 
- 					  </td>
-            <td class="ingroup">
-              <input type="radio" id="Naachoradio" name="dgroup" value="Naacho"><label for="Naachoradio" class="grouplabel">Naacho</label> 
-            </td>
-            <td class="ingroup">
-              <input type="radio" id="Six14radio" name="dgroup" value="Six14"><label for="Six14radio" class="grouplabel">Six14</label> 
-            </td>
-  				</tr>
+  <input type="radio" id="group" name="usertype" value="group"><label class="grouplabel" for="group">Group</label> 
+	  <br>
+	  <div class="reveal-if-activeGroup text-nowrap form-group">
+	  	<label for="group">Groups:</label>
+	  	<select class="form-control custom-select" id="selectgroup" style="width:50%;">
+		    <option value="" disabled selected>Select a group to book for</option>
+		    <option value="BAC">BAC</option>
+		    <option value="Bhangra">Bhangra</option>
+		    <option value="BodyHype">BodyHype</option>
+		    <option value="Disiac">Disiac</option>
+		    <option value="eXpressions">eXpressions</option>
+		    <option value="HighSteppers">HighSteppers</option>
+		    <option value="Kokopops">Kokopops</option>
+		    <option value="Naacho">Naacho</option>
+			<option value="PUB">PUB</option>
+		    <option value="Six14">Six14</option>
+		    <option value="Sympoh">Sympoh</option>
+		    <option value="Triple8">Triple8</option>
+	  	</select>
+	  </div>
 
-  				<tr>
-  					<td class="ingroup">
-  						<input type="radio" id="Disiacradio" name="dgroup" value="Disiac"><label for="Disiacradio" class="grouplabel">Disiac</label> 
-  					</td>
-  					<td class="ingroup">
-  						<input type="radio" id="eXpressionsradio" name="dgroup" value="eXpressions"><label for="eXpressionsradio" class="grouplabel">eXpressions</label> 
- 					  </td>
-            <td class="ingroup">
-              <input type="radio" id="Bhangraradio" name="dgroup" value="Bhangra"><label for="Bhangraradio" class="grouplabel">Bhangra</label> 
-            </td>
-             <td class="ingroup">
-              <input type="radio" id="Kokopopsradio" name="dgroup" value="Kokopops"><label for="Kokopopsradio" class="grouplabel">Kokopops</label> 
-            </td>
-  				</tr>
-
-  				<tr>
-  					<td class="ingroup">
-  						<input type="radio" id="BodyHyperadio" name="dgroup" value="BodyHype"><label for="BodyHyperadio" class="grouplabel">BodyHype</label> 
-  					</td>
-  					<td class="ingroup">
-  						<input type="radio" id="PUBradio" name="dgroup" value="PUB"><label for="PUBradio" class="grouplabel">PUB</label> 
- 					  </td>
-            <td class="ingroup">
-              <input type="radio" id="Triple8radio" name="dgroup" value="Triple8"><label for="Triple8radio" class="grouplabel">Triple 8</label> 
-            </td>
-            <td class="ingroup">
-              <input type="radio" id="HighSteppersradio" name="dgroup" value="HighSteppers"><label for="HighSteppersradio" class="grouplabel">HighSteppers</label> 
-            </td>
-          </tr>
-  			</table>
-  		</div>
-      <br>
-    <div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:10px">Confirm</div>
+ <div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:10px">Confirm</div>
 </form>
 
 
-  <div>
+<div>
       <div id="handleBadUser" class="modal">
         <!-- Modal content -->
         <div class="modal-content-error">
@@ -92,10 +62,5 @@
     sendbook($('#confirm').val());
   }
   });
-
-
-
-  
-
 
 </script>
