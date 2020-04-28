@@ -423,18 +423,16 @@ function setupWeek(type)
 	// date = yyyy-mm-dd
 	{	
     // in prepation for the today tab - if it is on the current day, has this feature 
-    	console.log('in setupweek');
-      var editable = $('#schedule').data('editable');
-      console.log(editable);
-    	var groups = setGroups()
-    	if (groups.length == 0) {
+    console.log('in setupweek');
+    var groups = setGroups()
+    if (groups.length == 0) {
     		groups = 'None'
-    	}
-    	console.log(groups);
+    }
+    console.log(groups);
   		
-    	 var active = document.getElementsByClassName('active')[0].id[1];
-    	 console.log(active);
-   		
+    var active = document.getElementsByClassName('active')[0].id[1];
+    console.log(active);
+   	var editable = $('#schedule').data('editable');
 		 var curr = $('#curr').val();
      console.log(curr);
      if (curr.trim() == "" || curr == null) {
@@ -451,7 +449,8 @@ function setupWeek(type)
                  data: {
                   'newdate': curr,
              			'selectgroups': groups,
-                  'editable':editable},
+                  'editable':editable
+                },
              	success: handleresponse,
                }
             );
@@ -464,7 +463,8 @@ function setupWeek(type)
                  data: {'newdate': curr,
              			'selectgroups': groups,
              			'groupday': active,
-                  'editable':editable},
+                  'editable':editable
+                },
                  success: handleresponse,
                }
             );

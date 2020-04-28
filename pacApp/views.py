@@ -190,9 +190,8 @@ def update(request: HttpResponse):
 
     if weekday == None and groupday != None:
         context['weekday'] = groupday
-    context['editable'] = request.GET.get('editable')
     # if endweek < date.today():
-    #	context['editable'] = False
+    context['editable'] = request.GET.get('editable')
 
     return render(request, "templates/pacApp/tableElements/table.html", context)
 
@@ -295,7 +294,7 @@ def delete_booking(y, m, d, studio, name, starttime, endtime, day):
     return day
 
 
-def update(request: HttpResponse):
+""" def update(request: HttpResponse):
     # if there is a booking involved
 
     weekday = None
@@ -329,7 +328,7 @@ def update(request: HttpResponse):
     #	context['editable'] = False
 
     return render(request, "templates/pacApp/tableElements/table.html", context)
-
+"""
 
 def insert_space_item(request: HttpResponse):
     return redirect('/schedule')
