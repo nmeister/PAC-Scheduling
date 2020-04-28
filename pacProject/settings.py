@@ -27,8 +27,13 @@ SECRET_KEY = '59c!&ax&$m&aoy#!&((_l741@@-s6(86f4g8qxu1w!4^v!65d9'
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = False
 DEBUG = True
+ADMINS = (
+    ('admin'),
+)
+MANAGERS = ADMINS
 
-ALLOWED_HOSTS = ['pac-schedule.herokuapp.com/']
+ALLOWED_HOSTS = ['pac-schedule.herokuapp.com/', 'localhost']
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 # Application definition
 
@@ -106,7 +111,7 @@ LOGIN_URL = "/accounts/login/"
 UNIAUTH_LOGIN_DISPLAY_STANDARD = False
 UNIAUTH_LOGOUT_CAS_COMPLETELY = True
 
-AUTH_USER_MODEL = 'account.Account'
+#AUTH_USER_MODEL = 'account.Account'
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -162,6 +167,17 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'pacApp/static'),
 
 ]
+
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath('/pacApp/admin/'))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 # if 'uniauth' in INSTALLED_APPS:
 #    from . idp_pysaml2 import *
