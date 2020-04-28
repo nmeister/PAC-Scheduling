@@ -191,10 +191,11 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 25px;
-  border: 1px solid #888;
+  padding: 2em;
+  border: 0.2em solid #888;
   width: 40%; /* Could be more or less, depending on screen size */
-  height:60%;
+  height:46%;
+  overflow:scroll;
 }
 
 /* Modal Content/Box */
@@ -205,6 +206,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   border: 1px solid #888;
   width: 30%; /* Could be more or less, depending on screen size */
   height: 30%;
+  overflow:scroll;
 }
 
 /* The Close Button */
