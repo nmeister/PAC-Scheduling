@@ -4,7 +4,6 @@
 	<div id="dayofweek"></div>
 	<div id="bookdate"></div>
   <!-- upon clicking this button, calls sendbook with the value of confirm previously made --> 
-	<div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:10px">Confirm</div>
 	
   <span> Who are you booking for? </span>
   <br>
@@ -14,8 +13,8 @@
   		</div>
 	
 	<input type="radio" id="group" name="usertype" value="group"><label class="grouplabel" for="group">Group</label> 
-		<div class="reveal-if-activeGroup">
-  			<table style="width:100%">
+		<div class="reveal-if-activeGroup text-nowrap">
+  			<table style="width:inherit" class="table-responsive">
   				<tr class="ingroup">
   					<td class="ingroup">
   						<input type="radio" id="BACradio" name="dgroup" value="BAC"><label for="BACradio" class="grouplabel">BAC</label> 
@@ -62,6 +61,8 @@
           </tr>
   			</table>
   		</div>
+      <br>
+    <div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:10px">Confirm</div>
 </form>
 
 

@@ -46,10 +46,10 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 0.5em 0.5em;
+  padding: 0.7em 0.7em;
   transition: 0.3s;
   margin:0.3em;
-  font-size:0.9em;
+  font-size:0.95em;
 }
 
 /* Change background color of buttons on hover */
@@ -74,20 +74,15 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 }
 
 .today {
-  background-color:#fed8b1;
+  background-color:#ffc7c7;
 
-}
 
-.weekselector {
-  float: right;
-  padding: 10px;
-  transition: 0.3s;
 }
 
 .helen {
-  background-color: #b76e79;
+  background: #df7366;
+  color: #fff;
   text-align:center;
-  color:white;
 }
 
 /* CSS FOR EACH OF THE DIFFERENT GROUPS */
@@ -229,26 +224,38 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 
 
 #groupselect {
-  padding:10px;
-  background-color: #f1f1f1;
+  padding:1em 1em 1em 1em;
+  background-color: #df7366;
+  font-weight:400;
+  color:#fff;
   overflow:hidden;
-  margin:0 20px 20px 20px;
+  margin:0 1em 3em 1em;
 }
 
 
 .selectgroup {
   padding-right:0.5em;
-  font-size:0.85em;
+  font-size:0.9em;
 }
 
 .ingroup {
-  padding-right:2px;
-  padding-left:2px;
+  padding-right:0.3em;
+  padding-left:1em;
   word-wrap: break-word;
 }
 
 
 .grouplabel {
-  padding: 0px 5px 0px 5px;
+  padding: 0em 0.3em 0em 0.5em;
 }
 
+#selfname {
+  border-radius: 0.2em;
+  border: solid 1px #E5E5E5
+  line-height:0.5em;
+  display: inline-block;
+  border: 0;
+  background: #fafafa;
+  border: solid 1px #E5E5E5;
+  padding: 0em;
+}

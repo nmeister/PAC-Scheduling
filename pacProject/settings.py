@@ -25,8 +25,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '59c!&ax&$m&aoy#!&((_l741@@-s6(86f4g8qxu1w!4^v!65d9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = False
-DEBUG = True
+DEBUG = False
+#DEBUG = True
 
 ALLOWED_HOSTS = ['pac-schedule.herokuapp.com/']
 
@@ -133,6 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/New_York'
+#TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
