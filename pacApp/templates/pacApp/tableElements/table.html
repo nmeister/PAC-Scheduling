@@ -51,14 +51,7 @@
 <script type="text/javascript">
    // for each booking in wilcox, we make it a object here
    // each object will also be within this list 
-    var schedule = "{{editable}}"
-    console.log('table first');
-    if (schedule == 'False') {
-        console.log('at home');
-       $('tr').removeClass("row100");
-      // $('tr').addClass('disable');
-      $('tr').addClass('row200');
-    }
+   
     var wilcox = [
     // we passed in a context argument which is a list containing
     // an element called 'Wilcox'
@@ -246,11 +239,17 @@
     openDay(daysofweek[weekday], 'd'+weekday);
 
 
-  var edit = "{{editable}}";
-  console.log(edit);
-  if (edit == 'False') {
+  var edit = "{{place}}";
+  console.log('place' + '{{place}}');
+  var place = String(window.location.pathname);
+  $('#schedule').data('editable','{{place}}');
+  console.log('edit ' + edit);
+  console.log(place);
+  if (place == "/" || place == "/homepage") {
       console.log('is false and already on home page');
       $('#headerschedule').css('display','none');
+      $('tr').removeClass("row100");
+      $('tr').addClass("row200");
   }
   else {
     $('#booking').css('display','none');
