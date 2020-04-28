@@ -609,15 +609,59 @@ function sendbook(id) {
                 );
      }
 
-
 function showConfirm() {
 	console.log('has been booked!');
-
 }
 
+function drop(event) {
+  console.log('in drop');
+  console.log(event);
+  console.log('event target id' + event.target.id);
+  
+  var id = event.target.id;
+  var company_name = $('#'+id).data('name');
+  var start_time = $('#'+id).data('starttime');
+  var end_time = $('#'+id).data('endtime');
+  var studio = $('#'+id).data('studio');
+  var week_day = $('#'+id).data('weekday');
+  var booking_date = $('#'+id).data('bookingdate');
+  
+  console.log('dropping: ' + booking_date, studio, company_name, start_time, end_time, week_day);
+
+  var groups = setGroups()
+  if (groups.length == 0) {
+    groups = 'None';
+  }
+  console.log(groups);
 
 
-function drop(evt) {
-	console.log('in drop');
-
-}
+  var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  console.log(csrftoken);
+  var confirmation = confirm("Are you sure you want to drop this space?");
+	// user clicked 'ok' and wants to delete entry
+	if (confirmation == true) 
+	{
+    console.log('user clicked ok');
+    url = 'drop_space';
+    request = $.ajax(
+      {
+         type: "POST",
+         url: url,
+         // headers: {'X-CSRFToken': '{{ csrf_token }}'}, // for csrf token
+         headers: {'X-CSRFToken': csrftoken},
+         data: {'studio': studio, // studio name 
+             'date': booking_date, // in the form of Mon Day, Year
+             'starttime': start_time, // int start time 
+             'endtime': end_time, 
+             'studio': studio,
+             'day': week_day, // day of the week 
+             'name': company_name, // name of person who is booking
+             'selectgroups': groups,
+         },
+         // upon ajax request callback
+         success: handleresponse,
+      }
+   );
+    
+	} 
+} 
