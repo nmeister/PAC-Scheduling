@@ -191,10 +191,10 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 2em;
+  padding: 1.5em;
   border: 0.2em solid #888;
   width: 40%; /* Could be more or less, depending on screen size */
-  height:46%;
+  height:50%;
   overflow:scroll;
 }
 
