@@ -36,6 +36,8 @@
             <nav id="nav">
               <ul>
                 <li><a href="homepage">Home</a></li>
+                <li><a href="about">About</a></li>
+
                 <li><a href="#">Booking</a>
                   <ul>
                     <li><a href="#">Booking</a></li>
@@ -47,7 +49,7 @@
             </nav>
       </div>
     </div>
-      <div id="scheduletable" data-place="schedule">
+      <div id="scheduletable" data-place="schedule" >
         {% csrf_token %}
               {% include 'templates/pacApp/tableElements/table.html' %}
               {% include 'templates/pacApp/tableElements/groupSelection.html'%}
@@ -152,6 +154,29 @@
    </div>
 
 
+    <!-- Footer -->
+        <div id="footer">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <!-- Contact -->
+                  <section class="contact">
+                    <header>
+                      <h3>Contact: pacpps@princeton.edu</h3>
+                    </header>
+                  </section>
+                <!-- Copyright -->
+                  <div class="copyright">
+                    <ul class="menu">
+                      <li>&copy; PAC Dance. All rights reserved.</li><li>Design: <a href=>edwardtian</a></li>
+                    </ul>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
 </body>
 <script> 
   var edit = "{{editable}}";
@@ -159,11 +184,15 @@
   if (edit == 'False') {
       console.log('is false and already on home page');
     $('#headerschedule').css('display','none');
-    $('#schedule').css('margin', '20px');
+    // $('#schedule').css('margin', '20px');
   }
   else {
-    $('#schedule').css('margin', '20px');
     $('#booking').css('display','none');
+    $('#scheduletable').addClass("wrapper style");
+    $('#schedule').css('margin', '0em 3em 1em 3em');
+    $('#schedule').css('padding', '0em 0em 0em 0em');
+    $('#groupselect').css('margin','0.5em 3em 1em 3em');
+
   }
 // very initial set up of the document, we use today's date to set up active tab 
  function activateDay()

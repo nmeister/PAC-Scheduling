@@ -128,6 +128,9 @@ def homepage(request):
 
 # displays the calendar schedule
 
+def about(request):
+  context = {}
+  return render(request, "templates/pacApp/about.html", context)
 
 @login_required
 def schedule(request):

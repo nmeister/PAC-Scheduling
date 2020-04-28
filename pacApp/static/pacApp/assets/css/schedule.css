@@ -226,12 +226,12 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 
 
 #groupselect {
-  padding:1em 1em 1em 1em;
+  padding:1em 2em 2em 2em;
   background-color: #df7366;
   font-weight:400;
   color:#fff;
   overflow:hidden;
-  margin:0 1em 3em 1em;
+  margin:1em 0em 1em 0em;
 }
 
 
