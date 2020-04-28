@@ -222,7 +222,7 @@
          // console.log(item);
          // don't allow it to be bookable 
 
-         $(col).attr('onclick', 'drop(event)');
+         $(col).attr('onclick', 'handleDrop(event)');
          $(col).attr('data-name', item.company_name);
          $(col).attr('data-starttime', item.start_time);
          $(col).attr('data-endtime', item.end_time);

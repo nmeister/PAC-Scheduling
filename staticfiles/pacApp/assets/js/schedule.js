@@ -319,7 +319,7 @@ function booking(studio,day,hour,id) {
     $('#group').prop("checked", false);
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
-    $('#selectgroup option').prop('selected', false);
+    document.getElementById("selectgroup").selectedIndex = 0;
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
@@ -331,7 +331,7 @@ function booking(studio,day,hour,id) {
       $('#group').prop("checked", false);
       $("#selfname").val('');
       $("input[name='usertype']:checked").prop('checked', false); 
-      $('#selectgroup option').prop('selected', false);
+      document.getElementById("selectgroup").selectedIndex = 0;
 	  }
 	}
 
@@ -507,7 +507,7 @@ function handleBadUser(msg) {
     modal.style.display = "none";
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
-    $('#selectgroup option').prop('selected', false);
+    document.getElementById("selectgroup").selectedIndex = 0;
   }
 
   // When the user clicks anywhere outside of the modal, close it
@@ -516,7 +516,7 @@ function handleBadUser(msg) {
       modal.style.display = "none";
       $("#selfname").val('');
       $("input[name='usertype']:checked").prop('checked', false); 
-      $('#selectgroup option').prop('selected', false);
+      document.getElementById("selectgroup").selectedIndex = 0;
       // make sure they are unchecked when we close 
     }
   }
@@ -525,7 +525,7 @@ function handleBadUser(msg) {
     modal.style.display = "none";
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
-    $('#selectgroup option').prop('selected', false);
+    document.getElementById("selectgroup").selectedIndex = 0;
   }
 }
 
@@ -549,12 +549,12 @@ function sendbook(id) {
         	console.log(user);
         }
         else {
-        	if ($( "#selectgroup option:selected" ).val() == "" || 
-            $( "#selectgroup option:selected" ).val() == "Select a group to book for") {
+        	if ($("#selectgroup option:selected").val() == "" || 
+            $("#selectgroup option:selected").val() == "Select a group to book for") {
         		handleBadUser('Group Booking: No group selected. <br> <strong>Please select a group</strong>');
         		return;
         	}
-        	var user = $( "#selectgroup option:selected" ).val()
+        	var user = $("#selectgroup option:selected" ).val()
         	console.log(user);
         }
        
@@ -562,7 +562,7 @@ function sendbook(id) {
         modal.style.display = "none"; 
         // uncheck this upon sending confirm
         $("input[name='usertype']:checked").prop('checked', false); 
-        $('#selectgroup option').prop('selected', false);
+        document.getElementById("selectgroup").selectedIndex = 0;
         // $("input[name='dgroup']:checked").prop('checked', false);
        	$("#selfname").val('');
         // splits from id and helps parse each detail 
@@ -643,6 +643,42 @@ function pastTime_drop() {
   }
 }
 
+
+function handleDrop(event) {
+  console.log('handle drop');
+  
+  // handles all modal - make it seen 
+  var modal = document.getElementById("confirmdrop");
+ 
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("confirmdropClose");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // closing with oK button 
+  var yes = document.getElementById("yesDrop");
+  yes.onclick = function() {
+    modal.style.display = "none";
+    drop(event)
+  }
+  var no = document.getElementById("noDrop");
+  no.onclick = function() {
+    modal.style.display = "none";
+    return false;
+  }
+}
+
+
 function drop(event) {
   console.log('in drop');
   console.log(event);
@@ -667,10 +703,11 @@ function drop(event) {
 
   var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
   console.log(csrftoken);
-  var confirmation = confirm("Are you sure you want to drop this space?");
+  // var confirmation = handleDrop();
+  // console.log(confirmation);
 	// user clicked 'ok' and wants to delete entry
-	if (confirmation == true) 
-	{
+	// if (confirmation == true) 
+	
     console.log('user clicked ok');
     url = 'drop_space';
     request = $.ajax(
@@ -694,4 +731,3 @@ function drop(event) {
    );
     
 	} 
-} 
