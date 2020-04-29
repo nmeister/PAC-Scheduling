@@ -288,7 +288,8 @@ def delete_booking(y, m, d, studio, name, starttime, endtime, day, profile):
     print(y, m, d)
 
     # grab the booking you want to delete
-    book_to_del = Booking.objects.get(studio_id=studioList[studio],
+    try:
+      book_to_del = Booking.objects.get(studio_id=studioList[studio],
                                       company_id=0,
                                       user_netid=profile,
                                       company_name=name,
@@ -296,7 +297,9 @@ def delete_booking(y, m, d, studio, name, starttime, endtime, day, profile):
                                       end_time=endtime,
                                       week_day=day,
                                       booking_date=(datetime.date(int(y), int(m), int(d))))
-    book_to_del.delete()
+      book_to_del.delete()
+    except:
+      print('not able to drop')
     return day
 
 
@@ -342,7 +345,7 @@ def insert_ad_request(request: HttpResponse):
                        wilcox_rank= request.POST['wilcox_rank'])
                        
     ad_req.save()
-    return redirect('/adminForm#a')
+    return redirect('/adminForm')
 
 
 @register.filter
