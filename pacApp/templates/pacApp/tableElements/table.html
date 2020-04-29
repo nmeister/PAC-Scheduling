@@ -64,8 +64,7 @@
          end_time:"{{booking.end_time}}",
          studio:"wilcox",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -78,8 +77,7 @@
          end_time:"{{booking.end_time}}",
          studio:"bloomberg",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -92,8 +90,7 @@
          end_time:"{{booking.end_time}}",
          studio:"dillondance",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -106,8 +103,7 @@
          end_time:"{{booking.end_time}}",
          studio:"dillonmpr",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -120,8 +116,7 @@
          end_time:"{{booking.end_time}}",
          studio:"dillonmar",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -134,8 +129,7 @@
          end_time:"{{booking.end_time}}",
          studio:"whitman",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -148,8 +142,7 @@
          end_time:"{{booking.end_time}}",
          studio:"murphy",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -162,8 +155,7 @@
          end_time:"{{booking.end_time}}",
          studio:"ns",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -176,8 +168,7 @@
          end_time:"{{booking.end_time}}",
          studio:"nswarmup",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -190,8 +181,7 @@
          end_time:"{{booking.end_time}}",
          studio:"nstheatre",
          week_day:"{{booking.week_day}}",
-         booking_date:"{{booking.booking_date}}",
-         user_netid:"{{booking.user_netid}}"
+         booking_date:"{{booking.booking_date}}"
         },
     {% endfor %}
    ];
@@ -233,7 +223,6 @@
          $(col).attr('data-studio', item.studio);
          $(col).attr('data-weekday', item.week_day);
          $(col).attr('data-bookingdate', item.booking_date);
-         $(col).attr('data-usernetid', item.user_netid);
          // upon click, calls drop() 
          // $(col).attr('onclick','drop()');
       }  
@@ -268,7 +257,6 @@
     console.log("{{user}}");
     if ("{{user}}" != 'None') {
         $('#netid').html("Hello, {{user}}");
-        $('#netid').val("{{user}}");
       }
   }
    </script>

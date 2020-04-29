@@ -205,7 +205,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   padding: 25px;
   border: 1px solid #888;
   width: 30%; /* Could be more or less, depending on screen size */
-  height: 25%;
+  height: 30%;
   overflow:scroll;
 }
 

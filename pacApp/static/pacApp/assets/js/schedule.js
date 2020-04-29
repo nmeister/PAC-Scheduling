@@ -134,6 +134,25 @@ function withinCurrentHourBooking(left, id) {
      return;
   }
 
+  /* currOK.onclick = function() {
+    if (!$("input:radio[name='continue']").is(":checked")) {
+      console.log('bad user');
+      handleBad('Please select whether or not you would like to continue booking this time slot.');
+      return;
+    }
+    input = $("input[name='continue']:checked").val();
+    console.log(input);
+    $("input[name='continue']:checked").prop('checked', false); 
+    // if they want to book this go to book
+    if (input == 'yes') {
+      modal.style.display = "none";
+      book(id);
+    }
+    else {
+      
+    }
+    modal.style.display = "none";
+  } */ 
 }
 
 function canEdit(id) {
@@ -600,9 +619,9 @@ function showConfirm() {
   $('#complete').fadeOut(3000);
 }
 
-function pastTime_drop(msg) {
+function pastTime_drop() {
   console.log('past the time error');
-  $('#dropmsg').html(msg)
+  
   // handles all modal - make it seen 
   var modal = document.getElementById("drop_errorPast");
  
@@ -636,27 +655,6 @@ function handleDrop(event) {
   if (editable == 'False') {
       homeCannotBook(); 
       return;
-  }
-
-  var id = event.target.id;
-  var end_time = $('#'+id).data('endtime');
-  var booking_date = $('#'+id).data('bookingdate');
-  // time error handling: cannot drop a previous space
-  var dropped_date = new Date(booking_date);
-  dropped_date.setHours(end_time);
-  var today = new Date();
-  if (dropped_date.getTime() < today.getTime()) {
-    pastTime_drop('You cannot drop a time slot in the past. Please click on a time slot in the future');
-    return;
-  }
-  var netid = $('#'+id).data('usernetid');
-  var curruser = $('#netid').val();
-  console.log(netid);
-  console.log(curruser);
-  if (netid != curruser) {
-    console.log('you cannot drop this');
-    pastTime_drop('You are not the booker of this space. You cannot drop/modify this time slot. ')
-    return;
   }
   // handles all modal - make it seen 
   var modal = document.getElementById("confirmdrop");
@@ -714,7 +712,10 @@ function drop(event) {
 
   var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
   console.log(csrftoken);
-
+  // var confirmation = handleDrop();
+  // console.log(confirmation);
+	// user clicked 'ok' and wants to delete entry
+	// if (confirmation == true) 
 	
     console.log('user clicked ok');
     url = 'drop_space';

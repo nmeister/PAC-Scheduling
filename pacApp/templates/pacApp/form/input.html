@@ -101,9 +101,72 @@
 		</span>
 		
 	</h4>		
+	<!-- Table to display the values in the db	-->
+	<div style="height:50%;overflow:auto;">
+		<table style="width:100%; font-size: small;">
+			<tr>
+				<th> </th>
+				<th>Name</th>
+			  <th>Company Day (1)</th> 
+			  <th>Company Studio (1)</th>
+			  <th>Company Start (1)</th>
+			  <th>Company End (1)</th>
+			  <th>Company Day (2)</th>
+			  <th>Company Studio (2)</th>
+			  <th>Company Start (2)</th>
+			  <th>Company End (2)</th>
+			  <th>Company Day (3)</th>
+			  <th>Company Studio (3)</th>
+			  <th>Company Start (3)</th>
+			  <th>Company End (3)</th>
+			  <th>Rehearsals Needed</th>
+			  <th>Members</th>
+			  <th>Bloomberg </th>
+			  <th>Dillon Dance </th>
+			  <th>Dillon MAR </th>
+			  <th>Dillon MPR </th>
+			  <th>Murphy </th>
+			  <th>NS </th>
+			  <th>NS Warmup </th>
+			  <th>NS Theatre </th>
+			  <th>Whitman </th>
+			  <th>Wilcox </th>
+			  
+
+			</tr>
+			{% for item in all_requests %}
+			<tr>
+			  <td>
+				  <!-- update the form acion to be a delete entry-->
+				  <form action="" method="POST">
+					  {% csrf_token%}
+					  <button type="submit" class='btn'>
+						  <i class="far fa-trash-alt fa-lg text-danger float-right"> </i>
+					  </button>
+					  
+				  </form>
+			  </td>
+			  <td>Smith</td>
+			  <td>50</td>
+			</tr>
+			{% endfor %}
+		  </table>
+	   </div>
 	
-	<!-- Table to display the values in the ad request db	-->
-	{% include 'templates/pacApp/form/input.html' %}
+</div>
+
+
+
+
+Results of DB:
+	<ul class="list-group">
+		{% for item in all_requests %}
+		<li class="list-group-item">{{item.name}}{{item.company_day_1}}{{item.company_start_time_1}}{{item.company_end_time_1}}</li>
+		{% endfor %}
+	</ul>
+<br>
+<br>
+<br>
 
 <form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off">
 	{% csrf_token %}
