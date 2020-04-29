@@ -20,6 +20,7 @@ import numpy as np
 import copy
 import random
 import calendar
+# from uniauth.models import Institution, InstitutionAccount, LinkedEmail
 
 
 # Create your views here.
@@ -93,7 +94,7 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
             company_name__in=groups)
         context['Whitman'] = context['Whitman'].filter(company_name__in=groups)
         context['Wilcox'] = context['Wilcox'].filter(company_name__in=groups)
-    print(context['formatdate'])
+
     return context
 
 
@@ -116,7 +117,11 @@ def carouselAvailable():
 
 
 def homepage(request):
-
+    try:
+      profile = request.user.uniauth_profile.get_display_id()
+    except:
+      profile = None
+    print(profile)
     startdate = date.today()
     print(startdate)
     endweek = startdate + timedelta(days=6)
@@ -128,6 +133,7 @@ def homepage(request):
     context['editable'] = False
     context['cursor'] = 'not'
     context['available'] = carouselAvailable()
+    context['user'] = profile
     return render(request, "templates/pacApp/home.html", context)
 
 # displays the calendar schedule
@@ -139,6 +145,8 @@ def about(request):
 @login_required
 def schedule(request):
     # render with today's date
+    profile = request.user.uniauth_profile.get_display_id()
+    print(profile)
     startdate = date.today()
     endweek = startdate + timedelta(days=6)
     groups = None
@@ -147,15 +155,17 @@ def schedule(request):
     context['currentdate'] = startdate.strftime('%Y-%m-%d')
     context['editable'] = True
     context['cursor'] = "pointer"
+    context['user'] = profile
     return render(request, "templates/pacApp/schedule.html", context)
 
 
-def create_booking(date, studio, name, starttime, endtime, day):
+def create_booking(date, studio, name, starttime, endtime, day, profile):
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
     date = date.split('-')
     book = Booking(studio_id=studioList[studio],
                    company_id=0,
+                   user_netid=profile,
                    company_name=name,
                    start_time=starttime,
                    end_time=endtime,
@@ -169,9 +179,11 @@ def update(request: HttpResponse):
     # if there is a booking involved
 
     weekday = None
+    profile = request.user.uniauth_profile.get_display_id()
     if (request.GET.get('studio') != None):
-        weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), request.GET.get('name'), request.GET.get('starttime'),
-                                 request.GET.get('endtime'), request.GET.get('day'))
+        weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), 
+                                 request.GET.get('name'), request.GET.get('starttime'),
+                                 request.GET.get('endtime'), request.GET.get('day'), profile)
     retdate = request.GET.get('newdate').split('-')
     startdate = datetime.date(
         int(retdate[0]), int(retdate[1]), int(retdate[2]))
@@ -196,25 +208,9 @@ def update(request: HttpResponse):
         context['weekday'] = groupday
     # if endweek < date.today():
     context['editable'] = request.GET.get('editable')
-
+    context['user'] = profile
     return render(request, "templates/pacApp/tableElements/table.html", context)
 
-
-def create_booking(date, studio, name, starttime, endtime, day):
-    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
-                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
-    date = date.split('-')
-    # print('received date is' + date)
-    book = Booking(studio_id=studioList[studio],
-                   company_id=0,
-                   company_name=name,
-                   start_time=starttime,
-                   end_time=endtime,
-                   week_day=day,
-                   booking_date=(datetime.date(int(date[0]), int(date[1]), int(date[2]))))
-    # print('booked date is ' + book.booking_date)
-    book.save()
-    return book.week_day
 
 
 # transform str "April 27, 2020" into list [yyyy, mm, dd]
@@ -247,6 +243,7 @@ def drop_space(request: HttpResponse):
     day = request.POST['day']  # weekday
     name = request.POST['name']
     groups = request.POST['selectgroups']
+    profile = request.user.uniauth_profile.get_display_id()
 
     if (groups == 'None' or groups == None):
         groups = None
@@ -259,7 +256,7 @@ def drop_space(request: HttpResponse):
     y, m, d = handledate(date)  # format the date
 
     # delete the booking from the db
-    delete_booking(y, m, d, studio, name, starttime, endtime, day)
+    delete_booking(y, m, d, studio, name, starttime, endtime, day, profile)
     print('day: ' + day)
     # create context
     startdate = datetime.date(int(y), int(m), (int(d)))
@@ -268,10 +265,12 @@ def drop_space(request: HttpResponse):
     startdate = startdate + timedelta(days=(-int(day)))
     # groups = None
     # getGroups = False
+
     context = createContext(startdate, endweek, startdate, groups, getGroups)
 
     context['weekday'] = day
     context['editable'] = True
+    context['user'] = profile
 
     return render(request, "templates/pacApp/tableElements/table.html", context)
     # return JsonResponse({"error": ""}, status=400)
@@ -279,7 +278,7 @@ def drop_space(request: HttpResponse):
 # delete the booking
 
 
-def delete_booking(y, m, d, studio, name, starttime, endtime, day):
+def delete_booking(y, m, d, studio, name, starttime, endtime, day, profile):
     print('in delete booking')
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
@@ -289,6 +288,7 @@ def delete_booking(y, m, d, studio, name, starttime, endtime, day):
     # grab the booking you want to delete
     book_to_del = Booking.objects.get(studio_id=studioList[studio],
                                       company_id=0,
+                                      user_netid=profile,
                                       company_name=name,
                                       start_time=starttime,
                                       end_time=endtime,

@@ -28,6 +28,9 @@
 								<h1>Princeton Dance</h1>
 								<hr />
 								<p>Rehearsal spaces and availability</p>
+								{% if user != 'None' %} 
+								<p> Hello, {{user}} </p>
+								{% endif %}
 							</header>
 							<footer>
 								<div href="#openNow" class="button circled scrolly">Open Now</div>
