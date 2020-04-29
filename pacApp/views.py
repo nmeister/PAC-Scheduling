@@ -376,23 +376,57 @@ def adminForm(request):
     #	print(item.name)
     return render(request, "templates/pacApp/form/adminForm.html", context)
 
-# code for the scheduling algorithm
+
+def get_ranks(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank):
+    return
+
+
 
 
 def scheduling_alg(request):
+    # get everything in db
     all_requests = ADRequest.objects.all()
-    df_request = pd.DataFrame(data=None, columns=['name', 'company_day', 'company_start_time', 'company_end_time', 'company_studio',
-                                                  'rank_1', 'rank_2',  'rank_3',  'rank_4', 'rank_5',  'num_reho', 'num_members'])
+
+    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
+                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+
+    df_request = pd.DataFrame(data=None, columns=['name', 
+    'company_day_1', 'company_start_time_1', 'company_end_time_1', 'company_studio_1',
+    'company_day_2', 'company_start_time_2', 'company_end_time_2', 'company_studio_2',
+    'company_day_3', 'company_start_time_3', 'company_end_time_3', 'company_studio_3',
+    'rank_1', 'rank_2',  'rank_3',  'rank_4', 'rank_5',
+    'rank_6', 'rank_7',  'rank_8',  'rank_9', 'rank_10',
+    'num_reho', 'num_members'])
 
     for group in all_requests:
-        group_request = pd.DataFrame(data={'name': [group.company_name], 'company_day': [group.company_day_1], 'company_start_time': [group.company_start_time_1], 'company_end_time': [group.company_end_time_1], 'company_studio': [group.company_studio_1],
-                                           'rank_1': [group.rank_1], 'rank_2': [group.rank_2],  'rank_3': [group.rank_3],  'rank_4': [group.rank_4], 'rank_5': [group.rank_5],
-                                           'num_reho': [group.num_reho], 'num_members': [group.company_size]})
+        rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10 = get_ranks(group.bloomberg_rank, 
+                group.dillon_dance_rank, group.dillon_mar_rank, group.dillon_mpr_rank, 
+                group.murphy_rank, group.ns_rank, group.ns_warmup_rank, group.ns_theatre_rank, 
+                group.whitman_rank, group.wilcox_rank)
+        group_request = pd.DataFrame(data={'name': [group.company_name], 
+        'company_day_1': [group.company_day_1], 'company_start_time_1': [group.company_start_time_1], 'company_end_time_1': [group.company_end_time_1], 'company_studio_1': [group.company_studio_1],
+        'company_day_2': [group.company_day_2], 'company_start_time_2': [group.company_start_time_2], 'company_end_time_2': [group.company_end_time_2], 'company_studio_2': [group.company_studio_2],
+        'company_day_3': [group.company_day_3], 'company_start_time_3': [group.company_start_time_3], 'company_end_time_3': [group.company_end_time_3], 'company_studio_3': [group.company_studio_3],
+        'rank_1': rank_1, 'rank_2': rank_2, 'rank_3': rank_3, 'rank_4': rank_4, 'rank_5': rank_5, 
+        'rank_6': rank_6, 'rank_7': rank_7, 'rank_8': rank_8, 'rank_9': rank_9, 'rank_10': rank_10, 
+        'num_reho': [group.num_reho], 'num_members': [group.company_size]})
         df_request = pd.concat([group_request, df_request],
                                ignore_index=True, sort=False)
 
+
+    book = Booking(
+                    company_name=name,
+                    studio_id=studioList[studio],
+                   company_id=0,
+                   user_netid=profile,
+                   
+                   week_day=day,
+                   start_time=starttime,
+                   end_time=endtime,
+                   booking_date=(datetime.date(int(date[0]), int(date[1]), int(date[2]))))
+
     df_results = pd.DataFrame(
-        data=None, columns=['Name', 'Studio', 'Day', 'Start_Time', 'End_Time'])
+        data=None, columns=['Name', 'Studio', 'Day', 'Start_Time', 'End_Time', 'Booking_Date'])
 
     # fill in the unavailable times for each studio
     unavailable = {}
@@ -548,6 +582,8 @@ def scheduling_alg(request):
     studioList = dict(zip(dance_studios, list(range(0, 10))))
     daysList = dict(zip(days_of_week, range(0, 7)))
 
+
+    # do the dates 
     for i, space in df_results.iterrows():
         book = Booking(studio_id=studioList[space['Studio']],
                        company_id=0,
