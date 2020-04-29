@@ -22,12 +22,13 @@ function openTab(evt, tab) {
 function radio_check(radiobtn_name)
 {
   var radios = document.getElementsByName(radiobtn_name);
+  var i = 0;
   while (i < radios.length) {
     if (radios[i].checked) return "radio has value";
     i++;        
   }
   return ""
-}
+} 
 
 function validateResponse() 
 {
@@ -52,11 +53,16 @@ function validateResponse()
   let num_reho = document.querySelector('input[name=num_reho]').value.trim();
   let num_members = document.querySelector('input[name=num_members]').value.trim();
 
-  let rank1s = document.querySelector('input[name=rank1s]').value.trim();
-  let rank2s = document.querySelector('input[name=rank2s]').value.trim();
-  let rank3s = document.querySelector('input[name=rank3s]').value.trim();
-  let rank4s = document.querySelector('input[name=rank4s]').value.trim();
-  let rank5s = document.querySelector('input[name=rank5s]').value.trim();
+  let bloomberg_rank = document.querySelector('input[name=bloomberg_rank]').value.trim();
+  let dillon_dance_rank = document.querySelector('input[name=dillon_dance_rank]').value.trim();
+  let dillon_mar_rank = document.querySelector('input[name=dillon_mar_rank]').value.trim();
+  let dillon_mpr_rank = document.querySelector('input[name=dillon_mpr_rank]').value.trim();
+  let murphy_rank = document.querySelector('input[name=murphy_rank]').value.trim();
+  let ns_rank = document.querySelector('input[name=ns_rank]').value.trim();
+  let ns_warmup_rank = document.querySelector('input[name=ns_warmup_rank]').value.trim();
+  let ns_theatre_rank = document.querySelector('input[name=ns_theatre_rank]').value.trim();
+  let whitman_rank = document.querySelector('input[name=whitman_rank]').value.trim();
+  let wilcox_rank = document.querySelector('input[name=wilcox_rank]').value.trim(); 
 
   if (company=="") empty_inputs.push('Company Name');
 
@@ -78,18 +84,24 @@ function validateResponse()
   if (num_reho=="") empty_inputs.push('Number of Rehearsals Needed');
   if (num_members=="") empty_inputs.push('Number of Members');
   
-  if (rank1s=="") empty_inputs.push('First Choice Studio');
-  if (rank2s=="") empty_inputs.push('Second Choice Studio');
-  if (rank3s=="") empty_inputs.push('Third Choice Studio');
-  if (rank4s=="") empty_inputs.push('Fourth Choice Studio');
-  if (rank5s=="") empty_inputs.push('Fifth Choice Studio');
+  if (bloomberg_rank=="") empty_inputs.push('Bloomberg Rank');
+  if (dillon_dance_rank=="") empty_inputs.push('Dillon Dance Rank');
+  if (dillon_mar_rank=="") empty_inputs.push('Dillon MAR Rank');
+  if (dillon_mpr_rank=="") empty_inputs.push('Dillon MPR Rank');
+  if (murphy_rank=="") empty_inputs.push('Murphy Rank');
+  if (ns_rank=="") empty_inputs.push('NS Rank');
+  if (ns_warmup_rank=="") empty_inputs.push('NS Warmup Rank');
+  if (ns_theatre_rank=="") empty_inputs.push('NS Theatre Rank');
+  if (whitman_rank=="") empty_inputs.push('Whitman Rank');
+  if (wilcox_rank=="") empty_inputs.push('Wilcox Rank'); 
 
   console.log(empty_inputs);
+  
 
   if (empty_inputs != [])
   {
     console.log("This form did not submit");
-    let alert_msg = "This form did not submit. Please fill in the following blanks: ";
+    let alert_msg = "This form did not submit. Please fill in the following blanks: "
     alert_msg += empty_inputs;
     alert(alert_msg);
     return false;

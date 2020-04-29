@@ -1,5 +1,5 @@
 
-<form class="myform" method="POST" action="{% url 'insert_ad_request' %}" 
+<form class="myform" method="POST" onload="document.getElementById('companyInput').focus()" action="{% url 'insert_ad_request' %}" 
 	autocomplete="=off" onsubmit="return validateResponse()">
 	{% csrf_token %}
 	<!-- STEP 1 -->
@@ -20,7 +20,7 @@
 <strong> Company Day: </strong> Input top three choices for company
 
 <div class="tab" style="display: flex; height: 40px;">
-<table style="width:100%">
+<table style="width:100%" >
 	<tr>
 	  <td><div class="tablinks" onclick="openTab(event, 'company_day_1')">Choice 1</div></td>
 	  <td><div class="tablinks" onclick="openTab(event, 'company_day_2')">Choice 2</div></td>
@@ -44,7 +44,6 @@
 <label><strong>Studio Rankings: </strong>
 	<br>
 	Rank the following studios based on your preference with 1 being the highest preference and 10 being the lowest preference. 
-	<br>
 	Please ensure that each rank is unique (no ties).</label>
 <br>
 
@@ -62,17 +61,17 @@
 <table style="width:100%">
 	<tr>
 	  <td>Bloomberg: <input type="number" min=1 max=10 class="form-control" name="bloomberg_rank"><br></td>
-	  <td>Dillon Dance: <input type="number" min=1 max=10 class="form-control" name="bloomberg_rank"><br></td>
-	  <td>Dillon MAR: <input type="number" min=1 max=10 class="form-control" name="num_members"><br></td>
-	  <td>Dillon MPR: <input type="number" min=1 max=10 class="form-control" name="num_members"><br>	  </td>
-	  <td>Murphy: <input type="number" min=1 max=10 class="form-control" name="num_members"><br></td>
+	  <td>Dillon Dance: <input type="number" min=1 max=10 class="form-control" name="dillon_dance_rank"><br></td>
+	  <td>Dillon MAR: <input type="number" min=1 max=10 class="form-control" name="dillon_mar_rank"><br></td>
+	  <td>Dillon MPR: <input type="number" min=1 max=10 class="form-control" name="dillon_mpr_rank"><br>	  </td>
+	  <td>Murphy: <input type="number" min=1 max=10 class="form-control" name="murphy_rank"><br></td>
 	</tr>
 	<tr>
-		<td>	New South: <input type="number" min=1 max=10 class="form-control" name="num_members"><br>		</td>
-		<td>	NS Warmup: <input type="number" min=1 max=10 class="form-control" name="num_members"><br>		</td>
-		<td>	NS Theatre: <input type="number" min=1 max=10  class="form-control" name="num_members"><br></td>
-		<td>	Whitman: <input type="number" min=1 max=10  class="form-control" name="num_members"><br>		</td>
-		<td>	Wilcox: <input type="number" min=1 max=10 class="form-control" name="num_members"><br>		</td>
+		<td>	New South: <input type="number" min=1 max=10 class="form-control" name="ns_rank"><br>		</td>
+		<td>	NS Warmup: <input type="number" min=1 max=10 class="form-control" name="ns_warmup_rank"><br>		</td>
+		<td>	NS Theatre: <input type="number" min=1 max=10  class="form-control" name="ns_theatre_rank"><br></td>
+		<td>	Whitman: <input type="number" min=1 max=10  class="form-control" name="whitman_rank"><br>		</td>
+		<td>	Wilcox: <input type="number" min=1 max=10 class="form-control" name="wilcox_rank"><br>		</td>
 	  </tr>
   </table>
 
@@ -103,32 +102,54 @@
 		
 	</h4>		
 	<!-- Table to display the values in the db	-->
-	<table style="width:100%">
-		<tr>
-		  <th>Firstname</th>
-		  <th>Lastname</th> 
-		  <th>Age</th>
-		</tr>
-		<tr>
-		  <td>Jill</td>
-		  <td>Smith</td>
-		  <td>50</td>
-		</tr>
-		<tr>
-		  <td>Eve</td>
-		  <td>Jackson</td>
-		  <td>94</td>
-		</tr>
-		<tr>
-		  <td>John</td>
-		  <td>Doe</td>
-		  <td>80</td>
-		</tr>
-	  </table>
-		
+	<div style="height:100px;overflow:auto;">
+		<table style="width:100%">
+			<tr>
+			  <th>Company Name</th>
+			  <th>Company Day (Choice 1)</th> 
+			  <th>Company Studio (Choice 1)</th>
+			  <th>Company Start Time (Choice 1)</th>
+			  <th>Company End Time (Choice 1)</th>
+			  <th>Company Day (Choice 2)</th>
+			  <th>Company Studio (Choice 2)</th>
+			  <th>Company Start Time (Choice 2)</th>
+			  <th>Company End Time (Choice 2)</th>
+			  <th>Company Day (Choice 3)</th>
+			  <th>Company Studio (Choice 3)</th>
+			  <th>Company Start Time (Choice 3)</th>
+			  <th>Company End Time (Choice 3)</th>
+			  <th>Number of Rehearsals Needed</th>
+			  <th>Number of Members</th>
+			  <th>Bloomberg Rank</th>
+			  <th>Dillon Dance Rank</th>
+			  <th>Dillon MAR Rank</th>
+			  <th>Dillon MPR Rank</th>
+			  <th>Murphy Rank</th>
+			  <th>NS Rank</th>
+			  <th>NS Warmup Rank</th>
+			  <th>NS Theatre Rank</th>
+			  <th>Whitman Rank</th>
+			  <th>Wilcox Rank</th>
 
-
-
+			</tr>
+			<tr>
+			  <td>Jill</td>
+			  <td>Smith</td>
+			  <td>50</td>
+			</tr>
+			<tr>
+			  <td>Eve</td>
+			  <td>Jackson</td>
+			  <td>94</td>
+			</tr>
+			<tr>
+			  <td>John</td>
+			  <td>Doe</td>
+			  <td>80</td>
+			</tr>
+		  </table>
+	   </div>
+	
 </div>
 
 
