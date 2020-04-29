@@ -345,7 +345,7 @@ def insert_ad_request(request: HttpResponse):
                        wilcox_rank= request.POST['wilcox_rank'])
                        
     ad_req.save()
-    return redirect('/adminForm#a')
+    return redirect('/adminForm')
 
 
 @register.filter
