@@ -16,6 +16,7 @@ urlpatterns = [
     path('drop_space', views.drop_space, name='drop_space'),
     path('delete_booking', views.delete_booking, name='delete_booking'),
     path('update', views.update, name='update'),
+    path('about', views.about, name='about'),
 ]
 
 handler404 = views.error_404

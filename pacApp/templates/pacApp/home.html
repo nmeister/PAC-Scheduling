@@ -38,28 +38,30 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="#">Home</a></li>
-							<!--	<li>
-									<a href="#scheduleOnHome">What's Open</a>
-									<ul>
+								<li>
+									<a href="about">About</a>
+									<!-- <ul>
 										<li><a href="#scheduleOnHome">Schedule</a></li>
 
 										<li><a href="#openNow">Open Now</a></li>
 
-									</ul>
-								</li> -->
+									</ul> --> 
+								</li>
 								<li><a href="">Booking</a>
 									<ul>
 										<li><a href="schedule">Booking</a></li>
 										<li><a href="adminForm#">PAC Booking</a></li>
-                    <li><a href="accounts/login">CAS Login</a></li>
+                    					<li><a href="accounts/login">CAS Login</a></li>
 									</ul>
 								</li>
 							</ul>
 						</nav>
 				</div>
 
+	 <div id="scheduleOnHome" class="wrapper style" data-place="home" style="padding: 0em 0em 2em 0em">
 			<!-- Banner -->
-				<section id="banner">
+				<article class="container special">
+					<section id="banner" style="padding-bottom: 2em;" >
 					<header>
 						<h2> Princeton is home to <strong> ten dance spaces </strong> <br/> open to everyone</h2>
 						<p>
@@ -68,11 +70,10 @@
 							<h6>Change the date to view another week's schedule (week starts from selected date). </h6>
 						</p>
 					</header>
-				</section>
+					</section>
+					{% include 'templates/pacApp/schedule.html' %}
+				</article>
 
-			<!-- Table -->
-      <div id="scheduleOnHome" data-place="home">
-		{% include 'templates/pacApp/schedule.html' %}
       </div>
 			<!-- Carousel -->
 				<section id="openNow">
@@ -92,63 +93,16 @@
 						<header>
 							<h2>Where is my dance rehearsal?</h2>
 							<p>
-								Here's our map with the locations of all the rehearsal spaces around Princeton!
+								We feel you! Every dancer has had a moment lost between Dillon MAR and MPR or among the many
+								Lewises. We're here to help with a map detailing the specific locations of every studio.
 							</p>
 						</header>
-						<a href="#" class="image featured"><img src="static/pacApp/images/pic06.jpg" alt="" /></a>
+						<p style = "text-align: center;">
+						<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1T682UdgYkk3yPQPuG7g-TpgQ1193DmQd" width="940" height="620"></iframe>
+						</p>
 					</article>
 				</div>
-
-			<!-- Features -->
-				<div class="wrapper style1">
-
-					<section id="features" class="container special">
-						<header>
-							</br>
-							<h2>Our Team</h2>
-							<p> The amazing people that brought this project to life!</p>
-						</header>
-						<div class="row">
-							<article class="col-4 col-12-mobile special">
-								<a class="image featured"><img src="static/pacApp/images/nicole.jpg" alt="" /></a>
-								<header>
-									<h3><a href="#">Nicole Meister</a></h3>
-								</header>
-								<p>
-									What ann Amazing person!!!!
-								</p>
-							</article>
-							<article class="col-4 col-12-mobile special">
-								<a class="image featured"><img src="static/pacApp/images/edward.jpg" alt="" /></a>
-								<header>
-									<h3><a href="#">Edward Tian</a></h3>
-								</header>
-								<p>
-									Hellloooo!!!!
-								</p>
-							</article>
-							<article class="col-4 col-12-mobile special">
-								<a class="image featured"><img src="static/pacApp/images/helen.jpg" alt="" /></a>
-								<header>
-									<h3><a href="#">Helen Ellen Melon</a></h3>
-								</header>
-								<p>
-									Supperrrr coool Person!!!!
-								</p>
-							</article>
-							<article class="col-4 col-12-mobile special">
-								<a class="image featured"><img src="static/pacApp/images/angela.jpg" alt="" /></a>
-								<header>
-									<h3><a href="#">Angela Li<LInk:rss></LInk:rss></a></h3>
-								</header>
-								<p>
-									Anottherrr Amazzzing Person!
-								</p>
-							</article>
-						</div>
-					</section>
-
-				</div>
+				
 
 			<!-- Footer -->
 				<div id="footer">
