@@ -261,3 +261,8 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   border: solid 1px #E5E5E5;
   padding: 0em;
 }
+
+#netid {
+  font-size:1.2em;
+  padding:1em;
+}

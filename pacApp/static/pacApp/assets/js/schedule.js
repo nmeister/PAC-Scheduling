@@ -590,14 +590,15 @@ function sendbook(id) {
                       success: handleresponse,
                    }
                 );
-        showConfirm(); 
+        showConfirm('Booking completed!'); 
      }
 
-function showConfirm() {
+function showConfirm(msg) {
 	console.log('has been booked!');
   var modal = document.getElementById("complete");
+  $('#done').html(msg);
   $("#complete").fadeIn(50);
-  $('#complete').fadeOut(3000);
+  $('#complete').fadeOut(5200);
 }
 
 function pastTime_drop(msg) {
@@ -737,5 +738,6 @@ function drop(event) {
          success: handleresponse,
       }
    );
+  showConfirm('Dropping completed!'); 
     
 	} 
