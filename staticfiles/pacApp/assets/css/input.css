@@ -39,18 +39,28 @@ input::placeholder {
 input[type="text"] .tab .tablinks {
   background-color: inherit;
   float: left;
-  border: none;
+  /* border: 1px solid #ccc; */
+  border: none; 
   outline: none;
   cursor: pointer;
+  
   padding: 14px 16px;
   transition: 0.3s;
   /* font-family: 'Arial'; */
 }
+.tablinks:after {
+  content: '|';
+}
+.tablinks:last-child:after {
+  content: '';
+}
+
 
 /* Change background color of buttons on hover */
 .tab div:hover {
   background-color: #ddd;
 }
+
 
 /* Create an active/current tablink class */
 input[type="text"] .tab div.active {
@@ -60,7 +70,7 @@ input[type="text"] .tab div.active {
 /* Style the tab content */
 .tabcontent {
   display: none;
-  padding: 6px 12px;
+  padding: 10px 30px;
   border: 1px solid #ccc;
   border-top: none;
   width: 100%;

@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '59c!&ax&$m&aoy#!&((_l741@@-s6(86f4g8qxu1w!4^v!65d9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = False
+# DEBUG = False
 DEBUG = True
 ADMINS = (
     ('admin'),
@@ -167,17 +167,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'pacApp/static'),
 
 ]
-
-
-PROJECT_ROOT = os.path.dirname(os.path.abspath('/pacApp/admin/'))
-
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
 
 # if 'uniauth' in INSTALLED_APPS:
 #    from . idp_pysaml2 import *
