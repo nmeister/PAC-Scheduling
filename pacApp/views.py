@@ -118,9 +118,9 @@ def carouselAvailable():
 
 def homepage(request):
     try:
-      profile = request.user.uniauth_profile.get_display_id()
+        profile = request.user.uniauth_profile.get_display_id()
     except:
-      profile = None
+        profile = 'None'
     print(profile)
     startdate = date.today()
     print(startdate)
@@ -183,8 +183,9 @@ def update(request: HttpResponse):
     weekday = None
     profile = request.user.uniauth_profile.get_display_id()
     if (request.GET.get('studio') != None):
-        weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), 
-                                 request.GET.get('name'), request.GET.get('starttime'),
+        weekday = create_booking(request.GET.get('date'), request.GET.get('studio'),
+                                 request.GET.get('name'), request.GET.get(
+                                     'starttime'),
                                  request.GET.get('endtime'), request.GET.get('day'), profile)
     retdate = request.GET.get('newdate').split('-')
     startdate = datetime.date(
@@ -212,7 +213,6 @@ def update(request: HttpResponse):
     context['editable'] = request.GET.get('editable')
     context['user'] = profile
     return render(request, "templates/pacApp/tableElements/table.html", context)
-
 
 
 # transform str "April 27, 2020" into list [yyyy, mm, dd]
@@ -289,25 +289,27 @@ def delete_booking(y, m, d, studio, name, starttime, endtime, day, profile):
 
     # grab the booking you want to delete
     try:
-      book_to_del = Booking.objects.get(studio_id=studioList[studio],
-                                      company_id=0,
-                                      user_netid=profile,
-                                      company_name=name,
-                                      start_time=starttime,
-                                      end_time=endtime,
-                                      week_day=day,
-                                      booking_date=(datetime.date(int(y), int(m), int(d))))
-      book_to_del.delete()
+        book_to_del = Booking.objects.get(studio_id=studioList[studio],
+                                          company_id=0,
+                                          user_netid=profile,
+                                          company_name=name,
+                                          start_time=starttime,
+                                          end_time=endtime,
+                                          week_day=day,
+                                          booking_date=(datetime.date(int(y), int(m), int(d))))
+        book_to_del.delete()
     except:
-      print('not able to drop')
+        print('not able to drop')
     return day
 
 
 def insert_space_item(request: HttpResponse):
     return redirect('/schedule')
 
+
 def grab_time(time_val):
     return int(time_val[0:2])
+
 
 def insert_ad_request(request: HttpResponse):
 
@@ -317,7 +319,7 @@ def insert_ad_request(request: HttpResponse):
     company_end_time_2 = grab_time(request.POST['company_end_time_2'])
     company_start_time_3 = grab_time(request.POST['company_start_time_3'])
     company_end_time_3 = grab_time(request.POST['company_end_time_3'])
-    
+
     ad_req = ADRequest(company_name=request.POST['company_name'],
                        company_day_1=request.POST.get('company_day_1'),
                        company_start_time_1=company_start_time_1,
@@ -333,17 +335,17 @@ def insert_ad_request(request: HttpResponse):
                        company_studio_3=request.POST.get('company_studio_3'),
                        num_reho=request.POST['num_reho'],
                        company_size=request.POST['num_members'],
-                       bloomberg_rank = request.POST['bloomberg_rank'],
-                       dillon_dance_rank= request.POST['dillon_dance_rank'],
-                       dillon_mar_rank= request.POST['dillon_mar_rank'],
-                       dillon_mpr_rank= request.POST['dillon_mpr_rank'],
-                       murphy_rank= request.POST['murphy_rank'],
-                       ns_rank= request.POST['ns_rank'],
-                       ns_warmup_rank= request.POST['ns_warmup_rank'],
-                       ns_theatre_rank= request.POST['ns_theatre_rank'],
-                       whitman_rank= request.POST['whitman_rank'],
-                       wilcox_rank= request.POST['wilcox_rank'])
-                       
+                       bloomberg_rank=request.POST['bloomberg_rank'],
+                       dillon_dance_rank=request.POST['dillon_dance_rank'],
+                       dillon_mar_rank=request.POST['dillon_mar_rank'],
+                       dillon_mpr_rank=request.POST['dillon_mpr_rank'],
+                       murphy_rank=request.POST['murphy_rank'],
+                       ns_rank=request.POST['ns_rank'],
+                       ns_warmup_rank=request.POST['ns_warmup_rank'],
+                       ns_theatre_rank=request.POST['ns_theatre_rank'],
+                       whitman_rank=request.POST['whitman_rank'],
+                       wilcox_rank=request.POST['wilcox_rank'])
+
     ad_req.save()
     return redirect('/adminForm')
 
@@ -365,11 +367,16 @@ def must_be_pac(user):
 #my_group = Group.objects.get(name='Pac')
 # my_group.user_set.add('test@pac.com')
 
+# if user not pac and tries to go to PAC booking page show this endpage
 
-#
-@user_passes_test(must_be_pac, login_url='', redirect_field_name=None)
-@login_required
+
+def notpac(request):
+    context = {}
+    return render(request, "templates/pacApp/notPac.html", context)
+
 # @permission_required("pacApp.add_ad_request")
+@login_required
+@user_passes_test(must_be_pac, login_url='/notpac', redirect_field_name=None)
 def adminForm(request):
     context = {'all_requests': ADRequest.objects.all()}
     # for item in context['all_requests']:

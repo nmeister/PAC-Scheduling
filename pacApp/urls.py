@@ -17,6 +17,7 @@ urlpatterns = [
     path('delete_booking', views.delete_booking, name='delete_booking'),
     path('update', views.update, name='update'),
     path('about', views.about, name='about'),
+    path('notpac', views.about, name='notpac'),
 ]
 
 handler404 = views.error_404
