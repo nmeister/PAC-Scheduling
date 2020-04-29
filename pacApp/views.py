@@ -21,6 +21,7 @@ import copy
 import random
 import calendar
 
+
 # Create your views here.
 # our home page
 
@@ -73,8 +74,8 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
                'currday': currday,
                'mon': week['1'], 'tue': week['2'], 'wed': week['3'],
                'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
-    if getGroups == True:
 
+    if getGroups == True:
         context['Bloomberg'] = context['Bloomberg'].filter(
             company_name__in=groups)
         context['DillonDance'] = context['DillonDance'].filter(
@@ -297,42 +298,6 @@ def delete_booking(y, m, d, studio, name, starttime, endtime, day):
     return day
 
 
-""" def update(request: HttpResponse):
-    # if there is a booking involved
-
-    weekday = None
-    if (request.GET.get('studio') != None):
-        weekday = create_booking(request.GET.get('date'), request.GET.get('studio'), request.GET.get('name'), request.GET.get('starttime'),
-                                 request.GET.get('endtime'), request.GET.get('day'))
-    retdate = request.GET.get('newdate').split('-')
-    startdate = datetime.date(
-        int(retdate[0]), int(retdate[1]), int(retdate[2]))
-
-    endweek = startdate + timedelta(days=6)
-    newdate = request.GET.get('newdate')
-
-    groups = request.GET.get('selectgroups')
-    if (groups == 'None' or groups == None):
-        groups = None
-        getGroups = False
-    else:
-        groups = groups.split('-')
-        groups.pop(-1)
-        getGroups = True
-    context = createContext(startdate, endweek, newdate, groups, getGroups)
-    if weekday != None:
-        context['weekday'] = weekday
-    groupday = request.GET.get('groupday')
-
-    if weekday == None and groupday != None:
-        context['weekday'] = groupday
-    context['editable'] = True
-    # if endweek < date.today():
-    #	context['editable'] = False
-
-    return render(request, "templates/pacApp/tableElements/table.html", context)
-"""
-
 def insert_space_item(request: HttpResponse):
     return redirect('/schedule')
 
@@ -380,7 +345,6 @@ def must_be_pac(user):
 
 #my_group = Group.objects.get(name='Pac')
 # my_group.user_set.add('test@pac.com')
-
 
 @user_passes_test(must_be_pac)
 @login_required

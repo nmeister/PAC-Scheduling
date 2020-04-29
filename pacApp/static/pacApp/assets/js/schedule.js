@@ -450,7 +450,8 @@ function setupWeek(type)
      console.log(curr);
      if (curr.trim() == "" || curr == null) {
       handleBadDate();
-      return;
+      curr = buildDate(new Date());
+      $('#curr').val(curr);
      }
 		 
          let url = 'update';
