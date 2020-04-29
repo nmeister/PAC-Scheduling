@@ -19,22 +19,33 @@ function openTab(evt, tab) {
   evt.currentTarget.className += " active";
 }
 
+function radio_check(radiobtn_name)
+{
+  var radios = document.getElementsByName(radiobtn_name);
+  while (i < radios.length) {
+    if (radios[i].checked) return "radio has value";
+    i++;        
+  }
+  return ""
+}
+
 function validateResponse() 
 {
   var empty_inputs = []
   let company = document.querySelector('input[name=company_name]').value.trim();
-  let company_day_1 = document.querySelector('input[name=company_day_1]').value.trim();
-  let company_studio_1 = document.querySelector('input[name=company_studio_1]').value.trim();
+
+  let company_day_1 = radio_check('company_day_1') // 
+  let company_studio_1 = radio_check('company_studio_1'); //
   let company_start_time_1 = document.querySelector('input[name=company_start_time_1]').value.trim();
   let company_end_time_1 = document.querySelector('input[name=company_end_time_1]').value.trim();
 
-  let company_day_2 = document.querySelector('input[name=company_day_2]').value.trim();
-  let company_studio_2 = document.querySelector('input[name=company_studio_2]').value.trim();
+  let company_day_2 = radio_check('company_day_2') // 
+  let company_studio_2 = radio_check('company_studio_2'); //
   let company_start_time_2 = document.querySelector('input[name=company_start_time_2]').value.trim();
   let company_end_time_2 = document.querySelector('input[name=company_end_time_2]').value.trim();
 
-  let company_day_3 = document.querySelector('input[name=company_day_3]').value.trim();
-  let company_studio_3 = document.querySelector('input[name=company_studio_3]').value.trim();
+  let company_day_3 = radio_check('company_day_3') // 
+  let company_studio_3 = radio_check('company_studio_3'); //
   let company_start_time_3 = document.querySelector('input[name=company_start_time_3]').value.trim();
   let company_end_time_3 = document.querySelector('input[name=company_end_time_3]').value.trim();
 
@@ -48,18 +59,19 @@ function validateResponse()
   let rank5s = document.querySelector('input[name=rank5s]').value.trim();
 
   if (company=="") empty_inputs.push('Company Name');
-  if (company_day_1=="") empty_inputs.push('Company Day (Choice 1)');
-  if (company_studio_1=="") empty_inputs.push('Company Studio (Choice 1)');
+
+  if (company_day_1=="") empty_inputs.push('Company Day (Choice 1)'); //
+  if (company_studio_1=="") empty_inputs.push('Company Studio (Choice 1)');//
   if (company_start_time_1=="") empty_inputs.push('Company Start Time (Choice 1)');
   if (company_end_time_1=="") empty_inputs.push('Company End Time (Choice 1)');
 
-  if (company_day_2=="") empty_inputs.push('Company Day (Choice 2)');
-  if (company_studio_2=="") empty_inputs.push('Company Studio (Choice 2)');
+  if (company_day_2=="") empty_inputs.push('Company Day (Choice 2)');//
+  if (company_studio_2=="") empty_inputs.push('Company Studio (Choice 2)');//
   if (company_start_time_2=="") empty_inputs.push('Company Start Time (Choice 2)');
   if (company_end_time_2=="") empty_inputs.push('Company End Time (Choice 2)');
 
-  if (company_day_3=="") empty_inputs.push('Company Day (Choice 3)');
-  if (company_studio_3=="") empty_inputs.push('Company Studio (Choice 3)');
+  if (company_day_3=="") empty_inputs.push('Company Day (Choice 3)');//
+  if (company_studio_3=="") empty_inputs.push('Company Studio (Choice 3)');//
   if (company_start_time_3=="") empty_inputs.push('Company Start Time (Choice 3)');
   if (company_end_time_3=="") empty_inputs.push('Company End Time (Choice 3)');
 
