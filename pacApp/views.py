@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 from uniauth.decorators import login_required
 from django.conf.urls.static import static
 from . import models, studio, hours
