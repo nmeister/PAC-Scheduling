@@ -30,6 +30,7 @@
      <br><span id="d6date" style="display:none;font-size:0.85em;text-align:center;"></span>
   </div>
   <div class="tablinks"><input type="date" max="2999-12-31" autocomplete="on" id="curr" onchange="setupWeek('week');"></div>
+  <div class="tablinks" id="netid" value="{{user}}" style="margin-left:5em"></div>
    <div class="tablinks" id="booking" style="background-color:#df7366; color:#fff;float:right;margin-top:0.8em; padding: 0.8em;border-radius:0.2em">
     <a style="text-decoration-line:none;" href="schedule">Book a Space</a>
   </div> 
@@ -253,5 +254,9 @@
   }
   else {
     $('#booking').css('display','none');
+    console.log("{{user}}");
+    if ("{{user}}" != 'None') {
+        $('#netid').html("Hello, {{user}}");
+      }
   }
    </script>

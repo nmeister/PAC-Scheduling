@@ -44,6 +44,7 @@ class Group(models.Model):
 class Booking(models.Model):
 	studio_id = models.IntegerField()
 	company_id = models.IntegerField()
+	user_netid = models.CharField(max_length=50)
 	company_name = models.CharField(max_length=50)
 	start_time = models.IntegerField()
 	end_time = models.IntegerField()

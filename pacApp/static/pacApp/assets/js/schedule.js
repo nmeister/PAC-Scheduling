@@ -400,7 +400,6 @@ function handleresponse(response)
 {
 	console.log('handle after update');
   $('#schedule').html(response);
-  // showConfirm(); 
 }
 
 function handleBadDate() {
@@ -610,10 +609,14 @@ function sendbook(id) {
                       success: handleresponse,
                    }
                 );
+        showConfirm(); 
      }
 
 function showConfirm() {
 	console.log('has been booked!');
+  var modal = document.getElementById("complete");
+  $("#complete").fadeIn(50);
+  $('#complete').fadeOut(3000);
 }
 
 function pastTime_drop() {
