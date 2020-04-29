@@ -49,7 +49,7 @@
             </nav>
       </div>
     </div>
-      <div id="scheduletable" data-place="schedule" style="padding: 4em 0em 2em 0em">
+      <div id="scheduletable" data-place="schedule">
         {% csrf_token %}
               {% include 'templates/pacApp/tableElements/table.html' %}
               {% include 'templates/pacApp/tableElements/groupSelection.html'%}
@@ -192,6 +192,7 @@
   else {
     $('#booking').css('display','none');
     $('#scheduletable').addClass("wrapper style");
+    $('#scheduletable').css('padding', 'padding: 4em 0em 2em 0em');
     $('#schedule').css('margin', '0em 3em 1em 3em');
     $('#schedule').css('padding', '0em 0em 0em 0em');
     $('#groupselect').css('margin','0.5em 3em 1em 3em');
