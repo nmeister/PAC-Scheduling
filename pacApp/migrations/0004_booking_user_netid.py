@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pacApp', '0003_remove_booking_user_netid'),
+        ('pacApp', '0002_auto_20200429_1101'),
     ]
 
     operations = [

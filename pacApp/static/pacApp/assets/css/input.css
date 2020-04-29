@@ -26,6 +26,7 @@ input::placeholder {
 
 table, th, td {
   border: none;
+  padding: 10px;
 }
 
 /* Style the tab */

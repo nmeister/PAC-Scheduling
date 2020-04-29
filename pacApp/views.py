@@ -301,32 +301,46 @@ def delete_booking(y, m, d, studio, name, starttime, endtime, day, profile):
 def insert_space_item(request: HttpResponse):
     return redirect('/schedule')
 
+def grab_time(time_val):
+    return int(time_val[0:2])
 
 def insert_ad_request(request: HttpResponse):
 
-    print(request.POST.get('rankone'))
+    company_start_time_1 = grab_time(request.POST['company_start_time_1'])
+    company_end_time_1 = grab_time(request.POST['company_end_time_1'])
+    company_start_time_2 = grab_time(request.POST['company_start_time_2'])
+    company_end_time_2 = grab_time(request.POST['company_end_time_2'])
+    company_start_time_3 = grab_time(request.POST['company_start_time_3'])
+    company_end_time_3 = grab_time(request.POST['company_end_time_3'])
+    
     ad_req = ADRequest(company_name=request.POST['company_name'],
                        company_day_1=request.POST.get('company_day_1'),
-                       company_start_time_1=request.POST['company_start_time_1'],
-                       company_end_time_1=request.POST['company_end_time_1'],
+                       company_start_time_1=company_start_time_1,
+                       company_end_time_1=company_end_time_1,
                        company_studio_1=request.POST.get('company_studio_1'),
                        company_day_2=request.POST.get('company_day_2'),
-                       company_start_time_2=request.POST['company_start_time_2'],
-                       company_end_time_2=request.POST['company_end_time_2'],
+                       company_start_time_2=company_start_time_2,
+                       company_end_time_2=company_end_time_2,
                        company_studio_2=request.POST.get('company_studio_2'),
                        company_day_3=request.POST.get('company_day_3'),
-                       company_start_time_3=request.POST['company_start_time_3'],
-                       company_end_time_3=request.POST['company_end_time_3'],
+                       company_start_time_3=company_start_time_3,
+                       company_end_time_3=company_end_time_3,
                        company_studio_3=request.POST.get('company_studio_3'),
                        num_reho=request.POST['num_reho'],
                        company_size=request.POST['num_members'],
-                       rank_1=request.POST.get('rank1s'),
-                       rank_2=request.POST.get('rank2s'),
-                       rank_3=request.POST.get('rank3s'),
-                       rank_4=request.POST.get('rank4s'),
-                       rank_5=request.POST.get('rank5s'))
+                       bloomberg_rank = request.POST['bloomberg_rank'],
+                       dillon_dance_rank= request.POST['dillon_dance_rank'],
+                       dillon_mar_rank= request.POST['dillon_mar_rank'],
+                       dillon_mpr_rank= request.POST['dillon_mpr_rank'],
+                       murphy_rank= request.POST['murphy_rank'],
+                       ns_rank= request.POST['ns_rank'],
+                       ns_warmup_rank= request.POST['ns_warmup_rank'],
+                       ns_theatre_rank= request.POST['ns_theatre_rank'],
+                       whitman_rank= request.POST['whitman_rank'],
+                       wilcox_rank= request.POST['wilcox_rank'])
+                       
     ad_req.save()
-    return redirect('/adminForm#')
+    return redirect('/adminForm#a')
 
 
 @register.filter

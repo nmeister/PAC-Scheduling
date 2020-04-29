@@ -49,6 +49,7 @@ blockquote, q {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+	padding: 20px;
 }
 
 body {
@@ -182,6 +183,7 @@ input, select, textarea {
 
 	p, ul, ol, dl, table {
 		margin-bottom: 1em;
+		padding: 20px;
 	}
 
 	p {

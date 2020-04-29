@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600");
-@import url("fontawesome-all.min.css");
+@import url("fontawesome-all.min.dbf9d822cefe.css");
 
 /*
 	Helios by HTML5 UP
@@ -7,14 +7,23 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+table, tr, th, td {
+	margin: 0px;
+	padding: 20px;
+	border: 0px;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
 code, del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var, b,
 u, i, center, dl, dt, dd, ol, ul, li, fieldset,
-form, label, legend, table, caption, tbody,
-tfoot, thead, tr, th, td, article, aside,
+form, label, legend, caption, tbody,
+tfoot, thead, article, aside,
 canvas, details, embed, figure, figcaption,
 footer, header, hgroup, menu, nav, output, ruby,
 section, summary, time, mark, audio, video {
@@ -49,7 +58,7 @@ blockquote, q {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	padding: 20px;
+	padding: 200px;
 }
 
 body {
@@ -183,7 +192,7 @@ input, select, textarea {
 
 	p, ul, ol, dl, table {
 		margin-bottom: 1em;
-		padding: 20px;
+		padding: 200px;
 	}
 
 	p {
@@ -2183,7 +2192,7 @@ input, select, textarea {
 
 	#header {
 		position: relative;
-		background-image: url("../../images/header.jpg");
+		background-image: url("../../images/header.94066d9a805a.jpg");
 		background-size: cover;
 		background-position: center center;
 		background-attachment: fixed;
@@ -2552,7 +2561,7 @@ input, select, textarea {
 				position: absolute;
 				top: 50%;
 				margin: -1.5em 0 0 0;
-				background: url("images/arrow.svg") no-repeat center center;
+				background: url("images/arrow.5dc915558154.svg") no-repeat center center;
 			}
 
 			.carousel .forward:hover:before, .carousel .backward:hover:before {
@@ -2971,7 +2980,7 @@ input, select, textarea {
 					top: 0;
 					width: 100%;
 					height: 100%;
-					background: url("images/pic01.jpg");
+					background: url("images/pic01.5d07aab7ad71.jpg");
 					background-size: 128px 128px;
 				}
 
