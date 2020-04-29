@@ -19,11 +19,17 @@ class ADRequest(models.Model):
 	company_studio_3 = models.CharField(max_length=50)
 	num_reho = models.IntegerField()
 	company_size = models.IntegerField()
-	rank_1 = models.CharField(max_length=50, default='wilcox', editable=True)
-	rank_2 = models.CharField(max_length=50)
-	rank_3 = models.CharField(max_length=50)
-	rank_4 = models.CharField(max_length=50)
-	rank_5 = models.CharField(max_length=50)
+	bloomberg_rank = models.IntegerField(default=0)
+	dillon_dance_rank= models.IntegerField(default=0)
+	dillon_mar_rank= models.IntegerField(default=0)
+	dillon_mpr_rank= models.IntegerField(default=0)
+	murphy_rank= models.IntegerField(default=0)
+	ns_rank= models.IntegerField(default=0)
+	ns_warmup_rank= models.IntegerField(default=0)
+	ns_theatre_rank= models.IntegerField(default=0)
+	whitman_rank= models.IntegerField(default=0)
+	wilcox_rank= models.IntegerField(default=0)
+	# option to add default='___' option to prevent erroroneous entrys
 
 class Studio(models.Model):
 	name = models.CharField(max_length=50)

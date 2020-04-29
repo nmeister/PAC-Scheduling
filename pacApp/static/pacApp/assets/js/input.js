@@ -98,7 +98,7 @@ function validateResponse()
   console.log(empty_inputs);
   
 
-  if (empty_inputs != [])
+  if (empty_inputs.length != 0)
   {
     console.log("This form did not submit");
     let alert_msg = "This form did not submit. Please fill in the following blanks: "
@@ -106,5 +106,5 @@ function validateResponse()
     alert(alert_msg);
     return false;
   }	
-  return true;
+  else return true;
 }
