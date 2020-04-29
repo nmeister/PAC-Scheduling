@@ -138,9 +138,11 @@ def homepage(request):
 
 # displays the calendar schedule
 
+
 def about(request):
-  context = {}
-  return render(request, "templates/pacApp/about.html", context)
+    context = {}
+    return render(request, "templates/pacApp/about.html", context)
+
 
 @login_required
 def schedule(request):
@@ -360,7 +362,9 @@ def must_be_pac(user):
 #my_group = Group.objects.get(name='Pac')
 # my_group.user_set.add('test@pac.com')
 
-@user_passes_test(must_be_pac)
+
+#
+@user_passes_test(must_be_pac, login_url='', redirect_field_name=None)
 @login_required
 # @permission_required("pacApp.add_ad_request")
 def adminForm(request):
