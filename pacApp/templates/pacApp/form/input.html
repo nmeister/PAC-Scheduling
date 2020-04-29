@@ -103,7 +103,7 @@
 	</h4>		
 	
 	<!-- Table to display the values in the ad request db	-->
-	{% include 'templates/pacApp/form/input.html' %}
+	{% include 'templates/pacApp/form/ad_table.html' %} 
 
 <form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off">
 	{% csrf_token %}
