@@ -69,10 +69,10 @@
    <div>
       <div id="errorHome" class="modal">
         <!-- Modal content -->
-        <div class="modal-content-error">
+        <div class="modal-content-error" style="overflow:hidden;">
           <span id="errorHomeClose" class="close">&times;</span><br>
-          <span> You are not allowed to book or drop spaces on this page. Please login to do so. </span>
-      <span id="okHome" class="button" style="float:right;padding:4px 10px 4px 10px;display:block;">LOGIN</span>
+          <span id="errorhomemsg"> You are not allowed to book or drop spaces on this page. Please login to do so. </span><br>
+       <div id="okHome" class="button" style="float:right;padding:4px 10px 4px 10px;display:block;">LOGIN</div>
 
         </div>
       </div>
@@ -81,10 +81,10 @@
     <div>
       <div id="errorPast" class="modal">
         <!-- Modal content -->
-        <div class="modal-content-error">
+        <div class="modal-content-error" style="overflow:hidden;">
           <span id="errorClose" class="close">&times;</span><br>
-          <span> You cannot book a time slot in the past. Please click on a time slot in the future </span>
-      <span id="okbutton" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</span>
+          <span> You cannot book a time slot in the past. Please click on a time slot in the future </span><br>
+        <div id="okbutton" class="button" style="float:right;padding:4px 10px 4px 10px;">OK</div>
 
         </div>
       </div>
@@ -93,7 +93,7 @@
    <div>
       <div id="badDate" class="modal">
         <!-- Modal content -->
-        <div class="modal-content-error" style="height:20%;">
+        <div class="modal-content-error" style="height:20%;overflow:hidden;">
           <span id="closeBadDate" style="text-align:right;" class="close">&times;</span>
           <p>Please pick or enter valid date</p>
           <div id="okbadDate" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</div>
@@ -104,10 +104,10 @@
    <div>
     <div id="drop_errorPast" class="modal">
       <!-- Modal content -->
-      <div class="modal-content-error">
+      <div class="modal-content-error" style="overflow:hidden;">
         <span id="drop_errorClose" class="close">&times;</span><br>
-        <span> You cannot drop a time slot in the past. Please click on a time slot in the future </span>
-    <span id="okbutton_drop" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</span>
+        <span id="dropmsg"></span><br>
+    <div id="okbutton_drop" class="button" style="float:right;padding:4px 10px 4px 10px;">OK</div>
 
       </div>
     </div>
@@ -156,7 +156,7 @@
    <!-- after booking completed, pops up for confirmation --> 
     <div>
       <div id="complete" class="modal">
-        <div class="modal-content-error" style="height:15%;">
+        <div class="modal-content-error" style="height:15%;overflow:hidden;">
           <p>Booking completed!</p>
         </div>
    </div>
@@ -224,6 +224,14 @@
      //  var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
      //  openDay(daysofweek[weekday], 'd'+weekday);
       // sets up the week initially 
+      var netid = '{{user}}';
+      console.log(netid);
+      if (netid != 'None') {
+        $('#errorhomemsg').html('You are not allowed to book or drop spaces on this page. Please click on the button to go to booking page.')
+        $('#okHome').html('BOOK');
+      }
+
+      
   }
   // this sets things up initially for the first case
 
