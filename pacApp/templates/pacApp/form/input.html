@@ -143,12 +143,20 @@
 					</button>
 
 				</span>
+				
 			</div>
 			</form>
+
 			<br>
-			<button type="button" class='btn' id='delete_button' style='padding:30px;' onclick="wasClicked_Alg(event, 'delete');">
-				<i class="far fa-trash-alt fa-lg float-right">Delete [this doesn't work yet]</i>
-			</button>
+			<form action="{% url 'delete_schedule_alg' %}" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'delete');">
+				<button type="submit" class='btn' id='delete_button' style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
+					Delete Scheduled Slots
+				</button>
+
+			</form>
+			
+			
+			
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

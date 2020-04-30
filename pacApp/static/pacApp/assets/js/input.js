@@ -153,6 +153,7 @@ function wasClicked_Alg(event, type)
 
   if(schedule_wasClicked=='true' && (type == "schedule")) { 
     console.log('show alert for schedule alg');
+    console.log(event);
     alert('The PAC groups have already been scheduled. Please delete them before rescheduling.');
     event.preventDefault();
     return false; 
@@ -160,6 +161,7 @@ function wasClicked_Alg(event, type)
   else if (type=='schedule')
   {
     console.log('proceed to scheduling alg');
+    console.log(event);
     var schedule_wasClicked = "true";
     localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
     return true;
@@ -177,5 +179,29 @@ function wasClicked_Alg(event, type)
     event.preventDefault();
     return false;
   }
+
+}
+function handleresponse(response) 
+{
+	console.log('handle after update');
+  $('#ad_table').html(response);
+}
+
+
+
+function delete_ad_request(name)
+{
+  let url = 'drop_ad_request';
+  request = $.ajax(
+              {
+                type: "GET",
+                url: url,
+                data: {
+                    'company_name': name, // name of group to drop
+                },
+                // upon ajax request callback
+                success: handleresponse,
+              }
+          );
 
 }

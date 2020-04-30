@@ -306,6 +306,20 @@ def delete_booking(y, m, d, studio, name, starttime, endtime, day, profile):
         print('not able to drop')
     return day
 
+def drop_ad_request(request: HttpResponse):
+    name = request.GET.get('company_name')
+    delete_ad_request(name)
+    return redirect('../../adminForm')
+
+def delete_ad_request(name):
+    print('in delete ad request')
+    # grab the booking you want to delete
+    try:
+        req_to_del = ADRequest.objects.filter(company_name=name)
+        req_to_del.delete()
+    except:
+        print('not able to drop')
+    return
 
 def insert_space_item(request: HttpResponse):
     return redirect('/schedule')
@@ -407,6 +421,15 @@ def get_ranks(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_ran
 
     return rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10
 
+def delete_schedule_alg(response):
+    try:
+        slots_to_del = ADRequest.objects.filter(company_id=1)
+        slots_to_del.delete()
+    except:
+        print('not able to drop scheduling alg')
+    return redirect('../../adminForm')
+
+
 
 def scheduling_alg(request):
     # get everything in db
@@ -447,7 +470,8 @@ def scheduling_alg(request):
 
     # dance_studios = ['wilcox', 'bloomberg', 'dillondance', 'dillonmar',
                      # 'dillonmpr', 'whitman', 'murphy', 'ns', 'nswarmup', 'nstheatre']
-    days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days_of_week = ['Monday', 'Tuesday', 'Wednesday',
+                    'Thursday', 'Friday', 'Saturday', 'Sunday']
     groups = df_request['name']
 
     # given a list hours, return the dictionary that gives initial availability of each day
