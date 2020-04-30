@@ -35,56 +35,46 @@
         {% for item in all_requests %}
         <tr>
           <td>
-              <!-- update the form acion to be a delete entry-->
+              <!-- update the form acion to be a delete entry maybe it needs to be button type submit to refresh-->
               <form action="" method="POST">
                   {% csrf_token%}
-                  <button type="submit" class='btn'>
+                  <button type="button" class='btn'>
                       <i class="far fa-trash-alt fa-lg text-danger float-right"> </i>
                   </button>
               </form>
           </td>
           <td>{{item.company_name}}</td>   
+          <td>{{item.num_reho}}</td>   
+          <td>{{item.company_size}}</td>   
+          <td>{{item.bloomberg_rank}}</td>   
+          <td>{{item.dillon_dance_rank}}</td>   
+          <td>{{item.dillon_mar_rank}}</td>   
+          <td>{{item.dillon_mpr_rank}}</td>   
+          <td>{{item.murphy_rank}}</td>   
+          <td>{{item.ns_rank}}</td>   
+          <td>{{item.ns_warmup_rank}}</td>   
+          <td>{{item.ns_theatre_rank}}</td>   
+          <td>{{item.whitman_rank}}</td>   
+          <td>{{item.wilcox_rank}}</td>  
+          
+          <td>{{item.company_day_1}}</td>  
+          <td>{{item.company_studio_1}}</td>  
+          <td>{{item.company_start_time_1}}</td>  
+          <td>{{item.company_end_time_1}}</td>  
+          
+          <td>{{item.company_day_2}}</td>  
+          <td>{{item.company_studio_2}}</td>  
+          <td>{{item.company_start_time_2}}</td>  
+          <td>{{item.company_end_time_2}}</td>  
 
-          <th>Name</th>
-          <th>Rehearsals Needed</th>
-          <th>Members</th>
-          <th>Bloomberg </th>
-          <th>Dillon Dance </th>
-          <th>Dillon MAR </th>
-          <th>Dillon MPR </th>
-          <th>Murphy </th>
-          <th>NS </th>
-          <th>NS Warmup </th>
-          <th>NS Theatre </th>
-          <th>Whitman </th>
-          <th>Wilcox </th>
-          <th>Company Day (1)</th> 
-          <th>Company Studio (1)</th>
-          <th>Company Start (1)</th>
-          <th>Company End (1)</th>
-          <th>Company Day (2)</th>
-          <th>Company Studio (2)</th>
-          <th>Company Start (2)</th>
-          <th>Company End (2)</th>
-          <th>Company Day (3)</th>
-          <th>Company Studio (3)</th>
-          <th>Company Start (3)</th>
-          <th>Company End (3)</th>
-
-          <td>Smith</td>
-          <td>50</td>
+          <td>{{item.company_day_3}}</td>  
+          <td>{{item.company_studio_3}}</td>  
+          <td>{{item.company_start_time_3}}</td>  
+          <td>{{item.company_end_time_3}}</td>  
         </tr>
         {% endfor %}
       </table>
    </div>
-
-</div>
-Results of DB:
-<ul class="list-group">
-    {% for item in all_requests %}
-    <li class="list-group-item">{{item.name}}{{item.company_day_1}}{{item.company_start_time_1}}{{item.company_end_time_1}}</li>
-    {% endfor %}
-</ul>
-<br>
+   <h4>
 <br>
 <br>

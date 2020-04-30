@@ -1,3 +1,5 @@
+var wasClicked = false;
+
 function openTab(evt, tab) {
   // Declare all variables
   var i, tabcontent, tablinks;
@@ -107,4 +109,19 @@ function validateResponse()
     return false;
   }	
   else return true;
+}
+
+
+function wasClicked_Alg()
+{
+  if(wasClicked) { 
+    alert('The PAC groups have already been scheduled. Please delete them ')
+    return false; 
+  }
+  else 
+  {
+    wasClicked = true;
+    return true;
+  }
+
 }
