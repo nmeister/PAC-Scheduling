@@ -182,7 +182,10 @@ def update(request: HttpResponse):
     # if there is a booking involved
 
     weekday = None
-    profile = request.user.uniauth_profile.get_display_id()
+    try:
+      profile = request.user.uniauth_profile.get_display_id()
+    except:
+      profile='None'
     if (request.GET.get('studio') != None):
         weekday = create_booking(request.GET.get('date'), request.GET.get('studio'),
                                  request.GET.get('name'), request.GET.get(

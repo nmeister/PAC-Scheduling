@@ -266,3 +266,11 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   font-size:1.2em;
   padding:1em;
 }
+
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type="date"]::-webkit-clear-button {
+  display:none;
+}
