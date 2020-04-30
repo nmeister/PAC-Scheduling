@@ -386,9 +386,23 @@ def adminForm(request):
 
 
 def get_ranks(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank):
-    return
+    studio_ranking = {'bloomberg': bloomberg_rank, 'dillondance': dillon_dance_rank, 'dillonmar': dillon_mar_rank, 
+    'dillonmpr': dillon_mpr_rank, 'murphy': murphy_rank, 'ns': ns_rank, 'nswarmup': ns_warmup_rank, 
+    'nstheatre': ns_theatre_rank, 'whitman': whitman_rank, 'wilcox': wilcox_rank}
 
+    sorted_studio = sorted(studio_ranking.items(), key=lambda x: x[1])
+    rank_1 = sorted_studio[0][0]
+    rank_2 = sorted_studio[1][0]
+    rank_3 = sorted_studio[2][0]
+    rank_4 = sorted_studio[3][0]
+    rank_5 = sorted_studio[4][0]
+    rank_6 = sorted_studio[5][0]
+    rank_7 = sorted_studio[6][0]
+    rank_8 = sorted_studio[7][0]
+    rank_9 = sorted_studio[8][0]
+    rank_10 = sorted_studio[9][0]
 
+    return rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10
 
 
 def scheduling_alg(request):
@@ -397,6 +411,7 @@ def scheduling_alg(request):
 
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+    studios = list(studioList.keys())
 
     df_request = pd.DataFrame(data=None, columns=['name', 
     'company_day_1', 'company_start_time_1', 'company_end_time_1', 'company_studio_1',
@@ -421,26 +436,14 @@ def scheduling_alg(request):
         df_request = pd.concat([group_request, df_request],
                                ignore_index=True, sort=False)
 
-
-    book = Booking(
-                    company_name=name,
-                    studio_id=studioList[studio],
-                   company_id=0,
-                   user_netid=profile,
-                   
-                   week_day=day,
-                   start_time=starttime,
-                   end_time=endtime,
-                   booking_date=(datetime.date(int(date[0]), int(date[1]), int(date[2]))))
-
     df_results = pd.DataFrame(
         data=None, columns=['Name', 'Studio', 'Day', 'Start_Time', 'End_Time', 'Booking_Date'])
 
     # fill in the unavailable times for each studio
     unavailable = {}
 
-    dance_studios = ['wilcox', 'bloomberg', 'dillondance', 'dillonmar',
-                     'dillonmpr', 'whitman', 'ns', 'nswarmup', 'nstheatre']
+    # dance_studios = ['wilcox', 'bloomberg', 'dillondance', 'dillonmar',
+                     # 'dillonmpr', 'whitman', 'murphy', 'ns', 'nswarmup', 'nstheatre']
     days_of_week = ['Monday', 'Tuesday', 'Wednesday',
                     'Thursday', 'Friday', 'Saturday', 'Sunday']
     groups = df_request['name']
@@ -448,10 +451,10 @@ def scheduling_alg(request):
     # given a list hours, return the dictionary that gives initial availability of each day
     def get_init_avail(hours):
         hours_dance_stud_num = []
-        for item in dance_studios:
+        for item in studios:
             hours_dance_stud_num.append(copy.deepcopy(hours))
         initial_availability = dict(
-            zip(copy.deepcopy(dance_studios), copy.deepcopy(hours_dance_stud_num)))
+            zip(copy.deepcopy(studios), copy.deepcopy(hours_dance_stud_num)))
         return initial_availability
 
     # create avail a dictionary that stores the times the dance studios are free
@@ -495,30 +498,52 @@ def scheduling_alg(request):
     for group in df_request['name']:
         group_info = df_request[df_request.name == group]
         studio = group_info.iloc[:, df_request.columns.get_loc(
-            'company_studio')].values[0]
+            'company_studio_1')].values[0]
         day = group_info.iloc[:, df_request.columns.get_loc(
-            'company_day')].values[0]
+            'company_day_1')].values[0]
         start_time = group_info.iloc[:, df_request.columns.get_loc(
-            'company_start_time')].values[0]
+            'company_start_time_1')].values[0]
         end_time = group_info.iloc[:, df_request.columns.get_loc(
-            'company_end_time')].values[0]
+            'company_end_time_1')].values[0]
         # if conflict --> conflict can just be a try/except thing
         # cant do times from 23-1
         # remove times from list
-        '''if ((int(start_time) not in avail[day][studio]) or 
-		(int(start_time)+1 not in avail[day][studio]) or 
-		(int(start_time)+1 not in avail[day][studio])):'''
-        # get company 2nd choice TO DO FOR NICOLE!!
 
+        # if the company time is already booked
+        if ((int(start_time) not in avail[day][studio]) or 
+		(int(start_time)+1 not in avail[day][studio]) or 
+		(int(start_time)+1 not in avail[day][studio])):
+            studio = group_info.iloc[:, df_request.columns.get_loc(
+                'company_studio_2')].values[0]
+            day = group_info.iloc[:, df_request.columns.get_loc(
+                'company_day_2')].values[0]
+            start_time = group_info.iloc[:, df_request.columns.get_loc(
+                'company_start_time_2')].values[0]
+            end_time = group_info.iloc[:, df_request.columns.get_loc(
+                'company_end_time_2')].values[0]
+
+        if ((int(start_time) not in avail[day][studio]) or 
+		(int(start_time)+1 not in avail[day][studio]) or 
+		(int(start_time)+1 not in avail[day][studio])):
+            studio = group_info.iloc[:, df_request.columns.get_loc(
+                'company_studio_3')].values[0]
+            day = group_info.iloc[:, df_request.columns.get_loc(
+                'company_day_3')].values[0]
+            start_time = group_info.iloc[:, df_request.columns.get_loc(
+                'company_start_time_3')].values[0]
+            end_time = group_info.iloc[:, df_request.columns.get_loc(
+                'company_end_time_3')].values[0]
+
+        # add the company time to df and remove from available times
         (avail[day][studio]).remove(int(start_time))
         (avail[day][studio]).remove(int(start_time)+1)
         (avail[day][studio]).remove(int(start_time)+2)
-
         group_results = pd.DataFrame(data={'Name': [group],
-                                           'Studio': [studio],
+                                           'Studio': [studioList[studio]],
                                            'Day': [day],
                                            'Start_Time': [start_time],
-                                           'End_Time': [end_time]})
+                                           'End_Time': [end_time],
+                                           'Booking_Date': [None]})
 
         df_results = pd.concat([group_results, df_results],
                                ignore_index=True, sort=False)
@@ -532,7 +557,6 @@ def scheduling_alg(request):
             # print(group)
             # if the group still has spaces to book, book a space
             if reho_count[group] != 0:
-
                 group_info = df_request[df_request.name == group]
                 rank_1 = group_info.iloc[:, df_request.columns.get_loc(
                     'rank_1')].values[0]
@@ -544,6 +568,16 @@ def scheduling_alg(request):
                     'rank_4')].values[0]
                 rank_5 = group_info.iloc[:, df_request.columns.get_loc(
                     'rank_5')].values[0]
+                rank_6 = group_info.iloc[:, df_request.columns.get_loc(
+                    'rank_6')].values[0]
+                rank_7 = group_info.iloc[:, df_request.columns.get_loc(
+                    'rank_7')].values[0]
+                rank_8 = group_info.iloc[:, df_request.columns.get_loc(
+                    'rank_8')].values[0]
+                rank_9 = group_info.iloc[:, df_request.columns.get_loc(
+                    'rank_9')].values[0]
+                rank_10 = group_info.iloc[:, df_request.columns.get_loc(
+                    'rank_10')].values[0]
                 # if conflict --> conflict can just be a try/except thing
                 # cant do times from 23-1
                 # remove times from list
@@ -571,6 +605,27 @@ def scheduling_alg(request):
                     times_to_pick_from = [i for i in avail[day][studio] if (
                         i > 0 and ((i+1) in avail[day][studio]))]
                 elif (sum(times_to_pick_from) == 0):
+                    studio = rank_6
+                    times_to_pick_from = [i for i in avail[day][studio] if (
+                        i > 0 and ((i+1) in avail[day][studio]))]
+                elif (sum(times_to_pick_from) == 0):
+                    studio = rank_7
+                    times_to_pick_from = [i for i in avail[day][studio] if (
+                        i > 0 and ((i+1) in avail[day][studio]))]
+                elif (sum(times_to_pick_from) == 0):
+                    studio = rank_8
+                    times_to_pick_from = [i for i in avail[day][studio] if (
+                        i > 0 and ((i+1) in avail[day][studio]))]
+                elif (sum(times_to_pick_from) == 0):
+                    studio = rank_9
+                    times_to_pick_from = [i for i in avail[day][studio] if (
+                        i > 0 and ((i+1) in avail[day][studio]))]
+                elif (sum(times_to_pick_from) == 0):
+                    studio = rank_10
+                    times_to_pick_from = [i for i in avail[day][studio] if (
+                        i > 0 and ((i+1) in avail[day][studio]))]
+                #### COME BACK HERE NICOLE. What to do if there's absolutely no studio left?!?!
+                elif (sum(times_to_pick_from) == 0):
                     for free_studio in avail[day]:
                         if sum(avail[day][free_studio]) > 0:
                             studio = free_studio
@@ -579,27 +634,29 @@ def scheduling_alg(request):
                 (avail[day][studio]).remove(int(start_time)+1)
 
                 group_results = pd.DataFrame(data={'Name': [group],
-                                                   'Studio': [studio],
+                                                   'Studio': [studioList[studio]],
                                                    'Day': [day],
                                                    'Start_Time': [int(start_time)],
-                                                   'End_Time': [int(start_time)+1]})
+                                                   'End_Time': [int(start_time)+1],
+                                                   'Booking_Date': [None]})
+                                                   
                 df_results = pd.concat(
                     [group_results, df_results], ignore_index=True, sort=False)
                 reho_count[group] -= 1
 
-    studioList = dict(zip(dance_studios, list(range(0, 10))))
+    # studioList = dict(zip(dance_studios, list(range(0, 10))))
     daysList = dict(zip(days_of_week, range(0, 7)))
 
 
     # do the dates 
     for i, space in df_results.iterrows():
-        book = Booking(studio_id=studioList[space['Studio']],
+        book = Booking(studio_id=space['Studio'],
                        company_id=0,
                        company_name=space['Name'],
                        start_time=space['Start_Time'],
                        end_time=space['End_Time'],
                        week_day=daysList[space['Day']],
-                       booking_date=datetime.datetime.today())
+                       booking_date=(datetime.datetime.today() + timedelta(days=6) ))
         book.save()
 
-    return redirect('/')
+    return redirect('../../adminForm')
