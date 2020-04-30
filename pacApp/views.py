@@ -542,7 +542,7 @@ def scheduling_alg(request):
                                            'Studio': [studioList[studio]],
                                            'Day': [day],
                                            'Start_Time': [start_time],
-                                           'End_Time': [end_time],
+                                           'End_Time': [int(end_time)+1],
                                            'Booking_Date': [None]})
 
         df_results = pd.concat([group_results, df_results],
@@ -630,6 +630,7 @@ def scheduling_alg(request):
                         if sum(avail[day][free_studio]) > 0:
                             studio = free_studio
                 start_time = times_to_pick_from[0]
+                print(start_time)
                 (avail[day][studio]).remove(int(start_time))
                 (avail[day][studio]).remove(int(start_time)+1)
 
@@ -637,7 +638,7 @@ def scheduling_alg(request):
                                                    'Studio': [studioList[studio]],
                                                    'Day': [day],
                                                    'Start_Time': [int(start_time)],
-                                                   'End_Time': [int(start_time)+1],
+                                                   'End_Time': [int(start_time)+2],
                                                    'Booking_Date': [None]})
                                                    
                 df_results = pd.concat(
