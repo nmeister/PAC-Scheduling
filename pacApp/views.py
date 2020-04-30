@@ -447,8 +447,7 @@ def scheduling_alg(request):
 
     # dance_studios = ['wilcox', 'bloomberg', 'dillondance', 'dillonmar',
                      # 'dillonmpr', 'whitman', 'murphy', 'ns', 'nswarmup', 'nstheatre']
-    days_of_week = ['Monday', 'Tuesday', 'Wednesday',
-                    'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     groups = df_request['name']
 
     # given a list hours, return the dictionary that gives initial availability of each day
@@ -592,48 +591,61 @@ def scheduling_alg(request):
                 times_to_pick_from = [i for i in avail[day][studio] if (
                     i > 0 and ((i+1) in avail[day][studio]))]
                 if (sum(times_to_pick_from) == 0):
+                    print('in rank 2')
                     studio = rank_2
                     times_to_pick_from = [i for i in avail[day][studio] if (
                         i > 0 and ((i+1) in avail[day][studio]))]
-                elif (sum(times_to_pick_from) == 0):
-                    studio = rank_3
-                    times_to_pick_from = [i for i in avail[day][studio] if (
-                        i > 0 and ((i+1) in avail[day][studio]))]
-                elif (sum(times_to_pick_from) == 0):
-                    studio = rank_4
-                    times_to_pick_from = [i for i in avail[day][studio] if (
-                        i > 0 and ((i+1) in avail[day][studio]))]
-                elif (sum(times_to_pick_from) == 0):
-                    studio = rank_5
-                    times_to_pick_from = [i for i in avail[day][studio] if (
-                        i > 0 and ((i+1) in avail[day][studio]))]
-                elif (sum(times_to_pick_from) == 0):
-                    studio = rank_6
-                    times_to_pick_from = [i for i in avail[day][studio] if (
-                        i > 0 and ((i+1) in avail[day][studio]))]
-                elif (sum(times_to_pick_from) == 0):
-                    studio = rank_7
-                    times_to_pick_from = [i for i in avail[day][studio] if (
-                        i > 0 and ((i+1) in avail[day][studio]))]
-                elif (sum(times_to_pick_from) == 0):
-                    studio = rank_8
-                    times_to_pick_from = [i for i in avail[day][studio] if (
-                        i > 0 and ((i+1) in avail[day][studio]))]
-                elif (sum(times_to_pick_from) == 0):
-                    studio = rank_9
-                    times_to_pick_from = [i for i in avail[day][studio] if (
-                        i > 0 and ((i+1) in avail[day][studio]))]
-                elif (sum(times_to_pick_from) == 0):
-                    studio = rank_10
-                    times_to_pick_from = [i for i in avail[day][studio] if (
-                        i > 0 and ((i+1) in avail[day][studio]))]
+                    if (sum(times_to_pick_from) == 0):
+                        print('in rank 3')
+                        studio = rank_3
+                        times_to_pick_from = [i for i in avail[day][studio] if (
+                            i > 0 and ((i+1) in avail[day][studio]))]
+                        if (sum(times_to_pick_from) == 0):
+                            print('in rank 4')
+                            studio = rank_4
+                            times_to_pick_from = [i for i in avail[day][studio] if (
+                                i > 0 and ((i+1) in avail[day][studio]))]
+                            if (sum(times_to_pick_from) == 0):
+                                print('in rank 5')
+                                studio = rank_5
+                                times_to_pick_from = [i for i in avail[day][studio] if (
+                                    i > 0 and ((i+1) in avail[day][studio]))]
+                                if (sum(times_to_pick_from) == 0):
+                                    print('in rank 6')
+                                    studio = rank_6
+                                    times_to_pick_from = [i for i in avail[day][studio] if (
+                                        i > 0 and ((i+1) in avail[day][studio]))]
+                                    if (sum(times_to_pick_from) == 0):
+                                        print('in rank 7')
+                                        studio = rank_7
+                                        times_to_pick_from = [i for i in avail[day][studio] if (
+                                            i > 0 and ((i+1) in avail[day][studio]))]
+                                        if (sum(times_to_pick_from) == 0):
+                                            print('in rank 8')
+                                            studio = rank_8
+                                            times_to_pick_from = [i for i in avail[day][studio] if (
+                                                i > 0 and ((i+1) in avail[day][studio]))]
+                                            if (sum(times_to_pick_from) == 0):
+                                                print('in rank 9')
+                                                studio = rank_9
+                                                times_to_pick_from = [i for i in avail[day][studio] if (
+                                                    i > 0 and ((i+1) in avail[day][studio]))]
+                                                if (sum(times_to_pick_from) == 0):
+                                                    print('in rank 10')
+                                                    studio = rank_10
+                                                    times_to_pick_from = [i for i in avail[day][studio] if (
+                                                        i > 0 and ((i+1) in avail[day][studio]))]
+                                                    if (sum(times_to_pick_from) == 0):
+                                                        print('NO MORE SPACES LEFT. THROW ERROR')
+                                                        break
+
+
                 #### COME BACK HERE NICOLE. What to do if there's absolutely no studio left?!?!
-                elif (sum(times_to_pick_from) == 0):
-                    for free_studio in avail[day]:
-                        if sum(avail[day][free_studio]) > 0:
-                            studio = free_studio
+                
+                print('times to pick from: ', times_to_pick_from)
+                print('studio: ', studio)
                 start_time = times_to_pick_from[0]
-                print(start_time)
+                
                 (avail[day][studio]).remove(int(start_time))
                 (avail[day][studio]).remove(int(start_time)+1)
 
@@ -655,7 +667,7 @@ def scheduling_alg(request):
     # do the dates 
     for i, space in df_results.iterrows():
         book = Booking(studio_id=space['Studio'],
-                       company_id=0,
+                       company_id=1,
                        company_name=space['Name'],
                        start_time=space['Start_Time'],
                        end_time=space['End_Time'],

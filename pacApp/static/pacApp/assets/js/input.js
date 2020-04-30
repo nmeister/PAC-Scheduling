@@ -1,4 +1,3 @@
-var wasClicked = false;
 
 function openTab(evt, tab) {
   // Declare all variables
@@ -31,6 +30,22 @@ function radio_check(radiobtn_name)
   }
   return ""
 } 
+
+function bad_company_time(start, end)
+{
+  if (end < start) return 'true';
+  else return 'false';
+}
+
+function hasDuplicates(array) {
+  return (new Set(array)).size !== array.length;
+}
+
+function rankingCheck(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank) {
+  var ranking_list = [bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank];
+  if (hasDuplicates(ranking_list)) return "not unique";
+  else return "unique";
+}
 
 function validateResponse() 
 {
@@ -100,7 +115,11 @@ function validateResponse()
   console.log(empty_inputs);
   
 
-  if (empty_inputs.length != 0)
+  if (rankingCheck(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank) == "not unique") {
+    alert("The studio rankings are not unique. Please ensure that the numbers you've entered are different numbers for each box. Please fix your rankings and submit again.");
+    return false;
+  }
+  else if (empty_inputs.length != 0)
   {
     console.log("This form did not submit");
     let alert_msg = "This form did not submit. Please fill in the following blanks: "
@@ -108,20 +127,55 @@ function validateResponse()
     alert(alert_msg);
     return false;
   }	
+  else if (bad_company_time(company_start_time_1, company_end_time_1)=='true'){
+    alert('The end time for the company choice 1 is before the start time for company choice 1');
+    return false;
+  }
+  else if (bad_company_time(company_start_time_2, company_end_time_2)){
+    alert('The end time for the company choice 2 is before the start time for company choice 2');
+    return false;
+  }
+  else if (bad_company_time(company_start_time_3, company_end_time_3)){
+    alert('The end time for the company choice 3 is before the start time for company choice 3');
+    return false;
+  }
+  else if (num_reho > 50) {
+    alert('This group requested too many rehearsal spaces. Please lower the number to below 50 spaces per week.');
+    return false;
+  }
   else return true;
 }
 
-
-function wasClicked_Alg()
+function wasClicked_Alg(event, type)
 {
-  if(wasClicked) { 
-    alert('The PAC groups have already been scheduled. Please delete them ')
+
+  schedule_wasClicked = localStorage.getItem('schedule_wasClicked');
+
+  if(schedule_wasClicked=='true' && (type == "schedule")) { 
+    console.log('show alert for schedule alg');
+    alert('The PAC groups have already been scheduled. Please delete them before rescheduling.');
+    event.preventDefault();
     return false; 
   }
-  else 
+  else if (type=='schedule')
   {
-    wasClicked = true;
+    console.log('proceed to scheduling alg');
+    var schedule_wasClicked = "true";
+    localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
     return true;
+  }  
+  // change was clicked to false
+  else if (schedule_wasClicked=='true' && (type == "delete")) {
+    console.log('was clicked and now imma delete');
+    var schedule_wasClicked = "false";
+    localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
+    return true;
+  }
+  else if (schedule_wasClicked=='false' && (type == "delete")) {
+    console.log('not was clicked and want to delete but nothing to del')
+    alert('The PAC groups have not been schedule yet and there is nothing to delete. Please click "Schedule All Groups" First');
+    event.preventDefault();
+    return false;
   }
 
 }

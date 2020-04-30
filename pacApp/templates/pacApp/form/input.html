@@ -104,14 +104,6 @@
 	
 	<!-- Table to display the values in the ad request db	-->
 	{% include 'templates/pacApp/form/ad_table.html' %} 
-	
-	<h4>
-		Enter the dates for which you would like this space allocation to occur.
-	</h4>
-	<strong>Start Date:  </strong>
-	<input type="date" max="2999-12-31" autocomplete="on" >
-	<strong>End Date:  </strong>
-	<input type="date" max="2999-12-31" autocomplete="on" >
 
 	<hr>
 </div>	
@@ -121,17 +113,32 @@
 			
 
 		</h3>	
+		<br>
 		<h4>
 			Navigate to the booking page to make any edits to the results if necessary. 
 			If you would like to delete the schedule this algorithm produced, 
 			please click the delete button below. 
 		</h4>
 		<br>
-			<form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off">
+
+		<h4>
+			Enter the dates for which you would like this space allocation to occur.
+		</h4>
+		<strong>Start Date:  </strong>
+		<input type="date" max="2999-12-31" autocomplete="on" >
+		<strong>End Date:  </strong>
+		<input type="date" max="2999-12-31" autocomplete="on" >
+		<br>
+		<br>
+
+
+		
+			<form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'schedule');">
 				{% csrf_token %}
 			<div class="input-group-append text-info">
 				<span class="input-grou-text bg-white py-0">
-					<button type="submit" id='schedule_button' style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
+					<button type="submit" id='schedule_button' 
+					style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
 						<a style="text-decoration-line:none;"> Schedule All Groups </a>
 					</button>
 
@@ -139,7 +146,7 @@
 			</div>
 			</form>
 			<br>
-			<button type="button" class='btn' style='padding:30px;' onclick="wasClicked_Alg();">
+			<button type="button" class='btn' id='delete_button' style='padding:30px;' onclick="wasClicked_Alg(event, 'delete');">
 				<i class="far fa-trash-alt fa-lg float-right">Delete [this doesn't work yet]</i>
 			</button>
 
