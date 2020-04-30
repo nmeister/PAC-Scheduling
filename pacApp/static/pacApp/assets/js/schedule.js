@@ -258,6 +258,9 @@ function findStudioName(studio) {
 function buildDate(date) {
 	// console.log(date);
 	let day = date.getDate();
+  if (day < 10) {
+     day = '0' + String(day); 
+  }
 	// JANUARY = 0 , FEB = 2
   let month = date.getMonth() + 1;
   // console.log(month)
@@ -461,6 +464,37 @@ function setupWeek(type)
                }
             );
      }
+      else if (type =='nextweek') {
+        var nextcurr = buildDate(new Date(new Date(curr).getTime()+(8*24*60*60*1000)));
+        console.log(nextcurr);
+        request = $.ajax(
+              {
+                 type: "GET",
+                 url: url,
+                 data: {
+                  'newdate': nextcurr,
+                  'selectgroups': groups,
+                  'editable':editable},
+              success: handleresponse,
+               }
+            );
+      }
+      else if (type =='lastweek') {
+        var nextcurr = buildDate(new Date(new Date(curr).getTime()-(6*24*60*60*1000)));
+        console.log(nextcurr);
+        request = $.ajax(
+              {
+                 type: "GET",
+                 url: url,
+                 data: {
+                  'newdate': nextcurr,
+                  'selectgroups': groups,
+                  'editable':editable},
+              success: handleresponse,
+               }
+            );
+      }
+
     }
 
 function setGroups() {
@@ -590,15 +624,18 @@ function sendbook(id) {
                       success: handleresponse,
                    }
                 );
-        showConfirm('Booking completed!'); 
      }
 
 function showConfirm(msg) {
+  var success = $('#schedule').data('bookingsuccess');
+  console.log(success);
 	console.log('has been booked!');
   var modal = document.getElementById("complete");
+  $("#complete").fadeIn(10);
   $('#done').html(msg);
-  $("#complete").fadeIn(50);
-  $('#complete').fadeOut(5200);
+  $('#complete').fadeOut(3000);
+ 
+
 }
 
 function pastTime_drop(msg) {

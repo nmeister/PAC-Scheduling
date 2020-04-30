@@ -58,10 +58,13 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
         print('str')
         formatdate = newdate.split(
             '-')[0] + '-' + newdate.split('-')[1] + '-' + newdate.split('-')[2]
+        #formatdate = datetime.strptime(newdate, "%Y-%m-%d") 
+        #formatdate = formatdate.strftime('%Y-%m-%d')
     else:
         print('date')
         # formatdate = str(newdate.year) + '-' + str(newdate.month) + '-' + str(newdate.day)
         formatdate = newdate.strftime('%Y-%m-%d')
+    # we would want these to be for those that are shaded 
     context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, endweek]),
                'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, endweek]),
                'DillonMAR': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, endweek]),
@@ -76,25 +79,59 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
                'currday': currday,
                'mon': week['1'], 'tue': week['2'], 'wed': week['3'],
                'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
-
+    # want to gather whatever is not shaded
     if getGroups == True:
-        context['Bloomberg'] = context['Bloomberg'].filter(
-            company_name__in=groups)
-        context['DillonDance'] = context['DillonDance'].filter(
-            company_name__in=groups)
-        context['DillonMAR'] = context['DillonMAR'].filter(
-            company_name__in=groups)
-        context['DillonMPR'] = context['DillonMPR'].filter(
-            company_name__in=groups)
-        context['Murphy'] = context['Murphy'].filter(company_name__in=groups)
-        context['NewSouth'] = context['NewSouth'].filter(
-            company_name__in=groups)
-        context['NSWarmup'] = context['NSWarmup'].filter(
-            company_name__in=groups)
-        context['NSTheatre'] = context['NSTheatre'].filter(
-            company_name__in=groups)
-        context['Whitman'] = context['Whitman'].filter(company_name__in=groups)
-        context['Wilcox'] = context['Wilcox'].filter(company_name__in=groups)
+        bloombergNew = context['Bloomberg'].filter(company_name__in=groups)
+        bloombergGray = context['Bloomberg'].exclude(company_name__in=groups)
+        context['Bloomberg'] = bloombergNew
+        context['BloombergGray'] = bloombergGray
+
+        dillonDanceNew = context['DillonDance'].filter(company_name__in=groups)
+        dillonDanceGray = context['DillonDance'].exclude(company_name__in=groups)
+        context['DillonDance'] = dillonDanceNew
+        context['DillonDanceGray'] = dillonDanceGray
+
+
+        dillonMARNew = context['DillonMAR'].filter(company_name__in=groups)
+        dillonMARGray = context['DillonMAR'].exclude(company_name__in=groups)
+        context['DillonMAR'] = dillonMARNew
+        context['DillonMARGray'] = dillonMARGray
+
+        dillonMPRNew = context['DillonMPR'].filter(company_name__in=groups)
+        dillonMPRGray = context['DillonMPR'].exclude(company_name__in=groups)
+        context['DillonMPR'] = dillonMPRNew
+        context['DillonMPRGray'] = dillonMPRGray
+        
+      
+        murphyNew = context['Murphy'].filter(company_name__in=groups)
+        murphyGray = context['Murphy'].exclude(company_name__in=groups)
+        context['Murphy'] = murphyNew
+        context['MurphyGray'] = murphyGray
+
+        nsNew = context['NewSouth'].filter(company_name__in=groups)
+        nsGray = context['NewSouth'].exclude(company_name__in=groups)
+        context['NewSouth'] = nsNew
+        context['NewSouthGray'] = nsGray
+
+        nsWarmNew = context['NSWarmup'].filter(company_name__in=groups)
+        nsWarmGray = context['NSWarmup'].exclude(company_name__in=groups)
+        context['NSWarmup'] = nsWarmNew
+        context['NSWarmupGray'] = nsWarmGray
+       
+        nsTNew = context['NSTheatre'].filter(company_name__in=groups)
+        nsTGray = context['NSTheatre'].exclude(company_name__in=groups)
+        context['NSTheatre'] = nsTNew
+        context['NSTheatreGray'] = nsTGray
+        
+        whitNew = context['Whitman'].filter(company_name__in=groups)
+        whitGray = context['Whitman'].exclude(company_name__in=groups)
+        context['Whitman'] = whitNew
+        context['WhitmanGray'] = whitGray
+
+        wilNew = context['Wilcox'].filter(company_name__in=groups)
+        wilGray = context['Wilcox'].exclude(company_name__in=groups)
+        context['Wilcox'] = wilNew
+        context['WilcoxGray'] = wilGray
 
     return context
 
@@ -166,7 +203,13 @@ def create_booking(date, studio, name, starttime, endtime, day, profile):
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
     date = date.split('-')
-    book = Booking(studio_id=studioList[studio],
+    bookExist = Booking.objects.filter(studio_id=studioList[studio]).filter(booking_date=(datetime.date(int(date[0]), int(date[1]), int(date[2]))))
+    bookExist = bookExist.filter(start_time=starttime).filter(end_time=endtime).filter(week_day=day)
+    if bookExist.exists():
+      print('bad already here')
+      return -200
+    else:
+      book = Booking(studio_id=studioList[studio],
                    company_id=0,
                    user_netid=profile,
                    company_name=name,
@@ -174,8 +217,8 @@ def create_booking(date, studio, name, starttime, endtime, day, profile):
                    end_time=endtime,
                    week_day=day,
                    booking_date=(datetime.date(int(date[0]), int(date[1]), int(date[2]))))
-    book.save()
-    return book.week_day
+      book.save()
+      return book.week_day
 
 
 def update(request: HttpResponse):
@@ -191,6 +234,7 @@ def update(request: HttpResponse):
                                  request.GET.get('name'), request.GET.get(
                                      'starttime'),
                                  request.GET.get('endtime'), request.GET.get('day'), profile)
+
     retdate = request.GET.get('newdate').split('-')
     startdate = datetime.date(
         int(retdate[0]), int(retdate[1]), int(retdate[2]))
@@ -207,15 +251,21 @@ def update(request: HttpResponse):
         groups.pop(-1)
         getGroups = True
     context = createContext(startdate, endweek, newdate, groups, getGroups)
-    if weekday != None:
+    context['success'] = 'True'
+    if weekday != None and weekday != -200:
         context['weekday'] = weekday
     groupday = request.GET.get('groupday')
 
     if weekday == None and groupday != None:
         context['weekday'] = groupday
+        context['success'] = 'group'
     # if endweek < date.today():
     context['editable'] = request.GET.get('editable')
     context['user'] = profile
+    if weekday == -200:
+          weekday = request.GET.get('day')
+          context['success'] = 'False'
+   
     return render(request, "templates/pacApp/tableElements/table.html", context)
 
 
