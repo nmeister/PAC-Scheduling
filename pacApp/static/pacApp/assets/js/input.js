@@ -33,6 +33,7 @@ function radio_check(radiobtn_name)
 
 function bad_company_time(start, end)
 {
+  console.log('start: ', start, 'end:', end);
   if (end < start) return 'true';
   else return 'false';
 }
@@ -43,6 +44,7 @@ function hasDuplicates(array) {
 
 function rankingCheck(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank) {
   var ranking_list = [bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank];
+  console.log(hasDuplicates(ranking_list));
   if (hasDuplicates(ranking_list)) return "not unique";
   else return "unique";
 }
@@ -131,16 +133,16 @@ function validateResponse()
     alert('The end time for the company choice 1 is before the start time for company choice 1');
     return false;
   }
-  else if (bad_company_time(company_start_time_2, company_end_time_2)){
+  else if (bad_company_time(company_start_time_2, company_end_time_2)=='true'){
     alert('The end time for the company choice 2 is before the start time for company choice 2');
     return false;
   }
-  else if (bad_company_time(company_start_time_3, company_end_time_3)){
+  else if (bad_company_time(company_start_time_3, company_end_time_3)=='true'){
     alert('The end time for the company choice 3 is before the start time for company choice 3');
     return false;
   }
-  else if (num_reho > 50) {
-    alert('This group requested too many rehearsal spaces. Please lower the number to below 50 spaces per week.');
+  else if (num_reho > 40) {
+    alert('This group requested too many rehearsal spaces. Please lower the number to less than 40 spaces per week.');
     return false;
   }
   else return true;
@@ -148,6 +150,23 @@ function validateResponse()
 
 function wasClicked_Alg(event, type)
 {
+/*
+  var start_date = document.querySelector('input[type=start_date]').value.trim();
+  var end_date = document.querySelector('input[name=end_date]').value.trim();
+  var start_dateArr = start_date.split('-');
+  var end_dateArr = start_date.split('-');
+
+  start_date = new Date(start_dateArr[0], start_dateArr[1], end_dateArr[2]);
+  start_date = new Date(end_dateArr[0], end_dateArr[1], end_dateArr[2]);
+
+  console.log(start_date, end_date);
+
+  if (start_date > end_date) 
+  {
+    alert('The start date occurs after the end date. Please fix the dates and resubmit.');
+    event.preventDefault();
+    return false; 
+  } */
 
   schedule_wasClicked = localStorage.getItem('schedule_wasClicked');
 
@@ -184,7 +203,7 @@ function wasClicked_Alg(event, type)
 function handleresponse(response) 
 {
 	console.log('handle after update');
-  $('#ad_table').html(response);
+  $('.entire_page').html(response);
 }
 
 

@@ -35,7 +35,7 @@
 
 <table style="width:100%">
 	<tr>
-	  <td><strong>Number of Rehearsals Needed:  </strong><input type="number" min=0 class="form-control" name="num_reho"><br>	  </td>
+	  <td><strong>Number of Rehearsals Needed Per Week:  </strong><input type="number" min=0 class="form-control" name="num_reho"><br>	  </td>
 	  <td><strong>Number of Members:</strong>  <input type="number" min=0 class="form-control" name="num_members"><br>	  </td>
 	 </tr>
 </table>
@@ -121,23 +121,26 @@
 		</h4>
 		<br>
 
-		<h4>
-			Enter the dates for which you would like this space allocation to occur.
-		</h4>
-		<strong>Start Date:  </strong>
-		<input type="date" max="2999-12-31" autocomplete="on" >
-		<strong>End Date:  </strong>
-		<input type="date" max="2999-12-31" autocomplete="on" >
-		<br>
-		<br>
+		
 
 
 		
 			<form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'schedule');">
 				{% csrf_token %}
+
+				<h4>
+					Enter the dates for which you would like this space allocation to occur.
+				</h4>
+				<strong>Start Date:  </strong>
+				<input type="date" max="2999-12-31" autocomplete="on" name="start_date">
+				<strong>End Date:  </strong>
+				<input type="date" max="2999-12-31" autocomplete="on" name = "end_date">
+				<br>
+				<br>
+
 			<div class="input-group-append text-info">
 				<span class="input-grou-text bg-white py-0">
-					<button type="submit" id='schedule_button' 
+					<button type="submit" id='schedule_button' class='schedule_button'
 					style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
 						<a style="text-decoration-line:none;"> Schedule All Groups </a>
 					</button>
@@ -150,12 +153,10 @@
 			<br>
 			<form action="{% url 'delete_schedule_alg' %}" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'delete');">
 				<button type="submit" class='btn' id='delete_button' style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
-					Delete Scheduled Slots
+					Delete All Scheduled Slots
 				</button>
 
 			</form>
-			
-			
 			
 
 
