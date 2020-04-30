@@ -162,7 +162,6 @@ function wasClicked_Alg(event, type)
   }
   else if (type=='schedule')
   {
-    
     console.log('proceed to scheduling alg');
     console.log(event);
     var schedule_wasClicked = "true";
@@ -187,7 +186,7 @@ function wasClicked_Alg(event, type)
 function handleresponse(response) 
 {
 	console.log('handle after update');
-  $('.entire_page').html(response);
+  $('#ad_results_table').html(response);
 }
 
 

@@ -1,6 +1,6 @@
 <!-- Table to display the values in the ad request db	-->
-<div style="height:50%;overflow:auto;">
-    <table style="width:100%; font-size: small;">
+<div class=ad_results_table style="height:50%;overflow:auto;">
+    <table style="width:100%; font-size: small;" >
         <tr>
           <th> </th>
           <th>Name</th>
@@ -68,9 +68,13 @@
           <td>{{item.company_start_time_3}}</td>  
           <td>{{item.company_end_time_3}}</td>  
         </tr>
+        <script>
+          console.log(document.querySelector('.schedule_button'));
+        </script>
+        {% empty %}
+        <!-- add a way to prevent schedule alg from being clickde-->
         {% endfor %}
       </table>
    </div>
-   <h4>
 <br>
 <br>

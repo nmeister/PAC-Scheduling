@@ -141,8 +141,8 @@ function validateResponse()
     alert('The end time for the company choice 3 is before the start time for company choice 3');
     return false;
   }
-  else if (num_reho > 40) {
-    alert('This group requested too many rehearsal spaces. Please lower the number to less than 40 spaces per week.');
+  else if (num_reho > 50) {
+    alert('This group requested too many rehearsal spaces. Please lower the number to below 50 spaces per week.');
     return false;
   }
   else return true;
@@ -162,7 +162,6 @@ function wasClicked_Alg(event, type)
   }
   else if (type=='schedule')
   {
-    
     console.log('proceed to scheduling alg');
     console.log(event);
     var schedule_wasClicked = "true";
@@ -187,7 +186,7 @@ function wasClicked_Alg(event, type)
 function handleresponse(response) 
 {
 	console.log('handle after update');
-  $('.entire_page').html(response);
+  $('#ad_table').html(response);
 }
 
 
