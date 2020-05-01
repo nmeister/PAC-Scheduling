@@ -3,11 +3,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 
-<div id="schedule" data-editable="{{editable}}">
+<div id="schedule" data-editable="{{editable}}" data-bookingsuccess="{{success}}">
 
 <!-- want to update days tab with the new dates --> 
-  <div id="daystab" class="tab">
-<!-- data-date is a data field with name date retrieve using .data(key) --> 
+  <div id="daystab" class="tab" style="text-align:center">
+     <span class="arrow last tablinks" id="backward" onclick="setupWeek('lastweek')"></span>
+<!-- data-date is a data field with name date retrieve using .data(key) -->
   <div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)">Sunday
     <br><span id="d0date" style="display:none;font-size:0.85em;text-align:center;"></span>
   </div>
@@ -29,11 +30,12 @@
   <div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)">Saturday
      <br><span id="d6date" style="display:none;font-size:0.85em;text-align:center;"></span>
   </div>
-  <div class="tablinks"><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" onchange="setupWeek('week');"></div>
+  <div class="tablinks"><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onchange="setupWeek('week');"></div>
  <!-- <div class="tablinks" id="netid" value="{{user}}" style="margin-left:5em"></div> -->
-   <div class="tablinks" id="booking" style="background-color:#df7366; color:#fff;float:right;margin-top:0.8em; padding: 0.8em;border-radius:0.2em">
+   <span class="tablinks" id="booking" style="background-color:#df7366; color:#fff;margin-top:0.8em; padding: 0.8em;border-radius:0.2em">
     <a style="text-decoration-line:none;" href="schedule">Book a Space</a>
-  </div> 
+  </span> 
+   <span class="arrow next tablinks" id="forward" onclick="setupWeek('nextweek')"></span>
   </div>
   
 <!-- setting up the tab content calendar to be show for each day --> 
@@ -52,7 +54,7 @@
 <script type="text/javascript">
    // for each booking in wilcox, we make it a object here
    // each object will also be within this list 
-   
+    
     var wilcox = [
     // we passed in a context argument which is a list containing
     // an element called 'Wilcox'
@@ -63,6 +65,20 @@
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"wilcox",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+    var wilcoxGray = [
+    {% for booking in WilcoxGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"bloomberg",
          week_day:"{{booking.week_day}}",
          booking_date:"{{booking.booking_date}}",
          user_netid:"{{booking.user_netid}}"
@@ -84,6 +100,21 @@
     {% endfor %}
    ];
 
+   var bloombergGray = [
+    {% for booking in BloombergGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"bloomberg",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+
   var dillondance = [
     {% for booking in DillonDance %}
         {
@@ -97,9 +128,37 @@
         },
     {% endfor %}
    ];
-  console.log(dillondance);
+
+    var dillondanceGray = [
+    {% for booking in DillonDanceGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"bloomberg",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+  
    var dillonmpr = [
     {% for booking in DillonMPR %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillonmpr",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+   var dillonmprGray = [
+    {% for booking in DillonMPRGray %}
         {
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
@@ -126,6 +185,22 @@
     {% endfor %}
    ];
 
+
+   var dillonmarGray = [
+    {% for booking in DillonMARGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillonmar",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+  
    var whitman = [
     {% for booking in Whitman %}
         {
@@ -139,9 +214,37 @@
         },
     {% endfor %}
    ];
-   console.log(whitman);
+
+    var whitmanGray = [
+    {% for booking in WhitmanGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"whitman",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
    var murphy = [
     {% for booking in Murphy %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"murphy",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+   var murphyGray = [
+    {% for booking in MurphyGray %}
         {
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
@@ -168,6 +271,20 @@
     {% endfor %}
    ];
 
+   var nsGray = [
+    {% for booking in NewSouthGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ns",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
     var nswarmup = [
     {% for booking in NSWarmup %}
         {
@@ -182,8 +299,37 @@
     {% endfor %}
    ];
 
+   var nswarmupGray = [
+    {% for booking in NSWarmupGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"nswarmup",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+
     var nstheatre = [
     {% for booking in NSTheatre %}
+        {
+         company_name:"{{booking.company_name}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"nstheatre",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+   var nstheatreGray = [
+    {% for booking in NSTheatreGray %}
         {
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
@@ -207,6 +353,46 @@
    ns.forEach(createBooking);
    nswarmup.forEach(createBooking);
    nstheatre.forEach(createBooking);
+
+   wilcoxGray.forEach(createGrayBooking);
+   bloombergGray.forEach(createGrayBooking);
+   dillondanceGray.forEach(createGrayBooking);
+   dillonmarGray.forEach(createGrayBooking);
+   dillonmprGray.forEach(createGrayBooking);
+   whitmanGray.forEach(createGrayBooking);
+   murphyGray.forEach(createGrayBooking);
+   nsGray.forEach(createGrayBooking);
+   nswarmupGray.forEach(createGrayBooking);
+   nstheatreGray.forEach(createGrayBooking);
+
+
+   function createGrayBooking(item, index) {
+      for (let i = item.start_time; i != item.end_time; i++) {
+         // ex. wilcox5
+         // console.log(item.studio)
+         // creating a specified id that we already had in place 
+         let col = '#' + String(item.studio + i + item.week_day);
+
+         // console.log(col)
+         // for that element with particular id, add a class called test 
+         let group = item.company_name;
+         $(col).addClass('grayed');
+        //  $(col).addClass(group);
+         // $(col).html(item.company_name);
+         // console.log(item);
+         // don't allow it to be bookable 
+         $(col).attr('onclick', '');
+         // $(col).attr('onclick', 'handleDrop(event)');
+         $(col).attr('data-name', item.company_name);
+         $(col).attr('data-starttime', item.start_time);
+         $(col).attr('data-endtime', item.end_time);
+         $(col).attr('data-studio', item.studio);
+         $(col).attr('data-weekday', item.week_day);
+         $(col).attr('data-bookingdate', item.booking_date);
+         $(col).attr('data-usernetid', item.user_netid);
+
+   }
+ }
 
 
    // here is the function createBooking defined 
@@ -271,4 +457,13 @@
         $('#netid').val("{{user}}");
       }
   }
+   console.log("{{success}}");
+   if ('{{success}}' == 'True') {
+   showConfirm('Booking completed');
+  }
+    else if ('{{success}}' == 'False'){
+    showConfirm('Booking could not be made. This time slot has been reserved.');
+  }
+
    </script>
+  
