@@ -409,6 +409,10 @@
          $(col).addClass('helen');
          $(col).addClass(group);
          $(col).html(item.company_name);
+         // on hovering over this element that user booked, allow to drop
+         if ("{{user}}" == item.user_netid) {
+            $(col).attr('onmouseover', 'del(event)');
+         }
          // console.log(item);
          // don't allow it to be bookable 
 

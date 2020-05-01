@@ -226,10 +226,13 @@ def update(request: HttpResponse):
     # if there is a booking involved
 
     weekday = None
+    # tries to see if user is logged in, which they must be in order to update
     try:
       profile = request.user.uniauth_profile.get_display_id()
     except:
       profile='None'
+    # if this is not None, means we must be making a booking update 
+    # create a booking 
     if (request.GET.get('studio') != None):
         weekday = create_booking(request.GET.get('date'), request.GET.get('studio'),
                                  request.GET.get('name'), request.GET.get(
@@ -237,34 +240,38 @@ def update(request: HttpResponse):
                                  request.GET.get('endtime'), request.GET.get('day'), profile)
 
     retdate = request.GET.get('newdate').split('-')
-    startdate = datetime.date(
-        int(retdate[0]), int(retdate[1]), int(retdate[2]))
-
+    startdate = datetime.date(int(retdate[0]), int(retdate[1]), int(retdate[2]))
     endweek = startdate + timedelta(days=6)
     newdate = request.GET.get('newdate')
-
+    # if there are groups 
     groups = request.GET.get('selectgroups')
     if (groups == 'None' or groups == None):
         groups = None
         getGroups = False
     else:
         groups = groups.split('-')
+        # the first one is a -
         groups.pop(-1)
         getGroups = True
+    # creating context with given startdate, endweek, newdate 
     context = createContext(startdate, endweek, newdate, groups, getGroups)
-    context['success'] = 'True'
+    # if booking did not fail and weekday is not none 
     if weekday != None and weekday != -200:
-        context['weekday'] = weekday
+        context['success'] = 'True'
+        # context['weekday'] = weekday
     groupday = request.GET.get('groupday')
 
     if weekday == None and groupday != None:
-        context['weekday'] = groupday
-        context['success'] = 'group'
+      context['weekday'] = groupday
+      context['success'] = 'group'
     # if endweek < date.today():
     context['editable'] = request.GET.get('editable')
     context['user'] = profile
+    # this is the currently active 
+    
     if weekday == -200:
           weekday = request.GET.get('day')
+          context['weekday'] = groupday
           context['success'] = 'False'
    
     return render(request, "templates/pacApp/tableElements/table.html", context)

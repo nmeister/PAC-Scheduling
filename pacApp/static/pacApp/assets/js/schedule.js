@@ -446,6 +446,7 @@ function setupWeek(type)
                  data: {
                   'newdate': curr,
              			'selectgroups': groups,
+                  'groupday': active,
                   'editable':editable},
              	success: handleresponse,
                }
@@ -474,6 +475,7 @@ function setupWeek(type)
                  data: {
                   'newdate': nextcurr,
                   'selectgroups': groups,
+                  'groupday': active,
                   'editable':editable},
               success: handleresponse,
                }
@@ -489,6 +491,7 @@ function setupWeek(type)
                  data: {
                   'newdate': nextcurr,
                   'selectgroups': groups,
+                  'groupday': active,
                   'editable':editable},
               success: handleresponse,
                }
@@ -604,6 +607,8 @@ function sendbook(id) {
       	}
     	  console.log(groups);
 
+        var active = document.getElementsByClassName('active')[0].id[1];
+       console.log(active);
         // request made for booking which updates schedule
         let url = 'update';
         request = $.ajax(
@@ -618,6 +623,7 @@ function sendbook(id) {
                           'name': user, // name of person who is booking
                           'newdate': currweek, 
                           'selectgroups': groups, 
+                          'groupday':active,
 
                       },
                       // upon ajax request callback
@@ -629,14 +635,22 @@ function sendbook(id) {
 function showConfirm(msg) {
   var success = $('#schedule').data('bookingsuccess');
   console.log(success);
-	console.log('has been booked!');
+	console.log('show confirm');
   var modal = document.getElementById("complete");
   $("#complete").fadeIn(10);
   $('#done').html(msg);
   $('#complete').fadeOut(3000);
- 
+}
+
+// for displaying message that says they can delete this 
+function del(event){
+  console.log('show delete message');
+  console.log(event.target.id);
 
 }
+
+
+
 
 function pastTime_drop(msg) {
   console.log('past the time error');
