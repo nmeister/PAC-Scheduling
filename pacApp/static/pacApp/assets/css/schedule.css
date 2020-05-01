@@ -10,13 +10,13 @@ input[type="checkbox"], {
 .reveal-if-activeSelf {
   opacity: 0;
   max-height: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .reveal-if-activeGroup {
   opacity: 0;
   max-height: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 
@@ -71,7 +71,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   border: 0.1em solid #ccc;
   border-top: none;
   width: 100%;
-  overflow:scroll;
+  overflow:auto;
   margin-right:0px;
 
 }
@@ -194,11 +194,11 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 1.5em;
-  border: 0.2em solid #888;
-  width: 40%; /* Could be more or less, depending on screen size */
-  height:50%;
-  overflow:scroll;
+  padding: 0.2em 1.5em 0em 1.5em;
+  border: 0.1em solid #888;
+  width: 25%; /* Could be more or less, depending on screen size */
+  height:45%;
+  overflow:auto;
 }
 
 /* Modal Content/Box */
@@ -209,7 +209,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   border: 1px solid #888;
   width: 30%; /* Could be more or less, depending on screen size */
   height: 25%;
-  overflow:scroll;
+  overflow:auto;
 }
 
 /* The Close Button */
@@ -276,6 +276,9 @@ input[type="date"]::-webkit-inner-spin-button {
 
 input[type="date"]::-webkit-clear-button {
   display:none;
+}
+input[type=date]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
 }
 
 .arrow {

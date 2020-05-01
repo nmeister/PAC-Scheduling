@@ -27,10 +27,9 @@ function openDay(tab, id) {
   console.log(date)
   var reformatted = date[1] + '/' + date[2] + '/' + date[0].substring(2,4); 
   console.log(date[0].substring(2));
-  console.log(date[0].substring(2))
+  console.log(date[0].substring(2));
   $('#'+id+'date').html(reformatted);
   $('#'+id+'date').css('display','block');
-
 }
 
 
@@ -387,6 +386,7 @@ function handleresponse(response)
 }
 
 function handleBadDate() {
+
   var modal = document.getElementById("badDate");
   // $('#myModal').css('display','block');
   // Get the <span> element that closes the modal on the x button 
@@ -436,7 +436,8 @@ function setupWeek(type)
       curr = buildDate(new Date());
       $('#curr').val(curr);
      }
-		 
+  
+    
          let url = 'update';
          if (type == 'week') {
          	request = $.ajax(
@@ -446,7 +447,6 @@ function setupWeek(type)
                  data: {
                   'newdate': curr,
              			'selectgroups': groups,
-                  'groupday': active,
                   'editable':editable},
              	success: handleresponse,
                }
@@ -466,6 +466,8 @@ function setupWeek(type)
             );
      }
       else if (type =='nextweek') {
+        curr = $('#d'+active).data('date');
+        console.log(curr);
         var nextcurr = buildDate(new Date(new Date(curr).getTime()+(8*24*60*60*1000)));
         console.log(nextcurr);
         request = $.ajax(
@@ -482,6 +484,8 @@ function setupWeek(type)
             );
       }
       else if (type =='lastweek') {
+        curr = $('#d'+active).data('date');
+        console.log(curr);
         var nextcurr = buildDate(new Date(new Date(curr).getTime()-(6*24*60*60*1000)));
         console.log(nextcurr);
         request = $.ajax(
@@ -559,12 +563,14 @@ function sendbook(id) {
 		var selectedUser = $("input[name='usertype']:checked").val();
         console.log(selectedUser);
         if (selectedUser == 'self') {
-        	var user = $('#selfname').val();
+        	var user = encodeURIComponent($('#selfname').val());
+          user.replace('<','&lt');
+          user.replace('>','&gt');
         	if (user == "") {
         		handleBadUser('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
         		return;
         	}
-        	console.log(user);
+      
         }
         else {
         	if ($("#selectgroup option:selected").val() == "" || 
@@ -572,10 +578,11 @@ function sendbook(id) {
         		handleBadUser('Group Booking: No group selected. <br> <strong>Please select a group</strong>');
         		return;
         	}
-        	var user = $("#selectgroup option:selected" ).val()
+        	var user = encodeURIComponent($("#selectgroup option:selected" ).val())
         	console.log(user);
         }
-       
+        user.replace('<','&lt');
+        user.replace('>','&gt');
         var modal = document.getElementById("myModal");
         modal.style.display = "none"; 
         // uncheck this upon sending confirm
@@ -633,13 +640,23 @@ function sendbook(id) {
      }
 
 function showConfirm(msg) {
-  var success = $('#schedule').data('bookingsuccess');
-  console.log(success);
 	console.log('show confirm');
   var modal = document.getElementById("complete");
-  $("#complete").fadeIn(10);
   $('#done').html(msg);
-  $('#complete').fadeOut(3000);
+  modal.style.display = "block";
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      // make sure they are unchecked when we close 
+    }
+  }
+  var dismiss = document.getElementById("dismiss");
+  dismiss.onclick = function() {
+    modal.style.display = "none";
+  }
+
 }
 
 // for displaying message that says they can delete this 
@@ -748,16 +765,16 @@ function drop(event) {
   console.log('event target id' + event.target.id);
   
   var id = event.target.id;
-  var company_name = $('#'+id).data('name');
+  var company_name = encodeURIComponent($('#'+id).data('name'));
   var start_time = $('#'+id).data('starttime');
   var end_time = $('#'+id).data('endtime');
   var studio = $('#'+id).data('studio');
   var week_day = $('#'+id).data('weekday');
   var booking_date = $('#'+id).data('bookingdate');
-  
+  var currday =  $('#curr').val();
   console.log('dropping: ' + booking_date, studio, company_name, start_time, end_time, week_day);
 
-  var groups = setGroups()
+  var groups = encodeURIComponent(setGroups())
   if (groups.length == 0) {
     groups = 'None';
   }
@@ -784,6 +801,7 @@ function drop(event) {
              'day': week_day, // day of the week 
              'name': company_name, // name of person who is booking
              'selectgroups': groups,
+             'currday': currday,
          },
          // upon ajax request callback
          success: handleresponse,

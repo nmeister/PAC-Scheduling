@@ -95,7 +95,7 @@
         <!-- Modal content -->
         <div class="modal-content-error" style="height:20%;overflow:hidden;">
           <span id="closeBadDate" style="text-align:right;" class="close">&times;</span>
-          <p>Please pick or enter valid date</p>
+          <p>Please pick a valid date via calendar using the down arrow.</p>
           <div id="okbadDate" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</div>
         </div>
       </div>
@@ -156,8 +156,9 @@
    <!-- after booking completed, pops up for confirmation --> 
     <div>
       <div id="complete" class="modal">
-        <div class="modal-content-error" style="height:15%;overflow:hidden;">
-          <p id="done"></p>
+        <div class="modal-content-error" style="height:20%;overflow:auto;">
+          <span id="done"></span><br>
+          <div id="dismiss" class="button" style="float:right;padding:0.5em;display:inline-block;">DISMISS</div>
         </div>
    </div>
 

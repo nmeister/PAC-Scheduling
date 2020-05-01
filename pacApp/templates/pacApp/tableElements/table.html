@@ -30,7 +30,7 @@
   <div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)">Saturday
      <br><span id="d6date" style="display:none;font-size:0.85em;text-align:center;"></span>
   </div>
-  <div class="tablinks"><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onchange="setupWeek('week');"></div>
+  <div class="tablinks"><label style="padding-right:0.5em;">Week Start: </label><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onchange="setupWeek('week');" required></div>
  <!-- <div class="tablinks" id="netid" value="{{user}}" style="margin-left:5em"></div> -->
    <span class="tablinks" id="booking" style="background-color:#df7366; color:#fff;margin-top:0.8em; padding: 0.8em;border-radius:0.2em">
     <a style="text-decoration-line:none;" href="schedule">Book a Space</a>
@@ -468,6 +468,10 @@
     else if ('{{success}}' == 'False'){
     showConfirm('Booking could not be made. This time slot has been reserved.');
   }
+  $('#curr').keypress(function(event) {
+       event.preventDefault();
+       handleBadDate();
+   });
 
    </script>
   

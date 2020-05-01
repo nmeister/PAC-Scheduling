@@ -61,10 +61,13 @@ def createContext(startdate, endweek, newdate, groups, getGroups):
             '-')[0] + '-' + newdate.split('-')[1] + '-' + newdate.split('-')[2]
         #formatdate = datetime.strptime(newdate, "%Y-%m-%d") 
         #formatdate = formatdate.strftime('%Y-%m-%d')
+        print(formatdate)
     else:
         print('date')
+
         # formatdate = str(newdate.year) + '-' + str(newdate.month) + '-' + str(newdate.day)
         formatdate = newdate.strftime('%Y-%m-%d')
+        print(formatdate)
     # we would want these to be for those that are shaded 
     context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, endweek]),
                'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, endweek]),
@@ -308,6 +311,7 @@ def drop_space(request: HttpResponse):
     name = request.POST['name']
     groups = request.POST['selectgroups']
     profile = request.user.uniauth_profile.get_display_id()
+    currday = request.POST['currday']
 
     if (groups == 'None' or groups == None):
         groups = None
@@ -335,6 +339,7 @@ def drop_space(request: HttpResponse):
     context['weekday'] = day
     context['editable'] = True
     context['user'] = profile
+    context['formatdate'] = currday
 
     return render(request, "templates/pacApp/tableElements/table.html", context)
     # return JsonResponse({"error": ""}, status=400)
