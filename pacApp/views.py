@@ -433,11 +433,7 @@ def delete_schedule_alg(response):
     return redirect('../../adminForm')
 
 
-
-def scheduling_alg(request: HttpResponse):
-    # start_date = request.POST['start_date']
-    # end_date = request.POST['end_date']
-    # print(start_date, end_date)
+def scheduling_alg(request):
     # get everything in db
     all_requests = ADRequest.objects.all()
 
@@ -693,23 +689,16 @@ def scheduling_alg(request: HttpResponse):
     # studioList = dict(zip(dance_studios, list(range(0, 10))))
     daysList = dict(zip(days_of_week, range(0, 7)))
 
-    
-    # based on the dates specified
-    # start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
-    # end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-    # print(start_date, end_date)
-    # diff = end_date-start_date
-    # weeks = abs(int(diff.days())/7)
 
-    # for week in range(weeks):
+    # do the dates 
     for i, space in df_results.iterrows():
         book = Booking(studio_id=space['Studio'],
-                    company_id=1,
-                    company_name=space['Name'],
-                    start_time=space['Start_Time'],
-                    end_time=space['End_Time'],
-                    week_day=daysList[space['Day']],
-                    booking_date=(start_date + timedelta(days=6) ))
+                       company_id=1,
+                       company_name=space['Name'],
+                       start_time=space['Start_Time'],
+                       end_time=space['End_Time'],
+                       week_day=daysList[space['Day']],
+                       booking_date=(datetime.datetime.today() + timedelta(days=6) ))
         book.save()
 
     return redirect('../../adminForm')
