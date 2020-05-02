@@ -9,7 +9,7 @@
   <br>
   <input type="radio" id="self" name="usertype" value="self" required><label class="grouplabel" for="self">Self</label>
 		<div class="reveal-if-activeSelf">
-  			Name: <input class="require-if-active" id="selfname" type="text" />
+  			Name: <input class="require-if-active" id="selfname" type="text"/>
   		</div>
   <input type="radio" id="group" name="usertype" value="group"><label class="grouplabel" for="group">Group</label> 
 	  <br>
@@ -17,22 +17,22 @@
 	  	<label for="group">Groups:</label>
 	  	<select class="form-control custom-select" id="selectgroup" style="width:50%;">
 		    <option value="" disabled selected>Select a group to book for</option>
-		    <option value="BAC">BAC</option>
-		    <option value="Bhangra">Bhangra</option>
-		    <option value="BodyHype">BodyHype</option>
-		    <option value="Disiac">Disiac</option>
-		    <option value="eXpressions">eXpressions</option>
-		    <option value="HighSteppers">HighSteppers</option>
-		    <option value="Kokopops">Kokopops</option>
-		    <option value="Naacho">Naacho</option>
-			<option value="PUB">PUB</option>
-		    <option value="Six14">Six14</option>
-		    <option value="Sympoh">Sympoh</option>
-		    <option value="Triple8">Triple8</option>
+		    <option value="1">BAC</option>
+		    <option value="2">Bhangra</option>
+		    <option value="3">BodyHype</option>
+		    <option value="4">Disiac</option>
+		    <option value="5">eXpressions</option>
+		    <option value="6">HighSteppers</option>
+		    <option value="7">Kokopops</option>
+		    <option value="8">Naacho</option>
+        <option value="9">PUB</option>
+		    <option value="10">Six14</option>
+		    <option value="11">Sympoh</option>
+		    <option value="12">Triple8</option>
 	  	</select>
 	  </div>
 
- <div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:10px">Confirm</div>
+ <div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:0.5em">Confirm</div>
 </form>
 
 

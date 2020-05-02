@@ -54,7 +54,7 @@
 						</nav>
 				</div>
 
-	 <div id="scheduleOnHome" class="wrapper style" data-place="home" style="padding: 0em 0em 2em 0em">
+	 <div id="scheduleOnHome" class="wrapper style" data-user="{{user}}" style="padding: 0em 0em 2em 0em">
 			<!-- Banner -->
 				<article class="container special">
 					<section id="banner" style="padding-bottom: 2em;" >
@@ -136,10 +136,11 @@
 			<script src="static/pacApp/assets/js/main.js"></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 			<script type="text/javascript">
+				// UPON FIRST LOAD
 				$('#schedule').val('False');
 				$('tr').removeClass("row100");
-     			// $('tr').addClass("row200");
-     			$('#booking').css('display','inline-block');
+				$('tr').css('cursor','default');
+     			$('#bookingbutton').css('display','inline-block');
 
 			</script>
 		

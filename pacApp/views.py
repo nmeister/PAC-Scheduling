@@ -39,107 +39,6 @@ def error_500(request):
     return render(request, 'templates/pacApp/404.html', data)
 
 
-def createContext(startdate, endweek, newdate, groups, getGroups):
-    actualdate = date.today()
-    currday = 'None'
-    week = {}
-    for i in range(7):
-        # week.append((startdate + timedelta(days=i)).strftime('%Y-%m-%d-%w'))
-        week[(startdate + timedelta(days=i)).strftime('%w')
-             ] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d')
-        if (startdate + timedelta(days=i)).strftime('%Y-%m-%d') == actualdate.strftime('%Y-%m-%d'):
-            currday = actualdate.strftime('%w')
-    # print(week)
-
-    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
-                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
-    # filter by date range, but not sure where the date should be coming from
-    # creating context for each day of the week plus the data
-    if isinstance(newdate, str):
-        print('str')
-        formatdate = newdate.split(
-            '-')[0] + '-' + newdate.split('-')[1] + '-' + newdate.split('-')[2]
-        #formatdate = datetime.strptime(newdate, "%Y-%m-%d") 
-        #formatdate = formatdate.strftime('%Y-%m-%d')
-        print(formatdate)
-    else:
-        print('date')
-
-        # formatdate = str(newdate.year) + '-' + str(newdate.month) + '-' + str(newdate.day)
-        formatdate = newdate.strftime('%Y-%m-%d')
-        print(formatdate)
-    # we would want these to be for those that are shaded 
-    context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, endweek]),
-               'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, endweek]),
-               'DillonMAR': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, endweek]),
-               'DillonMPR': Booking.objects.filter(studio_id=3).filter(booking_date__range=[startdate, endweek]),
-               'Murphy': Booking.objects.filter(studio_id=4).filter(booking_date__range=[startdate, endweek]),
-               'NewSouth': Booking.objects.filter(studio_id=5).filter(booking_date__range=[startdate, endweek]),
-               'NSWarmup': Booking.objects.filter(studio_id=6).filter(booking_date__range=[startdate, endweek]),
-               'NSTheatre': Booking.objects.filter(studio_id=7).filter(booking_date__range=[startdate, endweek]),
-               'Whitman': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, endweek]),
-               'Wilcox': Booking.objects.filter(studio_id=9).filter(booking_date__range=[startdate, endweek]),
-               'newdate': newdate, 'formatdate': formatdate, 'weekday': int(startdate.strftime('%w')), 'sun': week['0'],
-               'currday': currday,
-               'mon': week['1'], 'tue': week['2'], 'wed': week['3'],
-               'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
-    # want to gather whatever is not shaded
-    if getGroups == True:
-        bloombergNew = context['Bloomberg'].filter(company_name__in=groups)
-        bloombergGray = context['Bloomberg'].exclude(company_name__in=groups)
-        context['Bloomberg'] = bloombergNew
-        context['BloombergGray'] = bloombergGray
-
-        dillonDanceNew = context['DillonDance'].filter(company_name__in=groups)
-        dillonDanceGray = context['DillonDance'].exclude(company_name__in=groups)
-        context['DillonDance'] = dillonDanceNew
-        context['DillonDanceGray'] = dillonDanceGray
-
-
-        dillonMARNew = context['DillonMAR'].filter(company_name__in=groups)
-        dillonMARGray = context['DillonMAR'].exclude(company_name__in=groups)
-        context['DillonMAR'] = dillonMARNew
-        context['DillonMARGray'] = dillonMARGray
-
-        dillonMPRNew = context['DillonMPR'].filter(company_name__in=groups)
-        dillonMPRGray = context['DillonMPR'].exclude(company_name__in=groups)
-        context['DillonMPR'] = dillonMPRNew
-        context['DillonMPRGray'] = dillonMPRGray
-        
-      
-        murphyNew = context['Murphy'].filter(company_name__in=groups)
-        murphyGray = context['Murphy'].exclude(company_name__in=groups)
-        context['Murphy'] = murphyNew
-        context['MurphyGray'] = murphyGray
-
-        nsNew = context['NewSouth'].filter(company_name__in=groups)
-        nsGray = context['NewSouth'].exclude(company_name__in=groups)
-        context['NewSouth'] = nsNew
-        context['NewSouthGray'] = nsGray
-
-        nsWarmNew = context['NSWarmup'].filter(company_name__in=groups)
-        nsWarmGray = context['NSWarmup'].exclude(company_name__in=groups)
-        context['NSWarmup'] = nsWarmNew
-        context['NSWarmupGray'] = nsWarmGray
-       
-        nsTNew = context['NSTheatre'].filter(company_name__in=groups)
-        nsTGray = context['NSTheatre'].exclude(company_name__in=groups)
-        context['NSTheatre'] = nsTNew
-        context['NSTheatreGray'] = nsTGray
-        
-        whitNew = context['Whitman'].filter(company_name__in=groups)
-        whitGray = context['Whitman'].exclude(company_name__in=groups)
-        context['Whitman'] = whitNew
-        context['WhitmanGray'] = whitGray
-
-        wilNew = context['Wilcox'].filter(company_name__in=groups)
-        wilGray = context['Wilcox'].exclude(company_name__in=groups)
-        context['Wilcox'] = wilNew
-        context['WilcoxGray'] = wilGray
-
-    return context
-
-
 def carouselAvailable():
     startdate = date.today()
     currenttime = int(datetime.datetime.now().time().hour)
@@ -158,22 +57,19 @@ def carouselAvailable():
 # rendering the home page with today's date
 
 
+def about(request):
+    context = {}
+    return render(request, "templates/pacApp/about.html", context)
+
 def homepage(request):
     try:
         profile = request.user.uniauth_profile.get_display_id()
     except:
         profile = 'None'
     print(profile)
-    startdate = date.today()
-    print(startdate)
-    endweek = startdate + timedelta(days=6)
-    groups = None
-    getGroups = False
-    context = createContext(startdate, endweek, startdate.strftime(
-        '%Y-%m-%d'), groups, getGroups)
-    context['currentdate'] = startdate.strftime('%Y-%m-%d')
-    context['editable'] = False
-    context['cursor'] = 'not'
+    starttoday = date.today()
+    groups = 'None'
+    context = createContext(starttoday, groups)
     context['available'] = carouselAvailable()
     context['user'] = profile
     return render(request, "templates/pacApp/home.html", context)
@@ -181,9 +77,100 @@ def homepage(request):
 # displays the calendar schedule
 
 
-def about(request):
-    context = {}
-    return render(request, "templates/pacApp/about.html", context)
+def createContext(startdate, groups):
+    week = {}
+    # for one week
+    enddate = startdate + timedelta(days=6)
+    startday = startdate.strftime('%w')
+    for i in range(7):
+        print('creating the days of the week')
+        week[(startdate + timedelta(days=i)).strftime('%w')
+             ] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d')
+    print(week)
+
+    # studio list for matching studio and names, just for reference
+    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
+                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+    # filter by studio and week
+    context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, enddate]),
+               'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, enddate]),
+               'DillonMAR': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, enddate]),
+               'DillonMPR': Booking.objects.filter(studio_id=3).filter(booking_date__range=[startdate, enddate]),
+               'Murphy': Booking.objects.filter(studio_id=4).filter(booking_date__range=[startdate, enddate]),
+               'NewSouth': Booking.objects.filter(studio_id=5).filter(booking_date__range=[startdate, enddate]),
+               'NSWarmup': Booking.objects.filter(studio_id=6).filter(booking_date__range=[startdate, enddate]),
+               'NSTheatre': Booking.objects.filter(studio_id=7).filter(booking_date__range=[startdate, enddate]),
+               'Whitman': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, enddate]),
+               'Wilcox': Booking.objects.filter(studio_id=9).filter(booking_date__range=[startdate, enddate]),
+               'sun': week['0'], 'mon': week['1'], 'tue': week['2'], 'wed': week['3'],
+               'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
+
+    context['formatdate'] = startdate.strftime('%Y-%m-%d')
+    context['enddate'] = enddate.strftime('%Y-%m-%d')
+    # on default opened day is on the same as the date in the week start
+    context['openday'] = startday
+
+
+    if groups != 'None':
+      print('in create context where groups is not None')
+      print(groups)
+      print(type(groups))
+      if groups[0] == 0:
+        print('there is a non group')
+      
+      bloombergNew = context['Bloomberg'].filter(company_id__in=groups)
+      bloombergGray = context['Bloomberg'].exclude(company_id__in=groups)
+      context['Bloomberg'] = bloombergNew
+      context['BloombergGray'] = bloombergGray
+
+      dillonDanceNew = context['DillonDance'].filter(company_id__in=groups)
+      dillonDanceGray = context['DillonDance'].exclude(company_id__in=groups)
+      context['DillonDance'] = dillonDanceNew
+      context['DillonDanceGray'] = dillonDanceGray
+
+
+      dillonMARNew = context['DillonMAR'].filter(company_id__in=groups)
+      dillonMARGray = context['DillonMAR'].exclude(company_id__in=groups)
+      context['DillonMAR'] = dillonMARNew
+      context['DillonMARGray'] = dillonMARGray
+
+      dillonMPRNew = context['DillonMPR'].filter(company_id__in=groups)
+      dillonMPRGray = context['DillonMPR'].exclude(company_id__in=groups)
+      context['DillonMPR'] = dillonMPRNew
+      context['DillonMPRGray'] = dillonMPRGray
+      
+      murphyNew = context['Murphy'].filter(company_id__in=groups)
+      murphyGray = context['Murphy'].exclude(company_id__in=groups)
+      context['Murphy'] = murphyNew
+      context['MurphyGray'] = murphyGray
+
+      nsNew = context['NewSouth'].filter(company_id__in=groups)
+      nsGray = context['NewSouth'].exclude(company_id__in=groups)
+      context['NewSouth'] = nsNew
+      context['NewSouthGray'] = nsGray
+
+      nsWarmNew = context['NSWarmup'].filter(company_id__in=groups)
+      nsWarmGray = context['NSWarmup'].exclude(company_id__in=groups)
+      context['NSWarmup'] = nsWarmNew
+      context['NSWarmupGray'] = nsWarmGray
+       
+      nsTNew = context['NSTheatre'].filter(company_id__in=groups)
+      nsTGray = context['NSTheatre'].exclude(company_id__in=groups)
+      context['NSTheatre'] = nsTNew
+      context['NSTheatreGray'] = nsTGray
+        
+      whitNew = context['Whitman'].filter(company_id__in=groups)
+      whitGray = context['Whitman'].exclude(company_id__in=groups)
+      context['Whitman'] = whitNew
+      context['WhitmanGray'] = whitGray
+
+      wilNew = context['Wilcox'].filter(company_id__in=groups)
+      wilGray = context['Wilcox'].exclude(company_id__in=groups)
+      context['Wilcox'] = wilNew
+      context['WilcoxGray'] = wilGray 
+
+    return context
+
 
 
 @login_required
@@ -191,93 +178,166 @@ def schedule(request):
     # render with today's date
     profile = request.user.uniauth_profile.get_display_id()
     print(profile)
-    startdate = date.today()
-    endweek = startdate + timedelta(days=6)
-    groups = None
-    getGroups = False
-    context = createContext(startdate, endweek, startdate, groups, getGroups)
-    context['currentdate'] = startdate.strftime('%Y-%m-%d')
-    context['editable'] = True
-    context['cursor'] = "pointer"
+    starttoday = date.today()
+    print(starttoday)
+    groups = 'None'
+
+    context = createContext(starttoday, groups)
     context['user'] = profile
+    
     return render(request, "templates/pacApp/schedule.html", context)
 
 
-def create_booking(date, studio, name, starttime, endtime, day, profile):
+# takes in string, returns type of object date
+def handleDateStr(date):
+    print(date)
+    print(type(date))
+    date = date.split('-')
+    startdate = datetime.date(int(date[0]), int(date[1]), int(date[2]))
+    return startdate
+
+def handleGroup(groups):
+  if groups == 'None':
+    return 'None'
+  else: 
+    groups = groups.split('-')
+    # the last one is a - which should be empty
+    groups.pop(-1)
+    return groups
+
+def updateWeek(request):
+    # we get something of type string in the form of yyyy-mm-dd
+    # transform date string into DATE object
+    newdate = request.GET.get('newdate')
+    startdate = handleDateStr(newdate)
+    
+
+    # getting groups, it is type string, if no groups selected will be 'None' (str)
+    groups = handleGroup(request.GET.get('groups'))
+    print(groups)
+
+    # creating for week, we know that the date inputted in must be the same as open date
+    context = createContext(startdate, groups)
+
+    return render(request, "templates/pacApp/tableElements/calendar.html", context)
+
+
+def updateGroupOnly(request):
+    # the opened day user is on 
+    openday = handleDateStr(request.GET.get('openday'))
+    # this is the current week user is on 
+    startdate = handleDateStr(request.GET.get('currweek'))
+    # getting groups, it is type string, if no groups selected will be 'None' (str)
+
+    groups = handleGroup(request.GET.get('groups'))
+    context = createContext(startdate, groups)
+    # overwrites this because we want week to stay consistent and the tab opened consistent
+    context['openday'] = openday.strftime('%w')
+    print(context['openday'])
+
+    return render(request, "templates/pacApp/tableElements/calendar.html", context)
+
+# for booking slot
+# creates a booking in table, updates with same current week and opened tab 
+def updateBooking(request):
+    print('in updating booking')
+    # the booker for authentication
+    profile = request.user.uniauth_profile.get_display_id()
+    # these are all related to booking 
+    bookingdate = handleDateStr(request.GET.get('date'))
+    studio = request.GET.get('studio')
+    username = request.GET.get('name')
+    userid = request.GET.get('nameid')
+    starttime = request.GET.get('starttime')
+    endtime = request.GET.get('endtime')
+    weekdaybooked = request.GET.get('day')
+    # try to make a booking in the table 
+    # returns 0 upon FAIL and 1 upon SUCCESS
+    success = create_booking(bookingdate, studio, username, userid, starttime, endtime, weekdaybooked, profile)
+    print(success)
+    # this is the current week start on 
+    startdate = handleDateStr(request.GET.get('currweek'))
+    groups = handleGroup(request.GET.get('groups'))
+    openday = handleDateStr(request.GET.get('openday'))
+
+    context = createContext(startdate, groups)
+    context['openday'] = openday.strftime('%w')
+    context['booksuccess'] = success
+    return render(request, "templates/pacApp/tableElements/calendar.html", context)
+
+def create_booking(date, studio, name, nameid, starttime, endtime, day, profile):
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
-    date = date.split('-')
-    bookExist = Booking.objects.filter(studio_id=studioList[studio]).filter(booking_date=(datetime.date(int(date[0]), int(date[1]), int(date[2]))))
+    
+    bookExist = Booking.objects.filter(studio_id=studioList[studio]).filter(booking_date=date)
     bookExist = bookExist.filter(start_time=starttime).filter(end_time=endtime).filter(week_day=day)
     if bookExist.exists():
-      print('bad already here')
-      return -200
+      print('bad already exists, cannot be booked')
+      return 0
     else:
+      # doesn't exist therefore make a new booking 
       book = Booking(studio_id=studioList[studio],
-                   company_id=0,
+                   company_id=nameid,
                    user_netid=profile,
                    company_name=name,
                    start_time=starttime,
                    end_time=endtime,
                    week_day=day,
-                   booking_date=(datetime.date(int(date[0]), int(date[1]), int(date[2]))))
+                   booking_date=date)
       book.save()
-      return book.week_day
+      return 1
 
 
-def update(request: HttpResponse):
-    # if there is a booking involved
+def updateDropping(request: HttpResponse):
 
-    weekday = None
-    # tries to see if user is logged in, which they must be in order to update
-    try:
-      profile = request.user.uniauth_profile.get_display_id()
-    except:
-      profile='None'
-    # if this is not None, means we must be making a booking update 
-    # create a booking 
-    if (request.GET.get('studio') != None):
-        weekday = create_booking(request.GET.get('date'), request.GET.get('studio'),
-                                 request.GET.get('name'), request.GET.get(
-                                     'starttime'),
-                                 request.GET.get('endtime'), request.GET.get('day'), profile)
+    print('in drop space')
+    profile = request.user.uniauth_profile.get_display_id()
 
-    retdate = request.GET.get('newdate').split('-')
-    startdate = datetime.date(int(retdate[0]), int(retdate[1]), int(retdate[2]))
-    endweek = startdate + timedelta(days=6)
-    newdate = request.GET.get('newdate')
-    # if there are groups 
-    groups = request.GET.get('selectgroups')
-    if (groups == 'None' or groups == None):
-        groups = None
-        getGroups = False
-    else:
-        groups = groups.split('-')
-        # the first one is a -
-        groups.pop(-1)
-        getGroups = True
-    # creating context with given startdate, endweek, newdate 
-    context = createContext(startdate, endweek, newdate, groups, getGroups)
-    # if booking did not fail and weekday is not none 
-    if weekday != None and weekday != -200:
-        context['success'] = 'True'
-        # context['weekday'] = weekday
-    groupday = request.GET.get('groupday')
+    # get variables from post resuts
+    # this is for dropping the space 
+    studio = request.POST['studio']
+    bookingdate = handleDateStr(request.POST['date'])  # booking date
+    starttime = request.POST['starttime']
+    endtime = request.POST['endtime']
+    day = request.POST['day']  # weekday
+    name = request.POST['name']
+    nameid = request.POST['nameid']
+    # delete the booking from the db
+    success = delete_booking(bookingdate, studio, name, nameid, starttime, endtime, day, profile)
+    print(success)
+    groups = handleGroup(request.POST['groups'])
+    startdate = handleDateStr(request.POST['currweek'])
+    openday = handleDateStr(request.POST['openday'])
 
-    if weekday == None and groupday != None:
-      context['weekday'] = groupday
-      context['success'] = 'group'
-    # if endweek < date.today():
-    context['editable'] = request.GET.get('editable')
+    context = createContext(startdate, groups)
+
     context['user'] = profile
-    # this is the currently active 
-    
-    if weekday == -200:
-          weekday = request.GET.get('day')
-          context['weekday'] = groupday
-          context['success'] = 'False'
+    context['openday'] = openday.strftime('%w')
+    context['dropsuccess'] = success
+    return render(request, "templates/pacApp/tableElements/calendar.html", context)
    
-    return render(request, "templates/pacApp/tableElements/table.html", context)
+
+# delete the booking
+def delete_booking(date, studio, name, nameid, starttime, endtime, day, profile):
+    print('in delete booking')
+    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
+                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+
+    # grab the booking you want to delete
+    try:
+        book_to_del = Booking.objects.get(studio_id=studioList[studio],
+                                          company_id=nameid,
+                                          user_netid=profile,
+                                          company_name=name,
+                                          start_time=starttime,
+                                          end_time=endtime,
+                                          week_day=day,
+                                          booking_date=date)
+        book_to_del.delete()
+    except:
+        print('not able to drop')
+        return 0 
+    return 1
 
 
 # transform str "April 27, 2020" into list [yyyy, mm, dd]
@@ -295,79 +355,6 @@ def handledate(date):
 
     return year, month, day
 
-# preparation to drop the space
-
-
-def drop_space(request: HttpResponse):
-
-    print('in drop space')
-
-    # get variables from post resuts
-    studio = request.POST['studio']
-    date = request.POST['date']  # booking date
-    starttime = request.POST['starttime']
-    endtime = request.POST['endtime']
-    day = request.POST['day']  # weekday
-    name = request.POST['name']
-    groups = request.POST['selectgroups']
-    profile = request.user.uniauth_profile.get_display_id()
-    currday = request.POST['currday']
-
-    if (groups == 'None' or groups == None):
-        groups = None
-        getGroups = False
-    else:
-        groups = groups.split('-')
-        groups.pop(-1)
-        getGroups = True
-
-    y, m, d = handledate(date)  # format the date
-
-    # delete the booking from the db
-    delete_booking(y, m, d, studio, name, starttime, endtime, day, profile)
-    print('day: ' + day)
-    # create context
-    startdate = datetime.date(int(y), int(m), (int(d)))
-
-    endweek = startdate + timedelta(days=(6 - int(day)))
-    startdate = startdate + timedelta(days=(-int(day)))
-    # groups = None
-    # getGroups = False
-
-    context = createContext(startdate, endweek, startdate, groups, getGroups)
-
-    context['weekday'] = day
-    context['editable'] = True
-    context['user'] = profile
-    context['formatdate'] = currday
-
-    return render(request, "templates/pacApp/tableElements/table.html", context)
-    # return JsonResponse({"error": ""}, status=400)
-
-# delete the booking
-
-
-def delete_booking(y, m, d, studio, name, starttime, endtime, day, profile):
-    print('in delete booking')
-    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
-                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
-
-    print(y, m, d)
-
-    # grab the booking you want to delete
-    try:
-        book_to_del = Booking.objects.get(studio_id=studioList[studio],
-                                          company_id=0,
-                                          user_netid=profile,
-                                          company_name=name,
-                                          start_time=starttime,
-                                          end_time=endtime,
-                                          week_day=day,
-                                          booking_date=(datetime.date(int(y), int(m), int(d))))
-        book_to_del.delete()
-    except:
-        print('not able to drop')
-    return day
 
 def drop_ad_request(request: HttpResponse):
     name = request.GET.get('company_name')

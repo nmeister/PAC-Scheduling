@@ -28,7 +28,6 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 }
 
 
-
 /* Style the tab */
 .tab {
   overflow: hidden;
@@ -199,7 +198,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 0.2em 1.5em 0em 1.5em;
+  padding: 1.5em 1.5em 0em 1.5em;
   border: 0.1em solid #888;
   width: 25%; /* Could be more or less, depending on screen size */
   height:45%;
@@ -210,8 +209,8 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .modal-content-error {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 25px;
-  border: 1px solid #888;
+  padding: 1.5em;
+  border: 0.1em solid #888;
   width: 30%; /* Could be more or less, depending on screen size */
   height: 25%;
   overflow:auto;
@@ -221,7 +220,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .close {
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 1em;
   font-weight: bold;
 }
 
@@ -294,7 +293,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   display: inline-block;
   width:0.3em;
   height:0.3em;
-  margin-top:3.2em;
+  margin-top:2em;
   cursor:pointer;
 }
 
@@ -326,4 +325,8 @@ input[type=date]::-webkit-calendar-picker-indicator {
   background-color:lightgray;
 }
 
+.select {
+   -webkit-appearance: checkbox;
+   cursor: pointer;
+}
 
