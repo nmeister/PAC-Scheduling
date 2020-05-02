@@ -33,7 +33,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   overflow: hidden;
   border:0.1em solid #ccc;
   background-color: #f1f1f1;
-  padding:0.7em 0.5em 0.7em 0.5em;
+  padding:0.7em 0.7em 0.7em 0.7em;
   width:100%;
   position:relative;
 }
@@ -45,10 +45,10 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 0.3em 0.7em 0.3em 0.7em;
+  padding: 0.3em 0.3em 0.3em 0.3em;
   transition: 0.3s;
   margin:0.2em;
-  font-size:0.95em;
+  font-size:0.8em;
   text-align:center;
   display:inline-block;
 
