@@ -2,36 +2,27 @@
 <html>
 <head> 
 	<title> Schedule </title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- <!-- the css added after have priority --> 
-	<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css" />
-  <link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css" />
-  <link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/table.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"><!-- the css added after have priority -->
+  <link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css" />
+	<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/table.css" />
+	<!-- SCRIPTS I WROTE FOR SCHEDULE PAGE FUNCTIONS --> 
 	<script type="application/javascript" src="/static/pacApp/assets/js/schedule.js"></script> 
-	<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-  {% if cursor == 'pointer' %}
-  <style> 
-    td {
-      cursor: pointer;
-    }
-  </style>
-{% endif %}
-
 
 </head>
 
 <body>
-  <div id="headerschedule">
-  <div id="header">
+	<!-- HEADER --> 
+	<div id="headerschedule">
+		<div id="header">
           <!-- Inner -->
             <div class="inner">
               <header>
                 <h1>Booking Schedule</h1>
                 <hr />
-                <span id="netid" value="{{user}}"></span>
+                <span id="netid" data-user="{{user}}">Hello, {{user}}</span>
                 <p>Book and view availabilities</p>
-                <span style="font-size:18px">Click an empty slot to book. Click your reserved slot to delete reservation.</span>
+                <span style="font-size:1em">Click an empty slot to book. Click your reserved slot to delete reservation.</span>
               </header>
             </div>
             <nav id="nav">
@@ -47,123 +38,28 @@
                 </li>
               </ul>
             </nav>
-      </div>
+        </div>
     </div>
-      <div id="scheduletable" data-place="schedule">
+
+    <div id="scheduletable">
         {% csrf_token %}
-              {% include 'templates/pacApp/tableElements/table.html' %}
-              {% include 'templates/pacApp/tableElements/groupSelection.html'%}
-      </div>
-	  
-    <!-- the pop up modal --> 
+              <!-- CALENDAR ITSELF --> 
+              {% include 'templates/pacApp/tableElements/calendar.html' %}
+              <!-- GROUP SELECTION THING --> 
+              {% include 'templates/pacApp/tableElements/groupSelection.html' %}
+    </div>
     <div>
        <div id="myModal" class="modal"> 
         <!-- Modal content -->
         <div class="modal-content">
-          <span class="close" style="text-align:right;">&times;</span>
+          <span id="bookClose" style="text-align:right;">&times;</span>
             {% include 'templates/pacApp/bookForm.html' %}
         </div>
       </div>
    </div>
+    {% include 'templates/pacApp/scheduleErrors.html' %}
 
-   <div>
-      <div id="errorHome" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content-error" style="overflow:hidden;">
-          <span id="errorHomeClose" class="close">&times;</span><br>
-          <span id="errorhomemsg"> You are not allowed to book or drop spaces on this page. Please login to do so. </span><br>
-       <div id="okHome" class="button" style="float:right;padding:4px 10px 4px 10px;display:block;">LOGIN</div>
-
-        </div>
-      </div>
-   </div>
-
-    <div>
-      <div id="errorPast" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content-error" style="overflow:hidden;">
-          <span id="errorClose" class="close">&times;</span><br>
-          <span> You cannot book a time slot in the past. Please click on a time slot in the future </span><br>
-        <div id="okbutton" class="button" style="float:right;padding:4px 10px 4px 10px;">OK</div>
-
-        </div>
-      </div>
-   </div>
-
-   <div>
-      <div id="badDate" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content-error" style="height:20%;overflow:hidden;">
-          <span id="closeBadDate" style="text-align:right;" class="close">&times;</span>
-          <p>Please pick a valid date via calendar using the down arrow.</p>
-          <div id="okbadDate" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</div>
-        </div>
-      </div>
-   </div>
-
-   <div>
-    <div id="drop_errorPast" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content-error" style="overflow:hidden;">
-        <span id="drop_errorClose" class="close">&times;</span><br>
-        <span id="dropmsg"></span><br>
-    <div id="okbutton_drop" class="button" style="float:right;padding:4px 10px 4px 10px;">OK</div>
-
-      </div>
-    </div>
- </div>
-
-  <div>
-    <div id="confirmdrop" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content-error">
-        <span id="confirmdropClose" class="close">&times;</span><br>
-        <span>Are you sure you want to drop this space? </span><br>
-    <div style="float:right;"> 
-    <div id="yesDrop" class="button" style="padding:4px 10px 4px 10px;display:inline-block;">YES</div>
-    <div id="noDrop" class="button" style="padding:4px 10px 4px 10px;display:inline-block;">NO</div>
-    </div> 
-
-      </div>
-    </div>
- </div>
-
-   <div>
-      <div id="currHour" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content-error">
-          <span id="currClose" style="text-align:right;" class="close">&times;</span>
-          <p>You only have <span id="minLeft"></span> minutes left for this time slot. Do you want to continue booking?</p>
-           <div style="float:right;"> 
-          <div id="yes" class="button" style="padding:4px 10px 4px 10px;display:inline-block;">YES</div>
-          <div id="no" class="button" style="padding:4px 10px 4px 10px;display:inline-block;">NO</div>
-          </div>
-        </div>
-      </div>
-   </div>
-
-    <div>
-      <div id="handlebad" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content-error" style="height:20%;">
-          <span id="closebad" style="text-align:right;" class="close">&times;</span>
-          <p id="badmsg"></p>
-          <div id="byebad" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</div>
-        </div>
-      </div>
-   </div>
-
-   <!-- after booking completed, pops up for confirmation --> 
-    <div>
-      <div id="complete" class="modal">
-        <div class="modal-content-error" style="height:20%;overflow:auto;">
-          <span id="done"></span><br>
-          <div id="dismiss" class="button" style="float:right;padding:0.5em;display:inline-block;">DISMISS</div>
-        </div>
-   </div>
-
-
-    <!-- Footer -->
+      <!-- Footer -->
     <div id="footerschedule">
         <div id="footer">
           <div class="container">
@@ -189,59 +85,49 @@
       </div>
 
 </body>
-<script> 
-  var edit = "{{editable}}";
-  console.log(edit);
-  if (edit == 'False') {
-      console.log('is false and already on home page');
-    $('#headerschedule').css('display','none');
-    $('#footerschedule').css('display','none');
-    // $('#schedule').css('margin', '20px');
-  }
-  else {
-    $('#booking').css('display','none');
-    $('#scheduletable').addClass("wrapper style");
-    $('#scheduletable').css('padding', 'padding: 4em 0em 2em 0em');
-    $('#schedule').css('margin', '0em 3em 1em 3em');
-    $('#schedule').css('padding', '0em 0em 0em 0em');
-    $('#groupselect').css('margin','0.5em 3em 1em 3em');
+	
+<!-- Scripts for the general header, dropdown menu, etc, overall website scripts-->
+  
+     <!-- importing JQUERY LIBRARY -->
+      <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-  }
-// very initial set up of the document, we use today's date to set up active tab 
- function activateDay()
-  {   
-     console.log('in activate');
-     var weekday = parseInt("{{weekday}}");
-     var current = "{{currentdate}}";
-     $('#d'+weekday).addClass('today');
-     console.log(current);
-     $('#scheduletable').data('place', 'schedule');
-      // sets the value for the date picker default 
-     //  $('#curr').val(current);
-      // set a field called data-week to be the week number 
-      // $('#curr').on('change', setupWeek);
-      // to retrieve that data value use .data('nameofdata')
-      // console.log($('#curr').data('week'));
-     //  var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
-     //  openDay(daysofweek[weekday], 'd'+weekday);
-      // sets up the week initially 
-      var netid = '{{user}}';
-      console.log(netid);
-      if (netid != 'None') {
-        $('#errorhomemsg').html('You are not allowed to book or drop spaces on this page. Please click on the button to go to booking page.')
-        $('#okHome').html('BOOK');
-      }
+      <!-- what gets called when we load the schedule --> 
+      <script> 
 
-      
-  }
-  // this sets things up initially for the first case
+		  function homeDisableSchdFootHead() {
+			// checks location path and checks if we are on home page
+			// if we are on home page, we want to disable the header and footers 
+			var place = String(window.location.pathname);
+			 if (place == "/" || place == "/homepage" || place != "/schedule") {
+			 	console.log('Currently on home page, disable footer + header from schedule');
+			 	$('#headerschedule').css('display','none');
+			 	$('#footerschedule').css('display','none');
+        $('#scheduletable').addClass("wrapper style");
+        $('#scheduletable').css('padding', '0em 2em 4em 2em');
+        $('#schedule').css('margin', '0em 3em 1em 3em');
+        $('#schedule').css('padding', '0em 0em 0em 0em');
+        $('#groupselect').css('margin','0.5em 3em 1em 3em');
 
-  $('document').ready(activateDay); 
+			 }
+       else {
+        $('#scheduletable').addClass("wrapper style");
+        $('#scheduletable').css('padding', '4em 0em 2em 0em');
+        $('#schedule').css('margin', '0em 3em 1em 3em');
+        $('#schedule').css('padding', '0em 0em 0em 0em');
+        $('#groupselect').css('margin','0.5em 3em 1em 3em');
+       }
 
-</script>
+		}
+      	function loadSchedule() {
+      		// disable the header and footer 
+      		homeDisableSchdFootHead();
+          fwdbck()
+      	}
+      	loadSchedule()
+      	$('document').ready(loadSchedule); 
 
+      </script>
 
-<!-- Scripts -->
       <script src="static/pacApp/assets/js/jquery.min.js"></script>
       <script src="static/pacApp/assets/js/jquery.dropotron.min.js"></script>
       <script src="static/pacApp/assets/js/jquery.scrolly.min.js"></script>
@@ -250,5 +136,7 @@
       <script src="static/pacApp/assets/js/breakpoints.min.js"></script>
       <script src="static/pacApp/assets/js/util.js"></script>
       <script src="static/pacApp/assets/js/main.js"></script>
+      <script src="https://unpkg.com/@popperjs/core@2"></script>
 
+   
 </html>

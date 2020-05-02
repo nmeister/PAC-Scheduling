@@ -36,16 +36,16 @@
 
 
 th {
-  width:20em;
+  width:10em;
 }
 
 /* more recent is priority css */ 
 th.studio,
 td.studio {
-  padding: 1em 8em 1.5em 1em;
-  font-size:0.8em;
+  padding: 1em 8em 1em 1em;
+  font-size:0.9em;
   text-align:left;
-  max-width:4em;
+  max-width:3em;
   line-height: 1.2em;
   white-space: nowrap;
 }
@@ -88,6 +88,6 @@ td.studio {
 
 .row100 td {
   padding: 1em 0.6em 1em 0.6em;
-  font-size: 0.8em;
-  max-width:4em;
+  font-size: 0.85em;
+  max-width:2em;
 }

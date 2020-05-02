@@ -1,0 +1,554 @@
+<div id="schedule">
+
+ <div id="daystab" class="tab" style="text-align:center">
+ 	<!-- to go back to last week --> 
+ 	<span class="arrow last tablinks" id="backward" onclick="setupWeek('lastweek')"></span>
+
+ 	<!-- data-date is a data field with name date retrieve using .data(key) -->
+ 	<!-- SUNDAY --> 
+ 	<div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)">Sunday
+ 		<br><span id="d0date" style="display:none;font-size:0.85em;text-align:center;"></span>
+ 	</div>
+ 	<!-- MONDAY --> 
+ 	<div class="tablinks" id="d1" data-date="{{mon}}" onclick="openDay('mon', this.id)">Monday
+ 		<br><span id="d1date" style="display:none;font-size:0.85em;text-align:center;"></span>
+ 	</div>
+ 	<!-- TUESDAY --> 
+ 	<div class="tablinks" id="d2" data-date="{{tue}}" onclick="openDay('tue', this.id)">Tuesday
+ 		<br><span id="d2date" style="display:none;font-size:0.85em;text-align:center;"></span>
+ 	</div>
+ 	<!-- WEDNESDAY --> 
+ 	<div class="tablinks" id="d3" data-date="{{wed}}" onclick="openDay('wed', this.id)">Wednesday 
+ 		<br><span id="d3date" style="display:none;font-size:0.85em;text-align:center;"></span>
+ 	</div>
+ 	<!-- THURSDAY -->
+ 	<div class="tablinks" id="d4" data-date="{{thu}}" onclick="openDay('thu', this.id)">Thursday
+ 		<br><span id="d4date" style="display:none;font-size:0.85em;text-align:center;"></span>
+ 	</div>
+ 	<!-- FRIDAY --> 
+ 	<div class="tablinks" id="d5" data-date="{{fri}}" onclick="openDay('fri', this.id)">Friday
+ 		<br><span id="d5date" style="display:none;font-size:0.85em;text-align:center;"></span>
+ 	</div>
+ 	<!-- SATURDAY --> 
+ 	<div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)">Saturday
+ 		<br><span id="d6date" style="display:none;font-size:0.85em;text-align:center;"></span>
+ 	</div>
+
+ 	<div class="tablinks" id="week"><label style="padding-right:0.2em;">Week Start: </label><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onkeypress="handleWeekInput()" onchange="setupWeek('week')" required></div>
+
+ 	<span class="tablinks" id="bookingbutton" style="background-color:#df7366; color:#fff;margin-top:0.8em; padding: 0.5em;border-radius:0.2em">
+ 		<a style="text-decoration-line:none;" href="schedule">Book a Space</a>
+ 	</span>
+ 	<!-- going to next week --> 
+ 	<span class="arrow next tablinks" id="forward" onclick="setupWeek('nextweek')"></span>
+</div>
+	<!-- setting up the tab content calendar to be show for each day --> 
+	<div class="tabcontent" id="sun">{% include 'templates/pacApp/tableElements/sunday.html'%}</div>
+	<div class="tabcontent" id="mon">{% include 'templates/pacApp/tableElements/monday.html'%}</div>
+	<div class="tabcontent" id="tue">{% include 'templates/pacApp/tableElements/tuesday.html'%}</div>
+	<div class="tabcontent" id="wed">{% include 'templates/pacApp/tableElements/wednesday.html'%}</div>
+	<div class="tabcontent" id="thu">{% include 'templates/pacApp/tableElements/thursday.html'%}</div>
+	<div class="tabcontent" id="fri">{% include 'templates/pacApp/tableElements/friday.html'%}</div>
+	<div class="tabcontent" id="sat">{% include 'templates/pacApp/tableElements/saturday.html'%}</div>
+
+</div>
+
+<!-- JAVASCRIPT LIBRARY NEEDED --> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!-- WHEN THE PAGE LOADS RUN THESE -->
+<script>
+
+	function populate() {
+
+ 	var wilcox = [
+    // we passed in a context argument which is a list containing
+    // an element called 'Wilcox'
+    // Wilcox value is a list of bookings 
+    {% for booking in Wilcox %}
+        { // for each of the booking, create a new object booking with such fields
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"wilcox",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+    var wilcoxGray = [
+    {% for booking in WilcoxGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"wilcox",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+
+ 	var bloomberg = [
+    {% for booking in Bloomberg %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"bloomberg",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+   
+
+  var bloombergGray = [
+    {% for booking in BloombergGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         company_id:"{{booking.company_id}}",
+         end_time:"{{booking.end_time}}",
+         studio:"bloomberg",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+   console.log('bloomberg gray is ' + bloombergGray);
+
+
+  var dillondance = [
+    {% for booking in DillonDance %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillondance",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+   console.log('dillondance is ');
+   console.log(dillondance);
+
+   var dillondanceGray = [
+    {% for booking in DillonDanceGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillondance",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ]; 
+   console.log('dillondancegray is ');
+   console.log(dillondanceGray);
+  
+   var dillonmpr = [
+    {% for booking in DillonMPR %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillonmpr",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+   console.log('dillmpr:');
+   console.log(dillonmpr);
+
+   var dillonmprGray = [
+    {% for booking in DillonMPRGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillonmpr",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ]; 
+   console.log('dillmprgray');
+   console.log(dillonmprGray);
+
+   var dillonmar = [
+    {% for booking in DillonMAR %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillonmar",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+
+  var dillonmarGray = [
+    {% for booking in DillonMARGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"dillonmar",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ]; 
+
+  
+   var whitman = [
+    {% for booking in Whitman %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"whitman",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+    var whitmanGray = [
+    {% for booking in WhitmanGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"whitman",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+   var murphy = [
+    {% for booking in Murphy %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"murphy",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+   var murphyGray = [
+    {% for booking in MurphyGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"murphy",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+    var ns = [
+    {% for booking in NewSouth %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ns",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+   var nsGray = [
+    {% for booking in NewSouthGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"ns",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+    var nswarmup = [
+    {% for booking in NSWarmup %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"nswarmup",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+   var nswarmupGray = [
+    {% for booking in NSWarmupGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"nswarmup",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+
+    var nstheatre = [
+    {% for booking in NSTheatre %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"nstheatre",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+   var nstheatreGray = [
+    {% for booking in NSTheatreGray %}
+        {
+         company_name:"{{booking.company_name}}",
+         company_id:"{{booking.company_id}}",
+         start_time:"{{booking.start_time}}",
+         end_time:"{{booking.end_time}}",
+         studio:"nstheatre",
+         week_day:"{{booking.week_day}}",
+         booking_date:"{{booking.booking_date}}",
+         user_netid:"{{booking.user_netid}}"
+        },
+    {% endfor %}
+   ];
+
+
+
+   // for each of the studio we call function called createBooking
+   wilcox.forEach(createBooking);
+   bloomberg.forEach(createBooking);
+   dillondance.forEach(createBooking);
+   dillonmar.forEach(createBooking);
+   dillonmpr.forEach(createBooking);
+   whitman.forEach(createBooking);
+   murphy.forEach(createBooking);
+   ns.forEach(createBooking);
+   nswarmup.forEach(createBooking);
+   nstheatre.forEach(createBooking);
+
+   wilcoxGray.forEach(createGrayBooking);
+   bloombergGray.forEach(createGrayBooking);
+   dillondanceGray.forEach(createGrayBooking);
+   dillonmarGray.forEach(createGrayBooking);
+   dillonmprGray.forEach(createGrayBooking);
+   whitmanGray.forEach(createGrayBooking);
+   murphyGray.forEach(createGrayBooking);
+   nsGray.forEach(createGrayBooking);
+   nswarmupGray.forEach(createGrayBooking);
+   nstheatreGray.forEach(createGrayBooking);
+
+
+   function createGrayBooking(item, index) {
+      for (let i = item.start_time; i != item.end_time; i++) {
+         // ex. wilcox5
+         // console.log(item.studio)
+         // creating a specified id that we already had in place 
+         let col = '#' + String(item.studio + i + item.week_day);
+
+         // console.log(col)
+         // for that element with particular id, add a class called test 
+         let group = item.company_name;
+         $(col).addClass('grayed');
+        //  $(col).addClass(group);
+         // $(col).html(item.company_name);
+         // console.log(item);
+         // don't allow it to be bookable 
+         $(col).attr('onclick', '');
+         $(col).attr('data-toggle',"tooltip");
+  		 $(col).attr('data-placement', "top"); 
+  		 $(col).data('delay', 0);
+  		 $(col).attr('title', "This space is already booked.");
+         $(col).attr('data-name', item.company_name);
+         $(col).attr('data-nameid', item.company_id);
+         $(col).attr('data-starttime', item.start_time);
+         $(col).attr('data-endtime', item.end_time);
+         $(col).attr('data-studio', item.studio);
+         $(col).attr('data-weekday', item.week_day);
+         $(col).attr('data-bookingdate', item.booking_date);
+         $(col).attr('data-usernetid', item.user_netid);
+
+   }
+ }
+
+
+   // here is the function createBooking defined 
+   function createBooking(item, index) {
+      for (let i = item.start_time; i != item.end_time; i++) {
+         // ex. wilcox5
+         // console.log(item.studio)
+         // creating a specified id that we already had in place 
+         let col = '#' + String(item.studio + i + item.week_day);
+
+         // console.log(col)
+         // for that element with particular id, add a class called test 
+         let group = item.company_name;
+         $(col).addClass('helen');
+         $(col).addClass(group);
+         $(col).html(item.company_name);
+         // on hovering over this element that user booked, allow to drop
+         if ("{{user}}" == item.user_netid) {
+            $(col).attr('onmouseover', 'del(event)');
+            $(col).attr('data-toggle',"tooltip");
+  		 	$(col).attr('data-placement', "top"); 
+  		 	$(col).data('delay', 0);
+  		 	$(col).attr('title', "Click to drop space");
+         }
+
+         $(col).attr('onclick', 'handleDrop(event)');
+         $(col).attr('data-name', item.company_name);
+         $(col).attr('data-nameid', item.company_id);
+         $(col).attr('data-starttime', item.start_time);
+         $(col).attr('data-endtime', item.end_time);
+         $(col).attr('data-studio', item.studio);
+         $(col).attr('data-weekday', item.week_day);
+         $(col).attr('data-bookingdate', item.booking_date);
+         $(col).attr('data-usernetid', item.user_netid);
+         // upon click, calls drop() 
+         // $(col).attr('onclick','drop()');
+      }  
+   }
+}
+
+	// everytime we load this on a non-home page, we don't want the book a space to be seen 
+	function hideBookButton() {
+		console.log('determine place and what to hide')
+		var place = String(window.location.pathname);
+		console.log('place is' + place);
+			if (place != "/" || place != "/homepage" || place == "/schedule") {
+			 	console.log('Currently on schedule page, disable book button');
+			 	$('#bookingbutton').css('display','none');
+			 	$('tr').css('cursor','pointer');
+			 }
+			 if (place == '/' || place == '/homepage') {
+			 	$('#bookingbutton').css('display','inline-block');
+			 	$('tr').removeClass('row100');
+			 	$('tr').css('cursor','default');
+			 }
+	}
+
+	function openChangedDate() {
+		dayOpen = parseInt("{{openday}}");
+		console.log(dayOpen);
+		var daysofweek = ['sun','mon','tue','wed','thu','fri','sat'];
+    	openDay(daysofweek[dayOpen], 'd'+dayOpen);
+
+    	$('#week').attr('data-toggle',"tooltip");
+  		$('#week').attr('data-placement', "top"); 
+  		$('#week').data('delay', 0);
+
+  		function readableDate(dateStr) {
+  			var split = dateStr.split('-');
+  			var date = new Date(split[0], split[1]-1, split[2]);
+  			console.log('from readable' + date);
+  			return date.toDateString();
+
+  		}
+  		console.log('{{formatdate}}');
+  		var start = readableDate("{{formatdate}}");
+  		var end = readableDate("{{enddate}}");
+  		$('#week').attr('title', "Week start: " + start + ' to: ' + end);
+		
+	}
+
+	function handleBookSuccess() {
+		var success = parseInt("{{booksuccess}}");
+		console.log('booking success is: ' + success);
+		if (success == 1) {
+			console.log("Booking completed!");
+			showConfirm('Booking successfully completed!');
+		}
+		else if (success == 0) {
+			console.log("Booking could not be made!");
+			showConfirm('Booking not successful! This time slot just got reserved.');
+		}
+	}
+
+	function handleDropSuccess() {
+		var success = parseInt("{{dropsuccess}}");
+		console.log('dropping success is: ' + success);
+		if (success == 1) {
+			console.log("Dropping completed!");
+			showConfirm('Dropping successfully completed!');
+		}
+		else if (success == 0) {
+			console.log("Dropping could not be made!");
+			showConfirm('Dropping not successful! Please try again or make sure you are allowed to drop this space.');
+		}
+	}
+	// calls upon page load
+	// FOR ALL SUBSEQUENT RENDERING OF THIS PAGE 
+	openChangedDate();
+	fwdbck()
+	populate();
+	handleBookSuccess();
+	handleDropSuccess();
+	hideBookButton();
+
+</script>

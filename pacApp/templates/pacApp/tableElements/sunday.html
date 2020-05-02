@@ -5,7 +5,7 @@
 				<table class="table-bordered">
 						{% include 'templates/pacApp/tableElements/weekendtimeheader.html' %}
 
-				<!--		<tbody> -->
+
 
 							<tr class="row100">
 								<td class="studio">Wilcox</td>
@@ -13,17 +13,14 @@
 								<!-- wilcox00 -->
 								<td id="wilcox{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!-- <td id="wilcox10" onclick="canEdit(this.id)"></td>
-								<td id="wilcox20" onclick="book(this.id)"></td>-->
+							
 							</tr>
 							<tr class="row100">
 								<td class="studio">Bloomberg</td>
 								{% for i in 9|get_range:25 %}
 								<td id="bloomberg{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!-- <td id="bloomberg10" onclick="canEdit(this.id)"></td>
-								<td id="bloomberg20" onclick="canEdit(this.id)"></td> --> 
-				
+								
 							</tr>
 
 							<tr class="row100">
@@ -31,18 +28,13 @@
 								{% for i in 9|get_range:25 %}
 								<td id="dillondance{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!-- <td id="dillondance10" onclick="canEdit(this.id)"></td>
-								<td id="dillondance20" onclick="canEdit(this.id)"></td> -->
-							
+								
 							</tr>
 							<tr class="row100">
 								<td class="studio">Dillon MAR</td>
 								{% for i in 9|get_range:25 %}
 								<td id="dillonmar{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!--<td id="dillonmar10" onclick="canEdit(this.id)"></td>
-								<td id="dillonmar20" onclick="canEdit(this.id)"></td> -->
-					
 							</tr>
 
 
@@ -51,9 +43,6 @@
 								{% for i in 9|get_range:25 %}
 								<td id="dillonmpr{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!--<td id="dillonmpr10" onclick="canEdit(this.id)"></td>
-								<td id="dillonmpr20" onclick="canEdit(this.id)"></td> -->
-					
 							</tr>
 
 							
@@ -63,10 +52,6 @@
 								{% for i in 9|get_range:25 %}
 								<td id="whitman{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!-- <td id="whitman10" onclick="canEdit(this.id)"></td>
-								<td id="whitman20" onclick="canEdit(this.id)"></td> -->
-					
-					
 							</tr>
 
 							<tr class="row100">
@@ -74,9 +59,6 @@
 								{% for i in 9|get_range:25 %}
 								<td id="murphy{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!-- <td id="murphy10" onclick="canEdit(this.id)"></td>
-								<td id="murphy20" onclick="canEdit(this.id)"></td> -->
-					
 							</tr>
 
 							<tr class="row100">
@@ -84,8 +66,6 @@
 								{% for i in 9|get_range:25 %}
 								<td id="ns{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!-- <td id="ns10" onclick="canEdit(this.id)"></td>
-								<td id="ns20" onclick="canEdit(this.id)"></td> -->
 								
 							</tr>
 								
@@ -94,9 +74,6 @@
 								{% for i in 9|get_range:25 %}
 								<td id="nswarmup{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!-- <td id="nswarmup10" onclick="canEdit(this.id)"></td> 
-								<td id="nswarmup20" onclick="canEdit(this.id)"></td> -->
-								
 							</tr>
 
 							<tr class="row100">
@@ -104,11 +81,7 @@
 								{% for i in 9|get_range:25 %}
 								<td id="nstheatre{{i}}0" onclick="canEdit(this.id)"></td>
 								{% endfor %}
-								<!-- <td id="nstheatre10" onclick="canEdit(this.id)"></td>
-								<td id="nstheatre20" onclick="canEdit(this.id)"></td> -->
-								
 							</tr>
-						<!-- </tbody> -->
 				</table>
 			</div>
 		</div>
