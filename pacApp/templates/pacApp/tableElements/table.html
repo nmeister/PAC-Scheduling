@@ -78,7 +78,7 @@
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
-         studio:"bloomberg",
+         studio:"wilcox",
          week_day:"{{booking.week_day}}",
          booking_date:"{{booking.booking_date}}",
          user_netid:"{{booking.user_netid}}"
@@ -99,6 +99,7 @@
         },
     {% endfor %}
    ];
+   console.log(bloomberg)
 
    var bloombergGray = [
     {% for booking in BloombergGray %}
@@ -113,6 +114,7 @@
         },
     {% endfor %}
    ];
+   console.log(bloombergGray)
 
 
   var dillondance = [
@@ -135,7 +137,7 @@
          company_name:"{{booking.company_name}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
-         studio:"bloomberg",
+         studio:"dilliondance",
          week_day:"{{booking.week_day}}",
          booking_date:"{{booking.booking_date}}",
          user_netid:"{{booking.user_netid}}"
