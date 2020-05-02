@@ -79,13 +79,18 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .today {
   background-color:#ffc7c7;
 
-
 }
 
 .helen {
   background: #df7366;
   color: #fff;
   text-align:center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  max-width:1em;
+  max-height:0.5em;
 }
 
 /* CSS FOR EACH OF THE DIFFERENT GROUPS */
