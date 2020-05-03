@@ -1,6 +1,8 @@
 <form>
 	<div id="bookstudio"></div>
 	<div id="bookstarttime"></div>
+  <!-- <div id="numhours"><span>Num Hours:</span>
+    <input id="nhours" class="form-control" type="number" min=1 max=4 style="width:40%;display:inline-block;line-height:0.7em;font-size:0.9em"></div> -->
 	<div id="dayofweek"></div>
 	<div id="bookdate"></div>
   <!-- upon clicking this button, calls sendbook with the value of confirm previously made --> 
@@ -9,13 +11,13 @@
   <br>
   <input type="radio" id="self" name="usertype" value="self" required><label class="grouplabel" for="self" style="font-size:0.9em">Self</label>
 		<div class="reveal-if-activeSelf">
-  			Name: <input class="require-if-active" id="selfname" type="text"/>
+  			Name: <input class="require-if-active form-control" style="width:50%;display:inline-block;background-color:#fff;" id="selfname" type="text" placeholder="  Please enter your name" />
   		</div>
   <input type="radio" id="group" name="usertype" value="group"><label class="grouplabel" style="font-size:0.9em" for="group">Group</label> 
 	  <br>
 	  <div class="reveal-if-activeGroup text-nowrap form-group">
 	  	<label for="group" style="font-size:0.9em">Groups:</label>
-	  	<select class="form-control custom-select" id="selectgroup" style="width:55%;font-size:0.9em;height:40%">
+	  	<select class="form-control custom-select" id="selectgroup" style="width:55%;font-size:0.75em;height:2.5em;">
 		    <option value="" disabled selected>Select a group</option>
 		    <option value="1">BAC</option>
 		    <option value="2">Bhangra</option>

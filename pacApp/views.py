@@ -268,24 +268,28 @@ def updateBooking(request):
 def create_booking(date, studio, name, nameid, starttime, endtime, day, profile):
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
-    
-    bookExist = Booking.objects.filter(studio_id=studioList[studio]).filter(booking_date=date)
-    bookExist = bookExist.filter(start_time=starttime).filter(end_time=endtime).filter(week_day=day)
-    if bookExist.exists():
-      print('bad already exists, cannot be booked')
-      return 0
-    else:
-      # doesn't exist therefore make a new booking 
-      book = Booking(studio_id=studioList[studio],
+    count = 0 
+    for i in range(int(starttime),int(endtime)):
+      bookExist = Booking.objects.filter(studio_id=studioList[studio]).filter(booking_date=date)
+      bookExist = bookExist.filter(start_time=int(i)).filter(end_time=i+1).filter(week_day=day)
+      if bookExist.exists():
+        print('bad already exists, cannot be booked')
+        return 0
+      else:
+        print(name)
+      # doesn't exist therefore make a new booking
+        book = Booking(studio_id=studioList[studio],
                    company_id=nameid,
                    user_netid=profile,
                    company_name=name,
-                   start_time=starttime,
-                   end_time=endtime,
+                   start_time=i,
+                   end_time=i+1,
                    week_day=day,
                    booking_date=date)
       book.save()
-      return 1
+      count += 1
+    print(count)
+    return 1
 
 
 def updateDropping(request: HttpResponse):
@@ -322,7 +326,7 @@ def delete_booking(date, studio, name, nameid, starttime, endtime, day, profile)
     print('in delete booking')
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
-
+    print(name)
     # grab the booking you want to delete
     try:
         book_to_del = Booking.objects.get(studio_id=studioList[studio],

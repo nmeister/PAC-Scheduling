@@ -38,6 +38,9 @@
 
  	<span class="tablinks" id="bookingbutton" style="background-color:#df7366; color:#fff;margin-top:0.8em; font-size:0.8em; padding: 0.4em;border-radius:0.2em"><a style="text-decoration-line:none;" href="schedule">Book a Space</a>
  	</span>
+  <span id="confirmMulti"></span>
+
+
  	<!-- going to next week --> 
  	<span class="arrow next tablinks" id="forward" onclick="setupWeek('nextweek')"></span>
 </div>
@@ -421,9 +424,9 @@
          // don't allow it to be bookable 
          $(col).attr('onclick', '');
          $(col).attr('data-toggle',"tooltip");
-  		 $(col).attr('data-placement', "top"); 
-  		 $(col).data('delay', 0);
-  		 $(col).attr('title', "This space is already booked.");
+  		  $(col).attr('data-placement', "top"); 
+  		  $(col).data('delay', 0);
+        $(col).attr('title', "This space is already booked.");
          $(col).attr('data-name', item.company_name);
          $(col).attr('data-nameid', item.company_id);
          $(col).attr('data-starttime', item.start_time);
@@ -483,10 +486,16 @@
 			if (place != "/" || place != "/homepage" || place == "/schedule") {
 			 	console.log('Currently on schedule page, disable book button');
 			 	$('#bookingbutton').css('display','none');
+       // $('#bookingbutton').html('Book Multiple Slots')
+       // $('#bookingbutton').attr('href', '');
+       // $('#bookingbutton').attr('onclick', 'multiselect()');
 			 	$('tr').css('cursor','pointer');
 			 }
 			 if (place == '/' || place == '/homepage') {
 			 	$('#bookingbutton').css('display','inline-block');
+        $('#bookingbutton').attr('href', 'schedule');
+        $('#bookingbutton').html('Book a Space');
+        $('#bookingbutton').attr('onclick', 'location.href="schedule"');
 			 	$('tr').removeClass('row100');
 			 	$('tr').css('cursor','default');
 			 }

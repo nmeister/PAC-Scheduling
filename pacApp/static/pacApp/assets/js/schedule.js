@@ -302,11 +302,16 @@ function withinCurrentHourBooking(left, id) {
   $('#two').html('NO');
   var yes = document.getElementById("one");
   var no = document.getElementById("two");
-
+  var multi = $('#scheduletable').data('multi');
   yes.onclick = function() {
     modal.style.display = "none";
     console.log('continue booking');
-    book(id);
+    if (multi == 0) {
+      book(id);
+    }
+    else if (multi == 1) {
+      bookmulti(id);
+    }
   }
 
   no.onclick = function() {
@@ -362,6 +367,11 @@ function canEdit(id) {
     editable = 1
     console.log('can book');
   }
+  if ($('#' +id).data('selected') == 1) {
+    console.log('selected');
+    deleteSelected(id);
+    return;
+  }
   var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
   console.log(studioNum)
   var day = studioNum[1] % 10;
@@ -380,6 +390,8 @@ function canEdit(id) {
   console.log('this timeslot' + strictdate.getTime());
 
   var stillBook = 'no'
+  var multi = $('#scheduletable').data('multi');
+  console.log('multi', multi);
   if (strictdate.getTime() < today.getTime()) {
       if (today.getTime() - strictdate.getTime() < 55 * 60000) {
         console.log('still within 55 minutes');
@@ -391,7 +403,12 @@ function canEdit(id) {
   }
   if (editable == 1) {
       console.log('can book');
+      if (multi == 0) {
       book(id);
+    }
+    else if (multi == 1) {
+      bookmulti(id);
+    }
   }
   else {
       console.log('way past booking time');
@@ -518,6 +535,13 @@ function booking(studio,day,hour,id) {
   var bookdate = document.getElementById('bookdate');
   // console.log(date)
   bookdate.innerHTML = "Booking Day: " + date.toDateString();
+  var currdate = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
+  var nextdate = new Date(dateArr[0], dateArr[1]-1, parseInt(dateArr[2]) + 1);
+  // SETTING A MAX - THIS DOESN'T ACTUALLY WORK I THINK
+  /*var max = nextdate.setHours(1) - (currdate.setHours(hour));
+  console.log(new Date(nextdate));
+  console.log(max/3600000);
+  document.getElementById('nhours').max = max; */
 
   var confirm = document.getElementById("confirm");
   // should have studio[start_time][dayofweek].yyyy-mm-dd
@@ -563,6 +587,19 @@ function handleBadUser(msg) {
   }
 }
 
+function allLetters(inputtxt) {
+   var letters = /^[A-Za-z]+$/;
+   if(inputtxt.match(letters))
+     {
+      return true;
+     }
+   else
+     {
+     console.log('bad name entered');
+     return false;
+     }
+}
+
 // sendbook gathers all the stuff necessary to make a booking 
 function sendbook(id) {
     // checks whether or not there are selected groups 
@@ -577,6 +614,10 @@ function sendbook(id) {
     // if selected user is self
     if (selectedUser == 'self') {
       var user = ($('#selfname').val());
+      if (allLetters(user) == false) {
+        handleBadUser('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
+        return;
+      }
       var userid = 0;
       if (user == "") {
         handleBadUser('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
@@ -597,11 +638,18 @@ function sendbook(id) {
     var modal = document.getElementById("myModal");
     modal.style.display = "none"; 
     // uncheck this upon sending confirm
-    $("input[name='usertype']:checked").prop('checked', false); 
+    $("input[name='usertype']:checked").prop('checked', false);
+
     document.getElementById("selectgroup").selectedIndex = 0;
 
     $("#selfname").val('');
-        
+    // THE FOLLOWING FOR SELECTED HOURS 
+   /* var numhours = parseInt($('#nhours').val());
+    if (numhours == null || numhours == '') {
+      numhours = 1;
+    }
+    $('#nhours').val('');*/
+
     // splits from id and helps parse each detail 
     var info = id.split('.');
     console.log(info)
@@ -638,7 +686,7 @@ function sendbook(id) {
              'starttime': hour, // int start time 
              'endtime': hour+1, 
              'day': day, // day of the week 
-             'name': user, // name of person who is booking
+             'name': encodeURIComponent(user), // name of person who is booking
              'nameid': userid,
              'currweek': currweek,
              'groups': groups, 
@@ -870,3 +918,108 @@ Date.prototype.getWeekNumber = function() {
   
   return Math.ceil((this.getDay() + 1 + numberOfDays) / 7); 
 } 
+
+
+
+function multiselect() {
+  console.log('multiselect');
+  $('#scheduletable').data('multi', 1);
+  $('#bookingbutton').css('border', 'solid 0.2em lightblue');
+  $('#bookingbutton').css('background-color', '#df7366');
+  $('#bookingbutton').attr('onclick', 'deselect()');
+  $('#bookingbutton').css('display','none');
+  var confirm = '<span id="multiSub" class="button" style="padding:0.5em;margin:0.25em;font-size:0.8em" onclick="sendmultibook()">CONFIRM</span>';
+  var cancel = '<span class="button" style="padding:0.5em;margin:0.25em;font-size:0.8em" onclick="deselect()">CANCEL</span>';
+  $('#confirmMulti').html(confirm+cancel);
+
+}
+
+
+function deselect() {
+  var confirm = $('#multiSub').val().split('/');
+  console.log(confirm);
+  for (var i = 1; i < confirm.length; i++) {
+    console.log(confirm[i])
+    $('#'+confirm[i]).css('background-color','');
+    $('#'+confirm[i]).data('selected',0);
+  }
+  $('#multiSub').val('');
+  $('#bookingbutton').attr('onclick', 'multiselect()');
+  $('#bookingbutton').css('display','inline-block');
+  $('#confirmMulti').html('');
+  $('#bookingbutton').css('background-color', '#df7366');
+  $('#bookingbutton').css('border', '');
+  $('#scheduletable').data('multi', 0);
+  
+}
+
+
+function bookmulti(id) {
+  console.log(id);
+  $('#'+id).css('background-color','pink');
+  $('#'+id).data('selected',1);
+  /*var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
+  // console.log(studioNum[0])
+  // console.log(studioNum[1]);
+  var studio = studioNum[0]
+  var day = studioNum[1] % 10; 
+  var hour = studioNum[1] / 10;
+  var content = '#content' + day;
+  console.log($(content).data('date'));
+  var dateArr = $(content).data('date').split('-');
+  console.log(dateArr);
+  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
+  if (Math.trunc(hour) > 23) {
+    var nextday = parseInt(dateArr[2]) + 1
+    date = new Date(dateArr[0], dateArr[1]-1, nextday);
+  }
+  console.log(date);
+
+  $('#multiSub').val($('#multiSub').val() + '/' + id + '.' + buildDate(date));
+  // dilliondance203.2020-04-15 / 
+  console.log($('#multiSub').val()); */
+  $('#multiSub').val($('#multiSub').val() + '/' + id );
+
+}
+
+function sendmultibook() {
+  console.log('in multisend book ', $('#multiSub').val());
+  var slots = $('#multiSub').val();
+  deselect();
+
+}
+
+function removeElement(array, elem) {
+    var index = array.indexOf(elem);
+    console.log(index);
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+}
+
+function deleteSelected(id) {
+  var confirm = $('#multiSub').val().split('/');
+  /*var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
+  // console.log(studioNum[0])
+  // console.log(studioNum[1]);
+  var studio = studioNum[0]
+  var day = studioNum[1] % 10; 
+  var hour = studioNum[1] / 10;
+  var content = '#content' + day;
+  var dateArr = $(content).data('date').split('-');
+  console.log(dateArr);
+  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
+  if (Math.trunc(hour) > 23) {
+    var nextday = parseInt(dateArr[2]) + 1
+    date = new Date(dateArr[0], dateArr[1]-1, nextday);
+  }
+  var findId = id + '.' + buildDate(date);
+  console.log(confirm);
+  removeElement(confirm, findId);
+  $('#multiSub').val(confirm.join('/')); */
+  removeElement(confirm, id);
+  $('#multiSub').val(confirm.join('/'));
+  console.log($('#multiSub').val());
+  $('#'+id).css('background-color','');
+  $('#'+id).data('selected',0);
+}

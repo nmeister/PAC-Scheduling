@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div id="scheduletable">
+    <div id="scheduletable" data-multi=0>
         {% csrf_token %}
               <!-- CALENDAR ITSELF --> 
               {% include 'templates/pacApp/tableElements/calendar.html' %}
