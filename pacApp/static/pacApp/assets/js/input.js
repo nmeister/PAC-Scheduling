@@ -1,3 +1,5 @@
+// var myVar = document.getElementById("all_ad_results");
+console.log(all_requests);
 
 function openTab(evt, tab) {
   // Declare all variables
@@ -181,6 +183,16 @@ function wasClicked_Alg(event, type)
     event.preventDefault();
     return false; 
   } */
+
+  var ad_requests = "{{all_requests}}";
+  console.log(ad_requests);
+
+  
+  if (jQuery.isEmptyObject(ad_requests))
+  {
+    alert('There are no entries in the AD request table. Please complete the form in Step 1 and ensure there is at least one entry in the table in Step 2 before proceding to allocate spaces.')
+    return false;
+  }
 
   schedule_wasClicked = localStorage.getItem('schedule_wasClicked');
 

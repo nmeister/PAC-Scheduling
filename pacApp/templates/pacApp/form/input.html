@@ -120,11 +120,6 @@
 			please click the delete button below. 
 		</h4>
 		<br>
-
-		
-
-
-		
 			<form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'schedule');">
 				{% csrf_token %}
 
@@ -137,6 +132,15 @@
 				<input type="date" max="2999-12-31" autocomplete="on" name = "end_date">
 				<br>
 				<br>
+				<!-- {% for item in all_requests %}
+				<input type="hidden" id="all_ad_results" name="ad_results" value={{item.company_name}}>
+				{% endfor %}
+-->
+				{% if result == 'None' %} 
+				<script>
+					alert('Rehearsal spaces have not been scheduled because there are no inputted requests.')''
+				</script>
+				{% endif %}
 
 			<div class="input-group-append text-info">
 				<span class="input-grou-text bg-white py-0">

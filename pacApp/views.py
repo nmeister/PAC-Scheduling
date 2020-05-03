@@ -495,6 +495,13 @@ def scheduling_alg(request: HttpResponse):
   
     # get everything in db
     all_requests = ADRequest.objects.all()
+    if (ADRequest.objects.count() == 0):
+         results = 'None'
+    context = createContext(starttoday, groups)
+    context['available'] = carouselAvailable()
+    context['user'] = profile
+    return render(request, "templates/pacApp/home.html", context)
+    
 
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}

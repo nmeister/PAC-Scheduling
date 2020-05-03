@@ -1,5 +1,6 @@
 // var myVar = document.getElementById("all_ad_results");
-console.log(all_requests);
+var myVar = document.querySelector('input[type=hidden]')
+console.log(myVar);
 
 function openTab(evt, tab) {
   // Declare all variables

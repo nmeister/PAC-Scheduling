@@ -1,5 +1,6 @@
-// var myVar = document.getElementById("all_ad_results");
-console.log(all_requests);
+
+var ad_requests = "{{all_requests}}";
+console.log(ad_requests);
 
 function openTab(evt, tab) {
   // Declare all variables
