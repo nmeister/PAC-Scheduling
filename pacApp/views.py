@@ -756,7 +756,7 @@ def scheduling_alg(request: HttpResponse):
     for week in range(weeks):
         for i, space in df_results.iterrows():
             book = Booking(studio_id=space['Studio'],
-                        company_id=1,
+                        company_id=100,
                         company_name=space['Name'],
                         start_time=space['Start_Time'],
                         end_time=space['End_Time'],

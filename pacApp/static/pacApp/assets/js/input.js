@@ -85,20 +85,20 @@ function validateResponse()
 
   if (company=="") empty_inputs.push('Company Name');
 
-  if (company_day_1=="") empty_inputs.push('Company Day (Choice 1)'); //
-  if (company_studio_1=="") empty_inputs.push('Company Studio (Choice 1)');//
-  if (company_start_time_1=="") empty_inputs.push('Company Start Time (Choice 1)');
-  if (company_end_time_1=="") empty_inputs.push('Company End Time (Choice 1)');
+  if (company_day_1=="") empty_inputs.push('Company Day (Preference 1)'); //
+  if (company_studio_1=="") empty_inputs.push('Company Studio (Preference 1)');//
+  if (company_start_time_1=="") empty_inputs.push('Company Start Time (Preference 1)');
+  if (company_end_time_1=="") empty_inputs.push('Company End Time (Preference 1)');
 
-  if (company_day_2=="") empty_inputs.push('Company Day (Choice 2)');//
-  if (company_studio_2=="") empty_inputs.push('Company Studio (Choice 2)');//
-  if (company_start_time_2=="") empty_inputs.push('Company Start Time (Choice 2)');
-  if (company_end_time_2=="") empty_inputs.push('Company End Time (Choice 2)');
+  if (company_day_2=="") empty_inputs.push('Company Day (Preference 2)');//
+  if (company_studio_2=="") empty_inputs.push('Company Studio (Preference 2)');//
+  if (company_start_time_2=="") empty_inputs.push('Company Start Time (Preference 2)');
+  if (company_end_time_2=="") empty_inputs.push('Company End Time (Preference 2)');
 
-  if (company_day_3=="") empty_inputs.push('Company Day (Choice 3)');//
-  if (company_studio_3=="") empty_inputs.push('Company Studio (Choice 3)');//
-  if (company_start_time_3=="") empty_inputs.push('Company Start Time (Choice 3)');
-  if (company_end_time_3=="") empty_inputs.push('Company End Time (Choice 3)');
+  if (company_day_3=="") empty_inputs.push('Company Day (Preference 3)');//
+  if (company_studio_3=="") empty_inputs.push('Company Studio (Preference 3)');//
+  if (company_start_time_3=="") empty_inputs.push('Company Start Time (Preference 3)');
+  if (company_end_time_3=="") empty_inputs.push('Company End Time (Preference 3)');
 
   if (num_reho=="") empty_inputs.push('Number of Rehearsals Needed');
   if (num_members=="") empty_inputs.push('Number of Members');
@@ -130,21 +130,18 @@ function validateResponse()
     return false;
   }	
   else if (bad_company_time(company_start_time_1, company_end_time_1)=='true'){
-    alert('The end time for the company choice 1 is before the start time for company choice 1');
+    alert('The end time for the company preference 1 is before the start time for company preference 1');
     return false;
   }
   else if (bad_company_time(company_start_time_2, company_end_time_2)=='true'){
-    alert('The end time for the company choice 2 is before the start time for company choice 2');
+    alert('The end time for the company preference 2 is before the start time for company preference 2');
     return false;
   }
   else if (bad_company_time(company_start_time_3, company_end_time_3)=='true'){
-    alert('The end time for the company choice 3 is before the start time for company choice 3');
+    alert('The end time for the company preference 3 is before the start time for company preference 3');
     return false;
   }
-  else if (num_reho > 40) {
-    alert('This group requested too many rehearsal spaces. Please lower the number to less than 40 spaces per week.');
-    return false;
-  }
+  /* add code here for error validation!! */
   else return true;
 }
 

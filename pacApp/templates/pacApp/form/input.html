@@ -17,14 +17,14 @@
 <br>
 
 <!-- Tab links -->
-<strong> Company Day: </strong> Input top three choices for company. Begin by clicking on Choice 1 to fill in the information. Then click on Choice 2 and Choice 3 to insert more information.
+<strong> Company Day: </strong> Input top three choices for company. Begin by clicking on Preference 1 to fill in the information. Then click on Preference 2 and Preference 3 to insert more information.
 
 <div class="tab" style="display: flex; height: 60px;">
 <table style="width:100%" >
 	<tr>
-	  <td><div class="tablinks" onclick="openTab(event, 'company_day_1')">Choice 1</div></td>
-	  <td><div class="tablinks" onclick="openTab(event, 'company_day_2')">Choice 2</div></td>
-	  <td><div class="tablinks" onclick="openTab(event, 'company_day_3')">Choice 3</div></td>
+	  <td><div class="tablinks" onclick="openTab(event, 'company_day_1')">Preference 1</div></td>
+	  <td><div class="tablinks" onclick="openTab(event, 'company_day_2')">Preference 2</div></td>
+	  <td><div class="tablinks" onclick="openTab(event, 'company_day_3')">Preference 3</div></td>
 	 </tr>
 </table>
 </div>
@@ -35,8 +35,8 @@
 
 <table style="width:100%">
 	<tr>
-	  <td><strong>Number of Rehearsals Needed Per Week:  </strong><input type="number" min=0 class="form-control" name="num_reho"><br>	  </td>
-	  <td><strong>Number of Members:</strong>  <input type="number" min=0 class="form-control" name="num_members"><br>	  </td>
+	  <td><strong>Number of Rehearsals Needed Per Week:  </strong><input type="number" min=1 max=40 class="form-control" name="num_reho"><br>	  </td>
+	  <td><strong>Number of Members:</strong>  <input type="number" min=1 class="form-control" name="num_members"><br>	  </td>
 	 </tr>
 </table>
 
