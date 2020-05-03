@@ -49,6 +49,19 @@ function rankingCheck(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon
   else return "unique";
 }
 
+function alphanumeric(inputtxt) {
+  var letters = /^[0-9a-zA-Z]+$/;
+  if(inputtxt.match(letters))
+    {
+     return true;
+    }
+  else
+    {
+    console.log('bad name entered');
+    return false;
+    }
+}
+
 function validateResponse() 
 {
   var empty_inputs = []
@@ -116,7 +129,11 @@ function validateResponse()
 
   console.log(empty_inputs);
   
-
+  if (!alphanumeric(company)) {
+    alert('Company name contains an incorrect character that is not a letter or a number. Please enter a valid company name.')
+    return false;
+  }
+  
   if (rankingCheck(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank) == "not unique") {
     alert("The studio rankings are not unique. Please ensure that the numbers you've entered are different numbers for each box. Please fix your rankings and submit again.");
     return false;
@@ -201,6 +218,11 @@ function handleresponse(response)
 {
 	console.log('handle after update');
   $('.entire_page').html(response);
+}
+
+function validate_deleten(name)
+{
+  alert('Are you sure you want to delete ')
 }
 
 

@@ -1,4 +1,4 @@
-@import url("fontawesome-all.min.css");
+@import url("fontawesome-all.min.7dd3499c32f8.css");
 
 input[type="text"],
 textarea {
@@ -38,7 +38,6 @@ table, th, td {
   position:relative;
   cursor: pointer !important;
 }
-
 
 /* Style the buttons that are used to open the tab content */
 input[type="text"] .tab .tablinks {
