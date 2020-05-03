@@ -69,7 +69,7 @@ function handleBadDate() {
   console.log('handling a bad date modal');
   
   // handles all modal - make it seen 
-  var msg = 'Please enter a valid date. Earliest possible is 12/31/2000.';
+  var msg = '<strong> Please enter a valid date </strong> . <br> Earliest possible is 12/31/2000.';
   $('#errorMsg').html(msg);
   var modal = document.getElementById("errorModal");
   // Get the <span> element that closes the modal on the x button 
@@ -237,10 +237,10 @@ function homeCannotBook() {
   console.log('home cannot book error');
   var user = $('#scheduleOnHome').data('user');
   console.log('user from home is: ' + user);
-  var msg = 'You are not allowed to book or drop spaces on this page. Please login to do so.';
+  var msg = 'You are not allowed to book or drop spaces on this page. <br><strong>  Please login to do so. </strong> ';
   var buttonText = 'LOGIN';
   if (user != 'None') {
-    msg = 'You are not allowed to book or drop spaces on this page. Please click on the button to go to booking page.'
+    msg = 'You are not allowed to book or drop spaces on this page. <br> <strong> Please click on the button to go to booking page.</strong> '
     buttonText = 'BOOKING PAGE';
   }
   // handles all modal - make it seen 
@@ -278,7 +278,7 @@ function homeCannotBook() {
 // if we are within current hour and they still want to book 
 function withinCurrentHourBooking(left, id) {
   console.log('within current hour booking');
-  var msg = 'You only have <span>' + left + '</span> minutes left for this time slot. Do you want to continue booking?';
+  var msg = 'You only have <span>' + left + '</span> minutes left for this time slot. <br> <strong> Do you want to continue booking?</strong> ';
   $('#errorMsg').html(msg);
   // handles all modal - make it seen 
   var modal = document.getElementById("errorModal");
@@ -321,7 +321,7 @@ function pastTime() {
   console.log('past the time error modal');
   
   // handles all modal - make it seen 
-  var msg = 'You cannot book a time slot in the past. Please click on a time slot in the future';
+  var msg = 'You cannot book a time slot in the past. <br> <strong> Please click on a time slot in the future. </strong> ';
   $('#errorMsg').html(msg);
   var modal = document.getElementById("errorModal");
   // Get the <span> element that closes the modal on the x button 
@@ -442,30 +442,31 @@ function booking(studio,day,hour,id) {
   
   // handles all modal - make it seen 
   var modal = document.getElementById("myModal");
-  
   // Get the <span> element that closes the modal on the x button 
   var span = document.getElementById("bookClose");
   modal.style.display = "block";
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
-    modal.style.display = "none";
     $('#self').prop("checked", false);
     $('#group').prop("checked", false);
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
     document.getElementById("selectgroup").selectedIndex = 0;
+    modal.style.display = "none";
+    
   }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
-      modal.style.display = "none";
       // make sure they are unchecked when we close 
       $('#self').prop("checked", false);
       $('#group').prop("checked", false);
       $("#selfname").val('');
       $("input[name='usertype']:checked").prop('checked', false); 
       document.getElementById("selectgroup").selectedIndex = 0;
+      modal.style.display = "none";
+      
     }
   }
 
@@ -536,28 +537,29 @@ function handleBadUser(msg) {
   modal.style.display = "block";
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
-    modal.style.display = "none";
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
     document.getElementById("selectgroup").selectedIndex = 0;
+    modal.style.display = "none";
   }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
-      modal.style.display = "none";
       $("#selfname").val('');
       $("input[name='usertype']:checked").prop('checked', false); 
       document.getElementById("selectgroup").selectedIndex = 0;
+      modal.style.display = "none";
       // make sure they are unchecked when we close 
     }
   }
   var ok = document.getElementById("okbad");
   ok.onclick = function() {
-    modal.style.display = "none";
     $("#selfname").val('');
     $("input[name='usertype']:checked").prop('checked', false); 
     document.getElementById("selectgroup").selectedIndex = 0;
+    modal.style.display = "none";
+    
   }
 }
 
@@ -730,7 +732,7 @@ function handleDrop(event) {
   dropped_date.setHours(end_time);
   var today = new Date();
   if (dropped_date.getTime() < today.getTime()) {
-    pastDrop('You cannot drop a time slot in the past. Please click on a time slot in the future');
+    pastDrop('You cannot drop a time slot in the past. <br> <strong> Please click on a time slot in the future. </strong>');
     return;
   }
   var netid = $('#'+id).data('usernetid');
@@ -739,14 +741,14 @@ function handleDrop(event) {
   console.log('current person' + curruser);
   if (netid != curruser) {
     console.log('you cannot drop this');
-    pastDrop('You are not the booker of this space. You cannot drop/modify this time slot. ')
+    pastDrop('You are not the booker of this space. <br> <strong> You cannot drop/modify this time slot. </strong> ')
     return;
   }
 
   // ONCE WE MAKE SURE WE ARE ALLOWED TO DROP THIS
   // handles all modal - make it seen 
   var modal = document.getElementById("errorModal");
-  $('#errorMsg').html('Are you sure you want to drop this space?');
+  $('#errorMsg').html('<strong> Are you sure you want to drop this space? </strong>');
   // Get the <span> element that closes the modal on the x button 
   var span = document.getElementById("errorClose");
   modal.style.display = "block";

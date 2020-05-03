@@ -7,16 +7,16 @@
 	
   <span> Who are you booking for? </span>
   <br>
-  <input type="radio" id="self" name="usertype" value="self" required><label class="grouplabel" for="self">Self</label>
+  <input type="radio" id="self" name="usertype" value="self" required><label class="grouplabel" for="self" style="font-size:0.9em">Self</label>
 		<div class="reveal-if-activeSelf">
   			Name: <input class="require-if-active" id="selfname" type="text"/>
   		</div>
-  <input type="radio" id="group" name="usertype" value="group"><label class="grouplabel" for="group">Group</label> 
+  <input type="radio" id="group" name="usertype" value="group"><label class="grouplabel" style="font-size:0.9em" for="group">Group</label> 
 	  <br>
 	  <div class="reveal-if-activeGroup text-nowrap form-group">
-	  	<label for="group">Groups:</label>
-	  	<select class="form-control custom-select" id="selectgroup" style="width:50%;">
-		    <option value="" disabled selected>Select a group to book for</option>
+	  	<label for="group" style="font-size:0.9em">Groups:</label>
+	  	<select class="form-control custom-select" id="selectgroup" style="width:55%;font-size:0.9em;height:40%">
+		    <option value="" disabled selected>Select a group</option>
 		    <option value="1">BAC</option>
 		    <option value="2">Bhangra</option>
 		    <option value="3">BodyHype</option>
@@ -32,20 +32,22 @@
 	  	</select>
 	  </div>
 
- <div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:0.5em">Confirm</div>
+ <div id='confirm' class="button" onclick="sendbook(this.value)" style="float:right;padding:0.4em;font-size:0.9em">Confirm</div>
 </form>
 
 
 <div>
       <div id="handleBadUser" class="modal">
         <!-- Modal content -->
-        <div class="modal-content-error">
+        <div class="modal-content-error" style="height:20%;font-size:0.85em;">
           <span id="closeBadUser" style="text-align:right;" class="close">&times;</span>
-          <p id="badUserMsg"></p>
-          <div id="okbad" class="button" style="float:right;padding:4px 10px 4px 10px;display:inline-block;">OK</div>
+          <span id="badUserMsg" style="font-size:1.1em;"></span><br>
+          <span id="okbad" class="button" style="float:right;padding:0.3em 0.5em 0.3em 0.5em;display:inline-block;font-size:1.2em">OK</span>
         </div>
       </div>
    </div>
+
+
 
 
 <script> 

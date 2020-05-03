@@ -17,16 +17,18 @@
 #SETUP AND SPACING
 
 
-.column100:hover {
-  background-color: #f2f2f2;
-}
-
-
 .column100.column1:hover {
   background-color: #f2f2f2;
 }
 
 .row100.head th {
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  padding-left:0.5em;
+  font-size: 0.75em;
+}
+
+.row200.head th {
   padding-top: 0.3em;
   padding-bottom: 0.3em;
   padding-left:0.5em;
@@ -43,7 +45,7 @@ th {
 th.studio,
 td.studio {
   padding: 1em 8em 1.5em 1em;
-  font-size:0.8em;
+  font-size:0.95em;
   text-align:left;
   max-width:4em;
   line-height: 1.2em;
@@ -81,13 +83,15 @@ td.studio {
   color: #fff;
 }
 
-.table100.ver1 .row200:hover {
-  background-color: #f2f2f2;
-}
-
 
 .row100 td {
-  padding: 1em 0.6em 1em 0.6em;
+  padding: 1em 0.5em 1em 0.5em;
+  font-size: 0.8em;
+  max-width:4em;
+}
+
+.row200 td {
+  padding: 1em 0.5em 1em 0.5em;
   font-size: 0.8em;
   max-width:4em;
 }

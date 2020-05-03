@@ -1,10 +1,18 @@
 input[type="radio"], {
     -webkit-appearance: radio;
     cursor: pointer;
+    font-size:0.8em;
+    -ms-transform: scale(0.8); /* IE 9 */
+    -webkit-transform: scale(0.8); /* Chrome, Safari, Opera */
+    transform: scale(0.8);
 }
 input[type="checkbox"], {
    -webkit-appearance: checkbox;
    cursor: pointer;
+   font-size:0.8em;
+   -ms-transform: scale(0.8); /* IE 9 */
+    -webkit-transform: scale(0.8); /* Chrome, Safari, Opera */
+    transform: scale(0.8);
 }
 
 .reveal-if-activeSelf {
@@ -23,7 +31,7 @@ input[type="checkbox"], {
 input[type="radio"]#self:checked ~ .reveal-if-activeSelf,
 input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   opacity: 1;
-  max-height: 100px; /* little bit of a magic number :( */
+  max-height: 10em; /* little bit of a magic number :( */
   overflow: visible;
 }
 
@@ -33,7 +41,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   overflow: hidden;
   border:0.1em solid #ccc;
   background-color: #f1f1f1;
-  padding:0.7em 0.8em 0.7em 0.8em;
+  padding:0.7em 0.7em 0.7em 0.7em;
   width:100%;
   position:relative;
 }
@@ -45,10 +53,10 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 0.3em 0.7em 0.3em 0.7em;
+  padding: 0.3em 0.65em 0.3em 0.65em;
   transition: 0.3s;
-  margin:0.2em;
-  font-size:0.95em;
+  margin:0.15em;
+  font-size:0.87em;
   text-align:center;
   display:inline-block;
 
@@ -72,6 +80,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   width: 100%;
   overflow:auto;
   margin-right:0px;
+  line-height: 1.2em
 
 }
 
@@ -91,6 +100,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   max-width:3em;
   max-height:0.5em;
   padding:0.5em;
+
 }
 
 /* CSS FOR EACH OF THE DIFFERENT GROUPS */
@@ -199,11 +209,13 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 1.5em 1.5em 0em 1.5em;
+  padding: 1em 1.5em 0em 1.5em;
   border: 0.1em solid #888;
   width: 25%; /* Could be more or less, depending on screen size */
-  height:45%;
+  height:40%;
   overflow:auto;
+  font-size:0.85em;
+  line-height:1.6em;
 }
 
 /* Modal Content/Box */
@@ -212,9 +224,11 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   margin: 15% auto; /* 15% from the top and centered */
   padding: 1.5em;
   border: 0.1em solid #888;
-  width: 30%; /* Could be more or less, depending on screen size */
-  height: 25%;
+  width: 25%; /* Could be more or less, depending on screen size */
+  height: 27%;
+  font-size:0.9em;
   overflow:auto;
+  line-height:1.6em;
 }
 
 /* The Close Button */
@@ -240,12 +254,14 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   color:#fff;
   overflow:hidden;
   margin:1em 0em 1em 0em;
+  font-size:0.8em;
 }
 
 
 .selectgroup {
   padding-right:0.5em;
-  font-size:0.9em;
+  padding-left: 0.2em;
+  font-size:0.85em;
 }
 
 .ingroup {
@@ -268,6 +284,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   background: #fafafa;
   border: solid 1px #E5E5E5;
   padding: 0em;
+  font-size:0.8em;
 }
 
 #netid {
@@ -292,8 +309,8 @@ input[type=date]::-webkit-calendar-picker-indicator {
   border: solid #df7366;
   border-width: 0 0.6em 0.6em 0;
   display: inline-block;
-  width:0.3em;
-  height:0.3em;
+  width:0.2em;
+  height:0.2em;
   margin-top:3em;
   cursor:pointer;
   margin-left:3em;
@@ -301,13 +318,13 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 
 .next {
-  float:right;
+ 
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
 }
 
 .last{
-  float:left;
+ 
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 }
