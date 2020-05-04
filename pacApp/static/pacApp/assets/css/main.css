@@ -2232,19 +2232,18 @@ input, select, textarea {
 			border-radius: 100%;
 			width: 4.5em;
 			height: 4.5em;
-			line-height: 4.5em;
 			text-align: center;
 			font-size: 1.25em;
 			padding: 0;
 		}
 
-		#header .button:after {
+		/*#header .button:after {
         content: url(images/white-rt-triangle.png);
         width: 8px;
         height: 10px;
         float: right;
         margin: 1px 0 0 10px;
-        }
+        }*/
 
 		#header hr {
 			top: 1.5em;
