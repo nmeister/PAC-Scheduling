@@ -30,6 +30,13 @@ function openDay(tab, id) {
   // console.log(date[0].substring(2));
   $('#'+id+'date').html(reformatted);
   $('#'+id+'date').css('display','block');
+  if (window.refresh != null) {
+    clearInterval(window.refresh);
+    window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 5000);
+          console.log('window', window.refresh);
+  } 
 }
  
 // date is built as yyyy-mm-dd

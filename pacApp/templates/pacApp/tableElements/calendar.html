@@ -458,9 +458,9 @@
          if ("{{user}}" == item.user_netid) {
             $(col).attr('onmouseover', 'del(event)');
             $(col).attr('data-toggle',"tooltip");
-  		 	$(col).attr('data-placement', "top"); 
-  		 	$(col).data('delay', 0);
-  		 	$(col).attr('title', "Click to drop space");
+  		 	    $(col).attr('data-placement', "top"); 
+  		 	    $(col).data('delay', 0);
+  		 	    $(col).attr('title', "Click to drop space");
          }
 
          $(col).attr('onclick', 'handleDrop(event)');
@@ -540,6 +540,21 @@
 		}
 	}
 
+  function today() {
+    var today = buildDate(new Date());
+    var day = (new Date()).getDay();
+    console.log('today is ', today, day);
+    if ($('#d'+day).data('date') == today) {
+      console.log('on today');
+      $('#d'+day).addClass('today');
+    }
+    $('#d'+day).attr('data-toggle',"tooltip");
+    $('#d'+day).attr('data-placement', "top"); 
+    $('#d'+day).data('delay', 0);
+    $('#d'+day).attr('title', "Today");
+
+  }
+
 	function handleDropSuccess() {
 		var success = parseInt("{{dropsuccess}}");
 		console.log('dropping success is: ' + success);
@@ -559,6 +574,7 @@
 	populate();
 	handleBookSuccess();
 	handleDropSuccess();
+  today();
 	hideBookButton();
 
 </script>
