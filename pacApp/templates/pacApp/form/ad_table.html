@@ -34,7 +34,7 @@
         <tr>
           <td>
               <!-- update the form acion to be a delete entry maybe it needs to be button type submit to refresh-->
-                  <button type="button" class='btn' onclick="return delete_ad_request('{{item.company_name}}');">
+                  <button type="button" id='delete_button' class='btn' onclick="return delete_ad_request('{{item.company_name}}');">
                       <i class="far fa-trash-alt fa-lg text-danger float-right"> </i>
                   </button>
    
@@ -68,13 +68,22 @@
           <td>{{item.company_start_time_3}}</td>  
           <td>{{item.company_end_time_3}}</td>  
         </tr>
-        <script>
-          console.log(document.querySelector('.schedule_button'));
-        </script>
         {% empty %}
+        
         <!-- add a way to prevent schedule alg from being clickde-->
+        No AD_requests have been entered yet. Please go back to step 1 and enter information to populate this table.
         {% endfor %}
       </table>
    </div>
 <br>
 <br>
+
+<script>
+
+$(delete_button).attr('onmouseover', '');
+$(delete_button).attr('data-toggle',"tooltip");
+$(delete_button).attr('data-placement', "top"); 
+$(delete_button).data('delay', 0);
+$(delete_button).attr('title', "Click to delete this request");
+         
+</script>

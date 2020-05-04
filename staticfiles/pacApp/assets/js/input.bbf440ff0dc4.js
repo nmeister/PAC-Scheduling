@@ -1,3 +1,7 @@
+// var myVar = document.getElementById("all_ad_results");
+var myVar = document.querySelector('input[type=hidden]')
+console.log(myVar);
+
 function openTab(evt, tab) {
   // Declare all variables
   var i, tabcontent, tablinks;
@@ -33,7 +37,7 @@ function radio_check(radiobtn_name)
 function bad_company_time(start, end)
 {
   console.log('start: ', start, 'end:', end);
-  if (end <= start) return 'true';
+  if (end < start) return 'true';
   else return 'false';
 }
 
@@ -59,18 +63,6 @@ function alphanumeric(inputtxt) {
     console.log('bad name entered');
     return false;
     }
-}
-
-// Ensure company 1 is different form company 2. return true if they are not unique
-// company_1 is a list. company_1 = [company_day_1, company_studio_1, company_start_time_1, company_end_time_1]
-function same_company(company_1, company_2)
-{
-  if ((company_1[0] == company_2[0]) && (company_1[1] != company_2[1]) && 
-  (company_1[2] != company_2[2]) && (company_1[3] != company_2[3]))
-  {
-    return true;
-  }
-  else {return false;}
 }
 
 function validateResponse() 
@@ -139,48 +131,16 @@ function validateResponse()
   if (wilcox_rank=="") empty_inputs.push('Wilcox Rank'); 
 
   console.log(empty_inputs);
-
-  company_1 = [company_day_1, company_studio_1, company_start_time_1, company_end_time_1];
-  company_2 = [company_day_2, company_studio_2, company_start_time_2, company_end_time_2];
-  company_3 = [company_day_3, company_studio_3, company_start_time_3, company_end_time_3];
-
-
-  // if company is already in the db
-  if (company_already_entered(company_name))
-  {
-    alert('The company you are trying to submit already has an entry in the database as displayed in step 2. Please either delete your existing entry in the database or enter a different company name.')
-    return false;
-  }
-
-  // ensure that the company 1 and 2 entries are unique
-  if (same_company(company_1, company_2)) {
-    alert('Company preferences must be unique. Company 1 Preference is the same as the Company 2 preference.');
-    return false;
-  }
-
-  if (same_company(company_1, company_3)) {
-    alert('Company preferences must be unique. Company 1 Preference is the same as the Company 3 preference.');
-    return false;
-  }
-
-  if (same_company(company_2, company_3)) {
-    alert('Company preferences must be unique. Company 2 Preference is the same as the Company 3 preference.');
-    return false;
-  }
   
-  // ensure company name is alphanumerics
   if (!alphanumeric(company)) {
     alert('Company name contains an incorrect character that is not a letter or a number. Please enter a valid company name.')
     return false;
   }
   
-  // Ensure studio rankings are unique
   if (rankingCheck(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank) == "not unique") {
     alert("The studio rankings are not unique. Please ensure that the numbers you've entered are different numbers for each box. Please fix your rankings and submit again.");
     return false;
   }
-
-  // if any entry is empty
   else if (empty_inputs.length != 0)
   {
     console.log("This form did not submit");
@@ -189,8 +149,6 @@ function validateResponse()
     alert(alert_msg);
     return false;
   }	
-
-  // if the start time of one is after the end time
   else if (bad_company_time(company_start_time_1, company_end_time_1)=='true'){
     alert('The end time for the company preference 1 is before the start time for company preference 1');
     return false;
@@ -229,8 +187,6 @@ function wasClicked_Alg(event, type)
 
   var ad_requests = "{{all_requests}}";
   console.log(ad_requests);
-
-
   if (jQuery.isEmptyObject(ad_requests))
   {
     alert('There are no entries in the AD request table. Please complete the form in Step 1 and ensure there is at least one entry in the table in Step 2 before proceding to allocate spaces.')

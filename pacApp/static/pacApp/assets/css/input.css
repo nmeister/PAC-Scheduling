@@ -16,7 +16,6 @@ textarea {
 		-ms-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
 		transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
 }
-
 /*
 input::placeholder {
 	color: #B0B0B0;
@@ -37,7 +36,9 @@ table, th, td {
   padding: 6px 12px;
   width:100%;
   position:relative;
+  cursor: pointer !important;
 }
+
 
 /* Style the buttons that are used to open the tab content */
 input[type="text"] .tab .tablinks {
@@ -46,7 +47,7 @@ input[type="text"] .tab .tablinks {
   /* border: 1px solid #ccc; */
   border: none; 
   outline: none;
-  cursor: pointer;
+  cursor: pointer !important; 
 
   padding: 14px 16px;
   transition: 0.3s;
@@ -63,7 +64,10 @@ input[type="text"] .tab .tablinks {
 /* Change background color of buttons on hover */
 .tab div:hover {
   background-color: #ddd;
+  cursor: pointer !important; 
+  
 }
+
 
 
 /* Create an active/current tablink class */

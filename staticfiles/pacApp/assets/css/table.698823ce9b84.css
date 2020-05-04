@@ -1,0 +1,98 @@
+.container-table100 {
+  width: 100%;
+  /*min-height: 100vh;*/
+  background: #FFFF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-wrap: wrap;
+  padding:0px 0px 0px 0px;
+  table-layout:fixed;
+}
+
+#SETUP AND SPACING
+
+
+.column100.column1:hover {
+  background-color: #f2f2f2;
+}
+
+.row100.head th {
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  padding-left:0.5em;
+  font-size: 0.75em;
+}
+
+.row200.head th {
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  padding-left:0.5em;
+  font-size: 0.75em;
+
+}
+
+
+th {
+  width:20em;
+}
+
+/* more recent is priority css */ 
+th.studio,
+td.studio {
+  padding: 1em 8em 1.5em 1em;
+  font-size:0.95em;
+  text-align:left;
+  max-width:4em;
+  line-height: 1.2em;
+  white-space: nowrap;
+}
+
+
+#TABLE STYLING
+.table100.ver1 td {
+  /* color: #808080; */
+  line-height: 1.4;
+}
+
+.table100.ver1 th {
+  color: #808080;
+  line-height: 1.4;
+}
+
+.table100.ver1 .row100:hover {
+  background-color: #f2f2f2;
+}
+
+
+.table100.ver1 .hov-column-ver1 {
+  background-color: #f2f2f2;
+}
+
+.table100.ver1 .hov-column-head-ver1 {
+  background-color: #484848 !important;
+}
+
+
+.table100.ver1 .row100 td:hover {
+  background-color: #723875;
+  color: #fff;
+}
+
+
+.row100 td {
+  padding: 1em 0.5em 1em 0.5em;
+  font-size: 0.8em;
+  max-width:4em;
+}
+
+.row200 td {
+  padding: 1em 0.5em 1em 0.5em;
+  font-size: 0.8em;
+  max-width:4em;
+}
+

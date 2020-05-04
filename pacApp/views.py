@@ -408,6 +408,8 @@ def insert_ad_request(request: HttpResponse):
     company_start_time_3 = grab_time(request.POST['company_start_time_3'])
     company_end_time_3 = grab_time(request.POST['company_end_time_3'])
 
+    print(company_day_1, company_day_2, company_day_3)
+
     ad_req = ADRequest(company_name=request.POST['company_name'],
                        company_day_1=request.POST.get('company_day_1'),
                        company_start_time_1=company_start_time_1,
@@ -504,13 +506,17 @@ def delete_schedule_alg(response):
 
 def scheduling_alg(request: HttpResponse):
 
-    
     start_date = request.POST['start_date']
     end_date = request.POST['end_date']
     print(start_date, end_date)
   
     # get everything in db
     all_requests = ADRequest.objects.all()
+    if (ADRequest.objects.count() == 0):
+         results = 'None'
+         context['results'] = results
+         return render(request, "templates/pacApp/home.html", context)
+    
 
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}

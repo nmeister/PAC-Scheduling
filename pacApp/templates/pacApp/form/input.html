@@ -119,12 +119,10 @@
 			If you would like to delete the schedule this algorithm produced, 
 			please click the delete button below. 
 		</h4>
+		{% if result == 'None' %} 
+					<h3> Currently, rehearsal spaces have not been scheduled because there are no inputted requests. </h3>
+				{% endif %}
 		<br>
-
-		
-
-
-		
 			<form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'schedule');">
 				{% csrf_token %}
 
@@ -137,6 +135,11 @@
 				<input type="date" max="2999-12-31" autocomplete="on" name = "end_date">
 				<br>
 				<br>
+				<!-- {% for item in all_requests %}
+				<input type="hidden" id="all_ad_results" name="ad_results" value={{item.company_name}}>
+				{% endfor %}
+-->
+				
 
 			<div class="input-group-append text-info">
 				<span class="input-grou-text bg-white py-0">
@@ -161,4 +164,33 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+	$(delete_button).attr('onmouseover', '');
+	$(delete_button).attr('data-toggle',"tooltip");
+	$(delete_button).attr('data-placement', "top"); 
+	$(delete_button).data('delay', 0);
+	$(delete_button).attr('title', "Click to delete the scheduling algorithm results for the dates specified");
+
+	$(submit_button).attr('onmouseover', '');
+	$(submit_button).attr('data-toggle',"tooltip");
+	$(submit_button).attr('data-placement', "top"); 
+	$(submit_button).data('delay', 0);
+	$(submit_button).attr('title', "Click to submit this form");
+
+	$(submit_button).attr('onmouseover', '');
+	$(submit_button).attr('data-toggle',"tooltip");
+	$(submit_button).attr('data-placement', "top"); 
+	$(submit_button).data('delay', 0);
+	$(submit_button).attr('title', "Click to submit this form");
+
+	$(schedule_button).attr('onmouseover', '');
+	$(schedule_button).attr('data-toggle',"tooltip");
+	$(schedule_button).attr('data-placement', "top"); 
+	$(schedule_button).data('delay', 0);
+	$(schedule_button).attr('title', "Click to apply to the scheduling algorithm to schedule all groups in the dates specified");
+	
+         
+         
+</script>
 
