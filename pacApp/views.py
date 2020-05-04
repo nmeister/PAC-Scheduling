@@ -22,6 +22,7 @@ import numpy as np
 import copy
 import random
 import calendar
+import json
 # from uniauth.models import Institution, InstitutionAccount, LinkedEmail
 
 
@@ -291,6 +292,21 @@ def create_booking(date, studio, name, nameid, starttime, endtime, day, profile)
     print(count)
     return 1
 
+def updateMulti(request: HttpResponse):
+    profile = request.user.uniauth_profile.get_display_id()
+    slots = request.POST['slots[]']
+    data = json.loads(slots)
+    for i in data:
+      create_booking(handleDateStr(i['booking_date']), i['studio'], 
+        i['company_name'], i['company_id'], i['start_time'], 
+        i['end_time'], i['week_day'], i['user_netid'])
+    startdate = handleDateStr(request.POST['currweek'])
+    openday = handleDateStr(request.POST['openday'])
+    groups = handleGroup(request.POST['groups'])
+    context = createContext(startdate, groups)
+    context['openday'] = openday.strftime('%w')
+    context['user'] = profile
+    return render(request, "templates/pacApp/tableElements/calendar.html", context)
 
 def updateDropping(request: HttpResponse):
 
