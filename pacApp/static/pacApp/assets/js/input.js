@@ -212,7 +212,7 @@ function validateResponse()
 function wasClicked_Alg(event, type)
 {
 
-  var start_date = document.querySelector('input[type=start_date]').value.trim();
+  var start_date = document.querySelector('input[name=start_date]').value.trim();
   var end_date = document.querySelector('input[name=end_date]').value.trim();
   var start_dateArr = start_date.split('-');
   var end_dateArr = start_date.split('-');
