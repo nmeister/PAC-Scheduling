@@ -35,6 +35,13 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   overflow: visible;
 }
 
+input[type="radio"]#selfM:checked ~ .reveal-if-activeSelf,
+input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
+  opacity: 1;
+  max-height: 10em; /* little bit of a magic number :( */
+  overflow: visible;
+}
+
 
 /* Style the tab */
 .tab {
@@ -247,7 +254,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
 }
 
 
-#groupselect {
+#groupselect, #groupselectM {
   padding:1em 2em 2em 2em;
   background-color: #df7366;
   font-weight:400;
@@ -275,7 +282,7 @@ input[type="radio"]#group:checked ~ .reveal-if-activeGroup {
   padding: 0em 0.4em 0em 0.5em;
 }
 
-#selfname {
+#selfname, #selfnameM {
   border-radius: 0.2em;
   border: solid 1px #E5E5E5
   line-height:0.5em;

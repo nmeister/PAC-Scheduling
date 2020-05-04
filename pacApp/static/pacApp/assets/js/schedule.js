@@ -619,13 +619,13 @@ function sendbook(id) {
     // if selected user is self
     if (selectedUser == 'self') {
       var user = ($('#selfname').val());
-      if (allLetters(user) == false) {
-        handleBadUser('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
-        return;
-      }
       var userid = 0;
       if (user == "") {
         handleBadUser('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
+        return;
+      }
+      if (allLetters(user) == false) {
+        handleBadUser('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
         return;
       }
     }
@@ -948,6 +948,8 @@ function deselect() {
     $('#'+confirm[i]).css('background-color','');
     $('#'+confirm[i]).data('selected',0);
   }
+  $('#multiSub').data('users','');
+  console.log('multisub-users is', $('#multiSub').data('users'));
   $('#multiSub').val('');
   $('#bookingbutton').attr('onclick', 'multiselect()');
   $('#bookingbutton').css('display','inline-block');
@@ -979,11 +981,11 @@ function userInfoModalMulti(id) {
   modal.style.display = "block";
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
-    $('#self').prop("checked", false);
-    $('#group').prop("checked", false);
-    $("#selfname").val('');
-    $("input[name='usertype']:checked").prop('checked', false); 
-    document.getElementById("selectgroup").selectedIndex = 0;
+    $('#selfM').prop("checked", false);
+    $('#groupM').prop("checked", false);
+    $("#selfnameM").val('');
+    $("input[name='usertypeM']:checked").prop('checked', false); 
+    document.getElementById("selectgroupM").selectedIndex = 0;
     modal.style.display = "none";
     
   }
@@ -992,11 +994,11 @@ function userInfoModalMulti(id) {
   window.onclick = function(event) {
     if (event.target == modal) {
       // make sure they are unchecked when we close 
-      $('#self').prop("checked", false);
-      $('#group').prop("checked", false);
-      $("#selfname").val('');
-      $("input[name='usertype']:checked").prop('checked', false); 
-      document.getElementById("selectgroup").selectedIndex = 0;
+      $('#selfM').prop("checked", false);
+      $('#groupM').prop("checked", false);
+      $("#selfnameM").val('');
+      $("input[name='usertypeM']:checked").prop('checked', false); 
+      document.getElementById("selectgroupM").selectedIndex = 0;
       modal.style.display = "none";
       
     }
@@ -1009,33 +1011,68 @@ function userInfoModalMulti(id) {
   }
 }
 
+function handleBadUserM(msg) {
+  $('#badUserMsgM').html(msg);
+  var modal = document.getElementById("handleBadUserM");
+  // $('#myModal').css('display','block');
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("closeBadUserM");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    $("#selfnameM").val('');
+    $("input[name='usertypeM']:checked").prop('checked', false); 
+    document.getElementById("selectgroupM").selectedIndex = 0;
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      $("#selfnameM").val('');
+      $("input[name='usertypeM']:checked").prop('checked', false); 
+      document.getElementById("selectgroupM").selectedIndex = 0;
+      modal.style.display = "none";
+      // make sure they are unchecked when we close 
+    }
+  }
+  var ok = document.getElementById("okbadM");
+  ok.onclick = function() {
+    $("#selfnameM").val('');
+    $("input[name='usertypeM']:checked").prop('checked', false); 
+    document.getElementById("selectgroupM").selectedIndex = 0;
+    modal.style.display = "none";
+    
+  }
+}
+
 function addUser() {
   console.log('adding user');
   if (!$("input:radio[name='usertypeM']").is(":checked")) {
       console.log('bad');
-      handleBadUser('No user selected. <br> <strong>Please check a user type: Self or Group</strong>');
+      handleBadUserM('No user selected. <br> <strong>Please check a user type: Self or Group</strong>');
       return;
     }
     var selectedUser = $("input[name='usertypeM']:checked").val();
     console.log(selectedUser);
     // if selected user is self
-    if (selectedUser == 'self') {
+    if (selectedUser == 'selfM') {
       var user = ($('#selfnameM').val());
       console.log(user);
-      if (allLetters(user) == false) {
-        handleBadUser('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
-        return;
-      }
       var userid = 0;
       if (user == "") {
-        handleBadUser('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
+        handleBadUserM('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
+        return;
+      }
+      if (allLetters(user) == false) {
+        handleBadUserM('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
         return;
       }
     }
     else {
       if ($("#selectgroupM option:selected").val() == "" || $("#selectgroupM option:selected").val() == "Select a group to book for") {
         console.log(user);
-        handleBadUser('Group Booking: No group selected. <br> <strong>Please select a group</strong>');
+        handleBadUserM('Group Booking: No group selected. <br> <strong>Please select a group</strong>');
         return;
       }
       var userid = parseInt(($("#selectgroupM option:selected" ).val()));
@@ -1054,17 +1091,23 @@ function addUser() {
   $("#selfnameM").val('');
   console.log(user);
   console.log(userid);
+  var currUsers =  $('#multiSub').data('users');
+  $('#multiSub').data('users', currUsers + '/' + user + '-' + userid);
+  console.log($('#multiSub').data('users'));
 
 }
 
 function sendmultibook() {
   console.log('in multisend book ', $('#multiSub').val());
   var slots = $('#multiSub').val().split('/');
-  deselect();
   console.log(slots);
   var slotsinfo = [];
   var netid = $('#netid').data('user');
   var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  console.log($('#multiSub').data('users'));
+  var allUsers =  $('#multiSub').data('users').split('/');
+  // allUsers.shift();
+  console.log('all users in sendmulti', allUsers);
   slots.forEach(parseId, slotsinfo);
   function parseId(item, index, arr) {
     if (item != '') {
@@ -1085,8 +1128,8 @@ function sendmultibook() {
       console.log(date);
       // slotsinfo.push(item + '.' + buildDate(date));
       slotsinfo.push({
-         company_name:'user',
-         company_id:0,
+         company_name:allUsers[index].split('-')[0],
+         company_id:allUsers[index].split('-')[1],
          start_time:hour,
          end_time:hour+1,
          studio:studio,
@@ -1103,6 +1146,7 @@ function sendmultibook() {
   console.log(active);
   var openday = $('#d'+active).data('date');
   var groups = setGroups();
+  deselect();
   url = 'updateMulti';
   request = $.ajax(
   {
