@@ -1125,7 +1125,6 @@ function sendmultibook() {
         date = new Date(dateArr[0], dateArr[1]-1, nextday);
       }
       console.log(date);
-      // slotsinfo.push(item + '.' + buildDate(date));
       slotsinfo.push({
          company_name:allUsers[index].split('-')[0],
          company_id:allUsers[index].split('-')[1],
@@ -1172,24 +1171,6 @@ function removeElement(array, elem) {
 
 function deleteSelected(id) {
   var confirm = $('#multiSub').val().split('/');
-  /*var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
-  // console.log(studioNum[0])
-  // console.log(studioNum[1]);
-  var studio = studioNum[0]
-  var day = studioNum[1] % 10; 
-  var hour = studioNum[1] / 10;
-  var content = '#content' + day;
-  var dateArr = $(content).data('date').split('-');
-  console.log(dateArr);
-  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
-  if (Math.trunc(hour) > 23) {
-    var nextday = parseInt(dateArr[2]) + 1
-    date = new Date(dateArr[0], dateArr[1]-1, nextday);
-  }
-  var findId = id + '.' + buildDate(date);
-  console.log(confirm);
-  removeElement(confirm, findId);
-  $('#multiSub').val(confirm.join('/')); */
   removeElement(confirm, id);
   $('#multiSub').val(confirm.join('/'));
   console.log($('#multiSub').val());

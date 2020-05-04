@@ -485,10 +485,11 @@
 		console.log('place is' + place);
 			if (place != "/" || place != "/homepage" || place == "/schedule") {
 			 	console.log('Currently on schedule page, disable book button');
-			 	// $('#bookingbutton').css('display','none');
-        $('#bookingbutton').html('Book Multiple Slots')
+			 	$('#bookingbutton').css('display','none');
+        // for MULTIBOOK
+        /*$('#bookingbutton').html('Book Multiple Slots')
         $('#bookingbutton').attr('href', '');
-        $('#bookingbutton').attr('onclick', 'multiselect()'); 
+        $('#bookingbutton').attr('onclick', 'multiselect()');  */
 			 	$('tr').css('cursor','pointer');
 			 }
 			 if (place == '/' || place == '/homepage') {

@@ -133,6 +133,7 @@
       		// disable the header and footer 
       		homeDisableSchdFootHead();
           fwdbck();
+          // calls setupweek to update the calendar every 3 seconds 
           setInterval(function () {
             setupWeek('group');
           }, 3000);
