@@ -132,9 +132,12 @@
       	function loadSchedule() {
       		// disable the header and footer 
       		homeDisableSchdFootHead();
-          fwdbck()
+          fwdbck();
+          setInterval(function () {
+            setupWeek('group');
+          }, 3000);
       	}
-      	loadSchedule()
+      	// loadSchedule()
       	$('document').ready(loadSchedule); 
 
       </script>
