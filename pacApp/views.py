@@ -490,7 +490,6 @@ def delete_schedule_alg(response):
 
 def scheduling_alg(request: HttpResponse):
 
-    
     start_date = request.POST['start_date']
     end_date = request.POST['end_date']
     print(start_date, end_date)
@@ -499,10 +498,8 @@ def scheduling_alg(request: HttpResponse):
     all_requests = ADRequest.objects.all()
     if (ADRequest.objects.count() == 0):
          results = 'None'
-    context = createContext(starttoday, groups)
-    context['available'] = carouselAvailable()
-    context['user'] = profile
-    return render(request, "templates/pacApp/home.html", context)
+         context['results'] = results
+         return render(request, "templates/pacApp/home.html", context)
     
 
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,

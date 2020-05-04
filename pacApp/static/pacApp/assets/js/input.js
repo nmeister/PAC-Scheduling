@@ -144,6 +144,14 @@ function validateResponse()
   company_2 = [company_day_2, company_studio_2, company_start_time_2, company_end_time_2];
   company_3 = [company_day_3, company_studio_3, company_start_time_3, company_end_time_3];
 
+
+  // if company is already in the db
+  if (company_already_entered(company_name))
+  {
+    alert('The company you are trying to submit already has an entry in the database as displayed in step 2. Please either delete your existing entry in the database or enter a different company name.')
+    return false;
+  }
+
   // ensure that the company 1 and 2 entries are unique
   if (same_company(company_1, company_2)) {
     alert('Company preferences must be unique. Company 1 Preference is the same as the Company 2 preference.');
