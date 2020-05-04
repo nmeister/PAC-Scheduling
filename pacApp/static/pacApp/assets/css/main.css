@@ -2238,6 +2238,14 @@ input, select, textarea {
 			padding: 0;
 		}
 
+		#header .button:after {
+        content: url(images/white-rt-triangle.png);
+        width: 8px;
+        height: 10px;
+        float: right;
+        margin: 1px 0 0 10px;
+        }
+
 		#header hr {
 			top: 1.5em;
 			margin-bottom: 3em;
