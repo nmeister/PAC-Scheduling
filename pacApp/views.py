@@ -280,6 +280,7 @@ def create_booking(date, studio, name, nameid, starttime, endtime, day, profile)
       # doesn't exist therefore make a new booking
         book = Booking(studio_id=studioList[studio],
                    company_id=nameid,
+                   from_alg = 0,
                    user_netid=profile,
                    company_name=name,
                    start_time=i,
@@ -336,6 +337,7 @@ def delete_booking(date, studio, name, nameid, starttime, endtime, day, profile)
                                           start_time=starttime,
                                           end_time=endtime,
                                           week_day=day,
+                                          from_alg = 0,
                                           booking_date=date)
         book_to_del.delete()
     except:
@@ -391,8 +393,6 @@ def insert_ad_request(request: HttpResponse):
     company_end_time_2 = grab_time(request.POST['company_end_time_2'])
     company_start_time_3 = grab_time(request.POST['company_start_time_3'])
     company_end_time_3 = grab_time(request.POST['company_end_time_3'])
-
-    print(company_day_1, company_day_2, company_day_3)
 
     ad_req = ADRequest(company_name=request.POST['company_name'],
                        company_day_1=request.POST.get('company_day_1'),
@@ -480,7 +480,7 @@ def get_ranks(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_ran
 def delete_schedule_alg(response):
     print('in delete schedule alg')
     try:
-        slots_to_del = Booking.objects.filter(company_id=1)
+        slots_to_del = Booking.objects.filter(from_alg=1)
         print(slots_to_del)
         slots_to_del.delete()
     except:
@@ -498,8 +498,9 @@ def scheduling_alg(request: HttpResponse):
     all_requests = ADRequest.objects.all()
     if (ADRequest.objects.count() == 0):
          results = 'None'
+         context = {}
          context['results'] = results
-         return render(request, "templates/pacApp/home.html", context)
+         return render(request, "templates/pacApp/form/adminForm.html", context)
     
 
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
@@ -763,11 +764,15 @@ def scheduling_alg(request: HttpResponse):
     weeks = abs(math.ceil(diff.days/7))
     
     print(weeks)
+
+    groups_list = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
+                        'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8']
     for week in range(weeks):
         for i, space in df_results.iterrows():
             book = Booking(studio_id=space['Studio'],
-                        company_id=100,
-                        company_name=space['Name'],
+                        company_id=int(space['Name']),
+                        from_alg = 1,
+                        company_name=groups_list[space['Name']-1],
                         start_time=space['Start_Time'],
                         end_time=space['End_Time'],
                         week_day=daysList[space['Day']],

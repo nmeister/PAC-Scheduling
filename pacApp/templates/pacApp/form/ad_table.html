@@ -39,6 +39,8 @@
                   </button>
    
           </td>
+
+          
           <td>{{item.company_name}}</td>   
           <td>{{item.num_reho}}</td>   
           <td>{{item.company_size}}</td>   
@@ -69,9 +71,10 @@
           <td>{{item.company_end_time_3}}</td>  
         </tr>
         {% empty %}
-        
+
         <!-- add a way to prevent schedule alg from being clickde-->
         No AD_requests have been entered yet. Please go back to step 1 and enter information to populate this table.
+        
         {% endfor %}
       </table>
    </div>

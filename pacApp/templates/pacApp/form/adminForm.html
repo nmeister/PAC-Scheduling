@@ -52,6 +52,14 @@
   
 </html>
 
+{% for item in all_requests %}
+          {% empty %}
+          <script>
+            document.getElementById('delete_alg_button').style.visibility = 'hidden';
+            document.getElementById('schedule_button').style.visibility = 'hidden';
+          </script>
+          {% endfor %}
+          
 <script src="static/pacApp/assets/js/jquery.min.js"></script>
 			<script src="static/pacApp/assets/js/jquery.dropotron.min.js"></script>
 			<script src="static/pacApp/assets/js/jquery.scrolly.min.js"></script>
