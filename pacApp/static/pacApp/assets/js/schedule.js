@@ -404,11 +404,12 @@ function canEdit(id) {
   if (editable == 1) {
       console.log('can book');
       if (multi == 0) {
-      book(id);
-    }
-    else if (multi == 1) {
+        book(id);
+      }
+      else if (multi == 1) {
+      // userInfoModalMulti(id);
       bookmulti(id);
-    }
+      }
   }
   else {
       console.log('way past booking time');
@@ -452,12 +453,9 @@ function findStudioName(studio) {
 }
 
 
+function userInfoModal() {
 
-// PARSING AND GATHERING THE INFORMATION WE NEED FOR BOOKING
-function booking(studio,day,hour,id) {
-  console.log('hello @ booking');
-  
-  // handles all modal - make it seen 
+   // handles all modal - make it seen 
   var modal = document.getElementById("myModal");
   // Get the <span> element that closes the modal on the x button 
   var span = document.getElementById("bookClose");
@@ -486,7 +484,12 @@ function booking(studio,day,hour,id) {
       
     }
   }
+}
 
+// PARSING AND GATHERING THE INFORMATION WE NEED FOR BOOKING
+function booking(studio,day,hour,id) {
+  console.log('hello @ booking');
+  userInfoModal();
   nameStudio = findStudioName(studio);
   var bookstudio = document.getElementById("bookstudio");
   bookstudio.innerHTML = 'Studio: ' + nameStudio;
@@ -600,6 +603,8 @@ function allLetters(inputtxt) {
      }
 }
 
+
+
 // sendbook gathers all the stuff necessary to make a booking 
 function sendbook(id) {
     // checks whether or not there are selected groups 
@@ -614,13 +619,13 @@ function sendbook(id) {
     // if selected user is self
     if (selectedUser == 'self') {
       var user = ($('#selfname').val());
-      if (allLetters(user) == false) {
-        handleBadUser('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
-        return;
-      }
       var userid = 0;
       if (user == "") {
         handleBadUser('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
+        return;
+      }
+      if (allLetters(user) == false) {
+        handleBadUser('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
         return;
       }
     }
@@ -943,6 +948,8 @@ function deselect() {
     $('#'+confirm[i]).css('background-color','');
     $('#'+confirm[i]).data('selected',0);
   }
+  $('#multiSub').data('users','');
+  console.log('multisub-users is', $('#multiSub').data('users'));
   $('#multiSub').val('');
   $('#bookingbutton').attr('onclick', 'multiselect()');
   $('#bookingbutton').css('display','inline-block');
@@ -950,43 +957,208 @@ function deselect() {
   $('#bookingbutton').css('background-color', '#df7366');
   $('#bookingbutton').css('border', '');
   $('#scheduletable').data('multi', 0);
+  $('#confirm').attr('onclick', 'sendbook(this.value)');
   
 }
 
 
+
 function bookmulti(id) {
   console.log(id);
+  userInfoModalMulti(id)
+}
+
+function userInfoModalMulti(id) {
+
+   // handles all modal - make it seen 
+  var modal = document.getElementById("multiModal");
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("multiClose");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    $('#selfM').prop("checked", false);
+    $('#groupM').prop("checked", false);
+    $("#selfnameM").val('');
+    $("input[name='usertypeM']:checked").prop('checked', false); 
+    document.getElementById("selectgroupM").selectedIndex = 0;
+    modal.style.display = "none";
+    
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      // make sure they are unchecked when we close 
+      $('#selfM').prop("checked", false);
+      $('#groupM').prop("checked", false);
+      $("#selfnameM").val('');
+      $("input[name='usertypeM']:checked").prop('checked', false); 
+      document.getElementById("selectgroupM").selectedIndex = 0;
+      modal.style.display = "none";
+      
+    }
+  }
+
+  var ok = document.getElementById("confirmOne");
+  ok.onclick = function() {
+    console.log('to add user');
+    addUser(id);
+
+  }
+}
+
+function handleBadUserM(msg) {
+  $('#badUserMsgM').html(msg);
+  var modal = document.getElementById("handleBadUserM");
+  // $('#myModal').css('display','block');
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("closeBadUserM");
+  modal.style.display = "block";
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    $("#selfnameM").val('');
+    $("input[name='usertypeM']:checked").prop('checked', false); 
+    document.getElementById("selectgroupM").selectedIndex = 0;
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      $("#selfnameM").val('');
+      $("input[name='usertypeM']:checked").prop('checked', false); 
+      document.getElementById("selectgroupM").selectedIndex = 0;
+      modal.style.display = "none";
+      // make sure they are unchecked when we close 
+    }
+  }
+  var ok = document.getElementById("okbadM");
+  ok.onclick = function() {
+    $("#selfnameM").val('');
+    $("input[name='usertypeM']:checked").prop('checked', false); 
+    document.getElementById("selectgroupM").selectedIndex = 0;
+    modal.style.display = "none";
+    
+  }
+}
+
+function addUser(id) {
+  console.log('adding user');
+  if (!$("input:radio[name='usertypeM']").is(":checked")) {
+      console.log('bad');
+      handleBadUserM('No user selected. <br> <strong>Please check a user type: Self or Group</strong>');
+      return;
+    }
+    var selectedUser = $("input[name='usertypeM']:checked").val();
+    console.log(selectedUser);
+    // if selected user is self
+    if (selectedUser == 'selfM') {
+      var user = ($('#selfnameM').val());
+      console.log(user);
+      var userid = 0;
+      if (user == "") {
+        handleBadUserM('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
+        return;
+      }
+      if (allLetters(user) == false) {
+        handleBadUserM('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
+        return;
+      }
+    }
+    else {
+      if ($("#selectgroupM option:selected").val() == "" || $("#selectgroupM option:selected").val() == "Select a group to book for") {
+        console.log(user);
+        handleBadUserM('Group Booking: No group selected. <br> <strong>Please select a group</strong>');
+        return;
+      }
+      var userid = parseInt(($("#selectgroupM option:selected" ).val()));
+      var groups = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
+                        'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8'];
+      var user = groups[userid-1];
+    }
+
+    var modal = document.getElementById("multiModal");
+    modal.style.display = "none"; 
+    // uncheck this upon sending confirm
+    $("input[name='usertypeM']:checked").prop('checked', false);
+
+    document.getElementById("selectgroupM").selectedIndex = 0;
+
+  $("#selfnameM").val('');
+  console.log(user);
+  console.log(userid);
+  var currUsers =  $('#multiSub').data('users');
+  $('#multiSub').data('users', currUsers + '/' + user + '-' + userid);
+  console.log($('#multiSub').data('users'));
   $('#'+id).css('background-color','pink');
   $('#'+id).data('selected',1);
-  /*var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
-  // console.log(studioNum[0])
-  // console.log(studioNum[1]);
-  var studio = studioNum[0]
-  var day = studioNum[1] % 10; 
-  var hour = studioNum[1] / 10;
-  var content = '#content' + day;
-  console.log($(content).data('date'));
-  var dateArr = $(content).data('date').split('-');
-  console.log(dateArr);
-  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
-  if (Math.trunc(hour) > 23) {
-    var nextday = parseInt(dateArr[2]) + 1
-    date = new Date(dateArr[0], dateArr[1]-1, nextday);
-  }
-  console.log(date);
-
-  $('#multiSub').val($('#multiSub').val() + '/' + id + '.' + buildDate(date));
-  // dilliondance203.2020-04-15 / 
-  console.log($('#multiSub').val()); */
   $('#multiSub').val($('#multiSub').val() + '/' + id );
-
 }
 
 function sendmultibook() {
   console.log('in multisend book ', $('#multiSub').val());
-  var slots = $('#multiSub').val();
+  var slots = $('#multiSub').val().split('/');
+  console.log(slots);
+  var slotsinfo = [];
+  var netid = $('#netid').data('user');
+  var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  console.log($('#multiSub').data('users'));
+  var allUsers =  $('#multiSub').data('users').split('/');
+  // allUsers.shift();
+  console.log('all users in sendmulti', allUsers);
+  slots.forEach(parseId, slotsinfo);
+  function parseId(item, index, arr) {
+    if (item != '') {
+      console.log(item);
+      var studioNum= item.match(/[a-z]+|[^a-z]+/gi);
+      var studio = studioNum[0]
+      var day = studioNum[1] % 10; 
+      var hour = studioNum[1] / 10;
+      var content = '#content' + day;
+      console.log($(content).data('date'));
+      var dateArr = $(content).data('date').split('-');
+      console.log(dateArr);
+      var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
+      if (Math.trunc(hour) > 23) {
+        var nextday = parseInt(dateArr[2]) + 1
+        date = new Date(dateArr[0], dateArr[1]-1, nextday);
+      }
+      console.log(date);
+      slotsinfo.push({
+         company_name:allUsers[index].split('-')[0],
+         company_id:allUsers[index].split('-')[1],
+         start_time:hour,
+         end_time:hour+1,
+         studio:studio,
+         week_day:day,
+         booking_date:buildDate(date),
+         user_netid:netid,
+        })
+    }
+  }
+  var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  console.log('before request', slotsinfo);
+  var currweek =  $('#curr').val();
+  var active = document.getElementsByClassName('active')[0].id[1];
+  console.log(active);
+  var openday = $('#d'+active).data('date');
+  var groups = setGroups();
   deselect();
-
+  url = 'updateMulti';
+  request = $.ajax(
+  {
+    type: "POST",
+    url: url,
+    headers: {'X-CSRFToken': csrftoken},
+    data: {
+      'slots[]': JSON.stringify(slotsinfo),
+      'openday':openday,
+      'currweek':currweek,
+      'groups':groups
+    },
+    success: handleresponse,
+  });
 }
 
 function removeElement(array, elem) {
@@ -999,24 +1171,6 @@ function removeElement(array, elem) {
 
 function deleteSelected(id) {
   var confirm = $('#multiSub').val().split('/');
-  /*var studioNum= id.match(/[a-z]+|[^a-z]+/gi);
-  // console.log(studioNum[0])
-  // console.log(studioNum[1]);
-  var studio = studioNum[0]
-  var day = studioNum[1] % 10; 
-  var hour = studioNum[1] / 10;
-  var content = '#content' + day;
-  var dateArr = $(content).data('date').split('-');
-  console.log(dateArr);
-  var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
-  if (Math.trunc(hour) > 23) {
-    var nextday = parseInt(dateArr[2]) + 1
-    date = new Date(dateArr[0], dateArr[1]-1, nextday);
-  }
-  var findId = id + '.' + buildDate(date);
-  console.log(confirm);
-  removeElement(confirm, findId);
-  $('#multiSub').val(confirm.join('/')); */
   removeElement(confirm, id);
   $('#multiSub').val(confirm.join('/'));
   console.log($('#multiSub').val());

@@ -22,6 +22,7 @@ urlpatterns = [
     path('updateGroupOnly', views.updateGroupOnly, name='updateGroupOnly'),
     path('updateBooking', views.updateBooking, name='updateBooking'),
     path('updateDropping', views.updateDropping, name='updateDropping'),
+    path('updateMulti', views.updateMulti, name='updateMulti'),
     path('about', views.about, name='about'),
     path('notpac', views.notpac, name='notpac'),
 ]

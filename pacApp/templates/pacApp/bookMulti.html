@@ -1,0 +1,70 @@
+<form>
+	<div id="bookstudioM"></div>
+	<div id="bookstarttimeM"></div>
+  <!-- <div id="numhours"><span>Num Hours:</span>
+    <input id="nhours" class="form-control" type="number" min=1 max=4 style="width:40%;display:inline-block;line-height:0.7em;font-size:0.9em"></div> -->
+	<div id="dayofweekM"></div>
+	<div id="bookdateM"></div>
+  <!-- upon clicking this button, calls sendbook with the value of confirm previously made --> 
+	
+  <span> Who are you booking for? </span>
+  <br>
+  <input type="radio" id="selfM" name="usertypeM" value="selfM" required><label class="grouplabel" for="selfM" style="font-size:0.9em">Self</label>
+		<div class="reveal-if-activeSelf">
+  			Name: <input class="require-if-active form-control" style="width:50%;display:inline-block;background-color:#fff;" id="selfnameM" type="text" placeholder="  Please enter your name" />
+  		</div>
+  <input type="radio" id="groupM" name="usertypeM" value="groupM"><label class="grouplabel" style="font-size:0.9em" for="groupM">Group</label> 
+	  <br>
+	  <div class="reveal-if-activeGroup text-nowrap form-group">
+	  	<label for="groupM" style="font-size:0.9em">Groups:</label>
+	  	<select class="form-control custom-select" id="selectgroupM" style="width:55%;font-size:0.75em;height:2.5em;">
+		    <option value="" disabled selected>Select a group</option>
+		    <option value="1">BAC</option>
+		    <option value="2">Bhangra</option>
+		    <option value="3">BodyHype</option>
+		    <option value="4">Disiac</option>
+		    <option value="5">eXpressions</option>
+		    <option value="6">HighSteppers</option>
+		    <option value="7">Kokopops</option>
+		    <option value="8">Naacho</option>
+        <option value="9">PUB</option>
+		    <option value="10">Six14</option>
+		    <option value="11">Sympoh</option>
+		    <option value="12">Triple8</option>
+	  	</select>
+	  </div>
+
+ <div id='confirmOne' class="button" onclick="addUser()" style="float:right;padding:0.4em;font-size:0.9em">Confirm</div>
+</form>
+
+
+<div>
+      <div id="handleBadUserM" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content-error" style="height:20%;font-size:0.85em;">
+          <span id="closeBadUserM" style="text-align:right;" class="close">&times;</span>
+          <span id="badUserMsgM" style="font-size:1.1em;"></span><br>
+          <span id="okbadM" class="button" style="float:right;padding:0.3em 0.5em 0.3em 0.5em;display:inline-block;font-size:1.2em">OK</span>
+        </div>
+      </div>
+   </div>
+
+
+
+
+<script> 
+  
+  // Execute a function when the user releases a key on the keyboard
+  // for the input typing one if user presses enter this will get executed 
+  $('#selfname').keydown(function (event) {
+  console.log('clicking enter');
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    sendbook($('#confirm').val());
+  }
+  });
+
+</script>
