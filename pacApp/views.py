@@ -12,9 +12,8 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from uniauth.decorators import login_required
 from django.conf.urls.static import static
-from . import models, studio, hours
+from . import models
 from .models import ADRequest, Booking
-from .studio import Studio
 import datetime
 from datetime import date, timedelta
 import pandas as pd

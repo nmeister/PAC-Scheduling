@@ -33,6 +33,7 @@ class ADRequest(models.Model):
 
 class Studio(models.Model):
 	name = models.CharField(max_length=50)
+	studio_id = models.IntegerField()
 	address = models.CharField(max_length=50)
 
 class Group(models.Model):
@@ -51,6 +52,7 @@ class Booking(models.Model):
 	end_time = models.IntegerField()
 	week_day = models.IntegerField()
 	booking_date = models.DateField(auto_now_add=False) #2018/12/19
-
+	#studio = models.ForeignKey(Studio, on_delete=models.CASCADE)
+	#company = models.ForeignKey(Group, on_delete=models.CASCADE)
 
 

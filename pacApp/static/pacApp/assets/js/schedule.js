@@ -642,8 +642,8 @@ function sendbook(id) {
         return;
       }
       var userid = parseInt(($("#selectgroup option:selected" ).val()));
-      var groups = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
-                        'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8'];
+      var groups = ['BAC', 'Bhangra', 'BodyHype', 'diSiac', 'eXpressions', 'HighSteppers',
+                        'KoKo Pops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple 8'];
       var user = groups[userid-1];
     }
 
