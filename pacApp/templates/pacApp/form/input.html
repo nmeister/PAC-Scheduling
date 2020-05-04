@@ -13,7 +13,26 @@
 	<label>
 		<strong> Company Name: </strong> 
 	</label>
-	<input type="text" class="form-control" id="companyInput" placeholder="Enter Company Name" name="company_name"> 
+	<!--	
+		<input type="text" class="form-control" id="companyInput" placeholder="Enter Company Name" name="company_name"> 
+	-->
+
+	<select id = "myList" name="company_name">
+		<option value = "Select Company Name">Select Company Name</option>
+		<option value = "1">BAC</option>
+		<option value = "2">Bhangra</option>
+		<option value = "3">BodyHype</option>
+		<option value = "4">Disiac</option>
+		<option value = "5">eXpressions</option>
+		<option value = "6">HighSteppers</option>
+		<option value = "7">Kokopops</option>
+		<option value = "8">Naacho</option>
+		<option value = "9">PUB</option>
+		<option value = "10">Six14</option>
+		<option value = "11">Sympoh</option>
+		<option value = "12">Triple8</option>
+
+	</select>
 <br>
 
 <!-- Tab links -->
@@ -115,6 +134,10 @@
 		</h3>	
 		<br>
 		<h4>
+			Once you have inputted information for all groups, the "Schedule All Groups" button will appear below.
+			Click on this button to schedule all groups. 
+			<br>
+			<br>
 			Navigate to the booking page to make any edits to the results if necessary. 
 			If you would like to delete the schedule this algorithm produced, 
 			please click the delete button below. 
@@ -130,9 +153,9 @@
 					Enter the dates for which you would like this space allocation to occur.
 				</h4>
 				<strong>Start Date:  </strong>
-				<input type="date" max="2999-12-31" autocomplete="on" name="start_date">
+				<input type="date" max="2999-12-31" autocomplete="on" name="start_date" value='0001-01-01'>
 				<strong>End Date:  </strong>
-				<input type="date" max="2999-12-31" autocomplete="on" name = "end_date">
+				<input type="date" max="2999-12-31" autocomplete="on" name = "end_date" value='0001-01-01'>
 				<br>
 				<br>
 				<!-- {% for item in all_requests %}
@@ -155,9 +178,14 @@
 
 			<br>
 			<form action="{% url 'delete_schedule_alg' %}" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'delete');">
-				<button type="submit" class='btn' id='delete_button' style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
-					Delete All Scheduled Slots
+				<div class="input-group-append text-info">
+					<span class="input-grou-text bg-white py-0">
+				<button type="submit" class='schedule_button' id='delete_alg_button' style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
+					<a style="text-decoration-line:none;"> Delete All Scheduled Slots </a>
 				</button>
+					</span>
+				</div>
+
 
 			</form>
 			
@@ -178,11 +206,11 @@
 	$(submit_button).data('delay', 0);
 	$(submit_button).attr('title', "Click to submit this form");
 
-	$(submit_button).attr('onmouseover', '');
-	$(submit_button).attr('data-toggle',"tooltip");
-	$(submit_button).attr('data-placement', "top"); 
-	$(submit_button).data('delay', 0);
-	$(submit_button).attr('title', "Click to submit this form");
+	$(delete_alg_button).attr('onmouseover', '');
+	$(delete_alg_button).attr('data-toggle',"tooltip");
+	$(delete_alg_button).attr('data-placement', "top"); 
+	$(delete_alg_button).data('delay', 0);
+	$(delete_alg_button).attr('title', "Click to delete the scheduling algorithm's results");
 
 	$(schedule_button).attr('onmouseover', '');
 	$(schedule_button).attr('data-toggle',"tooltip");

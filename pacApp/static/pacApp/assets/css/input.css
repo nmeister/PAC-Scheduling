@@ -39,6 +39,10 @@ table, th, td {
   cursor: pointer !important;
 }
 
+select {
+  -webkit-appearance: default !important;
+  appearance: default !important;
+}
 
 /* Style the buttons that are used to open the tab content */
 input[type="text"] .tab .tablinks {

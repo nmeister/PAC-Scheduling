@@ -107,9 +107,7 @@ function validateResponse()
   let whitman_rank = document.querySelector('input[name=whitman_rank]').value.trim();
   let wilcox_rank = document.querySelector('input[name=wilcox_rank]').value.trim(); 
 
-  if (company=="Select Company Name") {
-    alert('Please select a group name.');
-  }
+  if (company=="") empty_inputs.push('Company Name');
 
   if (company_day_1=="") empty_inputs.push('Company Day (Preference 1)'); //
   if (company_studio_1=="") empty_inputs.push('Company Studio (Preference 1)');//
@@ -217,19 +215,14 @@ function wasClicked_Alg(event, type)
   var start_dateArr = start_date.split('-');
   var end_dateArr = start_date.split('-');
 
-  console.log(start_date);
-  console.log(end_date);
-
-  if (start_date=='0001-01-01')
+  if (start_date=='')
   {
     alert('No start date was entered. Please enter a start date to specify the start date of when you would like this allocation of space to apply.')
-    return false;
   }
 
-  if (end_date=='0001-01-01')
+  if (end_date=='')
   {
     alert('No end date was entered. Please enter an end date to specify the end date of when you would like this allocation of space to apply.')
-    return false;
   }
   start_date = new Date(start_dateArr[0], start_dateArr[1], end_dateArr[2]);
   start_date = new Date(end_dateArr[0], end_dateArr[1], end_dateArr[2]);
