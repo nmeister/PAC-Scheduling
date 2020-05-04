@@ -117,26 +117,30 @@
         $('#scheduletable').css('padding', '0em 2em 4em 2em');
         $('#schedule').css('margin', '0em 3em 1em 3em');
         $('#schedule').css('padding', '0em 0em 0em 0em');
-        $('#groupselect').css('margin','0.5em 3em 1em 3em');
+        $('#groupselect').css('margin','0.5em 3.6em 1em 3.6em');
 
 			 }
        else {
         $('#scheduletable').addClass("wrapper style");
-        $('#scheduletable').css('padding', '4em 0em 2em 0em');
-        $('#schedule').css('margin', '0em 3em 1em 3em');
+        $('#scheduletable').css('padding', '4em 0em 3em 0em');
+        $('#schedule').css('margin', '0em 3em 0em 3em');
         $('#schedule').css('padding', '0em 0em 0em 0em');
-        $('#groupselect').css('margin','0.5em 3em 1em 3em');
+        $('#groupselect').css('margin','0.5em 3.6em 0em 3.6em');
        }
 
 		}
+
+
+        window.refresh = null;
       	function loadSchedule() {
       		// disable the header and footer 
       		homeDisableSchdFootHead();
           fwdbck();
           // calls setupweek to update the calendar every 3 seconds 
-          setInterval(function () {
-            setupWeek('group');
-          }, 3000);
+          window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 5000);
+          console.log('window', window.refresh);
       	}
       	// loadSchedule()
       	$('document').ready(loadSchedule); 

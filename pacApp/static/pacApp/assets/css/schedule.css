@@ -112,7 +112,7 @@ input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
 
 /* CSS FOR EACH OF THE DIFFERENT GROUPS */
 
-.Sympoh {
+.g11 {
   background-color: #008080;
   text-align:center;
   color: white;
@@ -120,7 +120,7 @@ input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
 }
 
 
-.BAC {
+.g1 {
   background-color:#6a0dad;
   text-align:center;
   color:white;
@@ -128,45 +128,45 @@ input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
 }
 
 
-.Disiac {
+.g4 {
   background-color:#002366;
   text-align:center;
   color:white;
 }
 
-.PUB {
+.g9 {
   background-color: #DB7093;
   text-align:center;
   color:white;
 
 }
 
-.Naacho {
+.g8 {
   background-color: green;
   text-align:center;
   color:white;
 
 }
 
-.HighSteppers {
+.g6 {
   background-color: #0d98ba;
   text-align:center;
   color:white;
 }
 
-.Six14 {
+.g10 {
   background-color: lightblue;
   text-align:center;
   color:white;
 }
 
-.Bhangra {
+.g2 {
   background-color: orange;
   text-align:center;
   color:white;
 }
 
-.Triple8 {
+.g12 {
   background-color: #9b1c31;
   text-align:center;
   color:white;
@@ -180,19 +180,19 @@ input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
 
 }
 
-.Kokopops {
+.g7 {
   background-color: #FF1493;
   text-align:center;
   color:white;
 }
 
-.BodyHype {
+.g3 {
   background-color: crimson;
   text-align:center;
   color:white;
 }
 
-.eXpressions {
+.g5{
   background-color:#FFC0CB;
   text-align:center;
   color:white;

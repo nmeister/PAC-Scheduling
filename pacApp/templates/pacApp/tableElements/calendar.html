@@ -422,19 +422,19 @@
          // $(col).html(item.company_name);
          // console.log(item);
          // don't allow it to be bookable 
-         $(col).attr('onclick', '');
-         $(col).attr('data-toggle',"tooltip");
-  		  $(col).attr('data-placement', "top"); 
-  		  $(col).data('delay', 0);
-        $(col).attr('title', "This space is already booked.");
-         $(col).attr('data-name', item.company_name);
-         $(col).attr('data-nameid', item.company_id);
-         $(col).attr('data-starttime', item.start_time);
-         $(col).attr('data-endtime', item.end_time);
-         $(col).attr('data-studio', item.studio);
-         $(col).attr('data-weekday', item.week_day);
-         $(col).attr('data-bookingdate', item.booking_date);
-         $(col).attr('data-usernetid', item.user_netid);
+          $(col).attr('onclick', '');
+          $(col).attr('data-toggle',"tooltip");
+  		    $(col).attr('data-placement', "top"); 
+  		    $(col).data('delay', 0);
+          $(col).attr('title', "This space is already booked.");
+          $(col).attr('data-name', item.company_name);
+          $(col).attr('data-nameid', item.company_id);
+          $(col).attr('data-starttime', item.start_time);
+          $(col).attr('data-endtime', item.end_time);
+          $(col).attr('data-studio', item.studio);
+          $(col).attr('data-weekday', item.week_day);
+          $(col).attr('data-bookingdate', item.booking_date);
+          $(col).attr('data-usernetid', item.user_netid);
 
    }
  }
@@ -452,15 +452,15 @@
          // for that element with particular id, add a class called test 
          let group = item.company_name;
          $(col).addClass('helen');
-         $(col).addClass(group);
-         $(col).html(item.company_name);
+         $(col).addClass('g'+item.company_id);
+         $(col).html(decodeURIComponent(item.company_name));
          // on hovering over this element that user booked, allow to drop
          if ("{{user}}" == item.user_netid) {
             $(col).attr('onmouseover', 'del(event)');
             $(col).attr('data-toggle',"tooltip");
-  		 	$(col).attr('data-placement', "top"); 
-  		 	$(col).data('delay', 0);
-  		 	$(col).attr('title', "Click to drop space");
+  		 	    $(col).attr('data-placement', "top"); 
+  		 	    $(col).data('delay', 0);
+  		 	    $(col).attr('title', "Click to drop space");
          }
 
          $(col).attr('onclick', 'handleDrop(event)');
@@ -485,7 +485,8 @@
 		console.log('place is' + place);
 			if (place != "/" || place != "/homepage" || place == "/schedule") {
 			 	console.log('Currently on schedule page, disable book button');
-			 	$('#bookingbutton').css('display','none');
+			 	// comment out to see MULTIBOOK
+        $('#bookingbutton').css('display','none');
         // for MULTIBOOK
         /*$('#bookingbutton').html('Book Multiple Slots')
         $('#bookingbutton').attr('href', '');
@@ -498,6 +499,7 @@
         $('#bookingbutton').html('Book a Space');
         $('#bookingbutton').attr('onclick', 'location.href="schedule"');
 			 	$('tr').removeClass('row100');
+        $('tr').addClass('row200');
 			 	$('tr').css('cursor','default');
 			 }
 	}
@@ -539,6 +541,21 @@
 		}
 	}
 
+  function today() {
+    var today = buildDate(new Date());
+    var day = (new Date()).getDay();
+    console.log('today is ', today, day);
+    if ($('#d'+day).data('date') == today) {
+      console.log('on today');
+      $('#d'+day).addClass('today');
+    }
+    $('#d'+day).attr('data-toggle',"tooltip");
+    $('#d'+day).attr('data-placement', "top"); 
+    $('#d'+day).data('delay', 0);
+    $('#d'+day).attr('title', "Today");
+
+  }
+
 	function handleDropSuccess() {
 		var success = parseInt("{{dropsuccess}}");
 		console.log('dropping success is: ' + success);
@@ -558,6 +575,7 @@
 	populate();
 	handleBookSuccess();
 	handleDropSuccess();
+  today();
 	hideBookButton();
 
 </script>

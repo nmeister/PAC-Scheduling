@@ -30,6 +30,13 @@ function openDay(tab, id) {
   // console.log(date[0].substring(2));
   $('#'+id+'date').html(reformatted);
   $('#'+id+'date').css('display','block');
+  if (window.refresh != null) {
+    clearInterval(window.refresh);
+    window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 5000);
+          console.log('window', window.refresh);
+  } 
 }
  
 // date is built as yyyy-mm-dd
@@ -635,8 +642,8 @@ function sendbook(id) {
         return;
       }
       var userid = parseInt(($("#selectgroup option:selected" ).val()));
-      var groups = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
-                        'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8'];
+      var groups = ['BAC', 'Bhangra', 'BodyHype', 'diSiac', 'eXpressions', 'HighSteppers',
+                        'KoKo Pops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple 8'];
       var user = groups[userid-1];
     }
 

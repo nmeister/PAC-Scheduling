@@ -12,9 +12,8 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from uniauth.decorators import login_required
 from django.conf.urls.static import static
-from . import models, studio, hours
+from . import models
 from .models import ADRequest, Booking
-from .studio import Studio
 import datetime
 from datetime import date, timedelta
 import pandas as pd
@@ -281,7 +280,7 @@ def create_booking(date, studio, name, nameid, starttime, endtime, day, profile)
       # doesn't exist therefore make a new booking
         book = Booking(studio_id=studioList[studio],
                    company_id=nameid,
-                   from_alg = 0,
+                   from_alg=0,
                    user_netid=profile,
                    company_name=name,
                    start_time=i,
@@ -353,7 +352,7 @@ def delete_booking(date, studio, name, nameid, starttime, endtime, day, profile)
                                           start_time=starttime,
                                           end_time=endtime,
                                           week_day=day,
-                                          from_alg = 0,
+                                          from_alg=0,
                                           booking_date=date)
         book_to_del.delete()
     except:
