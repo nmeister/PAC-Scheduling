@@ -966,10 +966,6 @@ function deselect() {
 function bookmulti(id) {
   console.log(id);
   userInfoModalMulti(id)
-  $('#'+id).css('background-color','pink');
-  $('#'+id).data('selected',1);
-  $('#multiSub').val($('#multiSub').val() + '/' + id );
-
 }
 
 function userInfoModalMulti(id) {
@@ -1007,7 +1003,8 @@ function userInfoModalMulti(id) {
   var ok = document.getElementById("confirmOne");
   ok.onclick = function() {
     console.log('to add user');
-    addUser();
+    addUser(id);
+
   }
 }
 
@@ -1046,7 +1043,7 @@ function handleBadUserM(msg) {
   }
 }
 
-function addUser() {
+function addUser(id) {
   console.log('adding user');
   if (!$("input:radio[name='usertypeM']").is(":checked")) {
       console.log('bad');
@@ -1094,7 +1091,9 @@ function addUser() {
   var currUsers =  $('#multiSub').data('users');
   $('#multiSub').data('users', currUsers + '/' + user + '-' + userid);
   console.log($('#multiSub').data('users'));
-
+  $('#'+id).css('background-color','pink');
+  $('#'+id).data('selected',1);
+  $('#multiSub').val($('#multiSub').val() + '/' + id );
 }
 
 function sendmultibook() {
