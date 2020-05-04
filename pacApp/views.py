@@ -392,6 +392,8 @@ def insert_ad_request(request: HttpResponse):
     company_start_time_3 = grab_time(request.POST['company_start_time_3'])
     company_end_time_3 = grab_time(request.POST['company_end_time_3'])
 
+    print(company_day_1, company_day_2, company_day_3)
+
     ad_req = ADRequest(company_name=request.POST['company_name'],
                        company_day_1=request.POST.get('company_day_1'),
                        company_start_time_1=company_start_time_1,
