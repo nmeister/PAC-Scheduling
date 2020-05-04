@@ -67,7 +67,7 @@ input::-moz-focus-inner {
 }
 
 input, select, textarea {
-	-moz-appearance: none;
+	-moz-appearance: default;
 	-webkit-appearance: none;
 	-ms-appearance: none;
 	appearance: none;
