@@ -552,7 +552,8 @@ function booking(studio,day,hour,id) {
   console.log(new Date(nextdate));
   console.log(max/3600000);
   document.getElementById('nhours').max = max; */
-
+  console.log($('#netid').data('user'));
+  $('#personNet').html('Net Id: <strong>' + $('#netid').data('user') + '</strong>')
   var confirm = document.getElementById("confirm");
   // should have studio[start_time][dayofweek].yyyy-mm-dd
   confirm.value = id;
@@ -625,16 +626,17 @@ function sendbook(id) {
     console.log(selectedUser);
     // if selected user is self
     if (selectedUser == 'self') {
-      var user = ($('#selfname').val());
+      // var user = ($('#selfname').val());
+      var user = $('#netid').data('user');
       var userid = 0;
-      if (user == "") {
+      /*if (user == "") {
         handleBadUser('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
         return;
       }
       if (allLetters(user) == false) {
         handleBadUser('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
         return;
-      }
+      }*/
     }
     else {
       if ($("#selectgroup option:selected").val() == "" || $("#selectgroup option:selected").val() == "Select a group to book for") {
@@ -943,6 +945,13 @@ function multiselect() {
   var confirm = '<span id="multiSub" class="button" style="padding:0.5em;margin:0.25em;font-size:0.8em" onclick="sendmultibook()">CONFIRM</span>';
   var cancel = '<span class="button" style="padding:0.5em;margin:0.25em;font-size:0.8em" onclick="deselect()">CANCEL</span>';
   $('#confirmMulti').html(confirm+cancel);
+  if (window.refresh != null) {
+    clearInterval(window.refresh);
+    window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 5000);
+          console.log('window', window.refresh);
+  } 
 
 }
 
@@ -973,10 +982,17 @@ function deselect() {
 function bookmulti(id) {
   console.log(id);
   userInfoModalMulti(id)
+  if (window.refresh != null) {
+    clearInterval(window.refresh);
+    window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 5000);
+          console.log('window', window.refresh);
+  } 
 }
 
 function userInfoModalMulti(id) {
-
+  $('#personNetM').html('Net Id: <strong>' + $('#netid').data('user') + '</strong>')
    // handles all modal - make it seen 
   var modal = document.getElementById("multiModal");
   // Get the <span> element that closes the modal on the x button 
@@ -1061,10 +1077,10 @@ function addUser(id) {
     console.log(selectedUser);
     // if selected user is self
     if (selectedUser == 'selfM') {
-      var user = ($('#selfnameM').val());
+      var user = $('#netid').data('user');
       console.log(user);
       var userid = 0;
-      if (user == "") {
+      /*if (user == "") {
         handleBadUserM('Self Booking: No name entered. <br> <strong>Please enter in your name</strong>');
         return;
       }
@@ -1072,6 +1088,7 @@ function addUser(id) {
         handleBadUserM('Self Booking: Name should only have alphabet letters. <br><strong> Please enter in a valid name without spaces, numbers, or special characters.</strong>');
         return;
       }
+    } */ 
     }
     else {
       if ($("#selectgroupM option:selected").val() == "" || $("#selectgroupM option:selected").val() == "Select a group to book for") {
