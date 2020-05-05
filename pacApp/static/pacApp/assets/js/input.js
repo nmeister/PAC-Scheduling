@@ -76,7 +76,7 @@ function same_company(company_1, company_2)
 function validateResponse() 
 {
   var empty_inputs = []
-  let company = document.querySelector('input[name=company_name]').value.trim();
+  let company = document.getElementById("myList").value.trim();
 
   let company_day_1 = radio_check('company_day_1') // 
   let company_studio_1 = radio_check('company_studio_1'); //
@@ -146,13 +146,14 @@ function validateResponse()
   company_2 = [company_day_2, company_studio_2, company_start_time_2, company_end_time_2];
   company_3 = [company_day_3, company_studio_3, company_start_time_3, company_end_time_3];
 
-
+  /*
   // if company is already in the db
   if (company_already_entered(company_name))
   {
     alert('The company you are trying to submit already has an entry in the database as displayed in step 2. Please either delete your existing entry in the database or enter a different company name.')
     return false;
   }
+  */
 
   // ensure that the company 1 and 2 entries are unique
   if (same_company(company_1, company_2)) {
@@ -223,16 +224,18 @@ function wasClicked_Alg(event, type)
   if (start_date=='0001-01-01')
   {
     alert('No start date was entered. Please enter a start date to specify the start date of when you would like this allocation of space to apply.')
+    event.preventDefault();
     return false;
   }
 
   if (end_date=='0001-01-01')
   {
     alert('No end date was entered. Please enter an end date to specify the end date of when you would like this allocation of space to apply.')
+    event.preventDefault();
     return false;
   }
-  start_date = new Date(start_dateArr[0], start_dateArr[1], end_dateArr[2]);
-  start_date = new Date(end_dateArr[0], end_dateArr[1], end_dateArr[2]);
+  start_date = new Date(start_dateArr[0], start_dateArr[1], start_dateArr[2]);
+  end_date = new Date(end_dateArr[0], end_dateArr[1], end_dateArr[2]);
 
   console.log(start_date, end_date);
 
@@ -243,7 +246,6 @@ function wasClicked_Alg(event, type)
     event.preventDefault();
     return false; 
   } 
-
 
   var ad_requests = "{{all_requests}}";
   console.log(ad_requests);
