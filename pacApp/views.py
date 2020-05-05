@@ -800,7 +800,7 @@ def scheduling_alg(request: HttpResponse):
             book = Booking(studio_id=space['Studio'],
                         company_id=int(space['Name']),
                         from_alg = 1,
-                        company_name=groups_list[space['Name']-1],
+                        company_name=groups_list[int(space['Name'])-1],
                         start_time=space['Start_Time'],
                         end_time=space['End_Time'],
                         week_day=daysList[space['Day']],
