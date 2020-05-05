@@ -32,22 +32,23 @@ class ADRequest(models.Model):
 	# option to add default='___' option to prevent erroroneous entrys
 
 class Studio(models.Model):
-	name = models.CharField(max_length=50)
+	studio_name = models.CharField(max_length=50)
 	studio_id = models.IntegerField()
 	address = models.CharField(max_length=50)
 
 class Group(models.Model):
-	name = models.CharField(max_length=50)
+	group_name = models.CharField(max_length=50)
+	group_id = models.IntegerField()
 	showtime = models.DateField()
 	contact = models.CharField(max_length=50)
 	size = models.IntegerField()
 
 class Booking(models.Model):
 	studio_id = models.IntegerField()
-	company_id = models.IntegerField()
+	group_id = models.IntegerField()
+	group_name = models.CharField(max_length=50)
 	from_alg = models.IntegerField(default=0)
 	user_netid = models.CharField(max_length=50)
-	company_name = models.CharField(max_length=50)
 	start_time = models.IntegerField()
 	end_time = models.IntegerField()
 	week_day = models.IntegerField()

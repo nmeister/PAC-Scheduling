@@ -68,8 +68,8 @@
     // Wilcox value is a list of bookings 
     {% for booking in Wilcox %}
         { // for each of the booking, create a new object booking with such fields
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"wilcox",
@@ -83,8 +83,8 @@
     var wilcoxGray = [
     {% for booking in WilcoxGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"wilcox",
@@ -99,8 +99,8 @@
  	var bloomberg = [
     {% for booking in Bloomberg %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"bloomberg",
@@ -115,10 +115,10 @@
   var bloombergGray = [
     {% for booking in BloombergGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
-         company_id:"{{booking.company_id}}",
+         company_id:"{{booking.group_id}}",
          end_time:"{{booking.end_time}}",
          studio:"bloomberg",
          week_day:"{{booking.week_day}}",
@@ -133,8 +133,8 @@
   var dillondance = [
     {% for booking in DillonDance %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"dillondance",
@@ -150,8 +150,8 @@
    var dillondanceGray = [
     {% for booking in DillonDanceGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"dillondance",
@@ -167,8 +167,8 @@
    var dillonmpr = [
     {% for booking in DillonMPR %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"dillonmpr",
@@ -184,8 +184,8 @@
    var dillonmprGray = [
     {% for booking in DillonMPRGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"dillonmpr",
@@ -201,8 +201,8 @@
    var dillonmar = [
     {% for booking in DillonMAR %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"dillonmar",
@@ -217,8 +217,8 @@
   var dillonmarGray = [
     {% for booking in DillonMARGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"dillonmar",
@@ -233,8 +233,8 @@
    var whitman = [
     {% for booking in Whitman %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"whitman",
@@ -248,8 +248,8 @@
     var whitmanGray = [
     {% for booking in WhitmanGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"whitman",
@@ -263,8 +263,8 @@
    var murphy = [
     {% for booking in Murphy %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"murphy",
@@ -278,8 +278,8 @@
    var murphyGray = [
     {% for booking in MurphyGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"murphy",
@@ -293,8 +293,8 @@
     var ns = [
     {% for booking in NewSouth %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"ns",
@@ -308,8 +308,8 @@
    var nsGray = [
     {% for booking in NewSouthGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"ns",
@@ -323,8 +323,8 @@
     var nswarmup = [
     {% for booking in NSWarmup %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"nswarmup",
@@ -338,8 +338,8 @@
    var nswarmupGray = [
     {% for booking in NSWarmupGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"nswarmup",
@@ -354,8 +354,8 @@
     var nstheatre = [
     {% for booking in NSTheatre %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"nstheatre",
@@ -369,8 +369,8 @@
    var nstheatreGray = [
     {% for booking in NSTheatreGray %}
         {
-         company_name:"{{booking.company_name}}",
-         company_id:"{{booking.company_id}}",
+         company_name:"{{booking.group_name}}",
+         company_id:"{{booking.group_id}}",
          start_time:"{{booking.start_time}}",
          end_time:"{{booking.end_time}}",
          studio:"nstheatre",
