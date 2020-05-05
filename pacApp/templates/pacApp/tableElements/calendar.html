@@ -418,6 +418,7 @@
          // for that element with particular id, add a class called test 
          let group = item.company_name;
          $(col).addClass('grayed');
+
         //  $(col).addClass(group);
          // $(col).html(item.company_name);
          // console.log(item);
@@ -442,6 +443,14 @@
 
    // here is the function createBooking defined 
    function createBooking(item, index) {
+      var d = new Date();
+      // d.setHours(24,0,0,0);
+
+      var bookdate = item.booking_date.split('-');
+      
+      var strictdate = new Date(item.booking_date);
+      strictdate.setHours(item.start_time);
+      console.log('strictdate is' + strictdate);
       for (let i = item.start_time; i != item.end_time; i++) {
          // ex. wilcox5
          // console.log(item.studio)
@@ -450,17 +459,23 @@
 
          // console.log(col)
          // for that element with particular id, add a class called test 
-         let group = item.company_name;
+    
          $(col).addClass('helen');
          $(col).addClass('g'+item.company_id);
          $(col).html(decodeURIComponent(item.company_name));
          // on hovering over this element that user booked, allow to drop
-         if ("{{user}}" == item.user_netid) {
+         if ("{{user}}" == item.user_netid && strictdate > d) {
             $(col).attr('onmouseover', 'del(event)');
             $(col).attr('data-toggle',"tooltip");
   		 	    $(col).attr('data-placement', "top"); 
   		 	    $(col).data('delay', 0);
   		 	    $(col).attr('title', "Click to drop space");
+         }
+         if (strictdate < d || "{{user}}" != item.user_netid) {
+            $(col).attr('data-toggle',"tooltip");
+            $(col).attr('data-placement', "top"); 
+            $(col).data('delay', 0);
+            $(col).attr('title', "You cannot drop this space");
          }
 
          $(col).attr('onclick', 'handleDrop(event)');
@@ -492,6 +507,10 @@
         $('#bookingbutton').attr('href', '');
         $('#bookingbutton').attr('onclick', 'multiselect()');*/
 			 	$('tr').css('cursor','pointer'); 
+        /* $('tr').attr('data-toggle',"tooltip");
+        $('tr').attr('data-placement', "top"); 
+        $('tr').data('delay', 0);
+        $('tr').attr('title', "Click to book space"); */ 
 			 }
 			 if (place == '/' || place == '/homepage') {
 			 	$('#bookingbutton').css('display','inline-block');
@@ -521,8 +540,8 @@
   			return date.toDateString();
 
   		}
-  		console.log('{{formatdate}}');
-  		var start = readableDate("{{formatdate}}");
+  		console.log('on this day: {{formatdate}}');
+  		var start = readableDate("{{sun}}");
   		var end = readableDate("{{enddate}}");
   		$('#week').attr('title', "Week start: " + start + ' to: ' + end);
 		
@@ -577,5 +596,6 @@
 	handleDropSuccess();
   today();
 	hideBookButton();
+
 
 </script>

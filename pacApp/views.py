@@ -80,34 +80,47 @@ def homepage(request):
 def createContext(startdate, groups):
     week = {}
     # for one week
-    enddate = startdate + timedelta(days=6)
     startday = startdate.strftime('%w')
-    for i in range(7):
+    if startday != '0': 
+      print('today is not sunday')
+      sunday = startdate - timedelta(days=int(startday))
+      enddate = sunday + timedelta(days=6)
+      print('sunday is ' + sunday.strftime('%Y-%m-%d'))
+      for i in range(7):
+        week[(sunday + timedelta(days=i)).strftime('%w')
+             ] = (sunday + timedelta(days=i)).strftime('%Y-%m-%d')
+      print(week)
+    else: 
+      print('today is sunday')
+      sunday = startdate
+      enddate = startdate + timedelta(days=6)
+      for i in range(7):
         print('creating the days of the week')
         week[(startdate + timedelta(days=i)).strftime('%w')
              ] = (startdate + timedelta(days=i)).strftime('%Y-%m-%d')
-    print(week)
+      print(week)
 
     # studio list for matching studio and names, just for reference
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
     # filter by studio and week
-    context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[startdate, enddate]),
-               'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[startdate, enddate]),
-               'DillonMAR': Booking.objects.filter(studio_id=2).filter(booking_date__range=[startdate, enddate]),
-               'DillonMPR': Booking.objects.filter(studio_id=3).filter(booking_date__range=[startdate, enddate]),
-               'Murphy': Booking.objects.filter(studio_id=4).filter(booking_date__range=[startdate, enddate]),
-               'NewSouth': Booking.objects.filter(studio_id=5).filter(booking_date__range=[startdate, enddate]),
-               'NSWarmup': Booking.objects.filter(studio_id=6).filter(booking_date__range=[startdate, enddate]),
-               'NSTheatre': Booking.objects.filter(studio_id=7).filter(booking_date__range=[startdate, enddate]),
-               'Whitman': Booking.objects.filter(studio_id=8).filter(booking_date__range=[startdate, enddate]),
-               'Wilcox': Booking.objects.filter(studio_id=9).filter(booking_date__range=[startdate, enddate]),
+    context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[sunday, enddate]),
+               'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[sunday, enddate]),
+               'DillonMAR': Booking.objects.filter(studio_id=2).filter(booking_date__range=[sunday, enddate]),
+               'DillonMPR': Booking.objects.filter(studio_id=3).filter(booking_date__range=[sunday, enddate]),
+               'Murphy': Booking.objects.filter(studio_id=4).filter(booking_date__range=[sunday, enddate]),
+               'NewSouth': Booking.objects.filter(studio_id=5).filter(booking_date__range=[sunday, enddate]),
+               'NSWarmup': Booking.objects.filter(studio_id=6).filter(booking_date__range=[sunday, enddate]),
+               'NSTheatre': Booking.objects.filter(studio_id=7).filter(booking_date__range=[sunday, enddate]),
+               'Whitman': Booking.objects.filter(studio_id=8).filter(booking_date__range=[sunday, enddate]),
+               'Wilcox': Booking.objects.filter(studio_id=9).filter(booking_date__range=[sunday, enddate]),
                'sun': week['0'], 'mon': week['1'], 'tue': week['2'], 'wed': week['3'],
                'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
 
     context['formatdate'] = startdate.strftime('%Y-%m-%d')
     context['enddate'] = enddate.strftime('%Y-%m-%d')
     # on default opened day is on the same as the date in the week start
+    # this is the tab that will be opened whether itbe what the user was on before clicked something or today
     context['openday'] = startday
 
 

@@ -1,4 +1,11 @@
 function openDay(tab, id) {
+   if (window.refresh != null) {
+    clearInterval(window.refresh);
+    window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 7000);
+          console.log('window', window.refresh); 
+  }
   // opens the tab content corresponding to clicked tab
   // Declare all variables
   var i, tabcontent, tablinks;
@@ -30,14 +37,11 @@ function openDay(tab, id) {
   // console.log(date[0].substring(2));
   $('#'+id+'date').html(reformatted);
   $('#'+id+'date').css('display','block');
-  if (window.refresh != null) {
-    clearInterval(window.refresh);
-    window.refresh = setInterval(function () {
-          setupWeek('group');}
-          , 5000);
-          console.log('window', window.refresh);
-  } 
+  $('#curr').val($('#'+id).data('date')); 
+
 }
+
+
  
 // date is built as yyyy-mm-dd
 function buildDate(date) {
@@ -149,6 +153,13 @@ function setupWeek(type) {
   var groups = setGroups();
 
   console.log('type of call is: ' + type);
+  if (window.refresh != null) {
+    clearInterval(window.refresh);
+    window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 7000);
+          console.log('window setupweek', window.refresh); 
+  }
   // if by clicking on the date picker
   if (type == 'week') {
     var newdate = $('#curr').val();

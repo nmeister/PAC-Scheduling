@@ -48,7 +48,7 @@ input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
   overflow: hidden;
   border:0.1em solid #ccc;
   background-color: #f1f1f1;
-  padding:0.7em 0.7em 0.7em 0.7em;
+  padding:0.05em 0.7em 0.7em 0.6em;
   width:100%;
   position:relative;
 }
@@ -107,6 +107,10 @@ input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
   max-width:3em;
   max-height:0.5em;
   padding:0.5em;
+
+}
+
+.g0 {
 
 }
 
@@ -255,13 +259,14 @@ input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
 
 
 #groupselect, #groupselectM {
-  padding:1em 2em 2em 2em;
+  padding:1em 2em 1.5em 2em;
   background-color: #df7366;
   font-weight:400;
   color:#fff;
   overflow:hidden;
   margin:1em 0em 1em 0em;
-  font-size:0.8em;
+  font-size:0.95em;
+  background-image: url(../../images/header.jpg);
 }
 
 
@@ -318,7 +323,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   display: inline-block;
   width:0.2em;
   height:0.2em;
-  margin-top:3em;
+  margin-top:3.6em;
   cursor:pointer;
   margin-left:3em;
   margin-right:3em;
@@ -350,6 +355,11 @@ input[type=date]::-webkit-calendar-picker-indicator {
 
 .grayed {
   background-color:lightgray;
+}
+
+.grayed:hover {
+  background-color: lightgray !important;
+  cursor:default !important;
 }
 
 .select {
