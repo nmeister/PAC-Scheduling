@@ -48,7 +48,7 @@ def carouselAvailable():
 
     studioList = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     for i in notfree:
-        studioList[i.studio_id] = 0
+        studioList[i.studio_id_id] = 0
 
     # print(studioList)
 
@@ -104,16 +104,16 @@ def createContext(startdate, groups):
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
     # filter by studio and week
-    context = {'Bloomberg': Booking.objects.filter(studio_id=0).filter(booking_date__range=[sunday, enddate]),
+    context = {'Bloomberg': Booking.objects.filter(studio_id_id=0).filter(booking_date__range=[sunday, enddate]),
                'DillonDance': Booking.objects.filter(studio_id=1).filter(booking_date__range=[sunday, enddate]),
-               'DillonMAR': Booking.objects.filter(studio_id=2).filter(booking_date__range=[sunday, enddate]),
-               'DillonMPR': Booking.objects.filter(studio_id=3).filter(booking_date__range=[sunday, enddate]),
-               'Murphy': Booking.objects.filter(studio_id=4).filter(booking_date__range=[sunday, enddate]),
-               'NewSouth': Booking.objects.filter(studio_id=5).filter(booking_date__range=[sunday, enddate]),
-               'NSWarmup': Booking.objects.filter(studio_id=6).filter(booking_date__range=[sunday, enddate]),
-               'NSTheatre': Booking.objects.filter(studio_id=7).filter(booking_date__range=[sunday, enddate]),
-               'Whitman': Booking.objects.filter(studio_id=8).filter(booking_date__range=[sunday, enddate]),
-               'Wilcox': Booking.objects.filter(studio_id=9).filter(booking_date__range=[sunday, enddate]),
+               'DillonMAR': Booking.objects.filter(studio_id_id=2).filter(booking_date__range=[sunday, enddate]),
+               'DillonMPR': Booking.objects.filter(studio_id_id=3).filter(booking_date__range=[sunday, enddate]),
+               'Murphy': Booking.objects.filter(studio_id_id=4).filter(booking_date__range=[sunday, enddate]),
+               'NewSouth': Booking.objects.filter(studio_id_id=5).filter(booking_date__range=[sunday, enddate]),
+               'NSWarmup': Booking.objects.filter(studio_id_id=6).filter(booking_date__range=[sunday, enddate]),
+               'NSTheatre': Booking.objects.filter(studio_id_id=7).filter(booking_date__range=[sunday, enddate]),
+               'Whitman': Booking.objects.filter(studio_id_id=8).filter(booking_date__range=[sunday, enddate]),
+               'Wilcox': Booking.objects.filter(studio_id_id=9).filter(booking_date__range=[sunday, enddate]),
                'sun': week['0'], 'mon': week['1'], 'tue': week['2'], 'wed': week['3'],
                'thu': week['4'], 'fri': week['5'], 'sat': week['6']}
 
@@ -131,54 +131,54 @@ def createContext(startdate, groups):
       if groups[0] == 0:
         print('there is a non group')
       
-      bloombergNew = context['Bloomberg'].filter(group_id__in=groups)
-      bloombergGray = context['Bloomberg'].exclude(group_id__in=groups)
+      bloombergNew = context['Bloomberg'].filter(group_id_id__in=groups)
+      bloombergGray = context['Bloomberg'].exclude(group_id_id__in=groups)
       context['Bloomberg'] = bloombergNew
       context['BloombergGray'] = bloombergGray
 
-      dillonDanceNew = context['DillonDance'].filter(group_id__in=groups)
-      dillonDanceGray = context['DillonDance'].exclude(group_id__in=groups)
+      dillonDanceNew = context['DillonDance'].filter(group_id_id__in=groups)
+      dillonDanceGray = context['DillonDance'].exclude(group_id_id__in=groups)
       context['DillonDance'] = dillonDanceNew
       context['DillonDanceGray'] = dillonDanceGray
 
 
-      dillonMARNew = context['DillonMAR'].filter(group_id__in=groups)
-      dillonMARGray = context['DillonMAR'].exclude(group_id__in=groups)
+      dillonMARNew = context['DillonMAR'].filter(group_id_id__in=groups)
+      dillonMARGray = context['DillonMAR'].exclude(group_id_id__in=groups)
       context['DillonMAR'] = dillonMARNew
       context['DillonMARGray'] = dillonMARGray
 
-      dillonMPRNew = context['DillonMPR'].filter(group_id__in=groups)
-      dillonMPRGray = context['DillonMPR'].exclude(group_id__in=groups)
+      dillonMPRNew = context['DillonMPR'].filter(group_id_id__in=groups)
+      dillonMPRGray = context['DillonMPR'].exclude(group_id_id__in=groups)
       context['DillonMPR'] = dillonMPRNew
       context['DillonMPRGray'] = dillonMPRGray
       
-      murphyNew = context['Murphy'].filter(group_id__in=groups)
-      murphyGray = context['Murphy'].exclude(group_id__in=groups)
+      murphyNew = context['Murphy'].filter(group_id_id__in=groups)
+      murphyGray = context['Murphy'].exclude(group_id_id__in=groups)
       context['Murphy'] = murphyNew
       context['MurphyGray'] = murphyGray
 
-      nsNew = context['NewSouth'].filter(group_id__in=groups)
-      nsGray = context['NewSouth'].exclude(group_id__in=groups)
+      nsNew = context['NewSouth'].filter(group_id_id__in=groups)
+      nsGray = context['NewSouth'].exclude(group_id_id__in=groups)
       context['NewSouth'] = nsNew
       context['NewSouthGray'] = nsGray
 
-      nsWarmNew = context['NSWarmup'].filter(group_id__in=groups)
-      nsWarmGray = context['NSWarmup'].exclude(group_id__in=groups)
+      nsWarmNew = context['NSWarmup'].filter(group_id_id__in=groups)
+      nsWarmGray = context['NSWarmup'].exclude(group_id_id__in=groups)
       context['NSWarmup'] = nsWarmNew
       context['NSWarmupGray'] = nsWarmGray
        
-      nsTNew = context['NSTheatre'].filter(group_id__in=groups)
-      nsTGray = context['NSTheatre'].exclude(group_id__in=groups)
+      nsTNew = context['NSTheatre'].filter(group_id_id__in=groups)
+      nsTGray = context['NSTheatre'].exclude(group_id_id__in=groups)
       context['NSTheatre'] = nsTNew
       context['NSTheatreGray'] = nsTGray
         
-      whitNew = context['Whitman'].filter(group_id__in=groups)
-      whitGray = context['Whitman'].exclude(group_id__in=groups)
+      whitNew = context['Whitman'].filter(group_id_id__in=groups)
+      whitGray = context['Whitman'].exclude(group_id_id__in=groups)
       context['Whitman'] = whitNew
       context['WhitmanGray'] = whitGray
 
-      wilNew = context['Wilcox'].filter(group_id__in=groups)
-      wilGray = context['Wilcox'].exclude(group_id__in=groups)
+      wilNew = context['Wilcox'].filter(group_id_id__in=groups)
+      wilGray = context['Wilcox'].exclude(group_id_id__in=groups)
       context['Wilcox'] = wilNew
       context['WilcoxGray'] = wilGray 
 
@@ -283,7 +283,7 @@ def create_booking(date, studio, name, nameid, starttime, endtime, day, profile)
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
     count = 0 
     for i in range(int(starttime),int(endtime)):
-      bookExist = Booking.objects.filter(studio_id=studioList[studio]).filter(booking_date=date)
+      bookExist = Booking.objects.filter(studio_id_id=studioList[studio]).filter(booking_date=date)
       bookExist = bookExist.filter(start_time=int(i)).filter(end_time=i+1).filter(week_day=day)
       if bookExist.exists():
         print('bad already exists, cannot be booked')
@@ -291,8 +291,8 @@ def create_booking(date, studio, name, nameid, starttime, endtime, day, profile)
       else:
         print(name)
       # doesn't exist therefore make a new booking
-        book = Booking(studio_id=studioList[studio],
-                   group_id=nameid,
+        book = Booking(studio_id_id=studioList[studio],
+                   group_id_id=nameid,
                    group_name=name,
                    from_alg=0,
                    user_netid=profile,
@@ -358,8 +358,8 @@ def delete_booking(date, studio, name, nameid, starttime, endtime, day, profile)
     print(name)
     # grab the booking you want to delete
     try:
-        book_to_del = Booking.objects.get(studio_id=studioList[studio],
-                                          group_id=nameid,
+        book_to_del = Booking.objects.get(studio_id_id=studioList[studio],
+                                          group_id_id=nameid,
                                           group_name = name,
                                           user_netid=profile,
                                           start_time=starttime,
@@ -796,7 +796,7 @@ def scheduling_alg(request: HttpResponse):
                         'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8']
     for week in range(weeks):
         for i, space in df_results.iterrows():
-            book = Booking(studio_id=space['Studio'],
+            book = Booking(studio_id_id=space['Studio'],
                         company_id=int(space['Name']),
                         from_alg = 1,
                         company_name=groups_list[int(space['Name'])-1],
