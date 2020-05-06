@@ -38,6 +38,7 @@ class ADRequest(models.Model):
 # Table of all the dance studios and their characteristics
 class Studio(models.Model):
     studio_name = models.CharField(max_length=50)
+    # primary key 
     studio_id = models.IntegerField(unique=True)
     address = models.CharField(max_length=50)
     capacity = models.IntegerField(default=0)
@@ -57,10 +58,11 @@ class Group(models.Model):
 
 class Booking(models.Model):
     group_id = models.IntegerField()
+    # foreign key 
     studio_id = models.ForeignKey(
         Studio, to_field='studio_id', default=1, on_delete=models.SET_DEFAULT)
-    # group_id = models.ForeignKey(
-    #    Group, to_field = 'group_id', default = 1, on_delete = models.SET_DEFAULT)
+    group_id = models.ForeignKey(
+        Group, to_field = 'group_id', default=0, on_delete = models.SET_DEFAULT)
     group_name = models.CharField(max_length=50)
     from_alg = models.IntegerField(default=0)
     user_netid = models.CharField(max_length=50)
@@ -76,8 +78,8 @@ class CompanyRequest(models.Model):
     request_id = models.IntegerField(unique=True)
     company_choice_num = models.IntegerField()
     scheduled = models.IntegerField()
-    # group_id = models.ForeignKey(
-    #    Group, to_field='group_id', default=1, on_delete=models.SET_DEFAULT)
+    group_id = models.ForeignKey(
+        Group, to_field='group_id', default=0, on_delete=models.SET_DEFAULT)
     company_day = models.CharField(max_length=50)
     company_start_time = models.IntegerField()
     company_end_time = models.IntegerField()
@@ -92,8 +94,8 @@ class ResearsalRequest(models.Model):
     request_id = models.IntegerField()
     request_id = models.ForeignKey(
         CompanyRequest, default=0, verbose_name="Rehearsals", on_delete=models.SET_DEFAULT)
-    # group_id = models.ForeignKey(
-    #    Group, to_field='group_id', default=1, on_delete=models.SET_DEFAULT)
+    group_id = models.ForeignKey(
+       Group, to_field='group_id', default=0, on_delete=models.SET_DEFAULT)
     scheduled = models.IntegerField(default=0)
     num_reho = models.IntegerField()
     member_size = models.IntegerField()
