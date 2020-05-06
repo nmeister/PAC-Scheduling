@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 
@@ -68,6 +69,8 @@ class Booking(models.Model):
     week_day = models.IntegerField()
     booking_date = models.DateField(auto_now_add=False)  # 2018/12/19
 
+# Choices for company per one group
+
 
 class CompanyRequest(models.Model):
     request_id = models.IntegerField(unique=True)
@@ -80,6 +83,9 @@ class CompanyRequest(models.Model):
     company_end_time = models.IntegerField()
     company_studio = models.ForeignKey(
         Studio, to_field='studio_id', default=1, on_delete=models.SET_DEFAULT)
+    submit_date = models.DateField(default=date.today)
+
+# Choices of rehearsal per one group
 
 
 class ResearsalRequest(models.Model):
@@ -91,6 +97,7 @@ class ResearsalRequest(models.Model):
     scheduled = models.IntegerField(default=0)
     num_reho = models.IntegerField()
     member_size = models.IntegerField()
+    submit_date = models.DateField(default=date.today)
     rank_1 = models.IntegerField(default=0)
     rank_2 = models.IntegerField(default=0)
     rank_3 = models.IntegerField(default=0)
