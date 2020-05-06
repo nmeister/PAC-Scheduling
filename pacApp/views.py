@@ -794,16 +794,23 @@ def scheduling_alg(request: HttpResponse):
 
     groups_list = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
                         'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8']
+
+    user_netid = request.user.uniauth_profile.get_display_id()
     for week in range(weeks):
         for i, space in df_results.iterrows():
             book = Booking(studio_id_id=space['Studio'],
-                        company_id=int(space['Name']),
+                        group_id_id=int(space['Name']),
                         from_alg = 1,
-                        company_name=groups_list[int(space['Name'])-1],
+                        group_name=groups_list[int(space['Name'])-1],
                         start_time=space['Start_Time'],
                         end_time=space['End_Time'],
                         week_day=daysList[space['Day']],
+                        user_netid=str(user_netid),
                         booking_date=(start_date + timedelta(days=(week*6))))
             book.save()
 
-    return redirect('../../adminForm')
+    context = {}
+    context['start_date'] = start_date
+    return render(request, "templates/pacApp/tableElements/calendar.html", context)
+    # return redirect('../../schedule')
+    # return redirect('../../adminForm')
