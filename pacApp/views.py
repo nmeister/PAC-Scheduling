@@ -414,7 +414,6 @@ def grab_time(time_val):
 
 
 def insert_ad_request(request: HttpResponse):
-
     company_start_time_1 = grab_time(request.POST['company_start_time_1'])
     company_end_time_1 = grab_time(request.POST['company_end_time_1'])
     company_start_time_2 = grab_time(request.POST['company_start_time_2'])
