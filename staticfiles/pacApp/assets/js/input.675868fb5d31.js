@@ -42,6 +42,8 @@ function hasDuplicates(array) {
   return (new Set(array)).size !== array.length;
 }
 
+if (rankingCheck(rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10) == "not unique") {
+
 function rankingCheck(rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10) {
   var ranking_list = [rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10];
   console.log(hasDuplicates(ranking_list));
@@ -228,6 +230,7 @@ function validateResponse()
     alert(alert_msg);
     return false;
   }	
+  
   /* add code here for more error validation!! */
   else return true;
 }
@@ -319,7 +322,7 @@ function handleresponse(response)
 
 function validate_deleten(name)
 {
-  alert('Are you sure you want to delete? ')
+  alert('Are you sure you want to delete ')
 }
 
 

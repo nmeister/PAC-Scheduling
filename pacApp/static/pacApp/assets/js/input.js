@@ -37,12 +37,13 @@ function bad_company_time(start, end)
   else return 'false';
 }
 
+// see if the array contains duplicates, return a boolean. true if has duplicates
 function hasDuplicates(array) {
   return (new Set(array)).size !== array.length;
 }
 
-function rankingCheck(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank) {
-  var ranking_list = [bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank];
+function rankingCheck(rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10) {
+  var ranking_list = [rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10];
   console.log(hasDuplicates(ranking_list));
   if (hasDuplicates(ranking_list)) return "not unique";
   else return "unique";
@@ -96,16 +97,17 @@ function validateResponse()
   let num_reho = document.querySelector('input[name=num_reho]').value.trim();
   let num_members = document.querySelector('input[name=num_members]').value.trim();
 
-  let bloomberg_rank = document.querySelector('input[name=bloomberg_rank]').value.trim();
-  let dillon_dance_rank = document.querySelector('input[name=dillon_dance_rank]').value.trim();
-  let dillon_mar_rank = document.querySelector('input[name=dillon_mar_rank]').value.trim();
-  let dillon_mpr_rank = document.querySelector('input[name=dillon_mpr_rank]').value.trim();
-  let murphy_rank = document.querySelector('input[name=murphy_rank]').value.trim();
-  let ns_rank = document.querySelector('input[name=ns_rank]').value.trim();
-  let ns_warmup_rank = document.querySelector('input[name=ns_warmup_rank]').value.trim();
-  let ns_theatre_rank = document.querySelector('input[name=ns_theatre_rank]').value.trim();
-  let whitman_rank = document.querySelector('input[name=whitman_rank]').value.trim();
-  let wilcox_rank = document.querySelector('input[name=wilcox_rank]').value.trim(); 
+  let rank_1 = document.getElementById("rank_1").value.trim();
+  let rank_2 = document.getElementById("rank_2").value.trim();
+  let rank_3 = document.getElementById("rank_3").value.trim();
+  let rank_4 = document.getElementById("rank_4").value.trim();
+  let rank_5 = document.getElementById("rank_5").value.trim();
+  let rank_6 = document.getElementById("rank_6").value.trim();
+  let rank_7 = document.getElementById("rank_7").value.trim();
+  let rank_8 = document.getElementById("rank_8").value.trim();
+  let rank_9 = document.getElementById("rank_9").value.trim();
+  let rank_10 = document.getElementById("rank_10").value.trim();
+
 
   if (company=="Select Company Name") {
     alert('Please select a group name.');
@@ -129,16 +131,36 @@ function validateResponse()
   if (num_reho=="") empty_inputs.push('Number of Rehearsals Needed');
   if (num_members=="") empty_inputs.push('Number of Members');
   
-  if (bloomberg_rank=="") empty_inputs.push('Bloomberg Rank');
-  if (dillon_dance_rank=="") empty_inputs.push('Dillon Dance Rank');
-  if (dillon_mar_rank=="") empty_inputs.push('Dillon MAR Rank');
-  if (dillon_mpr_rank=="") empty_inputs.push('Dillon MPR Rank');
-  if (murphy_rank=="") empty_inputs.push('Murphy Rank');
-  if (ns_rank=="") empty_inputs.push('NS Rank');
-  if (ns_warmup_rank=="") empty_inputs.push('NS Warmup Rank');
-  if (ns_theatre_rank=="") empty_inputs.push('NS Theatre Rank');
-  if (whitman_rank=="") empty_inputs.push('Whitman Rank');
-  if (wilcox_rank=="") empty_inputs.push('Wilcox Rank'); 
+  if (rank_1=="Select Studio") {
+    alert('Please enter your first 1st choice studio.');
+  }
+  if (rank_2=="Select Studio") {
+    alert('Please enter your first 2nd choice studio.');
+  }
+  if (rank_3=="Select Studio") {
+    alert('Please enter your first 3rd choice studio.');
+  }
+  if (rank_4=="Select Studio") {
+    alert('Please enter your first 4th choice studio.');
+  }
+  if (rank_5=="Select Studio") {
+    alert('Please enter your first 5th choice studio.');
+  }
+  if (rank_6=="Select Studio") {
+    alert('Please enter your first 6th choice studio.');
+  }
+  if (rank_7=="Select Studio")  {
+    alert('Please enter your first 7th choice studio.');
+  }
+  if (rank_8=="Select Studio") {
+    alert('Please enter your first 8th choice studio.');
+  }
+  if (rank_9=="Select Studio")  {
+    alert('Please enter your first 9th choice studio.');
+  }
+  if (rank_10=="Select Studio")  {
+    alert('Please enter your first 10th choice studio.');
+  }
 
   console.log(empty_inputs);
 
@@ -178,13 +200,27 @@ function validateResponse()
   }
   
   // Ensure studio rankings are unique
-  if (rankingCheck(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank) == "not unique") {
-    alert("The studio rankings are not unique. Please ensure that the numbers you've entered are different numbers for each box. Please fix your rankings and submit again.");
+  if (rankingCheck(rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10) == "not unique") {
+    alert("The studio rankings are not unique. Please ensure that you have selected 10 unique studios. Please fix your rankings and submit again.");
+    return false;
+  }
+
+  // if the start time of one is after the end time
+  if (bad_company_time(company_start_time_1, company_end_time_1)=='true'){
+    alert('The end time for the company preference 1 is before the start time for company preference 1');
+    return false;
+  }
+  if (bad_company_time(company_start_time_2, company_end_time_2)=='true'){
+    alert('The end time for the company preference 2 is before the start time for company preference 2');
+    return false;
+  }
+  if (bad_company_time(company_start_time_3, company_end_time_3)=='true'){
+    alert('The end time for the company preference 3 is before the start time for company preference 3');
     return false;
   }
 
   // if any entry is empty
-  else if (empty_inputs.length != 0)
+  if (empty_inputs.length != 0)
   {
     console.log("This form did not submit");
     let alert_msg = "This form did not submit. Please fill in the following blanks: "
@@ -192,21 +228,7 @@ function validateResponse()
     alert(alert_msg);
     return false;
   }	
-
-  // if the start time of one is after the end time
-  else if (bad_company_time(company_start_time_1, company_end_time_1)=='true'){
-    alert('The end time for the company preference 1 is before the start time for company preference 1');
-    return false;
-  }
-  else if (bad_company_time(company_start_time_2, company_end_time_2)=='true'){
-    alert('The end time for the company preference 2 is before the start time for company preference 2');
-    return false;
-  }
-  else if (bad_company_time(company_start_time_3, company_end_time_3)=='true'){
-    alert('The end time for the company preference 3 is before the start time for company preference 3');
-    return false;
-  }
-  /* add code here for error validation!! */
+  /* add code here for more error validation!! */
   else return true;
 }
 
@@ -297,7 +319,7 @@ function handleresponse(response)
 
 function validate_deleten(name)
 {
-  alert('Are you sure you want to delete ')
+  alert('Are you sure you want to delete? ')
 }
 
 

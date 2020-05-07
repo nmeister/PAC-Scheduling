@@ -414,6 +414,13 @@ def grab_time(time_val):
 
 
 def insert_ad_request(request: HttpResponse):
+
+    groups_list = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
+                        'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8']
+
+    studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
+                  'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+
     company_start_time_1 = grab_time(request.POST['company_start_time_1'])
     company_end_time_1 = grab_time(request.POST['company_end_time_1'])
     company_start_time_2 = grab_time(request.POST['company_start_time_2'])
@@ -421,33 +428,57 @@ def insert_ad_request(request: HttpResponse):
     company_start_time_3 = grab_time(request.POST['company_start_time_3'])
     company_end_time_3 = grab_time(request.POST['company_end_time_3'])
 
-    ad_req = ADRequest(company_name=request.POST['company_name'],
-                       company_day_1=request.POST.get('company_day_1'),
-                       company_start_time_1=company_start_time_1,
-                       company_end_time_1=company_end_time_1,
-                       company_studio_1=request.POST.get('company_studio_1'),
-                       company_day_2=request.POST.get('company_day_2'),
-                       company_start_time_2=company_start_time_2,
-                       company_end_time_2=company_end_time_2,
-                       company_studio_2=request.POST.get('company_studio_2'),
-                       company_day_3=request.POST.get('company_day_3'),
-                       company_start_time_3=company_start_time_3,
-                       company_end_time_3=company_end_time_3,
-                       company_studio_3=request.POST.get('company_studio_3'),
-                       num_reho=request.POST['num_reho'],
-                       company_size=request.POST['num_members'],
-                       bloomberg_rank=request.POST['bloomberg_rank'],
-                       dillon_dance_rank=request.POST['dillon_dance_rank'],
-                       dillon_mar_rank=request.POST['dillon_mar_rank'],
-                       dillon_mpr_rank=request.POST['dillon_mpr_rank'],
-                       murphy_rank=request.POST['murphy_rank'],
-                       ns_rank=request.POST['ns_rank'],
-                       ns_warmup_rank=request.POST['ns_warmup_rank'],
-                       ns_theatre_rank=request.POST['ns_theatre_rank'],
-                       whitman_rank=request.POST['whitman_rank'],
-                       wilcox_rank=request.POST['wilcox_rank'])
+    current_datetime = str(datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"))
+    name = groups_list[int(request.POST['company_name'])+1]
 
-    ad_req.save()
+    reho_req = RehearsalRequest(scheduled=0,
+                                num_reho=int(request.POST['num_reho']),
+                                member_size=int(request.POST['num_members']),
+                                rank_1=int(request.POST['rank_1']),
+                                rank_2=int(request.POST['rank_2']),
+                                rank_3=int(request.POST['rank_3']),
+                                rank_4=int(request.POST['rank_4']),
+                                rank_5=int(request.POST['rank_5']),
+                                rank_6=int(request.POST['rank_6']),
+                                rank_7=int(request.POST['rank_7']),
+                                rank_8=int(request.POST['rank_8']),
+                                rank_9=int(request.POST['rank_9']),
+                                rank_10=int(request.POST['rank_10']),
+                                request_id_id=(str(name)+current_datetime),
+                                group_id_id=request.POST['company_name'])
+
+    company_req_1 = CompanyRequest(request_id=(str(name)+current_datetime), 
+                                company_choice_num = 1,                                                    
+                                scheduled = 0,
+                                group_id_id = request.POST['company_name'],
+                                company_day = request.POST.get('company_day_1'),
+                                company_start_time = int(company_start_time_1),
+                                company_end_time = int(company_end_time_1),
+                                company_studio_id = studioList[str(request.POST.get('company_studio_1'))])
+
+    company_req_2 = CompanyRequest(request_id=(str(name)+current_datetime), 
+                                company_choice_num = 2,                                                    
+                                scheduled = 0,
+                                group_id_id = request.POST['company_name'],
+                                company_day = request.POST.get('company_day_2'),
+                                company_start_time = int(company_start_time_2),
+                                company_end_time = int(company_end_time_2),
+                                company_studio_id = studioList[str(request.POST.get('company_studio_2'))])
+
+    company_req_3 = CompanyRequest(request_id=(str(name)+current_datetime), 
+                                company_choice_num = 3,                                                    
+                                scheduled = 0,
+                                group_id_id = request.POST['company_name'],
+                                company_day = request.POST.get('company_day_3'),
+                                company_start_time = company_start_time_3,
+                                company_end_time = company_end_time_3,
+                                company_studio_id = studioList[str(request.POST.get('company_studio_3'))])
+
+    reho_req.save()
+    company_req_1.save()
+    company_req_2.save()
+    company_req_3.save()
+
     return redirect('/adminForm')
 
 

@@ -48,7 +48,7 @@ class Studio(models.Model):
 
 class Group(models.Model):
     group_name = models.CharField(max_length=50)
-    group_id = models.IntegerField(unique=True)
+    group_id = models.IntegerField(default=0,unique=True)
     showtime = models.DateField()
     contact = models.CharField(max_length=50)
     size = models.IntegerField()
@@ -73,40 +73,37 @@ class Booking(models.Model):
 
 # Choices for company per one group
 
-
-class CompanyRequest(models.Model):
-    request_id = models.IntegerField(unique=True)
-    company_choice_num = models.IntegerField()
-    scheduled = models.IntegerField()
-    group_id = models.ForeignKey(
-        Group, to_field='group_id', default=0, on_delete=models.SET_DEFAULT)
-    company_day = models.CharField(max_length=50)
-    company_start_time = models.IntegerField()
-    company_end_time = models.IntegerField()
-    company_studio = models.ForeignKey(
-        Studio, to_field='studio_id', default=1, on_delete=models.SET_DEFAULT)
-    submit_date = models.DateField(default=date.today)
-
 # Choices of rehearsal per one group
 
-
 class RehearsalRequest(models.Model):
-    request_id = models.IntegerField()
-    request_id = models.ForeignKey(
-        CompanyRequest, default=0, verbose_name="Rehearsals", on_delete=models.SET_DEFAULT)
-    group_id = models.ForeignKey(
-       Group, to_field='group_id', default=0, on_delete=models.SET_DEFAULT)
-    scheduled = models.IntegerField(default=0)
-    num_reho = models.IntegerField()
-    member_size = models.IntegerField()
-    submit_date = models.DateField(default=date.today)
-    rank_1 = models.IntegerField(default=0)
-    rank_2 = models.IntegerField(default=0)
-    rank_3 = models.IntegerField(default=0)
-    rank_4 = models.IntegerField(default=0)
-    rank_5 = models.IntegerField(default=0)
-    rank_6 = models.IntegerField(default=0)
-    rank_7 = models.IntegerField(default=0)
-    rank_8 = models.IntegerField(default=0)
-    rank_9 = models.IntegerField(default=0)
-    rank_10 = models.IntegerField(default=0)
+    # request_id = models.ForeignKey(CompanyRequest, to_field='request_id', default=0, verbose_name="Rehearsals", on_delete=models.SET_DEFAULT)
+	group_id = models.ForeignKey(Group, to_field='group_id', default=0, on_delete=models.SET_DEFAULT)
+	scheduled = models.IntegerField(default=0)
+	num_reho = models.IntegerField()
+	member_size = models.IntegerField()
+	submit_date = models.DateField(default=date.today)
+	rank_1 = models.IntegerField(default=0)
+	rank_2 = models.IntegerField(default=0)
+	rank_3 = models.IntegerField(default=0)
+	rank_4 = models.IntegerField(default=0)
+	rank_5 = models.IntegerField(default=0)
+	rank_6 = models.IntegerField(default=0)
+	rank_7 = models.IntegerField(default=0)
+	rank_8 = models.IntegerField(default=0)
+	rank_9 = models.IntegerField(default=0)
+	rank_10 = models.IntegerField(default=0)
+	request_id = models.CharField(max_length=50, unique=True)
+
+class CompanyRequest(models.Model):
+	request_id = models.CharField(max_length=50, unique=True, default=0)
+	# request_id = models.ForeignKey(RehearsalRequest, to_field='request_id', default=0, verbose_name="Rehearsals", on_delete=models.SET_DEFAULT)
+	company_choice_num = models.IntegerField()
+	scheduled = models.IntegerField()
+	group_id = models.ForeignKey(
+        Group, to_field='group_id', default=0, on_delete=models.SET_DEFAULT)
+	company_day = models.CharField(max_length=50)
+	company_start_time = models.IntegerField()
+	company_end_time = models.IntegerField()
+	company_studio = models.ForeignKey(
+        Studio, to_field='studio_id', default=1, on_delete=models.SET_DEFAULT)
+	submit_date = models.DateField(default=date.today)
