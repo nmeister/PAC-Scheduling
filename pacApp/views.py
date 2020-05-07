@@ -598,8 +598,12 @@ def scheduling_alg(request: HttpResponse):
     print(start_date, end_date)
   
     # get everything in db
-    all_requests = ADRequest.objects.all()
-    if (ADRequest.objects.count() == 0):
+    all_requests = RehearsalRequest.objects.all()
+    company1 = CompanyRequest.objects.filter(company_choice_num=1)
+    company2 = CompanyRequest.objects.filter(company_choice_num=2)
+    company3 = CompanyRequest.objects.filter(company_choice_num=3)
+
+    if (RehearsalRequest.objects.count() == 0):
          results = 'None'
          context = {}
          context['results'] = results
@@ -610,6 +614,9 @@ def scheduling_alg(request: HttpResponse):
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
     studios = list(studioList.keys())
 
+    groups_list = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
+                        'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8']
+
     df_request = pd.DataFrame(data=None, columns=['name', 
     'company_day_1', 'company_start_time_1', 'company_end_time_1', 'company_studio_1',
     'company_day_2', 'company_start_time_2', 'company_end_time_2', 'company_studio_2',
@@ -619,19 +626,51 @@ def scheduling_alg(request: HttpResponse):
     'num_reho', 'num_members'])
 
     for group in all_requests:
-        rank_1, rank_2, rank_3, rank_4, rank_5, rank_6, rank_7, rank_8, rank_9, rank_10 = get_ranks(group.bloomberg_rank, 
-                group.dillon_dance_rank, group.dillon_mar_rank, group.dillon_mpr_rank, 
-                group.murphy_rank, group.ns_rank, group.ns_warmup_rank, group.ns_theatre_rank, 
-                group.whitman_rank, group.wilcox_rank)
-        group_request = pd.DataFrame(data={'name': [group.company_name], 
-        'company_day_1': [group.company_day_1], 'company_start_time_1': [group.company_start_time_1], 'company_end_time_1': [group.company_end_time_1], 'company_studio_1': [group.company_studio_1],
-        'company_day_2': [group.company_day_2], 'company_start_time_2': [group.company_start_time_2], 'company_end_time_2': [group.company_end_time_2], 'company_studio_2': [group.company_studio_2],
-        'company_day_3': [group.company_day_3], 'company_start_time_3': [group.company_start_time_3], 'company_end_time_3': [group.company_end_time_3], 'company_studio_3': [group.company_studio_3],
+        rank_1 = studios[group.rank_1] 
+        rank_2 = studios[group.rank_2] 
+        rank_3 = studios[group.rank_3] 
+        rank_4 = studios[group.rank_4]  
+        rank_5 = studios[group.rank_5] 
+        rank_6 = studios[group.rank_6]  
+        rank_7 = studios[group.rank_7]  
+        rank_8 = studios[group.rank_8] 
+        rank_9 = studios[group.rank_9] 
+        rank_10 = studios[group.rank_10]  
+
+        for comp_1 in company1:
+            if (comp_1.request_id_id == group.request_id):
+                company_day_1 = comp_1.company_day
+                company_start_time_1 = comp_1.company_start_time
+                company_end_time_1 = comp_1.company_end_time
+                company_studio_1 = studios[comp_1.company_studio_id]
+                break
+                
+        for comp_2 in company2:
+            if (comp_2.request_id_id == group.request_id):
+                company_day_2 = comp_2.company_day
+                company_start_time_2 = comp_2.company_start_time
+                company_end_time_2 = comp_2.company_end_time
+                company_studio_2 = studios[comp_2.company_studio_id]
+                break
+                
+        for comp_3 in company3:
+            if (comp_3.request_id_id == group.request_id):
+                company_day_3 = comp_3.company_day
+                company_start_time_3 = comp_3.company_start_time
+                company_end_time_3 = comp_3.company_end_time
+                company_studio_3 = studios[comp_3.company_studio_id]
+                break
+                
+        group_request = pd.DataFrame(data={'name': [group.group_id_id], 
+        'company_day_1': [company_day_1], 'company_start_time_1': [company_start_time_1], 'company_end_time_1': [company_end_time_1], 'company_studio_1': [company_studio_1],
+        'company_day_2': [company_day_2], 'company_start_time_2': [company_start_time_2], 'company_end_time_2': [company_end_time_2], 'company_studio_2': [company_studio_2],
+        'company_day_3': [company_day_3], 'company_start_time_3': [company_start_time_3], 'company_end_time_3': [company_end_time_3], 'company_studio_3': [company_studio_3],
         'rank_1': rank_1, 'rank_2': rank_2, 'rank_3': rank_3, 'rank_4': rank_4, 'rank_5': rank_5, 
         'rank_6': rank_6, 'rank_7': rank_7, 'rank_8': rank_8, 'rank_9': rank_9, 'rank_10': rank_10, 
-        'num_reho': [group.num_reho], 'num_members': [group.company_size]})
+        'num_reho': [group.num_reho], 'num_members': [group.member_size]})
         df_request = pd.concat([group_request, df_request],
                                ignore_index=True, sort=False)
+
 
     df_results = pd.DataFrame(
         data=None, columns=['Name', 'Studio', 'Day', 'Start_Time', 'End_Time', 'Booking_Date'])
@@ -639,8 +678,6 @@ def scheduling_alg(request: HttpResponse):
     # fill in the unavailable times for each studio
     unavailable = {}
 
-    # dance_studios = ['wilcox', 'bloomberg', 'dillondance', 'dillonmar',
-                     # 'dillonmpr', 'whitman', 'murphy', 'ns', 'nswarmup', 'nstheatre']
     days_of_week = ['Monday', 'Tuesday', 'Wednesday',
                     'Thursday', 'Friday', 'Saturday', 'Sunday']
     groups = df_request['name']
@@ -868,8 +905,7 @@ def scheduling_alg(request: HttpResponse):
     
     print(weeks)
 
-    groups_list = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
-                        'Kokopops', 'Naacho', 'PUB', 'Six14', 'Sympoh', 'Triple8']
+    
 
     user_netid = request.user.uniauth_profile.get_display_id()
     for week in range(weeks):

@@ -32,9 +32,6 @@
       </tr>
       {% for item in reho_req %}
       <tr>
-        {{item.request_id}}
-      </tr>
-      <tr>
         <td>
             <!-- update the form acion to be a delete entry maybe it needs to be button type submit to refresh-->
                 <button type="button" id='delete_button' class='btn' onclick="return delete_ad_request('{{item.request_id}}');">
@@ -97,11 +94,11 @@
 <br>
 
 <script>
-/*
+
 $(delete_button).attr('onmouseover', '');
 $(delete_button).attr('data-toggle',"tooltip");
 $(delete_button).attr('data-placement', "top"); 
 $(delete_button).data('delay', 0);
 $(delete_button).attr('title', "Click to delete this request");
-       */
+       
 </script> 

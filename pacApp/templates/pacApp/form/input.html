@@ -100,7 +100,9 @@
 	<h4>
 		<span style="font-weight:normal">
 			Once you have submitted the form for all PAC groups, you should see their results in the table below. 
-			If you mis-entered a group's information, please click the delete button and resubmit the group's information. 
+			If you mis-entered a group's information, 
+			please click the delete button and resubmit the group's information.
+			
 		</span>
 		
 	</h4>		
@@ -118,13 +120,18 @@
 		</h3>	
 		<br>
 		<h4>
-			Once you have inputted information for all groups, the "Schedule All Groups" button will appear below.
-			Click on this button to schedule all groups. 
+			After the PAC Group's Information are submitted, click "Schedule All Groups" to schedule all groups. 
+			A link to the schedule will open up to view the results.
 			<br>
 			<br>
-			Navigate to the booking page to make any edits to the results if necessary. 
-			If you would like to delete the schedule this algorithm produced, 
-			please click the delete button below. 
+		
+			If you would like to remove the spaces allocated by the scheduling algorithm or edit the constraints, 
+			please enter the dates for which you would like to delete the space allocations and then click the 'Delete' button. 
+			<br>
+			<br>
+			After 'Delete' is clicked, all PAC Group's Information will show up again in Step 2. 
+			Please delete or edit the information in Step 2 and then rerun the scheduling algorithm. 
+			
 		</h4>
 		{% if result == 'None' %} 
 					<h3> Currently, rehearsal spaces have not been scheduled because there are no inputted requests. </h3>
