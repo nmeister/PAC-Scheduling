@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<form class="myform" method="POST" onload="document.getElementById('companyInput').focus()" action="{% url 'insert_ad_request' %}" 
+<form class="myform" method="POST" action="{% url 'insert_ad_request' %}" 
 	autocomplete="=off" onsubmit="return validateResponse()">
 	{% csrf_token %}
 	<!-- STEP 1 -->

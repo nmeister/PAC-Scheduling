@@ -90,7 +90,7 @@ class CompanyRequest(models.Model):
 # Choices of rehearsal per one group
 
 
-class ResearsalRequest(models.Model):
+class RehearsalRequest(models.Model):
     request_id = models.IntegerField()
     request_id = models.ForeignKey(
         CompanyRequest, default=0, verbose_name="Rehearsals", on_delete=models.SET_DEFAULT)
