@@ -95,8 +95,8 @@ class RehearsalRequest(models.Model):
 	request_id = models.CharField(max_length=50, unique=True)
 
 class CompanyRequest(models.Model):
-	request_id = models.CharField(max_length=50, unique=True, default=0)
-	# request_id = models.ForeignKey(RehearsalRequest, to_field='request_id', default=0, verbose_name="Rehearsals", on_delete=models.SET_DEFAULT)
+	# request_id = models.CharField(max_length=50, unique=True, default=0)
+	request_id = models.ForeignKey(RehearsalRequest, to_field='request_id', default="", verbose_name="Rehearsals", on_delete=models.SET_DEFAULT)
 	company_choice_num = models.IntegerField()
 	scheduled = models.IntegerField()
 	group_id = models.ForeignKey(
