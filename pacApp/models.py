@@ -5,7 +5,6 @@ from datetime import date
 
 # AD request form for rehearsals and company
 
-
 class ADRequest(models.Model):
     company_name = models.CharField(max_length=50)
     company_day_1 = models.CharField(max_length=50)
@@ -51,7 +50,7 @@ class Group(models.Model):
     group_id = models.IntegerField(default=0,unique=True)
     showtime = models.DateField()
     contact = models.CharField(max_length=50)
-    size = models.IntegerField()
+    size = models.IntegerField(default=0)
 
 # Bookings in the calendar
 
@@ -81,7 +80,7 @@ class RehearsalRequest(models.Model):
 	scheduled = models.IntegerField(default=0)
 	num_reho = models.IntegerField()
 	member_size = models.IntegerField()
-	submit_date = models.DateField(default=date.today)
+	submit_date = models.CharField(max_length=50, unique=True)
 	rank_1 = models.IntegerField(default=0)
 	rank_2 = models.IntegerField(default=0)
 	rank_3 = models.IntegerField(default=0)
@@ -104,6 +103,6 @@ class CompanyRequest(models.Model):
 	company_day = models.CharField(max_length=50)
 	company_start_time = models.IntegerField()
 	company_end_time = models.IntegerField()
-	company_studio = models.ForeignKey(
-        Studio, to_field='studio_id', default=1, on_delete=models.SET_DEFAULT)
-	submit_date = models.DateField(default=date.today)
+	company_studio = models.ForeignKey(Studio, to_field='studio_id', default=1, on_delete=models.SET_DEFAULT)
+	submit_date = models.CharField(max_length=50)
+	

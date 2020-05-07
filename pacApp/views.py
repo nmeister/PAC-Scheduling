@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from uniauth.decorators import login_required
 from django.conf.urls.static import static
 from . import models
-from .models import ADRequest, Booking, CompanyRequest, RehearsalRequest
+from .models import ADRequest, Booking, CompanyRequest, RehearsalRequest, Group
 import datetime
 from datetime import date, timedelta
 import pandas as pd
@@ -391,16 +391,48 @@ def handledate(date):
 
 
 def drop_ad_request(request: HttpResponse):
-    name = request.GET.get('company_name')
-    delete_ad_request(name)
+    request_id = request.GET.get('id')
+    print(request_id)
+    delete_ad_request(request_id)
+    # return render(request, "templates/pacApp/form/adminForm.html", context)
     return redirect('../../adminForm')
 
-def delete_ad_request(name):
-    print('in delete ad request')
+def delete_ad_request(request_id):
+
+    print('in delete ad request, deleting', request_id)
     # grab the booking you want to delete
+
+    reho_req_to_del = RehearsalRequest.objects.get(request_id=request_id)
+    
+    print(reho_req_to_del.request_id)
+    co_req_1 = CompanyRequest.objects.get(request_id_id=request_id, company_choice_num=1)
+    co_req_2 = CompanyRequest.objects.filter(request_id_id=request_id, company_choice_num=2)
+    co_req_3 = CompanyRequest.objects.filter(request_id_id=request_id, company_choice_num=3)
+    
+    print(co_req_1.request_id_id)
+
+    co_req_1.delete()
+    co_req_2.delete()
+    co_req_3.delete()
+ 
+    reho_req_to_del.delete()
+  
     try:
-        req_to_del = ADRequest.objects.filter(company_name=name)
-        req_to_del.delete()
+        reho_req_to_del = RehearsalRequest.objects.get(request_id=request_id)
+    
+        print(reho_req_to_del.request_id)
+        co_req_1 = CompanyRequest.objects.get(request_id_id=request_id, company_choice_num=1)
+        co_req_2 = CompanyRequest.objects.filter(request_id_id=request_id, company_choice_num=2)
+        co_req_3 = CompanyRequest.objects.filter(request_id_id=request_id, company_choice_num=3)
+        
+        print(co_req_1.request_id_id)
+
+        co_req_1.delete()
+        co_req_2.delete()
+        co_req_3.delete()
+    
+        reho_req_to_del.delete()
+        print('in drop')
     except:
         print('not able to drop')
     return
@@ -429,7 +461,8 @@ def insert_ad_request(request: HttpResponse):
     company_end_time_3 = grab_time(request.POST['company_end_time_3'])
 
     current_datetime = str(datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"))
-    name = groups_list[int(request.POST['company_name'])+1]
+    name = groups_list[int(request.POST['company_name'])-1]
+    print(name)
 
     reho_req = RehearsalRequest(scheduled=0,
                                 num_reho=int(request.POST['num_reho']),
@@ -444,41 +477,45 @@ def insert_ad_request(request: HttpResponse):
                                 rank_8=int(request.POST['rank_8']),
                                 rank_9=int(request.POST['rank_9']),
                                 rank_10=int(request.POST['rank_10']),
-                                request_id_id=(str(name)+current_datetime),
-                                group_id_id=request.POST['company_name'])
+                                request_id=(str(name)+current_datetime),
+                                group_id_id=request.POST['company_name'],
+                                submit_date = current_datetime)
 
-    company_req_1 = CompanyRequest(request_id=(str(name)+current_datetime), 
+    company_req_1 = CompanyRequest(request_id_id=(str(name)+current_datetime), 
                                 company_choice_num = 1,                                                    
                                 scheduled = 0,
                                 group_id_id = request.POST['company_name'],
                                 company_day = request.POST.get('company_day_1'),
                                 company_start_time = int(company_start_time_1),
                                 company_end_time = int(company_end_time_1),
-                                company_studio_id = studioList[str(request.POST.get('company_studio_1'))])
+                                company_studio_id = studioList[str(request.POST.get('company_studio_1'))],
+                                submit_date = current_datetime)
 
-    company_req_2 = CompanyRequest(request_id=(str(name)+current_datetime), 
+    company_req_2 = CompanyRequest(request_id_id=(str(name)+current_datetime), 
                                 company_choice_num = 2,                                                    
                                 scheduled = 0,
                                 group_id_id = request.POST['company_name'],
                                 company_day = request.POST.get('company_day_2'),
                                 company_start_time = int(company_start_time_2),
                                 company_end_time = int(company_end_time_2),
-                                company_studio_id = studioList[str(request.POST.get('company_studio_2'))])
+                                company_studio_id = studioList[str(request.POST.get('company_studio_2'))],
+                                submit_date = current_datetime)
 
-    company_req_3 = CompanyRequest(request_id=(str(name)+current_datetime), 
+    company_req_3 = CompanyRequest(request_id_id=(str(name)+current_datetime), 
                                 company_choice_num = 3,                                                    
                                 scheduled = 0,
                                 group_id_id = request.POST['company_name'],
                                 company_day = request.POST.get('company_day_3'),
                                 company_start_time = company_start_time_3,
                                 company_end_time = company_end_time_3,
-                                company_studio_id = studioList[str(request.POST.get('company_studio_3'))])
+                                company_studio_id = studioList[str(request.POST.get('company_studio_3'))],
+                                submit_date = current_datetime)
 
     reho_req.save()
     company_req_1.save()
     company_req_2.save()
     company_req_3.save()
-
+    
     return redirect('/adminForm')
 
 
@@ -510,7 +547,15 @@ def notpac(request):
 @login_required
 @user_passes_test(must_be_pac, login_url='/notpac', redirect_field_name=None)
 def adminForm(request):
-    context = {'all_requests': ADRequest.objects.all()}
+
+    context = {}
+    context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
+    context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
+    context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+    context['reho_req'] = RehearsalRequest.objects.all()
+    context['all_requests'] = ADRequest.objects.all()
+    context['groups'] = Group.objects.all()
+
     # for item in context['all_requests']:
     #	print(item.name)
     return render(request, "templates/pacApp/form/adminForm.html", context)
@@ -634,14 +679,14 @@ def scheduling_alg(request: HttpResponse):
     # identify conflicts
     # conflict(studio, day, start_time, end_time)
 
-    '''group_info=df_request[df_request.name=='BAC']
-	studio = group_info.iloc[:, df_request.columns.get_loc('company_studio')].values[0]
-	day = group_info.iloc[:, df_request.columns.get_loc('company_day')].values[0]
-	start_time = group_info.iloc[:, df_request.columns.get_loc('company_start_time')].values[0]
-	end_time = group_info.iloc[:, df_request.columns.get_loc('company_end_time')].values[0]
-	'''
+    #group_info=df_request[df_request.name=='BAC']
+	#studio = group_info.iloc[:, df_request.columns.get_loc('company_studio')].values[0]
+	#day = group_info.iloc[:, df_request.columns.get_loc('company_day')].values[0]
+	#start_time = group_info.iloc[:, df_request.columns.get_loc('company_start_time')].values[0]
+	#end_time = group_info.iloc[:, df_request.columns.get_loc('company_end_time')].values[0]
+	
 
-    '''df_results[df_results.Studio == "NS Main"]'''
+    #df_results[df_results.Studio == "NS Main"]
 
     # randomize the rows of the dataframe
     df_request = df_request.sample(frac=1).reset_index(drop=True)

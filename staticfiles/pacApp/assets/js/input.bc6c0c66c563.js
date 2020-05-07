@@ -326,14 +326,15 @@ function validate_deleten(name)
 
 function delete_ad_request(unique_id)
 {
-  console.log(unique_id);
+  console.log(unqiue_id);
   let url = 'drop_ad_request';
   request = $.ajax(
               {
                 type: "GET",
                 url: url,
                 data: {
-                    'id': unique_id, // request id to drop
+                    'company': unique_id, // request id to drop
+                    'hello': 'hi helen',
                 },
                 // upon ajax request callback
                 success: handleresponse,

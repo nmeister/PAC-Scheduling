@@ -1,90 +1,107 @@
-<!-- Table to display the values in the ad request db	-->
+<!-- Table to display the values in the ad request db -->
 <div class=ad_results_table style="height:50%;overflow:auto;">
-    <table style="width:100%; font-size: small;" >
-        <tr>
-          <th> </th>
-          <th>Name</th>
-          <th>Rehearsals Needed</th>
-          <th>Members</th>
-          <th>Bloomberg </th>
-          <th style="padding: 10px;">Dillon Dance </th>
-          <th>Dillon MAR </th>
-          <th>Dillon MPR </th>
-          <th>Murphy </th>
-          <th>NS </th>
-          <th>NS Warmup </th>
-          <th>NS Theatre </th>
-          <th>Whitman </th>
-          <th>Wilcox </th>
-          <th>Company Day (1)</th> 
-          <th>Company Studio (1)</th>
-          <th>Company Start (1)</th>
-          <th>Company End (1)</th>
-          <th>Company Day (2)</th>
-          <th>Company Studio (2)</th>
-          <th>Company Start (2)</th>
-          <th>Company End (2)</th>
-          <th>Company Day (3)</th>
-          <th>Company Studio (3)</th>
-          <th>Company Start (3)</th>
-          <th>Company End (3)</th>
+  <table style="width:100%; font-size: small;" >
+      <tr>
+        <th> </th>
+        <th>Name</th>
+        <th>Rehearsals Needed</th>
+        <th>Members</th>
+        <th>Rank 1 </th>
+        <th>Rank 2 </th>
+        <th>Rank 3 </th>
+        <th>Rank 4 </th>
+        <th>Rank 5 </th>
+        <th>Rank 6 </th>
+        <th>Rank 7 </th>
+        <th>Rank 8 </th>
+        <th>Rank 9 </th>
+        <th>Rank 10 </th>
+        <th>Company Day (1)</th> 
+        <th>Company Studio (1)</th>
+        <th>Company Start (1)</th>
+        <th>Company End (1)</th>
+        <th>Company Day (2)</th>
+        <th>Company Studio (2)</th>
+        <th>Company Start (2)</th>
+        <th>Company End (2)</th>
+        <th>Company Day (3)</th>
+        <th>Company Studio (3)</th>
+        <th>Company Start (3)</th>
+        <th>Company End (3)</th>
 
-        </tr>
-        {% for item in all_requests %}
-        <tr>
-          <td>
-              <!-- update the form acion to be a delete entry maybe it needs to be button type submit to refresh-->
-                  <button type="button" id='delete_button' class='btn' onclick="return delete_ad_request('{{item.company_name}}');">
-                      <i class="far fa-trash-alt fa-lg text-danger float-right"> </i>
-                  </button>
-   
-          </td>
-          <td>{{item.company_name}}</td>   
-          <td>{{item.num_reho}}</td>   
-          <td>{{item.company_size}}</td>   
-          <td>{{item.bloomberg_rank}}</td>   
-          <td>{{item.dillon_dance_rank}}</td>   
-          <td>{{item.dillon_mar_rank}}</td>   
-          <td>{{item.dillon_mpr_rank}}</td>   
-          <td>{{item.murphy_rank}}</td>   
-          <td>{{item.ns_rank}}</td>   
-          <td>{{item.ns_warmup_rank}}</td>   
-          <td>{{item.ns_theatre_rank}}</td>   
-          <td>{{item.whitman_rank}}</td>   
-          <td>{{item.wilcox_rank}}</td>  
-          
-          <td>{{item.company_day_1}}</td>  
-          <td>{{item.company_studio_1}}</td>  
-          <td>{{item.company_start_time_1}}</td>  
-          <td>{{item.company_end_time_1}}</td>  
-          
-          <td>{{item.company_day_2}}</td>  
-          <td>{{item.company_studio_2}}</td>  
-          <td>{{item.company_start_time_2}}</td>  
-          <td>{{item.company_end_time_2}}</td>  
+      </tr>
+      {% for item in reho_req %}
+      <tr>
+        {{item.request_id}}
+      </tr>
+      <tr>
+        <td>
+            <!-- update the form acion to be a delete entry maybe it needs to be button type submit to refresh-->
+                <button type="button" id='delete_button' class='btn' onclick="return delete_ad_request('{{item.request_id}}');">
+                    <i class="far fa-trash-alt fa-lg text-danger float-right"> </i>
+                </button>
+ 
+        </td>
+        <td>{{item.group_id_id}}</td> 
+        <td>{{item.num_reho}}</td>   
+        <td>{{item.member_size}}</td>   
+        <td>{{item.rank_1}}</td>   
+        <td>{{item.rank_2}}</td>   
+        <td>{{item.rank_3}}</td>   
+        <td>{{item.rank_4}}</td>   
+        <td>{{item.rank_5}}</td>   
+        <td>{{item.rank_6}}</td>   
+        <td>{{item.rank_7}}</td>   
+        <td>{{item.rank_8}}</td>   
+        <td>{{item.rank_9}}</td>   
+        <td>{{item.rank_10}}</td>   
 
-          <td>{{item.company_day_3}}</td>  
-          <td>{{item.company_studio_3}}</td>  
-          <td>{{item.company_start_time_3}}</td>  
-          <td>{{item.company_end_time_3}}</td>  
-        </tr>
-        {% empty %}
-
-        <!-- add a way to prevent schedule alg from being clickde-->
-        No AD_requests have been entered yet. Please go back to step 1 and enter information to populate this table.
-        
+        {% for co_req1 in company_req_1 %}
+          {% if co_req1.request_id_id == item.request_id %}
+          <td>{{co_req1.company_day}}</td>  
+          <td>{{co_req1.company_studio_id}}</td>  
+          <td>{{co_req1.company_start_time}}</td>  
+          <td>{{co_req1.company_end_time}}</td>  
+          {% endif %}
         {% endfor %}
-      </table>
-   </div>
+        
+
+        {% for co_req2 in company_req_2 %}
+          {% if co_req2.request_id_id == item.request_id %}
+          <td>{{co_req2.company_day}}</td>  
+          <td>{{co_req2.company_studio_id}}</td>  
+          <td>{{co_req2.company_start_time}}</td>  
+          <td>{{co_req2.company_end_time}}</td>  
+          {% endif %}
+        {% endfor %}
+
+        {% for co_req3 in company_req_3 %}
+          {% if co_req3.request_id_id == item.request_id %}
+          <td>{{co_req3.company_day}}</td>  
+          <td>{{co_req3.company_studio_id}}</td>  
+          <td>{{co_req3.company_start_time}}</td>  
+          <td>{{co_req3.company_end_time}}</td>  
+          {% endif %}
+        {% endfor %}
+        
+      </tr>
+      {% empty %}
+
+      <!-- add a way to prevent schedule alg from being clickde-->
+      No Requests have been entered yet. Please go back to step 1 and enter information to populate this table.
+      
+      {% endfor %}
+    </table>
+ </div>
 <br>
 <br>
 
 <script>
-
+/*
 $(delete_button).attr('onmouseover', '');
 $(delete_button).attr('data-toggle',"tooltip");
 $(delete_button).attr('data-placement', "top"); 
 $(delete_button).data('delay', 0);
 $(delete_button).attr('title', "Click to delete this request");
-         
-</script>
+       */
+</script> 
