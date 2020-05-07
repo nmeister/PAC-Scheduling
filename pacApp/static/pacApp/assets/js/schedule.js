@@ -726,8 +726,9 @@ function sendbook(id) {
 function showConfirm(msg) {
   console.log('show confirm');
   var modal = document.getElementById("errorModal");
-  $('#errorMsg').html(msg);
+  $('#errorMsg').html('<span style="font-size: 1.2em">' + msg + '</span>');
   modal.style.display = "block";
+
 
   // Get the <span> element that closes the modal on the x button 
   var span = document.getElementById("errorClose");
