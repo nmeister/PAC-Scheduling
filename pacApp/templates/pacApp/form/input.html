@@ -128,16 +128,12 @@
 			If you would like to remove the spaces allocated by the scheduling algorithm or edit the constraints, 
 			please enter the dates for which you would like to delete the space allocations and then click the 'Delete' button. 
 			<br>
-			<br>
-			After 'Delete' is clicked, all PAC Group's Information will show up again in Step 2. 
-			Please delete or edit the information in Step 2 and then rerun the scheduling algorithm. 
-			
+
 		</h4>
 		{% if result == 'None' %} 
 					<h3> Currently, rehearsal spaces have not been scheduled because there are no inputted requests. </h3>
 				{% endif %}
 		<br>
-			<form action="{% url 'scheduling_alg' %}" method="POST" autocomplete="=off" target="_blank" onsubmit="wasClicked_Alg(event, 'schedule');">
 				{% csrf_token %}
 
 				<h4>
@@ -155,30 +151,42 @@
 -->
 				
 
-			<div class="input-group-append text-info">
-				<span class="input-grou-text bg-white py-0">
-					<button type="submit" id='schedule_button' class='schedule_button'
-					style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
-						<a style="text-decoration-line:none;"> Schedule All Groups </a>
-					</button>
 
-				</span>
-				
-			</div>
-			</form>
-
+			<h5>{{report}}</h5>
 			<br>
-			<form action="{% url 'delete_schedule_alg' %}" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'delete');">
-				<div class="input-group-append text-info">
-					<span class="input-grou-text bg-white py-0">
-				<button type="submit" class='schedule_button' id='delete_alg_button' style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
-					<a style="text-decoration-line:none;"> Delete All Scheduled Slots </a>
-				</button>
-					</span>
-				</div>
 
+			<table>
+				<tr>
+				  <th>
+					<div class="input-group-append text-info">
+						<span class="input-grou-text bg-white py-0">
+							<button type="submit" id='schedule_button' class='schedule_button' onclick="wasClicked_Alg(event, 'schedule');"
+							style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
+								<a style="text-decoration-line:none;"> Schedule All Groups </a>
+							</button>
+		
+						</span>
+						
+					</div>
+					
+				  </th>
+				  <th>
 
-			</form>
+					<form action="{% url 'delete_schedule_alg' %}" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'delete');">
+						<div class="input-group-append text-info">
+							
+							<span class="input-grou-text bg-white py-0">	
+						<button type="submit" class='schedule_button' id='delete_alg_button' style="background-color:#b76e79; color:white; padding:30px;font-size: large;">
+							<a style="text-decoration-line:none;"> Delete All Scheduled Slots </a>
+						</button>
+							</span>
+						</div>
+		
+		
+					</form>
+				  </th>
+				</tr>
+			</table>	
 			
 
 

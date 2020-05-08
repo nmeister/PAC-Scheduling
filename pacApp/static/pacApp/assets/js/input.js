@@ -235,22 +235,22 @@ function validateResponse()
 function wasClicked_Alg(event, type)
 {
 
-  var start_date = document.querySelector('input[name=start_date]').value.trim();
-  var end_date = document.querySelector('input[name=end_date]').value.trim();
-  var start_dateArr = start_date.split('-');
-  var end_dateArr = start_date.split('-');
+  var start_date_val = document.querySelector('input[name=start_date]').value.trim();
+  var end_date_val = document.querySelector('input[name=end_date]').value.trim();
+  var start_dateArr = start_date_val.split('-');
+  var end_dateArr = start_date_val.split('-');
 
-  console.log(start_date);
-  console.log(end_date);
+  console.log(start_date_val);
+  console.log(end_date_val);
 
-  if (start_date=='0001-01-01')
+  if (start_date_val=='0001-01-01')
   {
     alert('No start date was entered. Please enter a start date to specify the start date of when you would like this allocation of space to apply.')
     event.preventDefault();
     return false;
   }
 
-  if (end_date=='0001-01-01')
+  if (end_date_val=='0001-01-01')
   {
     alert('No end date was entered. Please enter an end date to specify the end date of when you would like this allocation of space to apply.')
     event.preventDefault();
@@ -269,16 +269,6 @@ function wasClicked_Alg(event, type)
     return false; 
   } 
 
-  var ad_requests = "{{all_requests}}";
-  console.log(ad_requests);
-  
-
-  if (jQuery.isEmptyObject(ad_requests))
-  {
-    alert('There are no entries in the AD request table. Please complete the form in Step 1 and ensure there is at least one entry in the table in Step 2 before proceding to allocate spaces.')
-    return false;
-  }
-
   schedule_wasClicked = localStorage.getItem('schedule_wasClicked');
 
   if(schedule_wasClicked=='true' && (type == "schedule")) { 
@@ -294,7 +284,7 @@ function wasClicked_Alg(event, type)
     console.log(event);
     var schedule_wasClicked = "true";
     localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
-    return true;
+    call_schedule_alg(start_date_val, end_date_val);
   }  
   // change was clicked to false
   else if (schedule_wasClicked=='true' && (type == "delete")) {
@@ -323,7 +313,23 @@ function validate_deleten(name)
   alert('Are you sure you want to delete? ')
 }
 
-
+function call_schedule_alg(start_date, end_date)
+{
+  var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  console.log('in call schedule');
+  url = 'scheduling_alg';
+  request = $.ajax(
+  {
+    type: "POST",
+    url: url,
+    headers: {'X-CSRFToken': csrftoken},
+    data: {
+      'start_date':start_date,
+      'end_date':end_date
+    },
+    success: handleresponse,
+  });
+}
 
 function delete_ad_request(unique_id)
 {

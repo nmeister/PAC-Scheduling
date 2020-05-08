@@ -243,14 +243,14 @@ function wasClicked_Alg(event, type)
   console.log(start_date_val);
   console.log(end_date_val);
 
-  if (start_date_val=='0001-01-01')
+  if (start_date=='0001-01-01')
   {
     alert('No start date was entered. Please enter a start date to specify the start date of when you would like this allocation of space to apply.')
     event.preventDefault();
     return false;
   }
 
-  if (end_date_val=='0001-01-01')
+  if (end_date=='0001-01-01')
   {
     alert('No end date was entered. Please enter an end date to specify the end date of when you would like this allocation of space to apply.')
     event.preventDefault();

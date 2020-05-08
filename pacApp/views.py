@@ -923,6 +923,18 @@ def scheduling_alg(request: HttpResponse):
 
     context = {}
     context['start_date'] = start_date
-    return render(request, "templates/pacApp/tableElements/calendar.html", context)
+    context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
+    context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
+    context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+    context['reho_req'] = RehearsalRequest.objects.all()
+    context['all_requests'] = ADRequest.objects.all()
+    context['groups'] = Group.objects.all()
+    context['report'] = 'report words!'
+    print(context['report'])
+
+    # for item in context['all_requests']:
+    #	print(item.name)
+    return render(request, "templates/pacApp/form/adminForm.html", context)
+    # return render(request, "templates/pacApp/tableElements/calendar.html", context)
     # return redirect('../../schedule')
     # return redirect('../../adminForm')
