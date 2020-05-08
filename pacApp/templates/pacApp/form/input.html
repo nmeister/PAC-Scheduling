@@ -143,10 +143,11 @@
 				<input type="date" max="2999-12-31" autocomplete="on" name="start_date" value='0001-01-01'>
 				<strong>End Date:  </strong>
 				<input type="date" max="2999-12-31" autocomplete="on" name = "end_date" value='0001-01-01'>
-				<p id="loading" style= "visibility: visible;"  >Loading...</p>
+				<br>
+				<br>
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+				<div id="loading" style= "visibility: hidden;"><span>Scheduling all groups</span><i class="fa fa-spinner fa-spin" style="margin-left:0.5em;"></i></div>
 
-				<br>
-				<br>
 				<!-- {% for item in all_requests %}
 				<input type="hidden" id="all_ad_results" name="ad_results" value={{item.company_name}}>
 				{% endfor %}
