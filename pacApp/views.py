@@ -555,6 +555,7 @@ def adminForm(request):
     context['reho_req'] = RehearsalRequest.objects.all()
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
+    context['has_report'] = 'False'
 
     # for item in context['all_requests']:
     #	print(item.name)
