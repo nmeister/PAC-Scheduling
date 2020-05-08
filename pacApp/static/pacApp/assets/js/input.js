@@ -315,6 +315,9 @@ function validate_deleten(name)
 
 function call_schedule_alg(start_date, end_date)
 {
+  // document.getElementById("loading").style.visibility = "visible"; 
+  $("#loading").css("visibility", "visible");
+
   var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
   console.log('in call schedule');
   url = 'scheduling_alg';

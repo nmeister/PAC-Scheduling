@@ -143,15 +143,29 @@
 				<input type="date" max="2999-12-31" autocomplete="on" name="start_date" value='0001-01-01'>
 				<strong>End Date:  </strong>
 				<input type="date" max="2999-12-31" autocomplete="on" name = "end_date" value='0001-01-01'>
+				<p id="loading" style= "visibility: visible;"  >Loading...</p>
+
 				<br>
 				<br>
 				<!-- {% for item in all_requests %}
 				<input type="hidden" id="all_ad_results" name="ad_results" value={{item.company_name}}>
 				{% endfor %}
 -->
-				
-<a style="text-decoration-line:none;" href="schedule">View Results</a>
-			<h5>{{report}}</h5>
+
+
+
+			{% if has_report != 'False' %} 
+				<script>
+					  document.getElementById("loading").style.visibility = "hidden"; 
+				</script>
+
+				{% for item in report %}
+					{{item}} <br>
+				{% endfor %}
+				<br>
+				<br>
+			<a style="text-decoration-line:none;" target="_blank" href="schedule">View Results</a>
+			{% endif %}
 			
 			<br>
 

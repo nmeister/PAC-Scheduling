@@ -597,6 +597,8 @@ def scheduling_alg(request: HttpResponse):
     start_date = request.POST['start_date']
     end_date = request.POST['end_date']
     print(start_date, end_date)
+
+    report = []
   
     # get everything in db
     all_requests = RehearsalRequest.objects.all()
@@ -638,6 +640,7 @@ def scheduling_alg(request: HttpResponse):
         rank_9 = studios[group.rank_9] 
         rank_10 = studios[group.rank_10]  
 
+        report.append('Scheduled spaces for ' + groups_list[group.group_id_id] + '.')
         for comp_1 in company1:
             if (comp_1.request_id_id == group.request_id):
                 company_day_1 = comp_1.company_day
@@ -732,6 +735,7 @@ def scheduling_alg(request: HttpResponse):
     # for each group, schedule the company rehearsal space
     for group in df_request['name']:
         group_info = df_request[df_request.name == group]
+        preference = 1
         studio = group_info.iloc[:, df_request.columns.get_loc(
             'company_studio_1')].values[0]
         day = group_info.iloc[:, df_request.columns.get_loc(
@@ -756,6 +760,8 @@ def scheduling_alg(request: HttpResponse):
                 'company_start_time_2')].values[0]
             end_time = group_info.iloc[:, df_request.columns.get_loc(
                 'company_end_time_2')].values[0]
+            preference = 2
+            
 
         if ((int(start_time) not in avail[day][studio]) or 
 		(int(start_time)+1 not in avail[day][studio]) or 
@@ -768,6 +774,7 @@ def scheduling_alg(request: HttpResponse):
                 'company_start_time_3')].values[0]
             end_time = group_info.iloc[:, df_request.columns.get_loc(
                 'company_end_time_3')].values[0]
+            preference = 3
 
         # add the company time to df and remove from available times
         (avail[day][studio]).remove(int(start_time))
@@ -777,14 +784,15 @@ def scheduling_alg(request: HttpResponse):
                                            'Studio': [studioList[studio]],
                                            'Day': [day],
                                            'Start_Time': [start_time],
-                                           'End_Time': [int(end_time)+1],
+                                           'End_Time': [int(end_time)],
                                            'Booking_Date': [None]})
+        report.append(groups_list[group] + " got Preference " + str(preference) + " for company.")
 
         df_results = pd.concat([group_results, df_results],
                                ignore_index=True, sort=False)
 
     """Cycle through the list of requests until everyone's requests are filled"""
-
+    bookable = True
     # while there are still spaces to book
     while (int(max(reho_count.values())) > 0):
         # randomize the order of groups
@@ -869,29 +877,31 @@ def scheduling_alg(request: HttpResponse):
                                                     times_to_pick_from = [i for i in avail[day][studio] if (
                                                         i > 0 and ((i+1) in avail[day][studio]))]
                                                     if (sum(times_to_pick_from) == 0):
+                                                        report.append("No more spaces left.")
                                                         print('NO MORE SPACES LEFT. THROW ERROR')
+                                                        bookable = False
                                                         break
 
 
                 #### COME BACK HERE NICOLE. What to do if there's absolutely no studio left?!?!
-                
-                print('times to pick from: ', times_to_pick_from)
-                print('studio: ', studio)
-                start_time = times_to_pick_from[0]
-                
-                (avail[day][studio]).remove(int(start_time))
-                (avail[day][studio]).remove(int(start_time)+1)
+                if bookable:
+                    print('times to pick from: ', times_to_pick_from)
+                    print('studio: ', studio)
+                    start_time = times_to_pick_from[0]
+                    
+                    (avail[day][studio]).remove(int(start_time))
+                    (avail[day][studio]).remove(int(start_time)+1)
 
-                group_results = pd.DataFrame(data={'Name': [group],
-                                                   'Studio': [studioList[studio]],
-                                                   'Day': [day],
-                                                   'Start_Time': [int(start_time)],
-                                                   'End_Time': [int(start_time)+2],
-                                                   'Booking_Date': [None]})
-                                                   
-                df_results = pd.concat(
-                    [group_results, df_results], ignore_index=True, sort=False)
-                reho_count[group] -= 1
+                    group_results = pd.DataFrame(data={'Name': [group],
+                                                    'Studio': [studioList[studio]],
+                                                    'Day': [day],
+                                                    'Start_Time': [int(start_time)],
+                                                    'End_Time': [int(start_time)+2],
+                                                    'Booking_Date': [None]})
+                                                    
+                    df_results = pd.concat(
+                        [group_results, df_results], ignore_index=True, sort=False)
+                    reho_count[group] -= 1
 
     # studioList = dict(zip(dance_studios, list(range(0, 10))))
     daysList = dict(zip(days_of_week, range(0, 7)))
@@ -906,8 +916,8 @@ def scheduling_alg(request: HttpResponse):
     
     print(weeks)
 
+    report.append("Booking from " + str(start_date) + " to "  + str(end_date) + " (" + str(weeks) + " weeks).")
     
-
     user_netid = request.user.uniauth_profile.get_display_id()
     for week in range(weeks):
         for i, space in df_results.iterrows():
@@ -922,6 +932,8 @@ def scheduling_alg(request: HttpResponse):
                         booking_date=(start_date + timedelta(days=(week*6))))
             book.save()
 
+
+
     context = {}
     context['start_date'] = start_date
     context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
@@ -931,7 +943,7 @@ def scheduling_alg(request: HttpResponse):
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
     context['has_report'] = 'True'
-    context['report'] = 'report words!'
+    context['report'] = report
     print(context['report'])
 
     # for item in context['all_requests']:
