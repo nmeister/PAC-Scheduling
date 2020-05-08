@@ -1,4 +1,4 @@
-@import url("fontawesome-all.min.css");
+@import url("fontawesome-all.min.7dd3499c32f8.css");
 
 input[type="text"],
 textarea {
@@ -121,3 +121,6 @@ input[type="text"] .tab div.active {
   -webkit-transform: rotate(45deg);
 }
 
+a {
+  text-decoration:none !important;
+}

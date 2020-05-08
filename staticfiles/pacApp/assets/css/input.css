@@ -98,6 +98,7 @@ input[type="text"] .tab div.active {
   border-width: 0 0.62em 0.62em 0;
   display: inline-block;
   padding: 0.42em;
+<<<<<<< HEAD
 
 }
 
@@ -121,4 +122,31 @@ input[type="text"] .tab div.active {
   -webkit-transform: rotate(45deg);
 }
 
+=======
+>>>>>>> 278d2e6e9d4053a5576752b24c4f05bd84d8cac9
 
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+a {
+  text-decoration:none !important;
+}
