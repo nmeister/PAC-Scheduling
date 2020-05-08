@@ -1,40 +1,42 @@
 <div id="schedule">
 
  <div id="daystab" class="tab" style="text-align:center">
+    <!--   <span class="glyphicon glyphicon-print"></span> -->
+
  	<!-- to go back to last week --> 
  	<span class="arrow last tablinks" id="backward" onclick="setupWeek('lastweek')"></span>
 
  	<!-- data-date is a data field with name date retrieve using .data(key) -->
  	<!-- SUNDAY --> 
- 	<div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)">Sunday
+ 	<div class="tablinks" id="d0" data-date="{{sun}}" onclick="openDay('sun', this.id)" style="font-weight:600;">Sunday
  		<br><span id="d0date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
  	<!-- MONDAY --> 
- 	<div class="tablinks" id="d1" data-date="{{mon}}" onclick="openDay('mon', this.id)">Monday
+ 	<div class="tablinks" id="d1" data-date="{{mon}}" onclick="openDay('mon', this.id)" style="font-weight:600;">Monday
  		<br><span id="d1date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
  	<!-- TUESDAY --> 
- 	<div class="tablinks" id="d2" data-date="{{tue}}" onclick="openDay('tue', this.id)">Tuesday
+ 	<div class="tablinks" id="d2" data-date="{{tue}}" onclick="openDay('tue', this.id)" style="font-weight:600;">Tuesday
  		<br><span id="d2date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
  	<!-- WEDNESDAY --> 
- 	<div class="tablinks" id="d3" data-date="{{wed}}" onclick="openDay('wed', this.id)">Wednesday 
+ 	<div class="tablinks" id="d3" data-date="{{wed}}" onclick="openDay('wed', this.id)" style="font-weight:600;">Wednesday 
  		<br><span id="d3date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
  	<!-- THURSDAY -->
- 	<div class="tablinks" id="d4" data-date="{{thu}}" onclick="openDay('thu', this.id)">Thursday
+ 	<div class="tablinks" id="d4" data-date="{{thu}}" onclick="openDay('thu', this.id)" style="font-weight:600;">Thursday
  		<br><span id="d4date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
  	<!-- FRIDAY --> 
- 	<div class="tablinks" id="d5" data-date="{{fri}}" onclick="openDay('fri', this.id)">Friday
+ 	<div class="tablinks" id="d5" data-date="{{fri}}" onclick="openDay('fri', this.id)" style="font-weight:600;">Friday
  		<br><span id="d5date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
  	<!-- SATURDAY --> 
- 	<div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)">Saturday
+ 	<div class="tablinks" id="d6" data-date="{{sat}}" onclick="openDay('sat', this.id)" style="font-weight:600;">Saturday
  		<br><span id="d6date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
 
- 	<span class="tablinks" id="week"><label style="padding-right:0.1em;font-size:0.8em;line-height: 1em;">Date: </label><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onkeypress="handleWeekInput()" onchange="setupWeek('week')" style="line-height: 1.3em; font-size:0.9em;" required></span>
+ 	<span class="tablinks" id="week"><label style="padding-right:0.1em;font-size:0.85em;line-height: 1em;">Date: </label><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onkeypress="handleWeekInput()" onchange="setupWeek('week')" style="line-height: 1.3em; font-size:0.9em;" required></span>
 
  	<span class="tablinks" id="bookingbutton" style="background-color:#df7366; color:#fff;margin-top:0.8em; font-size:0.8em; padding: 0.4em;border-radius:0.2em"><a style="text-decoration-line:none;" href="schedule">Book a Space</a>
  	</span>

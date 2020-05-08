@@ -66,8 +66,6 @@ input[type="radio"]#groupM:checked ~ .reveal-if-activeGroup {
   font-size:0.87em;
   text-align:center;
   display:inline-block;
-  font-weight:100;
-
 }
 
 /* Change background color of buttons on hover */
