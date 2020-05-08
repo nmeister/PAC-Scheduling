@@ -93,4 +93,32 @@ input[type="text"] .tab div.active {
 
 
 
+.arrow {
+  border: solid #b76e79; 
+  border-width: 0 0.62em 0.62em 0;
+  display: inline-block;
+  padding: 0.42em;
+
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
 
