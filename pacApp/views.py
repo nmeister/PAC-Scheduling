@@ -929,6 +929,7 @@ def scheduling_alg(request: HttpResponse):
     context['reho_req'] = RehearsalRequest.objects.all()
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
+    context['has_report'] = 'True'
     context['report'] = 'report words!'
     print(context['report'])
 
