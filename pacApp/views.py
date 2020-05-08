@@ -671,7 +671,7 @@ def scheduling_alg(request: HttpResponse):
         rank_9 = studios[group.rank_9] 
         rank_10 = studios[group.rank_10]  
 
-        report.append('Scheduled spaces for ' + groups_list[group.group_id_id] + '.')
+        report.append('Scheduled spaces for ' + groups_list[group.group_id_id-1] + '.')
         for comp_1 in company1:
             if (comp_1.request_id_id == group.request_id):
                 company_day_1 = comp_1.company_day
@@ -817,7 +817,7 @@ def scheduling_alg(request: HttpResponse):
                                            'Start_Time': [start_time],
                                            'End_Time': [int(end_time)],
                                            'Booking_Date': [None]})
-        report.append(groups_list[group] + " got Preference " + str(preference) + " for company.")
+        report.append(groups_list[group-1] + " got Preference " + str(preference) + " for company.")
 
         df_results = pd.concat([group_results, df_results],
                                ignore_index=True, sort=False)
