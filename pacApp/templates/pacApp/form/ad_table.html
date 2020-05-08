@@ -4,7 +4,7 @@
       <tr>
         <th> </th>
         <th>Name</th>
-        <th>Rehearsals Needed</th>
+        <th>Rehearsals</th>
         <th>Members</th>
         <th>Rank 1 </th>
         <th>Rank 2 </th>
@@ -46,17 +46,67 @@
           {% endif%}
         {% endfor %}
         <td>{{item.num_reho}}</td>   
-        <td>{{item.member_size}}</td>   
-        <td>{{item.rank_1}}</td>   
-        <td>{{item.rank_2}}</td>   
-        <td>{{item.rank_3}}</td>   
-        <td>{{item.rank_4}}</td>   
-        <td>{{item.rank_5}}</td>   
-        <td>{{item.rank_6}}</td>   
-        <td>{{item.rank_7}}</td>   
-        <td>{{item.rank_8}}</td>   
-        <td>{{item.rank_9}}</td>   
-        <td>{{item.rank_10}}</td>   
+        <td>{{item.member_size}}</td> 
+
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_1%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+        
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_2%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+        
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_3%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_4%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_5%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_6%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_7%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_8%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_9%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}  
+
+        {% for studio in studios %}
+          {% if studio.studio_id == item.rank_10%}
+            <td>{{studio.studio_name}}</td> 
+          {% endif%}
+        {% endfor %}   
 
         {% for co_req1 in company_req_1 %}
           {% if co_req1.request_id_id == item.request_id %}
