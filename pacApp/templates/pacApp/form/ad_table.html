@@ -39,7 +39,12 @@
                 </button>
  
         </td>
-        <td>{{item.group_id_id}}</td> 
+        {% for group in groups %}
+          {% if group.group_id == item.group_id_id%}
+            <td>{{group.group_name}}</td> 
+
+          {% endif%}
+        {% endfor %}
         <td>{{item.num_reho}}</td>   
         <td>{{item.member_size}}</td>   
         <td>{{item.rank_1}}</td>   
@@ -56,7 +61,11 @@
         {% for co_req1 in company_req_1 %}
           {% if co_req1.request_id_id == item.request_id %}
           <td>{{co_req1.company_day}}</td>  
-          <td>{{co_req1.company_studio_id}}</td>  
+          {% for studio in studios %}
+            {% if studio.studio_id == co_req1.company_studio_id%}
+              <td>{{studio.studio_name}}</td> 
+            {% endif%}
+          {% endfor %}
           <td>{{co_req1.company_start_time}}</td>  
           <td>{{co_req1.company_end_time}}</td>  
           {% endif %}
@@ -66,7 +75,11 @@
         {% for co_req2 in company_req_2 %}
           {% if co_req2.request_id_id == item.request_id %}
           <td>{{co_req2.company_day}}</td>  
-          <td>{{co_req2.company_studio_id}}</td>  
+          {% for studio in studios %}
+            {% if studio.studio_id == co_req2.company_studio_id%}
+              <td>{{studio.studio_name}}</td> 
+            {% endif%}
+          {% endfor %}
           <td>{{co_req2.company_start_time}}</td>  
           <td>{{co_req2.company_end_time}}</td>  
           {% endif %}
@@ -75,7 +88,11 @@
         {% for co_req3 in company_req_3 %}
           {% if co_req3.request_id_id == item.request_id %}
           <td>{{co_req3.company_day}}</td>  
-          <td>{{co_req3.company_studio_id}}</td>  
+          {% for studio in studios %}
+            {% if studio.studio_id == co_req3.company_studio_id%}
+              <td>{{studio.studio_name}}</td> 
+            {% endif%}
+          {% endfor %} 
           <td>{{co_req3.company_start_time}}</td>  
           <td>{{co_req3.company_end_time}}</td>  
           {% endif %}
