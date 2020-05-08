@@ -600,9 +600,9 @@ def total_spaces(all_requests):
         total -= 3 # for company
         total -= 2 * (int(group.num_reho))
     if (total>0): 
-        return true # enough space
+        return True # enough space
     else:
-         return false
+         return False
 
 
 def scheduling_alg(request: HttpResponse):
@@ -636,11 +636,6 @@ def scheduling_alg(request: HttpResponse):
         context['report'] = report
         print(context['report'])
         return render(request, "templates/pacApp/form/adminForm.html", context)
-
-
-    # for item in context['all_requests']:
-    #	print(item.name)
-    return render(request, "templates/pacApp/form/adminForm.html", context)
 
     if (RehearsalRequest.objects.count() == 0):
          results = 'None'

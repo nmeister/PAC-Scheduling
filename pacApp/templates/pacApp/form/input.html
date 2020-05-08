@@ -161,10 +161,12 @@
 				<script>
 					  document.getElementById("loading").style.visibility = "hidden"; 
 				</script>
-
-				{% for item in report %}
-					{{item}} <br>
-				{% endfor %}
+				<div>
+					{% for item in report %}
+						{{item}} <br>
+					{% endfor %}
+				</div>
+				
 				<br>
 				<br>
 			<a style="text-decoration-line:none;" target="_blank" href="schedule">View Results</a>
