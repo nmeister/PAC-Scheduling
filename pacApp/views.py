@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from uniauth.decorators import login_required
 from django.conf.urls.static import static
 from . import models
-from .models import ADRequest, Booking, CompanyRequest, RehearsalRequest, Group
+from .models import ADRequest, Booking, CompanyRequest, RehearsalRequest, Group, Studio
 import datetime
 from datetime import date, timedelta
 import pandas as pd
@@ -560,6 +560,7 @@ def adminForm(request):
     context['reho_req'] = RehearsalRequest.objects.all()
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
+    context['studios'] = Studio.objects.all()
     context['has_report'] = 'False'
 
     # for item in context['all_requests']:
@@ -597,6 +598,18 @@ def delete_schedule_alg(response):
     return redirect('../../adminForm')
 
 
+def total_spaces(all_requests):
+    AVAILABLE_SPACES = 660 # (16 hours on weekend +(10*5) on weekdays) * 10 (studios)
+    total = 660
+    for group in all_requests:
+        total -= 3 # for company
+        total -= 2 * (int(group.num_reho))
+    if (total>0): 
+        return True # enough space
+    else:
+         return False
+
+
 def scheduling_alg(request: HttpResponse):
 
     start_date = request.POST['start_date']
@@ -610,6 +623,24 @@ def scheduling_alg(request: HttpResponse):
     company1 = CompanyRequest.objects.filter(company_choice_num=1)
     company2 = CompanyRequest.objects.filter(company_choice_num=2)
     company3 = CompanyRequest.objects.filter(company_choice_num=3)
+
+    # check if there are enough spaces to allocate
+    enough_space = total_spaces(all_requests)
+    if not enough_space:
+        report = ['Not enough space to allocate, please request less space']
+        context = {}
+        context['start_date'] = start_date
+        context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
+        context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
+        context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+        context['reho_req'] = RehearsalRequest.objects.all()
+        context['all_requests'] = ADRequest.objects.all()
+        context['groups'] = Group.objects.all()
+        context['studios'] = Studio.objects.all()
+        context['has_report'] = 'True'
+        context['report'] = report
+        print(context['report'])
+        return render(request, "templates/pacApp/form/adminForm.html", context)
 
     if (RehearsalRequest.objects.count() == 0):
          results = 'None'
@@ -645,7 +676,7 @@ def scheduling_alg(request: HttpResponse):
         rank_9 = studios[group.rank_9] 
         rank_10 = studios[group.rank_10]  
 
-        report.append('Scheduled spaces for ' + groups_list[group.group_id_id] + '.')
+        report.append('Scheduled spaces for ' + groups_list[group.group_id_id-1] + '.')
         for comp_1 in company1:
             if (comp_1.request_id_id == group.request_id):
                 company_day_1 = comp_1.company_day
@@ -791,7 +822,7 @@ def scheduling_alg(request: HttpResponse):
                                            'Start_Time': [start_time],
                                            'End_Time': [int(end_time)],
                                            'Booking_Date': [None]})
-        report.append(groups_list[group] + " got Preference " + str(preference) + " for company.")
+        report.append(groups_list[group-1] + " got Preference " + str(preference) + " for company.")
 
         df_results = pd.concat([group_results, df_results],
                                ignore_index=True, sort=False)
@@ -947,6 +978,7 @@ def scheduling_alg(request: HttpResponse):
     context['reho_req'] = RehearsalRequest.objects.all()
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
+    context['studios'] = Studio.objects.all()
     context['has_report'] = 'True'
     context['report'] = report
     print(context['report'])

@@ -25,6 +25,9 @@ input::placeholder {
 
 table, th, td {
   border: none;
+  width=100%;
+  white-space:nowrap;
+  table-layout: auto;
   padding: 10px;
 }
 
