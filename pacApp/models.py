@@ -105,4 +105,7 @@ class CompanyRequest(models.Model):
 	company_end_time = models.IntegerField()
 	company_studio = models.ForeignKey(Studio, to_field='studio_id', default=1, on_delete=models.SET_DEFAULT)
 	submit_date = models.CharField(max_length=50)
+
+
+
 	

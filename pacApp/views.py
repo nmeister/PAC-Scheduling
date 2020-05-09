@@ -22,6 +22,10 @@ import copy
 import random
 import calendar
 import json
+import hashlib
+import random
+from base64 import b64encode
+
 # from uniauth.models import Institution, InstitutionAccount, LinkedEmail
 
 
@@ -37,6 +41,7 @@ def error_404(request, exception):
 def error_500(request):
     data = {}
     return render(request, 'templates/pacApp/404.html', data)
+
 
 
 def carouselAvailable():
