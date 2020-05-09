@@ -107,6 +107,13 @@
       <!-- what gets called when we load the schedule --> 
       <script> 
 
+        $('li').hover(function (event) {
+          $(event.target).addClass('active');
+        }, function (event) {
+          $(event.target).removeClass('active');
+        })
+ 
+
 		  function homeDisableSchdFootHead() {
 			// checks location path and checks if we are on home page
 			// if we are on home page, we want to disable the header and footers 

@@ -17,6 +17,7 @@
       	<script type="application/javaxsscript" src="/static/pacApp/assets/js/input.js"></script> <!-- problematic?-->
       	<script type="application/javascript" src="/static/pacApp/assets/js/schedule.js"></script> 
 		<noscript><link rel="stylesheet" href="static/pacApp/assets/css/noscript.css" /></noscript>
+		<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	</head>
 	<body class="homepage is-preload">
 		<div id="page-wrapper">
@@ -50,9 +51,16 @@
 										<li><a href="adminForm#">PAC Admin</a></li>
 									</ul>
 								</li>
+								<li id="logoutButton">
+									<span>{{user}}</span>
+									<ul>
+										<li><a>Logout</a></li>
+									</ul>
+								</li>
 							</ul>
 						</nav>
 				</div>
+
 
 	 <div id="scheduleOnHome" data-user="{{user}}" style="padding: 0em 0em 2em 0em">
 			<!-- Banner -->
@@ -141,6 +149,12 @@
 				$('tr').addClass('row200');
 				$('tr').css('cursor','default');
      			$('#bookingbutton').css('display','inline-block');
+
+				$('li').hover(function (event) {
+					$(event.target).addClass('active');
+				}, function (event) {
+					$(event.target).removeClass('active');
+				})
 
 			</script>
 

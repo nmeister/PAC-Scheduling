@@ -25,6 +25,7 @@ import json
 import hashlib
 import random
 from base64 import b64encode
+import requests
 
 # from uniauth.models import Institution, InstitutionAccount, LinkedEmail
 
@@ -42,7 +43,27 @@ def error_500(request):
     data = {}
     return render(request, 'templates/pacApp/404.html', data)
 
+def studentInfo(profile):
+  url = 'https://tigerbook.herokuapp.com/api/v1/undergraduates/' + profile
+  req = requests.get(url, headers=create_tigerbook_header(profile))
+  if req.status_code == 200:
+    return req.json()
+  return None
 
+
+def create_tigerbook_header(profile):
+  created = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+  nonce = ''.join([random.choice('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/=') for i in range(32)])
+  username = profile
+  password = '93247de4c77fc8367434e9f0c06db417'
+  hash_arg = (nonce + created + password).encode()
+  generated_digest = b64encode(hashlib.sha256(hash_arg).digest()).decode()
+  headers = {
+        'Authorization': 'WSSE profile="UsernameToken"',
+        'X-WSSE': 'UsernameToken Username="{}", PasswordDigest="{}", Nonce="{}", Created="{}"'
+                  .format(username, generated_digest, b64encode(nonce.encode()).decode(), created)
+                  }
+  return headers 
 
 def carouselAvailable():
     startdate = date.today()
@@ -62,8 +83,18 @@ def carouselAvailable():
 # rendering the home page with today's date
 
 
+
+
 def about(request):
     context = {}
+    try:
+        profile = request.user.uniauth_profile.get_display_id()
+    except:
+        profile = 'None'
+    studentDets = studentInfo(profile)
+    if studentDets != None:
+      profile = studentInfo(profile)['first_name']
+    context['user'] = profile
     return render(request, "templates/pacApp/about.html", context)
 
 def homepage(request):
@@ -72,6 +103,9 @@ def homepage(request):
     except:
         profile = 'None'
     print(profile)
+    studentDets = studentInfo(profile)
+    if studentDets != None:
+      profile = studentInfo(profile)['first_name']
     starttoday = date.today()
     groups = 'None'
     context = createContext(starttoday, groups)
@@ -196,10 +230,12 @@ def schedule(request):
     # render with today's date
     profile = request.user.uniauth_profile.get_display_id()
     print(profile)
+    studentDets = studentInfo(profile)
+    if studentDets != None:
+      profile = studentInfo(profile)['first_name']
     starttoday = date.today()
     print(starttoday)
     groups = 'None'
-
     context = createContext(starttoday, groups)
     context['user'] = profile
     
@@ -261,6 +297,9 @@ def updateBooking(request):
     print('in updating booking')
     # the booker for authentication
     profile = request.user.uniauth_profile.get_display_id()
+    studentDets = studentInfo(profile)
+    if studentDets != None:
+      profile = studentInfo(profile)['first_name']
     # these are all related to booking 
     bookingdate = handleDateStr(request.GET.get('date'))
     studio = request.GET.get('studio')

@@ -9,19 +9,19 @@
 
 <body>
   <div id="headerabout">
-  <div id="header">
-          <!-- Inner -->
-            <div class="inner">
-              <header>
-                <h1>About</h1>
-                <hr style="border-style:inset;border-width: 1px;display:block;"/>
-                <p></p>
-                <p style="font-size:18px">This website is a centralized online dance schedule to clearly view which spaces are open. 
-					<br>
-					Princeton Dance Scheduling also allows PAC to input requests from dance groups for dance studios and output an online semesterly schedule.
-				</p>
-              </header>
-            </div>
+  	<div id="page-wrapper">
+			<!-- Header -->
+				<div id="header">
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								 <h1>About</h1>
+								<hr />
+								{% if user != 'None' %} 
+								<p> Hello, {{user}} </p>
+								{% endif %}
+							</header>
+						</div>
             <nav id="nav">
               <ul>
                 <li><a href="homepage">Home</a></li>
@@ -36,6 +36,23 @@
             </nav>
       </div>
     </div>
+</div>
+
+			<!-- what we are --> 
+			<div class="wrapper style1">
+
+					<section id="features" class="container special">
+						<header>
+							</br>
+							<h2>What is Princeton Dance ?</h2>
+							<p style="font-size:1em;text-align:left;margin-left:auto;margin-right:auto;"> Princeton Dance is a web application catered towards dancers at Princeton University to view and book dance studios for rehearsals and other practice sessions. It is a centralized online system to clearly view the availability of dance studios on campus.
+							<br>
+							<br>
+							Princeton Dance also features a scheduling component that allows the Performing Arts Council (PAC) to input requests from dance groups for dance rehearsal spaces. These requests are put through our scheduling algorithm to output semeserly schedules of dance studio availabilities for all students to view online. 
+							</p>
+						</header>
+					</section>
+				</div>
 
     <div class="wrapper style1">
 
@@ -106,7 +123,7 @@
 						<header>
 							</br>
 							<h2>Feedback</h2>
-							<p>Found a bug or want to give us feedback? Fill out this <a>form</a></p>
+							<p>Found a bug or want to give us feedback? Fill out this <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSe-T3JF3fT9tYHXpaj1q_tVKP1b93M_fbHEGGrjsnafphDb-g/viewform?usp=pp_url" style="color:#df7366;text-decoration-color:#df7366;">form</a>. <br>Thanks so much for trying out Princeton Dance!</p>
 						</header>
 					</section>
 				</div>
@@ -144,7 +161,13 @@
 			<script src="static/pacApp/assets/js/util.js"></script>
 			<script src="static/pacApp/assets/js/main.js"></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
+			<script>
+				$('li').hover(function (event) {
+					$(event.target).addClass('active');
+				}, function (event) {
+					$(event.target).removeClass('active');
+				})
+			</script>
 
 
  </body>

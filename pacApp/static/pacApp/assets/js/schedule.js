@@ -153,13 +153,7 @@ function setupWeek(type) {
   var groups = setGroups();
 
   console.log('type of call is: ' + type);
-  if (window.refresh != null) {
-    clearInterval(window.refresh);
-    window.refresh = setInterval(function () {
-          setupWeek('group');}
-          , 7000);
-          console.log('window setupweek', window.refresh); 
-  }
+  
   // if by clicking on the date picker
   if (type == 'week') {
     var newdate = $('#curr').val();
@@ -239,6 +233,13 @@ function setupWeek(type) {
     })
     ;
     
+  }
+   if (window.refresh != null) {
+    clearInterval(window.refresh);
+    window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 7000);
+          console.log('window setupweek', window.refresh); 
   }  
 }
 

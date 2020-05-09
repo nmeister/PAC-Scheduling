@@ -366,3 +366,10 @@ input[type=date]::-webkit-calendar-picker-indicator {
    cursor: pointer;
 }
 
+
+#logoutButton {
+  border: 3em solid;
+  background-color: #df7366;
+  border-radius:0.2em !important;
+  cursor:pointer;
+}
