@@ -123,12 +123,13 @@
 		<br>
 		<h4>
 			After the PAC Group's Information are submitted, click "Schedule All Groups" to schedule all groups. 
-			A link to the schedule will open up to view the results.
+			<br>
+			To view the schedule created, click on "View Results on Booking Schedule" button, which will open up the page in a new tab.
 			<br>
 			<br>
 		
 			If you would like to remove the spaces allocated by the scheduling algorithm or edit the constraints, 
-			please enter the dates for which you would like to delete the space allocations and then click the 'Delete' button. 
+			please enter the dates for which you would like to delete the space allocations and then click the "Delete All Schedule Slots" button. 
 			<br>
 
 		</h4>
@@ -148,39 +149,38 @@
 				<br>
 				<br>
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-				<div id="loading" style= "visibility: hidden;"><span>Scheduling all groups</span><i class="fa fa-spinner fa-spin" style="margin-left:0.5em;"></i></div>
+				<div id="loading" style= "visibility: hidden;color:#b76e79;font-weight:700;"><span>Scheduling all groups</span><i class="fa fa-spinner fa-spin" style="margin-left:0.5em;"></i></div>
 
 				<!-- {% for item in all_requests %}
 				<input type="hidden" id="all_ad_results" name="ad_results" value={{item.company_name}}>
 				{% endfor %}
 -->
-
+			
 
 
 			{% if has_report != 'False' %} 
 				<script>
 					  document.getElementById("loading").style.visibility = "hidden"; 
 				</script>
-				<div>
+				<h4 style="line-height:1em">Report From Scheduling Algorithm:</h4>
+				<div style="font-size:0.9em">
 					{% for item in report %}
-						{{item}} <br>
+						<li>{{item}} </li>
 					{% endfor %}
 				</div>
-				
 				<br>
-				<br>
-			<a style="text-decoration-line:none;" target="_blank" href="schedule">View Results</a>
+			
+			<button style="padding:0.9em 1.5em 0.9em 1.5em"><a id="viewResults" style="text-decoration:none;" target="_blank" href="showResults?newdate={{newdate}}">View Results on Booking Schedule</a></button><br>
 			{% endif %}
 			
 			<br>
+			<br>
 
-			<table>
-				<tr>
-				  <th>
-					<div class="input-group-append text-info">
+	
+					<div class="input-group-append text-info" style="display:inline-block;">
 						<span class="input-grou-text bg-white py-0">
 							<button type="submit" id='schedule_button' class='schedule_button' onclick="wasClicked_Alg(event, 'schedule');"
-							style="color:white; padding:30px;font-size: large;">
+							style="color:white; margin-left:0em;padding:30px;font-size: large;">
 								<a style="text-decoration-line:none;"> Schedule All Groups </a>
 							</button>
 		
@@ -188,10 +188,8 @@
 						
 					</div>
 					
-				  </th>
-				  <th>
 
-					<form action="{% url 'delete_schedule_alg' %}" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'delete');">
+					<form action="{% url 'delete_schedule_alg' %}" autocomplete="=off" onsubmit="wasClicked_Alg(event, 'delete');"  style="display:inline-block;margin-left:1em">
 						<div class="input-group-append text-info">
 							
 							<span class="input-grou-text bg-white py-0">	
@@ -200,12 +198,10 @@
 						</button>
 							</span>
 						</div>
-		
-		
 					</form>
-				  </th>
-				</tr>
-			</table>	
+			<br>
+			<br>
+			<br>
 			<p style="margin-left:auto; margin-right:auto;text-align:center;"><a href="#step1" class="scrolly"><i class="arrow up"></i></a></p>
 			
 

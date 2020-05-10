@@ -25,6 +25,7 @@ urlpatterns = [
     path('updateMulti', views.updateMulti, name='updateMulti'),
     path('about', views.about, name='about'),
     path('notpac', views.notpac, name='notpac'),
+    path('showResults', views.showResults, name="showResults"),
 ]
 
 handler404 = views.error_404

@@ -243,7 +243,7 @@ def schedule(request):
     context['user'] = profile
     context['firstname'] = profile
     if studentDets != None:
-      first_name = studentInfo(profile)['first_name']
+      first_name = studentDets['first_name']
       context['firstname'] = first_name
     
     return render(request, "templates/pacApp/schedule.html", context)
@@ -306,7 +306,7 @@ def updateBooking(request):
     profile = request.user.uniauth_profile.get_display_id()
     studentDets = studentInfo(profile)
     if studentDets != None:
-      profile = studentInfo(profile)['first_name']
+      firstname = studentDets['first_name']
     # these are all related to booking 
     bookingdate = handleDateStr(request.GET.get('date'))
     studio = request.GET.get('studio')
@@ -394,8 +394,6 @@ def updateDropping(request: HttpResponse):
     openday = handleDateStr(request.POST['openday'])
 
     context = createContext(startdate, groups)
-
-    context['user'] = profile
     context['openday'] = openday.strftime('%w')
     context['dropsuccess'] = success
     return render(request, "templates/pacApp/tableElements/calendar.html", context)
@@ -608,6 +606,14 @@ def adminForm(request):
     context['groups'] = Group.objects.all()
     context['studios'] = Studio.objects.all()
     context['has_report'] = 'False'
+    # gets the netid
+    profile = request.user.uniauth_profile.get_display_id()
+    # gets via tiger book the info about person given netid
+    studentDets = studentInfo(profile)
+    context['firstname'] = profile
+    if studentDets != None:
+      first_name = studentDets['first_name']
+      context['firstname'] = first_name
 
     # for item in context['all_requests']:
     #	print(item.name)
@@ -989,8 +995,11 @@ def scheduling_alg(request: HttpResponse):
     daysList = dict(zip(days_of_week, range(0, 7)))
 
     # based on the dates specified
-    
+
+    new_date = start_date
+
     start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+
     end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
     print(start_date, end_date)
     diff = end_date-start_date
@@ -1027,6 +1036,7 @@ def scheduling_alg(request: HttpResponse):
     context['studios'] = Studio.objects.all()
     context['has_report'] = 'True'
     context['report'] = report
+    context['newdate'] = new_date
     print(context['report'])
 
     # for item in context['all_requests']:
@@ -1035,3 +1045,19 @@ def scheduling_alg(request: HttpResponse):
     # return render(request, "templates/pacApp/tableElements/calendar.html", context)
     # return redirect('../../schedule')
     # return redirect('../../adminForm')
+
+def showResults(request):
+    # render with today's date
+    profile = request.user.uniauth_profile.get_display_id()
+    print(profile)
+    studentDets = studentInfo(profile)
+    startdate = handleDateStr(request.GET.get('newdate'))
+    groups = 'None'
+    context = createContext(startdate, groups)
+    context['user'] = profile
+    context['firstname'] = profile
+    if studentDets != None:
+      first_name = studentDets['first_name']
+      context['firstname'] = first_name
+    
+    return render(request, "templates/pacApp/schedule.html", context)

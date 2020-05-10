@@ -1,4 +1,4 @@
-@import url("fontawesome-all.min.css");
+@import url("fontawesome-all.min.7dd3499c32f8.css");
 
 input[type="text"],
 textarea {
@@ -135,11 +135,6 @@ a:hover {
   color:white;
 }
 
-#viewResults {
-  font-size: 1.05em;
-}
 #viewResults:hover {
-   color:white;
-
+   color:#b76e79;
 }
-

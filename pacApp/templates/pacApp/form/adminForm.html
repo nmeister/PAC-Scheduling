@@ -23,8 +23,9 @@
                  <header>
                    <h1>PAC Administrator Form</h1>
                    <hr />
+                   <p style="line-height:0.1em;">Hello, {{firstname}}</p>
                    <p>Enter the PAC Group's information below</p>
-                   <p style="font-size:18px">After all information is entered, use our scheduling algorithm to allocate the spaces.</p>
+                   <span style="font-size:1em">After all information is entered, use our scheduling algorithm to allocate the spaces.</span>
                  </header>
                 </div>
                 <nav id="nav">
@@ -40,7 +41,7 @@
                     </ul>
                    </li>
                    {% if user != 'None' %} 
-                    <li id="logoutButton">
+                    <li id="logoutAdmin">
                       <span>{{firstname}}</span>
                       <ul>
                         <li><a>Logout</a></li>
@@ -59,12 +60,12 @@
        </ul>
  </nav> --> 
 
-          <!-- 
+         
      <div class="wrapper style">
-      <article class="container special" style="margin-left:auto; margin-right:auto;">  -->
+      <article class="container special" style="margin-left:auto; margin-right:auto;">
      {% include 'templates/pacApp/form/input.html' %}
-   <!--  </article>
-    </div>  -->
+      </article>
+    </div> 
     </body>
   
 </div>
@@ -113,3 +114,10 @@
 			<script src="static/pacApp/assets/js/util.js"></script>
 			<script src="static/pacApp/assets/js/main.js"></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+      <script> 
+          $('li').hover(function (event) {
+              $(event.target).addClass('active');
+            }, function (event) {
+              $(event.target).removeClass('active');
+            })
+      </script>

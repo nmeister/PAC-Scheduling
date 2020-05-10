@@ -379,9 +379,14 @@ function canEdit(id) {
   console.log('id in canEdit' + id);
   var editable = 0;
   var place = String(window.location.pathname);
-  if (place == "/" || place == "/homepage" || place != "/schedule")  {
-      homeCannotBook(); 
-      return;
+  // || place != "/schedule")  { can only happen on this page 
+  if (place == "/" || place == "/homepage") {
+    homeCannotBook(); 
+    return;
+  }
+  else if (place == '/showResults') {
+    editable = 1
+    console.log('can book showresults');
   }
   else {
     editable = 1
@@ -791,13 +796,17 @@ function handleDrop(event) {
   console.log('handle drop');
   var editable = 0
   var place = String(window.location.pathname);
-  if (place == "/" || place == "/homepage" || place != "/schedule")  {
+  if (place == "/" || place == "/homepage")  {
       homeCannotBook(); 
       return;
   }
+  else if (place == '/showResults') {
+     editable = 1
+      console.log('can drop show results');
+  }
   else {
     editable = 1
-    console.log('can book');
+    console.log('can drop schedule');
   }
 
   var id = event.target.id;

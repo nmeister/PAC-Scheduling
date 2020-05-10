@@ -500,7 +500,7 @@
 		console.log('determine place and what to hide')
 		var place = String(window.location.pathname);
 		console.log('place is' + place);
-			if (place != "/" || place != "/homepage" || place == "/schedule") {
+			if (place != "/" || place != "/homepage" || place == '/showResults' || place =='/schedule') { //|| place == "/schedule") {
 			 	console.log('Currently on schedule page, disable book button');
 			 	// comment out to see MULTIBOOK
         $('#bookingbutton').css('display','none');

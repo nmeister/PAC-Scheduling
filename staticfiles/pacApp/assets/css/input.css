@@ -124,3 +124,17 @@ input[type="text"] .tab div.active {
   -webkit-transform: rotate(45deg);
 }
 
+#logoutAdmin {
+  border: 3em solid;
+  background-color: #df7366;
+  border-radius:0.2em !important;
+  cursor:pointer;
+}
+
+a:hover {
+  color:white;
+}
+
+#viewResults:hover {
+   color:#b76e79;
+}

@@ -291,7 +291,7 @@ function wasClicked_Alg(event, type)
     console.log('was clicked and now imma delete');
     var schedule_wasClicked = "false";
     localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
-    alert("After 'Delete' is clicked, all PAC Group's Information will show up again in Step 2. Please delete or edit the information in Step 2 and then rerun the scheduling algorithm.")
+    alert("After 'Delete All Scheduled Slots' is clicked, all PAC Group's Information will show up again in Step 2. Please delete or edit the information in Step 2 and then rerun the scheduling algorithm.")
     return true;
   }
   else if (schedule_wasClicked=='false' && (type == "delete")) {
