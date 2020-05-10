@@ -732,7 +732,7 @@ function sendbook(id) {
 function showConfirm(msg) {
   console.log('show confirm');
   var modal = document.getElementById("errorModal");
-  $('#errorMsg').html('<span style="font-size: 1.2em">' + msg + '</span>');
+  $('#errorMsg').html('<span style="font-size: 1em">' + msg + '</span>');
   modal.style.display = "block";
 
 
