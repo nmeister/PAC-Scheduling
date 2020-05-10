@@ -557,7 +557,7 @@ function booking(studio,day,hour,id) {
   var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
   // still part of today so we want to make it in the db as same as today
   var datadate = date;
-
+  // but technically it is tomorrow so 
   if (Math.trunc(hour) > 23) {
     var nextday = parseInt(dateArr[2]) + 1
     date = new Date(dateArr[0], dateArr[1]-1, nextday);
