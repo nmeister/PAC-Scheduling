@@ -4,7 +4,7 @@
     <!--   <span class="glyphicon glyphicon-print"></span> -->
 
  	<!-- to go back to last week --> 
- 	<span class="arrow last tablinks" id="backward" onclick="setupWeek('lastweek')"></span>
+ 	<span class="arrow last tablinks" id="backlast" onclick="setupWeek('lastweek')"></span>
 
  	<!-- data-date is a data field with name date retrieve using .data(key) -->
  	<!-- SUNDAY --> 
@@ -36,7 +36,7 @@
  		<br><span id="d6date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
 
- 	<span class="tablinks" id="week"><label style="padding-right:0.1em;font-size:0.85em;line-height: 1em;">Date: </label><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onkeypress="handleWeekInput()" onchange="setupWeek('week')" style="line-height: 1.3em; font-size:0.9em;" required></span>
+ 	<span class="tablinks" id="week"><label style="padding-right:0.1em;font-size:0.85em;line-height: 1em;">Date: </label><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onclick="resetInterval()" onkeypress="handleWeekInput()" onchange="setupWeek('week')" style="line-height: 1.3em; font-size:0.9em;" required></span>
 
  	<span class="tablinks" id="bookingbutton" style="background-color:#df7366; color:#fff;margin-top:0.8em; font-size:0.8em; padding: 0.4em;border-radius:0.2em"><a style="text-decoration-line:none;" href="schedule">Book a Space</a>
  	</span>
@@ -44,7 +44,7 @@
 
 
  	<!-- going to next week --> 
- 	<span class="arrow next tablinks" id="forward" onclick="setupWeek('nextweek')"></span>
+ 	<span class="arrow next tablinks" id="fornext" onclick="setupWeek('nextweek')"></span>
 </div>
 	<!-- setting up the tab content calendar to be show for each day --> 
 	<div class="tabcontent" id="sun">{% include 'templates/pacApp/tableElements/sunday.html'%}</div>
@@ -589,6 +589,16 @@
 			showConfirm('Dropping not successful! Please try again or make sure you are allowed to drop this space.');
 		}
 	}
+
+  function resetInterval() {
+     if (window.refresh != null) {
+    clearInterval(window.refresh);
+    window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 7000);
+          console.log('window onclick date', window.refresh); 
+    }
+  }
 	// calls upon page load
 	// FOR ALL SUBSEQUENT RENDERING OF THIS PAGE 
 	openChangedDate();
