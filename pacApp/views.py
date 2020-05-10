@@ -88,14 +88,13 @@ def about(request):
         profile = request.user.uniauth_profile.get_display_id()
     except:
         profile = 'None'
+    context['firstname'] = profile
     if profile != 'None':
        studentDets = studentInfo(profile)
-    if studentDets != None:
-        first_name = studentInfo(profile)['first_name']
-    context['firstname'] = profile
-    if studentDets != None:
-      first_name = studentInfo(profile)['first_name']
-      context['firstname'] = first_name
+       if studentDets != None:
+        first_name = studentDets['first_name']
+        context['firstname'] = first_name
+
     context['user'] = profile
     return render(request, "templates/pacApp/about.html", context)
 
@@ -114,7 +113,7 @@ def homepage(request):
     if profile != 'None':
       studentDets = studentInfo(profile)
       if studentDets != None:
-        first_name = studentInfo(profile)['first_name']
+        first_name = studentDets['first_name']
         context['firstname'] = first_name
 
     return render(request, "templates/pacApp/home.html", context)
