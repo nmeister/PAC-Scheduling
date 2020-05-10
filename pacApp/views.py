@@ -26,13 +26,10 @@ import hashlib
 import random
 from base64 import b64encode
 import requests
-
 # from uniauth.models import Institution, InstitutionAccount, LinkedEmail
-
 
 # Create your views here.
 # our home page
-
 
 def error_404(request, exception):
     data = {}
@@ -91,9 +88,14 @@ def about(request):
         profile = request.user.uniauth_profile.get_display_id()
     except:
         profile = 'None'
-    studentDets = studentInfo(profile)
+    if profile != 'None':
+       studentDets = studentInfo(profile)
     if studentDets != None:
-      profile = studentInfo(profile)['first_name']
+        first_name = studentInfo(profile)['first_name']
+    context['firstname'] = profile
+    if studentDets != None:
+      first_name = studentInfo(profile)['first_name']
+      context['firstname'] = first_name
     context['user'] = profile
     return render(request, "templates/pacApp/about.html", context)
 
@@ -103,14 +105,18 @@ def homepage(request):
     except:
         profile = 'None'
     print(profile)
-    studentDets = studentInfo(profile)
-    if studentDets != None:
-      profile = studentInfo(profile)['first_name']
     starttoday = date.today()
     groups = 'None'
     context = createContext(starttoday, groups)
     context['available'] = carouselAvailable()
     context['user'] = profile
+    context['firstname'] = profile
+    if profile != 'None':
+      studentDets = studentInfo(profile)
+      if studentDets != None:
+        first_name = studentInfo(profile)['first_name']
+        context['firstname'] = first_name
+
     return render(request, "templates/pacApp/home.html", context)
 
 # displays the calendar schedule
@@ -231,13 +237,15 @@ def schedule(request):
     profile = request.user.uniauth_profile.get_display_id()
     print(profile)
     studentDets = studentInfo(profile)
-    if studentDets != None:
-      profile = studentInfo(profile)['first_name']
     starttoday = date.today()
     print(starttoday)
     groups = 'None'
     context = createContext(starttoday, groups)
     context['user'] = profile
+    context['firstname'] = profile
+    if studentDets != None:
+      first_name = studentInfo(profile)['first_name']
+      context['firstname'] = first_name
     
     return render(request, "templates/pacApp/schedule.html", context)
 

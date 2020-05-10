@@ -32,6 +32,14 @@
                     <li><a href="adminForm#">PAC Admin</a></li>
                   </ul>
                 </li>
+                {% if user != 'None' %} 
+                <li id="logoutButton">
+                  <span>{{firstname}}</span>
+                  <ul>
+                    <li><a>Logout</a></li>
+                  </ul>
+                </li>
+                {% endif %}
               </ul>
             </nav>
       </div>

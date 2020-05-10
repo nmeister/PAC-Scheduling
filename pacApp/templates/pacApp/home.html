@@ -30,7 +30,7 @@
 								<hr />
 								<p>Rehearsal spaces and availability</p>
 								{% if user != 'None' %} 
-								<p> Hello, {{user}} </p>
+								<p> Hello, {{firstname}} </p>
 								{% endif %}
 							</header>
 							<footer>
@@ -51,12 +51,14 @@
 										<li><a href="adminForm#">PAC Admin</a></li>
 									</ul>
 								</li>
+								{% if user != 'None' %} 
 								<li id="logoutButton">
-									<span>{{user}}</span>
+									<span>{{firstname}}</span>
 									<ul>
 										<li><a>Logout</a></li>
 									</ul>
 								</li>
+								{% endif %}
 							</ul>
 						</nav>
 				</div>

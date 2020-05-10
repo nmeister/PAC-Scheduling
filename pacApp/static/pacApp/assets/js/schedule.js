@@ -316,7 +316,8 @@ function withinCurrentHourBooking(left, id) {
       modal.style.display = "none";
     }
   }
-
+  $('#one').css('display','inline-block');
+  $('#two').css('display','inline-block');
   $('#one').html('YES');
   $('#two').html('NO');
   var yes = document.getElementById("one");
@@ -565,7 +566,7 @@ function booking(studio,day,hour,id) {
   console.log(max/3600000);
   document.getElementById('nhours').max = max; */
   console.log($('#netid').data('user'));
-  $('#personNet').html('Net Id: <strong>' + $('#netid').data('user') + '</strong>')
+  $('#personNet').html(' <strong>(' + $('#netid').data('user') + ')</strong>');
   var confirm = document.getElementById("confirm");
   // should have studio[start_time][dayofweek].yyyy-mm-dd
   confirm.value = id;
