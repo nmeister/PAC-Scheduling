@@ -555,6 +555,9 @@ function booking(studio,day,hour,id) {
   var dateArr = $(content).data('date').split('-');
   console.log(dateArr);
   var date = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
+  // still part of today so we want to make it in the db as same as today
+  var datadate = date;
+
   if (Math.trunc(hour) > 23) {
     var nextday = parseInt(dateArr[2]) + 1
     date = new Date(dateArr[0], dateArr[1]-1, nextday);
@@ -565,11 +568,7 @@ function booking(studio,day,hour,id) {
   bookdate.innerHTML = "Booking Day: " + date.toDateString();
   var currdate = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
   var nextdate = new Date(dateArr[0], dateArr[1]-1, parseInt(dateArr[2]) + 1);
-  // SETTING A MAX - THIS DOESN'T ACTUALLY WORK I THINK
-  /*var max = nextdate.setHours(1) - (currdate.setHours(hour));
-  console.log(new Date(nextdate));
-  console.log(max/3600000);
-  document.getElementById('nhours').max = max; */
+  
   console.log($('#netid').data('user'));
   $('#personNet').html(' <strong>(' + $('#netid').data('user') + ')</strong>');
   var confirm = document.getElementById("confirm");
@@ -577,8 +576,8 @@ function booking(studio,day,hour,id) {
   confirm.value = id;
   confirm.value += '.';
   // dilliondance203.2020-04-15
-  confirm.value += buildDate(date);
-  console.log(confirm.value)
+  confirm.value += buildDate(datadate);
+  console.log('confirmed value ', confirm.value)
 }
 
 function handleBadUser(msg) {
