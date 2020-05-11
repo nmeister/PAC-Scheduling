@@ -28,6 +28,7 @@ urlpatterns = [
     path('updateMulti', dancers.updateMulti, name='updateMulti'),
     path('about', dancers.about, name='about'),
     path('notpac', dancers.notpac, name='notpac'), 
+    path('logout', dancers.logout, name='logout'), 
 ]
 
 handler404 = errors.error_404
