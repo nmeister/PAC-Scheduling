@@ -681,13 +681,15 @@ def delete_schedule_alg(request: HttpResponse):
 
         for group in company3:
             CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=1) 
+        context['success'] = 'True'
         
     except:
         print('not able to drop scheduling alg')
         report = ['Not able to drop the spaces in the dates specified. Please edit the date range to include weeks that have slots']
         context['success']='False'
-
+        
     context['start_date'] = start_date
+    context['has_report'] = 'True'
     context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
     context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
     context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
@@ -695,9 +697,7 @@ def delete_schedule_alg(request: HttpResponse):
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
     context['studios'] = Studio.objects.all()
-    context['has_report'] = 'True'
     context['report'] = report
-    context['success'] = 'True'
     context['newdate'] = start_date
     print(context['report'])
     return render(request, "templates/pacApp/form/adminForm.html", context)
