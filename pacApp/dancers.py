@@ -68,6 +68,9 @@ def homepage(request):
 
     return render(request, "templates/pacApp/home.html", context)
 
+def logout(request):
+	return redirect('%s?next=%s' % ('/accounts/logout', '/homepage'))
+
 #my_group = Group.objects.get(name='Pac')
 # my_group.user_set.add('test@pac.com')
 
