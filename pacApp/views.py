@@ -677,10 +677,10 @@ def delete_schedule_alg(request: HttpResponse):
             CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=1)
 
         for group in company2:
-            RehearsalRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=1)
+            CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=1)
 
         for group in company3:
-            RehearsalRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=1) 
+            CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=1) 
         
     except:
         print('not able to drop scheduling alg')
