@@ -170,7 +170,7 @@ def adminForm(request):
     context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
     context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
     context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
-    context['reho_req'] = RehearsalRequest.objects.all()
+    context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
     context['studios'] = Studio.objects.all()
@@ -213,29 +213,49 @@ def delete_schedule_alg(request: HttpResponse):
     start_date = request.POST['start_date']
     end_date = request.POST['end_date']
 
+    all_requests = RehearsalRequest.objects.filter(scheduled=1)
+    company1 = CompanyRequest.objects.filter(company_choice_num=1, scheduled=1)
+    company2 = CompanyRequest.objects.filter(company_choice_num=2, scheduled=1)
+    company3 = CompanyRequest.objects.filter(company_choice_num=3, scheduled=1)
+
+
+    context = {}
+
+    start_date_new = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+    end_date_new = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+    print(start_date_new, end_date_new)
+    diff = end_date_new-start_date_new
+    weeks = abs(math.ceil(diff.days/7))
+
+    delta = end_date_new - start_date_new       # as timedelta
+
+    
     try:
-        start_date_new = datetime.datetime.strptime(start_date, '%Y-%m-%d')
-        end_date_new = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-        print(start_date_new, end_date_new)
-        diff = end_date_new-start_date_new
-        weeks = abs(math.ceil(diff.days/7))
-
-
-        delta = end_date_new - start_date_new       # as timedelta
-
         for i in range(delta.days + 1):
             day = start_date_new + timedelta(days=i)
             print(day)
             slots_to_del = Booking.objects.filter(from_alg=1, booking_date = day)
             print(slots_to_del)
             slots_to_del.delete()
-        report = ['Deleted all groups from ' + str(start_date) + ' to ' + str(end_date) + '. (' + weeks + ' weeks)' ]
+        report = ['Deleted all groups from ' + str(start_date) + ' to ' + str(end_date) + '. (' + str(weeks) + ' weeks). The requests will show up again in Step 2.' ]
+        
+        for group in all_requests:
+            (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=1)
+
+        for group in company1:
+            CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=1)
+
+        for group in company2:
+            CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=1)
+
+        for group in company3:
+            CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=1) 
+        
     except:
         print('not able to drop scheduling alg')
-        report = ['Not able to drop the spaces in the dates specified']
+        report = ['Not able to drop the spaces in the dates specified. Please edit the date range to include weeks that have slots']
         context['success']='False'
 
-    context = {}
     context['start_date'] = start_date
     context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
     context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
@@ -312,12 +332,11 @@ def scheduling_alg(request: HttpResponse):
 
     report.append("Booking from " + str(start_date) + " to "  + str(end_date) + " (" + str(weeks) + " weeks).")
     
-  
     # get everything in db
-    all_requests = RehearsalRequest.objects.all()
-    company1 = CompanyRequest.objects.filter(company_choice_num=1)
-    company2 = CompanyRequest.objects.filter(company_choice_num=2)
-    company3 = CompanyRequest.objects.filter(company_choice_num=3)
+    all_requests = RehearsalRequest.objects.filter(scheduled=0)
+    company1 = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
+    company2 = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
+    company3 = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
 
     # check if there are enough spaces to allocate
     enough_space = total_spaces(all_requests)
@@ -328,11 +347,11 @@ def scheduling_alg(request: HttpResponse):
         context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
         context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
         context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
-        context['reho_req'] = RehearsalRequest.objects.all()
+        context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
         context['all_requests'] = ADRequest.objects.all()
         context['groups'] = Group.objects.all()
         context['studios'] = Studio.objects.all()
-        context['has_report'] = 'False'
+        context['has_report'] = 'True'
         context['report'] = report
         print(context['report'])
         return render(request, "templates/pacApp/form/adminForm.html", context)
@@ -413,8 +432,7 @@ def scheduling_alg(request: HttpResponse):
     # fill in the unavailable times for each studio
     unavailable = {}
 
-    days_of_week = ['Monday', 'Tuesday', 'Wednesday',
-                    'Thursday', 'Friday', 'Saturday', 'Sunday']
+    days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     groups = df_request['name']
 
     # given a list hours, return the dictionary that gives initial availability of each day
@@ -525,6 +543,7 @@ def scheduling_alg(request: HttpResponse):
     """Cycle through the list of requests until everyone's requests are filled"""
     bookable = True
     # while there are still spaces to book
+    print(reho_count.values())
     while (int(max(reho_count.values())) > 0):
         # randomize the order of groups
         for group in groups.sample(frac=1):
@@ -650,14 +669,25 @@ def scheduling_alg(request: HttpResponse):
                         booking_date=(start_date_new + timedelta(days=(week*6))))
             book.save()
 
+# RehearsalRequest.objects.filter(scheduled=0)
+    for group in all_requests:
+        (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=1)
 
+    for group in company1:
+        CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=1)
 
+    for group in company2:
+        CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=1)
+
+    for group in company3:
+        CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=1) 
+    
     context = {}
     context['start_date'] = start_date
     context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
     context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
     context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
-    context['reho_req'] = RehearsalRequest.objects.all()
+    context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
     context['studios'] = Studio.objects.all()

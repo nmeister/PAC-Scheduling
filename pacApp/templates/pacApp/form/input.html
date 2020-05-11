@@ -103,6 +103,8 @@
 			Once you have submitted the form for all PAC groups, you should see their results in the table below. 
 			If you mis-entered a group's information, 
 			please click the delete button and resubmit the group's information.
+			<br>
+			<br>
 			
 		</span>
 		
@@ -110,6 +112,18 @@
 	
 	<!-- Table to display the values in the ad request db	-->
 	{% include 'templates/pacApp/form/ad_table.html' %} 
+	If this table contains old requests and you want to begin a new schedule, please click 'New Schedule'
+
+	<div class="input-group-append text-info"; style="text-align: left; display: flex; align-items: left; justify-content: left;">
+		<br>	
+
+		<span class="input-grou-text bg-white py-0">
+				<button type="submit" id="submit_button" class="btn btn-sm text-info" style="font-size: small;" >
+					New Schedule
+				</button>			
+		</span>
+	</div>
+
 
 <p style="margin-left:auto; margin-right:auto;text-align:center;"><a href="#step3" class="scrolly"><i class="arrow down"></i></a></p>
 	<hr>
@@ -165,7 +179,7 @@
 				<h4 style="line-height:1em">Report From Scheduling Algorithm:</h4>
 				<div style="font-size:0.9em">
 					{% for item in report %}
-						<li>{{item}} </li>
+						{{item}} 
 					{% endfor %}
 				</div>
 				<br>
