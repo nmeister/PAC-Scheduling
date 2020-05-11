@@ -18,25 +18,26 @@
 						</div>
 
 					<!-- Nav -->
-						<nav id="nav">
+					<nav id="nav">
+						<ul>
+						  <li><a href="homepage">Home</a></li>
+						   <li><a href="#">About</a></li>
+						  <li><a href="">Booking</a>
 							<ul>
-								<li><a href="homepage">Home</a></li>
-								<li>
-									<a href="homepage#scheduleOnHome">What's Open</a>
-									<ul>
-										<li><a href="homepage#scheduleOnHome">Schedule</a></li>
-										<li><a href="homepage#openNow">Open Now</a></li>
-
-									</ul>
-								</li>
-								<li><a href="schedule">Booking</a>
-									<ul>
-										<li><a href="schedule">Book Space</a></li>
-										<li><a href="adminForm">PAC Admin</a></li>
-									</ul>
-								</li>
+							  <li><a href="schedule">Book Space</a></li>
+							  <li><a href="adminForm#">PAC Admin</a></li>
 							</ul>
-						</nav>
+						  </li>
+						  {% if user != 'None' %} 
+						  <li id="logoutButton">
+							<span>{{firstname}}</span>
+							<ul>
+							  <li><a href="#">Logout</a></li>
+							</ul>
+						  </li>
+						  {% endif %}
+						</ul>
+					  </nav>
 				</div>
         </div>
 			<script src="static/pacApp/assets/js/jquery.min.js"></script>

@@ -240,23 +240,23 @@ def delete_schedule_alg(request: HttpResponse):
         report = ['Deleted all groups from ' + str(start_date) + ' to ' + str(end_date) + '. (' + str(weeks) + ' weeks). The requests will show up again in Step 2.' ]
         
         for group in all_requests:
-            (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=1)
+            (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=0)
 
         for group in company1:
-            CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=1)
+            CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=0)
 
         for group in company2:
-            CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=1)
+            CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=0)
 
         for group in company3:
-            CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=1) 
+            CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=0) 
         context['success'] = 'True'
         
     except:
         print('not able to drop scheduling alg')
         report = ['Not able to drop the spaces in the dates specified. Please edit the date range to include weeks that have slots']
         context['success']='False'
-        
+
     context['start_date'] = start_date
     context['has_report'] = 'True'
     context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
