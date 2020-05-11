@@ -391,3 +391,46 @@ input[type=date]::-webkit-calendar-picker-indicator {
 select::-ms-expand { 
   display: block !important; 
 }
+
+
+#pgup {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    background: rgba(223, 115, 102, 0.85);
+    width: 3em;
+    height: 3em;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 5em;
+    -moz-border-radius: 5em;
+    border-radius: 5em;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    z-index: 99;
+}
+#pgup i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 0.85em;
+    top: 0.5em;
+    font-size: 1.1em;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    z-index: 99;
+}
+#pgup:hover {
+   background: rgba(223, 115, 102, 1);
+}
+#pgup:hover i {
+    color: #fff;
+    top: 0.2em;
+}

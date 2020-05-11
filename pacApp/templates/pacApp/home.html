@@ -10,6 +10,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<!-- ICON NEEDS FONT AWESOME FOR CHEVRON UP ICON -->
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
  <!-- the css added after have priority --> 
 		<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css" />
   		<link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css" />
@@ -63,6 +65,7 @@
 						</nav>
 				</div>
 
+	<a id="pgup" href="#nav" class="scrolly"><i class="icon-chevron-up"></i></a>
 
 	 <div id="scheduleOnHome" data-user="{{user}}" style="padding: 0em 0em 2em 0em">
 			<!-- Banner -->
@@ -158,6 +161,21 @@
 					$(event.target).removeClass('active');
 				})
 
+			</script>
+			<script>
+				// ===== Scroll to Top ==== 
+				$(window).scroll(function() {
+				    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+				        $('#pgup').fadeIn(200);    // Fade in the arrow
+				    } else {
+				        $('#pgup').fadeOut(200);   // Else fade out the arrow
+				    }
+				});
+				$('#pgup').click(function() {      // When arrow is clicked
+				    $('body,html').animate({
+				        scrollTop : 0                       // Scroll to top of body
+				    }, 500);
+				});
 			</script>
 
 	</body>
