@@ -321,6 +321,7 @@ function call_schedule_alg(start_date, end_date)
 {
   // document.getElementById("loading").style.visibility = "visible"; 
   $("#loading").css("visibility", "visible");
+  $('#msg').html('Scheduling all Groups');
 
   var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
   console.log('in call schedule');
@@ -343,6 +344,7 @@ function delete_scheduling_alg(start_date, end_date)
 {
   // document.getElementById("loading").style.visibility = "visible"; 
   $("#loading").css("visibility", "visible");
+  $('#msg').html('Deleting all scheduled slots');
 
   var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
   console.log('in call schedule');

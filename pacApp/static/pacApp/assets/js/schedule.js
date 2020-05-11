@@ -232,7 +232,6 @@ function setupWeek(type) {
       success: handleresponse,
     })
     ;
-    
   }
    if (window.refresh != null) {
     clearInterval(window.refresh);

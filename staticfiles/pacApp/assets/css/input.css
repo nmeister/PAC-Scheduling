@@ -135,6 +135,11 @@ a:hover {
   color:white;
 }
 
-#viewResults:hover {
-   color:#b76e79;
+#viewResults {
+  font-size: 1.05em;
 }
+#viewResults:hover {
+   color:white;
+
+}
+

@@ -30,7 +30,7 @@ def error_404(request, exception):
 def error_500(request):
     data = {}
     return render(request, 'templates/pacApp/404.html', data)
-    
+
 # showing which studios are currently available 
 def carouselAvailable():
     startdate = date.today()
@@ -74,6 +74,16 @@ def homepage(request):
 # if user not pac and tries to go to PAC booking page show this endpage
 def notpac(request):
     context = {}
+    try:
+    	profile = request.user.uniauth_profile.get_display_id()
+    except:
+    	profile = 'None'
+    context['firstname'] = profile
+    if profile != 'None':
+    	studentDets = studentInfo(profile)
+    	if studentDets != None:
+    		first_name = studentDets['first_name']
+    		context['firstname'] = first_name
     return render(request, "templates/pacApp/notPac.html", context)
 
 # about page 

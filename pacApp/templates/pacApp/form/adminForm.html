@@ -2,6 +2,7 @@
  <html>
    <head>
       <title>PAC Administrator Form</title>
+      <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
       <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/> --> 
       <link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css">
       <link rel="stylesheet"  type="text/css" href="static/pacApp/assets/css/input.css">
@@ -52,6 +53,7 @@
                 </nav>
            </div>
           </div>
+          <a id="pgup" href="#nav" class="scrolly"><i class="icon-chevron-up"></i></a>
        <!--     <nav class="col-sm-3" id="myScrollspy">
       <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
         <li><a href="#step1" class="scrolly">Group Request Form</a></li>
@@ -120,4 +122,14 @@
             }, function (event) {
               $(event.target).removeClass('active');
             })
+      </script>
+        <script>
+        // ===== Scroll to Top ==== 
+        $(window).scroll(function() {
+            if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+                $('#pgup').fadeIn(200);    // Fade in the arrow
+            } else {
+                $('#pgup').fadeOut(200);   // Else fade out the arrow
+            }
+        });
       </script>

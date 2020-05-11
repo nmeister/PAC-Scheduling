@@ -19,10 +19,10 @@
 							<header>
 								<h1>Are you a PAC manager?</h1>
 								<hr style="border-style:inset;border-width: 1px;display:block;"/>
-								<p style="font-size:18px">This page is reserved for PAC managers to create
-								dance studio schedules with our scheduling algorithm! If you are a new PAC
-								member, please contact a previous manager to give you access.</p>
 							  </header>
+							  <p style="font-size:18px;text-align:center">This page is reserved for PAC managers to create
+								dance studio schedules with our scheduling algorithm!<br> If you are a new PAC
+								member, please contact a previous manager to give you access.</p>
 						</div>
             <nav id="nav">
               <ul>
@@ -34,11 +34,11 @@
                     <li><a href="adminForm#">PAC Admin</a></li>
                   </ul>
                 </li>
-                {% if user != 'None' %} 
+                {% if firstname != 'None' %} 
                 <li id="logoutButton">
                   <span>{{firstname}}</span>
                   <ul>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="/accounts/logout">Logout</a></li>
                   </ul>
                 </li>
                 {% endif %}
