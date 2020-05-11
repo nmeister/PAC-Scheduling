@@ -262,44 +262,48 @@ function wasClicked_Alg(event, type)
   console.log(start_date, end_date);
 
   
-  if (start_date > end_date) 
+  if (new Date(start_date_val) > new Date(end_date_val) ) 
   {
     alert('The start date occurs after the end date. Please fix the dates and resubmit.');
     event.preventDefault();
     return false; 
   } 
 
-  schedule_wasClicked = localStorage.getItem('schedule_wasClicked');
+  // schedule_wasClicked = localStorage.getItem('schedule_wasClicked');
 
-  if(schedule_wasClicked=='true' && (type == "schedule")) { 
+  /* if((type == "schedule")) { 
     console.log('show alert for schedule alg');
     console.log(event);
     alert('The PAC groups have already been scheduled. Please delete them before rescheduling.');
     event.preventDefault();
     return false; 
-  }
-  else if (type=='schedule')
+  } */ 
+  // else 
+  if (type=='schedule')
   {
     console.log('proceed to scheduling alg');
     console.log(event);
     var schedule_wasClicked = "true";
-    localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
+    // localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
     call_schedule_alg(start_date_val, end_date_val);
   }  
   // change was clicked to false
-  else if (schedule_wasClicked=='true' && (type == "delete")) {
+  // else if (schedule_wasClicked=='true' && (type == "delete")) {
+  else if (type == "delete") {
     console.log('was clicked and now imma delete');
     var schedule_wasClicked = "false";
-    localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
+    // localStorage.setItem("schedule_wasClicked", schedule_wasClicked);
     alert("After 'Delete All Scheduled Slots' is clicked, all PAC Group's Information will show up again in Step 2. Please delete or edit the information in Step 2 and then rerun the scheduling algorithm.")
+    delete_scheduling_alg(start_date_val, end_date_val);
     return true;
-  }
+  } 
+  /*
   else if (schedule_wasClicked=='false' && (type == "delete")) {
     console.log('not was clicked and want to delete but nothing to del')
     alert('The PAC groups have not been schedule yet and there is nothing to delete. Please click "Schedule All Groups" First');
     event.preventDefault();
     return false;
-  }
+  } */
 
 }
 function handleresponse(response) 
@@ -329,6 +333,28 @@ function call_schedule_alg(start_date, end_date)
     data: {
       'start_date':start_date,
       'end_date':end_date
+    },
+    success: handleresponse,
+  });
+}
+
+
+function delete_scheduling_alg(start_date, end_date)
+{
+  // document.getElementById("loading").style.visibility = "visible"; 
+  $("#loading").css("visibility", "visible");
+
+  var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  console.log('in call schedule');
+  url = 'delete_schedule_alg';
+  request = $.ajax(
+  {
+    type: "POST",
+    url: url,
+    headers: {'X-CSRFToken': csrftoken},
+    data: {
+      'start_date': start_date,
+      'end_date': end_date
     },
     success: handleresponse,
   });
