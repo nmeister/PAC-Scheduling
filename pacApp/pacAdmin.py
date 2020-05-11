@@ -218,7 +218,6 @@ def delete_schedule_alg(request: HttpResponse):
     company2 = CompanyRequest.objects.filter(company_choice_num=2, scheduled=1)
     company3 = CompanyRequest.objects.filter(company_choice_num=3, scheduled=1)
 
-
     context = {}
 
     start_date_new = datetime.datetime.strptime(start_date, '%Y-%m-%d')
@@ -229,32 +228,38 @@ def delete_schedule_alg(request: HttpResponse):
 
     delta = end_date_new - start_date_new       # as timedelta
 
-    
     try:
+        total_to_del = 0
         for i in range(delta.days + 1):
             day = start_date_new + timedelta(days=i)
             print(day)
             slots_to_del = Booking.objects.filter(from_alg=1, booking_date = day)
+            total_to_del += slots_to_del.count()
             print(slots_to_del)
             slots_to_del.delete()
-        report = ['Deleted all groups from ' + str(start_date) + ' to ' + str(end_date) + '. (' + str(weeks) + ' weeks). The requests will show up again in Step 2.' ]
-        
-        for group in all_requests:
-            (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=0)
+        if total_to_del==0:
+            report = ['The scheduling algorithm has not scheduled slots on the calendar yet for the dates you specified. Please edit the date range or click "Schedule All Groups". ']
+            context['success'] = 'False'
+        else:
 
-        for group in company1:
-            CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=0)
+            report = ['Deleted all groups from ' + str(start_date) + ' to ' + str(end_date) + '. (' + str(weeks) + ' weeks). The requests will show up again in Step 2.' ]
+            
+            for group in all_requests:
+                (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=0)
 
-        for group in company2:
-            CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=0)
+            for group in company1:
+                CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=0)
 
-        for group in company3:
-            CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=0) 
-        context['success'] = 'True'
+            for group in company2:
+                CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=0)
+
+            for group in company3:
+                CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=0) 
+            context['success'] = 'True'
         
     except:
         print('not able to drop scheduling alg')
-        report = ['Not able to drop the spaces in the dates specified. Please edit the date range to include weeks that have slots']
+        report = ['Not able to drop the spaces in the dates specified. Please edit the date range to include weeks that have spaces scheduled.']
         context['success']='False'
 
     context['start_date'] = start_date
