@@ -594,8 +594,8 @@
     if (window.refresh != null) {
     clearInterval(window.refresh);
     window.refresh = setInterval(function () {
-          setupWeek('group');}
-          , 7000);
+          setupWeek('group'); console.log('waiting now 120000')}
+          , 120000);
           console.log('window calendar on render - ', window.refresh); 
     }
   }
