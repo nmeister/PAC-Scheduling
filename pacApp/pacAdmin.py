@@ -41,7 +41,7 @@ def delete_ad_request(request_id):
 
     print('in delete ad request, deleting', request_id)
     # grab the booking you want to delete
-
+    '''
     reho_req_to_del = RehearsalRequest.objects.get(request_id=request_id)
     
     print(reho_req_to_del.request_id)
@@ -55,7 +55,7 @@ def delete_ad_request(request_id):
     co_req_2.delete()
     co_req_3.delete()
  
-    reho_req_to_del.delete()
+    reho_req_to_del.delete()'''
   
     try:
         reho_req_to_del = RehearsalRequest.objects.get(request_id=request_id)
@@ -101,6 +101,11 @@ def renew_schedule(request: HttpResponse):
 
     return redirect('/adminForm')
 
+def handle_1ams(time):
+    if int(time)==1: return 25
+    else: return time
+
+
 def insert_ad_request(request: HttpResponse):
 
     groups_list = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
@@ -117,9 +122,14 @@ def insert_ad_request(request: HttpResponse):
     company_start_time_3 = grab_time(request.POST['company_start_time_3'])
     company_end_time_3 = grab_time(request.POST['company_end_time_3'])
 
+
     current_datetime = str(datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"))
     name = groups_list[int(request.POST['company_name'])-1]
     print(name)
+
+    company_end_time_1=handle_1ams(company_end_time_1)
+    company_end_time_2=handle_1ams(company_end_time_2)
+    company_end_time_3=handle_1ams(company_end_time_3)
 
     reho_req = RehearsalRequest(scheduled=0,
                                 num_reho=int(request.POST['num_reho']),
@@ -287,7 +297,7 @@ def delete_schedule_alg(request: HttpResponse):
     context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
     context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
     context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
-    context['reho_req'] = RehearsalRequest.objects.all()
+    context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
     context['studios'] = Studio.objects.all()
@@ -339,7 +349,7 @@ def scheduling_alg(request: HttpResponse):
             context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
             context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
             context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
-            context['reho_req'] = RehearsalRequest.objects.all()
+            context['reho_req'] = RehearsalRequest.objects.all(scheduled=0)
             context['all_requests'] = ADRequest.objects.all()
             context['groups'] = Group.objects.all()
             context['studios'] = Studio.objects.all()
@@ -486,7 +496,7 @@ def scheduling_alg(request: HttpResponse):
 
     avail = {}
     for day in copy.deepcopy(days_of_week):
-        hours = [i for i in range(0, 24)]
+        hours = [i for i in range(0, 25)]
         if (day is 'Sunday') or (day is 'Saturday'):
             for i in range(1, 9):
                 hours.remove(i)
@@ -526,16 +536,20 @@ def scheduling_alg(request: HttpResponse):
             'company_day_1')].values[0]
         start_time = group_info.iloc[:, df_request.columns.get_loc(
             'company_start_time_1')].values[0]
-        end_time = group_info.iloc[:, df_request.columns.get_loc(
-            'company_end_time_1')].values[0]
+        end_time = int(group_info.iloc[:, df_request.columns.get_loc(
+            'company_end_time_1')].values[0])
         # if conflict --> conflict can just be a try/except thing
         # cant do times from 23-1
         # remove times from list
 
         # if the company time is already booked
-        if ((int(start_time) not in avail[day][studio]) or 
-		(int(start_time)+1 not in avail[day][studio]) or 
-		(int(start_time)+1 not in avail[day][studio])):
+
+        next_pref = 0
+        for time in range(start_time, end_time):
+            if (int(time) not in avail[day][studio]): next_pref = 1
+            print('going to pref 2')
+
+        if (next_pref):
             studio = group_info.iloc[:, df_request.columns.get_loc(
                 'company_studio_2')].values[0]
             day = group_info.iloc[:, df_request.columns.get_loc(
@@ -546,10 +560,11 @@ def scheduling_alg(request: HttpResponse):
                 'company_end_time_2')].values[0]
             preference = 2
             
-
-        if ((int(start_time) not in avail[day][studio]) or 
-		(int(start_time)+1 not in avail[day][studio]) or 
-		(int(start_time)+1 not in avail[day][studio])):
+        next_pref = 0
+        for time in range(start_time, end_time):
+            if (int(time) not in avail[day][studio]): next_pref = 1
+        
+        if (next_pref):
             studio = group_info.iloc[:, df_request.columns.get_loc(
                 'company_studio_3')].values[0]
             day = group_info.iloc[:, df_request.columns.get_loc(
@@ -559,18 +574,21 @@ def scheduling_alg(request: HttpResponse):
             end_time = group_info.iloc[:, df_request.columns.get_loc(
                 'company_end_time_3')].values[0]
             preference = 3
-        if ((int(start_time) not in avail[day][studio]) or 
-		(int(start_time)+1 not in avail[day][studio]) or 
-		(int(start_time)+1 not in avail[day][studio])):
+        
+        next_pref = 0
+        for time in range(start_time, end_time):
+            if (int(time) not in avail[day][studio]): next_pref = 1
+        
+        if (next_pref):
             report.append(groups_list[group-1] + " did not get any Company Preference. Please return back to Step 2 and ensure that " + groups_list[group-1] + "'s company preference does not conflict with anyone else. ")
             bookable=False
             reho_count = {'0': 0}
 
         else:
             # add the company time to df and remove from available times
-            (avail[day][studio]).remove(int(start_time))
-            (avail[day][studio]).remove(int(start_time)+1)
-            (avail[day][studio]).remove(int(start_time)+2)
+            for time in range(start_time, end_time):
+                (avail[day][studio]).remove(int(time))
+            
             group_results = pd.DataFrame(data={'Name': [group],
                                             'Studio': [studioList[studio]],
                                             'Day': [day],

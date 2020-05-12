@@ -33,10 +33,19 @@ function radio_check(radiobtn_name)
 function bad_company_time(start, end)
 {
   console.log('start: ', start, 'end:', end);
-  if (end <= start) return 'true';
+  if ((parseInt(end)===1) && (parseInt(start) > 8)) return 'false';
+  if (parseInt(end) <= parseInt(start)) return 'true';
   else return 'false';
 }
 
+// change 1 am to 25 hour
+function handle_1am(time)
+{
+  if (parseInt(time)===1) {
+    return 25;
+  }
+  else return time;
+}
 // see if the array contains duplicates, return a boolean. true if has duplicates
 function hasDuplicates(array) {
   return (new Set(array)).size !== array.length;
@@ -79,10 +88,10 @@ function badCompanyTime(day, start_time, end_time)
   start_time = parseInt(start_time)
   end_time = parseInt(end_time)
   if ((day==='Sunday') || (day==='Saturday')) {
-    if ((start_time < 9) || (end_time< 10)) return true;
+    if ((start_time < 9) ) return true;
   }
   else {
-    if ((start_time < 4) || (end_time< 5)) return true;
+    if ((start_time < 4)) return true;
   }
   return false;
 }
@@ -189,12 +198,12 @@ function validateResponse()
 
   if (badCompanyTime(company_day_1, company_start_time_1, company_end_time_1))
   {
-    alert('Please choose a valid company time for Preference 1. The company time must be between 4PM-Midnight on weekdays and 9AM-Midnight on weekends.');
+    alert('Please choose a valid company time for Preference 1. The company time must be between 4PM-1AM on weekdays and 9AM-1AM on weekends.');
     return false;
   }
   if (badCompanyTime(company_day_2, company_start_time_2, company_end_time_2))
   {
-    alert('Please choose a valid company time for Preference 2. The company time must be between 4PM-Midnight on weekdays and 9AM-Midnight on weekends.');
+    alert('Please choose a valid company time for Preference 2. The company time must be between 4PM-1AM on weekdays and 9AM-1AM on weekends.');
     return false;
   }
 
@@ -258,6 +267,12 @@ function validateResponse()
     alert('The end time for the company preference 3 is before the start time for company preference 3');
     return false;
   }
+
+
+  // handle 1ams
+  company_end_time_1 = handle_1am(company_end_time_1);
+  company_end_time_2 = handle_1am(company_end_time_2);
+  company_end_time_3 = handle_1am(company_end_time_3);
 
   // if any entry is empty
   if (empty_inputs.length != 0)
