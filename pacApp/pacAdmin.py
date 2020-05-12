@@ -599,7 +599,6 @@ def scheduling_alg(request: HttpResponse):
 
     """Cycle through the list of requests until everyone's requests are filled"""
     bookable = True
-    dd
     
     while (int(max(reho_count.values())) > 0):
         # randomize the order of groups
