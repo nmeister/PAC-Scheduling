@@ -4,11 +4,14 @@ from django.conf.urls import handler404, handler500
 from . import pacAdmin
 from . import dancers
 from . import errors
+from . import views
 
 urlpatterns = [
     # when referencing home page it eneds to be given url of '/'
-    path('', dancers.homepage, name='homepage'),
-    path('homepage', dancers.homepage, name='homepage'),
+    path('', views.homepage, name='homepage'),
+    path('homepage', views.homepage, name='homepage'),
+    path('about', views.about, name='about'),
+    path('notpac', views.notpac, name='notpac'), 
     path('schedule', dancers.schedule, name='schedule'),
     path('insert_space/', pacAdmin.insert_space_item, name='insert_space_item'),
     path('insert_ad_request/', pacAdmin.insert_ad_request, name='insert_ad_request'),
@@ -26,8 +29,6 @@ urlpatterns = [
     path('updateBooking', dancers.updateBooking, name='updateBooking'),
     path('updateDropping', dancers.updateDropping, name='updateDropping'),
     path('updateMulti', dancers.updateMulti, name='updateMulti'),
-    path('about', dancers.about, name='about'),
-    path('notpac', dancers.notpac, name='notpac'), 
     path('logout', dancers.logout, name='logout'), 
 ]
 

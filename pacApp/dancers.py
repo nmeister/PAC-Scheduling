@@ -22,91 +22,6 @@ from .utils import studentInfo, handleDateStr, handleGroup, handledate, get_rang
 from .create import createContext, create_booking, delete_booking
 
 
-def error_404(request, exception):
-    data = {}
-    return render(request, 'templates/pacApp/404.html', data)
-
-
-def error_500(request):
-    data = {}
-    return render(request, 'templates/pacApp/404.html', data)
-
-# showing which studios are currently available 
-def carouselAvailable():
-    startdate = date.today()
-    currenttime = int(datetime.datetime.now().time().hour)
-    # print(currenttime)
-    notfree = Booking.objects.filter(start_time__exact=currenttime).filter(
-        booking_date__exact=startdate)
-
-    studioList = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    for i in notfree:
-        studioList[i.studio_id_id] = 0
-
-    # print(studioList)
-
-    return studioList
-
-# rendering the home page with today's date
-def homepage(request):
-    try:
-        profile = request.user.uniauth_profile.get_display_id()
-    except:
-        profile = 'None'
-    print(profile)
-    starttoday = date.today()
-    groups = 'None'
-    context = createContext(starttoday, groups)
-    context['available'] = carouselAvailable()
-    context['user'] = profile
-    context['firstname'] = profile
-    if profile != 'None':
-      studentDets = studentInfo(profile)
-      if studentDets != None:
-        first_name = studentDets['first_name']
-        context['firstname'] = first_name
-
-    return render(request, "templates/pacApp/home.html", context)
-
-def logout(request):
-	return redirect('%s?next=%s' % ('/accounts/logout', '/homepage'))
-
-#my_group = Group.objects.get(name='Pac')
-# my_group.user_set.add('test@pac.com')
-
-# if user not pac and tries to go to PAC booking page show this endpage
-def notpac(request):
-    context = {}
-    try:
-    	profile = request.user.uniauth_profile.get_display_id()
-    except:
-    	profile = 'None'
-    context['firstname'] = profile
-    if profile != 'None':
-    	studentDets = studentInfo(profile)
-    	if studentDets != None:
-    		first_name = studentDets['first_name']
-    		context['firstname'] = first_name
-    return render(request, "templates/pacApp/notPac.html", context)
-
-# about page 
-def about(request):
- 	context = {}
- 	try:
- 		profile = request.user.uniauth_profile.get_display_id()
- 	except:
- 		profile = 'None'
- 	context['firstname'] = profile
- 	if profile != 'None':
- 		studentDets = studentInfo(profile)
- 		if studentDets != None:
- 			first_name = studentDets['first_name']
- 			context['firstname'] = first_name
-
- 	context['user'] = profile
- 	return render(request, "templates/pacApp/about.html", context)
-
-
 # displays the calendar schedule
 @login_required
 def schedule(request):
@@ -125,6 +40,9 @@ def schedule(request):
       context['firstname'] = first_name
     
     return render(request, "templates/pacApp/schedule.html", context)
+
+def logout(request):
+    return redirect('%s?next=%s' % ('/accounts/logout', '/homepage'))
 
 
 # updates week 
@@ -170,21 +88,21 @@ def updateBooking(request):
     if studentDets != None:
       firstname = studentDets['first_name']
     # these are all related to booking 
-    bookingdate = handleDateStr(request.GET.get('date'))
-    studio = request.GET.get('studio')
-    username = request.GET.get('name')
-    userid = request.GET.get('nameid')
-    starttime = request.GET.get('starttime')
-    endtime = request.GET.get('endtime')
-    weekdaybooked = request.GET.get('day')
+    bookingdate = handleDateStr(request.POST['date'])
+    studio = request.POST['studio']
+    username = request.POST['name']
+    userid = request.POST['nameid']
+    starttime = request.POST['starttime']
+    endtime = request.POST['endtime']
+    weekdaybooked = request.POST['day']
     # try to make a booking in the table 
     # returns 0 upon FAIL and 1 upon SUCCESS
     success = create_booking(bookingdate, studio, username, userid, starttime, endtime, weekdaybooked, profile)
     print(success)
     # this is the current week start on 
-    startdate = handleDateStr(request.GET.get('currweek'))
-    groups = handleGroup(request.GET.get('groups'))
-    openday = handleDateStr(request.GET.get('openday'))
+    startdate = handleDateStr(request.POST['currweek'])
+    groups = handleGroup(request.POST['groups'])
+    openday = handleDateStr(request.POST['openday'])
 
     context = createContext(startdate, groups)
     context['openday'] = openday.strftime('%w')
