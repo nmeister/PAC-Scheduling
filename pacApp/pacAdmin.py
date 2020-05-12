@@ -357,7 +357,7 @@ def scheduling_alg(request: HttpResponse):
             context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
             context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
             context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
-            context['reho_req'] = RehearsalRequest.objects.all(scheduled=0)
+            context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
             context['all_requests'] = ADRequest.objects.all()
             context['groups'] = Group.objects.all()
             context['studios'] = Studio.objects.all()
