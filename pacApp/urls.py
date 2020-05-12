@@ -10,6 +10,8 @@ urlpatterns = [
     # when referencing home page it eneds to be given url of '/'
     path('', views.homepage, name='homepage'),
     path('homepage', views.homepage, name='homepage'),
+    path('about', views.about, name='about'),
+    path('notpac', views.notpac, name='notpac'), 
     path('schedule', dancers.schedule, name='schedule'),
     path('insert_space/', pacAdmin.insert_space_item, name='insert_space_item'),
     path('insert_ad_request/', pacAdmin.insert_ad_request, name='insert_ad_request'),
@@ -27,9 +29,7 @@ urlpatterns = [
     path('updateBooking', dancers.updateBooking, name='updateBooking'),
     path('updateDropping', dancers.updateDropping, name='updateDropping'),
     path('updateMulti', dancers.updateMulti, name='updateMulti'),
-    path('about', views.about, name='about'),
-    path('notpac', views.notpac, name='notpac'), 
-    path('logout', views.logout, name='logout'), 
+    path('logout', dancers.logout, name='logout'), 
 ]
 
 handler404 = errors.error_404

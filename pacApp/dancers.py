@@ -41,6 +41,9 @@ def schedule(request):
     
     return render(request, "templates/pacApp/schedule.html", context)
 
+def logout(request):
+    return redirect('%s?next=%s' % ('/accounts/logout', '/homepage'))
+
 
 # updates week 
 def updateWeek(request):
