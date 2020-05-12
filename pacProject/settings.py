@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 LOGIN_URL = "/accounts/login/"
 UNIAUTH_LOGIN_DISPLAY_STANDARD = False
 UNIAUTH_LOGOUT_CAS_COMPLETELY = True
-UNIAUTH_LOGOUT_REDIRECT_URL = '/homepage'
+UNIAUTH_LOGOUT_REDIRECT_URL = 'pacApp/homepage'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/

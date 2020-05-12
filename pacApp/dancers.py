@@ -45,7 +45,7 @@ def schedule(request):
 
 def logoutView(request):
     #return render(request, '/accounts/logout')
-    return redirect('%s?next=%s' % ('/accounts/logout/', '/homepage'))
+    return redirect('%s?next=%s' % ('/accounts/logout', '/homepage'))
    
 
 # updates week
