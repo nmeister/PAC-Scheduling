@@ -1,10 +1,8 @@
 function openDay(tab, id) {
-   if (window.refresh != null) {
+  console.log('changing views so updating window requests');
+  window.req += 1
+  if (window.refresh != null) {
     clearInterval(window.refresh);
-    window.refresh = setInterval(function () {
-          setupWeek('group');}
-          , 7000);
-          console.log('window', window.refresh); 
   }
   // opens the tab content corresponding to clicked tab
   // Declare all variables
@@ -38,7 +36,10 @@ function openDay(tab, id) {
   $('#'+id+'date').html(reformatted);
   $('#'+id+'date').css('display','block');
   $('#curr').val($('#'+id).data('date')); 
-
+  window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 5000);
+          console.log('window from open day - ', window.refresh); 
 }
 
 
@@ -109,9 +110,9 @@ function handleBadDate() {
 
 }
 
-function handleWeekInput() {
-
-  var timeout = null              //timer identifier
+function handleWeekInput(event) {
+  event.preventDefault();
+ /* var timeout = null              //timer identifier
   var doneTypingInterval = 3000;  //time in ms (2 seconds)
 
   //on keyup, start the countdown
@@ -123,7 +124,41 @@ function handleWeekInput() {
 
     // Make a new timeout set to go off in 1000ms (1 second)
     timeout = setTimeout(doneTyping, doneTypingInterval);
-  });
+  }); */ 
+  console.log('typing not allowed');
+
+  var msg = 'You are not allowed to type a date. <br><strong>  Please click down arrow next to date to view calendar or use arrows to go from week to week. </strong> ';
+  var buttonText = 'OK';
+  // handles all modal - make it seen 
+  var modal = document.getElementById("errorModal");
+  modal.style.display = "block";
+  $('#errorMsg').html(msg);
+
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("errorClose");
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // login button will show up and then if not already logged in
+  // should should login in button otherwise booking 
+  var option = document.getElementById("two");
+  $('#two').html(buttonText);
+  $('#one').css('display','none');
+  option.onclick = function() {
+    modal.style.display = "none";
+    $('#one').css('display','inline-block');
+  }
+  return false 
+
 }
 
 
@@ -151,11 +186,15 @@ function doneTyping () {
 function setupWeek(type) {
   console.log('in update week calendar');
   var groups = setGroups();
+  if (window.refresh != null) {
+    clearInterval(window.refresh);
+  }
 
   console.log('type of call is: ' + type);
   
   // if by clicking on the date picker
   if (type == 'week') {
+    window.req = 0;
     var newdate = $('#curr').val();
     console.log('updating week to be: ' + newdate);
     let url = 'updateWeek';
@@ -173,6 +212,7 @@ function setupWeek(type) {
   }
   // by clicking the forward arrow 
   if (type == 'nextweek') {
+    window.req = 0;
     var currweek = $('#curr').val();
     nextdate = buildDate(new Date(new Date(currweek).getTime()+(8*24*60*60*1000)));
     console.log('the next week starts on: ' + nextdate);
@@ -194,6 +234,7 @@ function setupWeek(type) {
     // var active = document.getElementsByClassName('active')[0].id[1];
     // console.log(active);
     // var openeddate = $('#d'+active).data('date');
+    window.req = 0;
     var currweek = $('#curr').val();
     nextdate = buildDate(new Date(new Date(currweek).getTime()-(6*24*60*60*1000)));
     console.log('the lastweek starts on: ' + nextdate);
@@ -231,21 +272,29 @@ function setupWeek(type) {
     })
     ;
   }
-   if (window.refresh != null) {
-    clearInterval(window.refresh);
-    window.refresh = setInterval(function () {
-          setupWeek('group');}
-          , 7000);
-          console.log('window setupweek', window.refresh); 
-  }  
+  
+  window.refresh = setInterval(function () {
+          setupWeek('group');window.req=0;}
+          , 5000);
+          console.log('window setupweek - ', window.refresh);  
 }
 
 
 function handleresponse(response) 
 {
-  console.log('handle after update');
+  console.log('handle after update in handle response');
+  console.log('active requests', $.active);
+  /* console.log('window requests currently is', window.req);
+  if (window.req > 1) {
+    window.req = 0;
+    console.log('dont update yet waiting...');
+    return;
+  }
+  else { 
+  window.req-=1;*/ 
   // updates the calendar
   $('#schedule').html(response);
+  // }
 }
 
 // Checks where we are, if not schedule page, don't allow booking 

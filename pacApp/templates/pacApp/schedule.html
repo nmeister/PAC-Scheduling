@@ -163,6 +163,8 @@
           setupWeek('group');}
           , 5000);
           console.log('window from schedule', window.refresh);
+          window.req = 0;
+          console.log('window requests is initially', window.req);
       	}
       	// loadSchedule()
       	$('document').ready(loadSchedule); 

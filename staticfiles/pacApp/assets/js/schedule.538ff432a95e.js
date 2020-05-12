@@ -1,4 +1,5 @@
 function openDay(tab, id) {
+
   if (window.refresh != null) {
     clearInterval(window.refresh);
   }
@@ -244,7 +245,7 @@ function setupWeek(type) {
 function handleresponse(response) 
 {
   console.log('handle after update in handle response');
-  console.log('active requests', $.active);
+  console.log($.active);
   // updates the calendar
   $('#schedule').html(response);
 }

@@ -36,7 +36,7 @@
  		<br><span id="d6date" style="display:none;font-size:0.85em;text-align:center;"></span>
  	</div>
 
- 	<span class="tablinks" id="week"><label style="padding-right:0.1em;font-size:0.85em;line-height: 1em;">Date: </label><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onclick="resetInterval()" onkeypress="handleWeekInput()" onchange="setupWeek('week')" style="line-height: 1.3em; font-size:0.9em;" required></span>
+ 	<span class="tablinks" id="week"><label style="padding-right:0.1em;font-size:0.85em;line-height: 1em;">Date: </label><input type="date" min="2000-12-31" max="2999-12-31" autocomplete="on" id="curr" value="{{formatdate}}" onclick="resetInterval()" onkeypress="handleWeekInput(event)" onchange="setupWeek('week')" style="line-height: 1.3em; font-size:0.9em;" required></span>
 
  	<span class="tablinks" id="bookingbutton" style="background-color:#df7366; color:#fff;margin-top:0.8em; font-size:0.8em; padding: 0.4em;border-radius:0.2em"><a style="text-decoration-line:none;" href="schedule">Book a Space</a>
  	</span>
@@ -554,11 +554,11 @@
 		console.log('booking success is: ' + success);
 		if (success == 1) {
 			console.log("Booking completed!");
-			showConfirm('Booking successfully completed! <br> Please click DISMISS to close this message.');
+			showConfirm('Booking successfully completed! <br> Please click <strong> DISMISS </strong> to close this message.');
 		}
 		else if (success == 0) {
 			console.log("Booking could not be made!");
-			showConfirm('Booking not successful! This time slot just got reserved.');
+			showConfirm('Booking not successful! <br> Sorry, this time slot just got reserved by another user.');
 		}
 	}
 
@@ -582,21 +582,21 @@
 		console.log('dropping success is: ' + success);
 		if (success == 1) {
 			console.log("Dropping completed!");
-			showConfirm('Dropping successfully completed! <br> Please click DISMISS to close this message.');
+			showConfirm('Dropping successfully completed! <br> Please click <strong> DISMISS </strong> to close this message.');
 		}
 		else if (success == 0) {
 			console.log("Dropping could not be made!");
-			showConfirm('Dropping not successful! Please try again or make sure you are allowed to drop this space.');
+			showConfirm('Dropping not successful! <br> Please try again or make sure you are allowed to drop this space.');
 		}
 	}
 
   function resetInterval() {
-     if (window.refresh != null) {
+    if (window.refresh != null) {
     clearInterval(window.refresh);
     window.refresh = setInterval(function () {
           setupWeek('group');}
-          , 7000);
-          console.log('window onclick date', window.refresh); 
+          , 6000);
+          console.log('window calendar on render - ', window.refresh); 
     }
   }
 	// calls upon page load
