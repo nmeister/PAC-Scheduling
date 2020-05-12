@@ -84,6 +84,13 @@ def insert_space_item(request: HttpResponse):
 def grab_time(time_val):
     return int(time_val[0:2])
 
+'''
+def check_dup_group(request: HttpResponse):
+    groups_in_db = list(RehearsalRequest.objects.values_list('group_id_id', flat=True).filter(scheduled=0))
+    print(groups_in_db)
+    if request.POST['company_name'] in groups_in_db:
+
+'''
 
 def insert_ad_request(request: HttpResponse):
 
@@ -92,6 +99,7 @@ def insert_ad_request(request: HttpResponse):
 
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
+
 
     company_start_time_1 = grab_time(request.POST['company_start_time_1'])
     company_end_time_1 = grab_time(request.POST['company_end_time_1'])
@@ -296,10 +304,7 @@ def scheduling_alg(request: HttpResponse):
     print(start_date, end_date)
 
     report = []
-
-
     # based on the dates specified
-
     new_date = start_date
 
     start_date_new = datetime.datetime.strptime(start_date, '%Y-%m-%d')
@@ -307,7 +312,6 @@ def scheduling_alg(request: HttpResponse):
     print(start_date_new, end_date_new)
     diff = end_date_new-start_date_new
     weeks = abs(math.ceil(diff.days/7))
-
 
     delta = end_date_new - start_date_new       # as timedelta
 
@@ -461,10 +465,10 @@ def scheduling_alg(request: HttpResponse):
             for i in range(1, 9):
                 hours.remove(i)
         else:
-            for i in range(1, 17):
+            for i in range(1, 16):
                 hours.remove(i)
         avail[day] = copy.deepcopy(get_init_avail(copy.deepcopy(hours)))
-
+    
     reho_count = dict(zip(df_request['name'], df_request['num_reho']))
     for group in reho_count:
         reho_count[group] = int(reho_count[group])
@@ -529,21 +533,28 @@ def scheduling_alg(request: HttpResponse):
             end_time = group_info.iloc[:, df_request.columns.get_loc(
                 'company_end_time_3')].values[0]
             preference = 3
+        if ((int(start_time) not in avail[day][studio]) or 
+		(int(start_time)+1 not in avail[day][studio]) or 
+		(int(start_time)+1 not in avail[day][studio])):
+            report.append(groups_list[group-1] + " did not get any Company Preference. Please return back to Step 2 and ensure that " + groups_list[group-1] + "'s company preference does not conflict with anyone else. ")
+            bookable=False
+            reho_count = {'0': 0}
 
-        # add the company time to df and remove from available times
-        (avail[day][studio]).remove(int(start_time))
-        (avail[day][studio]).remove(int(start_time)+1)
-        (avail[day][studio]).remove(int(start_time)+2)
-        group_results = pd.DataFrame(data={'Name': [group],
-                                           'Studio': [studioList[studio]],
-                                           'Day': [day],
-                                           'Start_Time': [start_time],
-                                           'End_Time': [int(end_time)],
-                                           'Booking_Date': [None]})
-        report.append(groups_list[group-1] + " got Preference " + str(preference) + " for company.")
+        else:
+            # add the company time to df and remove from available times
+            (avail[day][studio]).remove(int(start_time))
+            (avail[day][studio]).remove(int(start_time)+1)
+            (avail[day][studio]).remove(int(start_time)+2)
+            group_results = pd.DataFrame(data={'Name': [group],
+                                            'Studio': [studioList[studio]],
+                                            'Day': [day],
+                                            'Start_Time': [start_time],
+                                            'End_Time': [int(end_time)],
+                                            'Booking_Date': [None]})
+            report.append(groups_list[group-1] + " got Preference " + str(preference) + " for company.")
 
-        df_results = pd.concat([group_results, df_results],
-                               ignore_index=True, sort=False)
+            df_results = pd.concat([group_results, df_results],
+                                ignore_index=True, sort=False)
 
     """Cycle through the list of requests until everyone's requests are filled"""
     bookable = True

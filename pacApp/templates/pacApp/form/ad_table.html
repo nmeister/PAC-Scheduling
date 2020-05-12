@@ -34,14 +34,15 @@
       <tr>
         <td>
             <!-- update the form acion to be a delete entry maybe it needs to be button type submit to refresh-->
-                <button type="button" id='delete_button' class='btn' onclick="return delete_ad_request('{{item.request_id}}');">
+                <button type="button" id='delete_button_step2' class='btn' onclick="return delete_ad_request('{{item.request_id}}');">
                     <i class="far fa-trash-alt fa-lg text-danger float-right"> </i>
                 </button>
  
         </td>
         {% for group in groups %}
           {% if group.group_id == item.group_id_id%}
-            <td>{{group.group_name}}</td> 
+
+            <td class="group" id ="{{item.group_id_id}}">{{group.group_name}}</td> 
 
           {% endif%}
         {% endfor %}
@@ -163,10 +164,10 @@
 
 <script>
 
-$(delete_button).attr('onmouseover', '');
-$(delete_button).attr('data-toggle',"tooltip");
-$(delete_button).attr('data-placement', "top"); 
-$(delete_button).data('delay', 0);
-$(delete_button).attr('title', "Click to delete this request");
+$(delete_button_step2).attr('onmouseover', '');
+$(delete_button_step2).attr('data-toggle',"tooltip");
+$(delete_button_step2).attr('data-placement', "top"); 
+$(delete_button_step2).data('delay', 0);
+$(delete_button_step2).attr('title', "Click to delete this request");
        
 </script> 
