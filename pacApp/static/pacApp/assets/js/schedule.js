@@ -173,10 +173,8 @@ function setupWeek(type) {
   }
   // by clicking the forward arrow 
   if (type == 'nextweek') {
-    var active = document.getElementsByClassName('active')[0].id[1];
-    console.log(active);
-    var newdate = $('#d'+active).data('date');
-    nextdate = buildDate(new Date(new Date(newdate).getTime()+(8*24*60*60*1000)));
+    var currweek = $('#curr').val();
+    nextdate = buildDate(new Date(new Date(currweek).getTime()+(8*24*60*60*1000)));
     console.log('the next week starts on: ' + nextdate);
     let url = 'updateWeek';
     request = $.ajax(
@@ -193,10 +191,11 @@ function setupWeek(type) {
   }
   // by clicking the backward arrow
   if (type == 'lastweek') {
-    var active = document.getElementsByClassName('active')[0].id[1];
-    console.log(active);
-    var openeddate = $('#d'+active).data('date');
-    nextdate = buildDate(new Date(new Date(openeddate).getTime()-(6*24*60*60*1000)));
+    // var active = document.getElementsByClassName('active')[0].id[1];
+    // console.log(active);
+    // var openeddate = $('#d'+active).data('date');
+    var currweek = $('#curr').val();
+    nextdate = buildDate(new Date(new Date(currweek).getTime()-(6*24*60*60*1000)));
     console.log('the lastweek starts on: ' + nextdate);
     let url = 'updateWeek';
     request = $.ajax(
@@ -213,11 +212,10 @@ function setupWeek(type) {
   }
 
   if (type == 'group') {
-    var active = document.getElementsByClassName('active')[0].id[1];
-    console.log('active day is ' + active);
-    var openeddate = $('#d'+active).data('date');
+    // var active = document.getElementsByClassName('active')[0].id[1];
+    // console.log('active day is ' + active);
+    // var openeddate = $('#d'+active).data('date');
     var currweek = $('#curr').val();
-    console.log('currently opened date: ' + openeddate);
     console.log('current week starts on: ' + currweek);
     let url = 'updateGroupOnly';
     request = $.ajax(
@@ -225,7 +223,7 @@ function setupWeek(type) {
       type: "GET",
       url: url,
       data: {
-        'openday': openeddate,
+        'openday': currweek,
         'currweek': currweek,
         'groups': groups,
       },
@@ -701,11 +699,11 @@ function sendbook(id) {
     var groups = setGroups();
     console.log(groups);
 
-    var active = document.getElementsByClassName('active')[0].id[1];
-    console.log(active);
+    // var active = document.getElementsByClassName('active')[0].id[1];
+    // console.log(active);
     console.log('userid is ' + userid);
     console.log('user is ' + user);
-    var openday = $('#d'+active).data('date');
+    // var openday = $('#d'+active).data('date');
     var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     let url = 'updateBooking';
     request = $.ajax(
@@ -722,7 +720,7 @@ function sendbook(id) {
              'nameid': userid,
              'currweek': currweek,
              'groups': groups, 
-             'openday': openday,
+             'openday': currweek,
            },
            // upon ajax request callback
            success: handleresponse,
@@ -919,7 +917,7 @@ function drop(event) {
              'netid': usernetid,
              'groups': groups,
              'currweek': currweek,
-             'openday': openday,
+             'openday': currweek,
          },
          // upon ajax request callback
          success: handleresponse,

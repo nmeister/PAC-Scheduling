@@ -11,7 +11,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<!-- ICON NEEDS FONT AWESOME FOR CHEVRON UP ICON -->
-		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
  <!-- the css added after have priority --> 
 		<link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css" />
   		<link rel="stylesheet" type="text/css" href="/static/pacApp/assets/css/schedule.css" />
@@ -39,8 +38,7 @@
 								<a href="schedule"><div href = "schedule" class="button circled scrolly"><br><span style="font-size:0.8em;">Book Now</span></div></a>
 							</footer>
 						</div>
-
-					<!-- Nav -->
+								<!-- Nav -->
 						<nav id="nav">
 							<ul>
 								<li><a href="#">Home</a></li>
@@ -53,11 +51,11 @@
 										<li><a href="adminForm#">PAC Admin</a></li>
 									</ul>
 								</li>
-								{% if user != 'None' %} 
+								 {% if user != 'None' %} 
 								<li id="logoutButton">
 									<span>{{firstname}}</span>
 									<ul>
-										<li><a href="/accounts/logout/?next=homepage">Logout</a></li>
+										<li><a href="/accounts/logout/?next=/homepage">Logout</a></li>
 									</ul>
 								</li>
 								{% endif %}
@@ -65,7 +63,9 @@
 						</nav>
 				</div>
 
-	<a id="pgup" href="#nav" class="scrolly"><i class="icon-chevron-up"></i></a>
+				{% include 'templates/pacApp/scroll.html' %}
+				
+
 
 	 <div id="scheduleOnHome" data-user="{{user}}" style="padding: 0em 0em 2em 0em">
 			<!-- Banner -->
@@ -154,24 +154,6 @@
 				$('tr').addClass('row200');
 				$('tr').css('cursor','default');
      			$('#bookingbutton').css('display','inline-block');
-
-				$('li').hover(function (event) {
-					$(event.target).addClass('active');
-				}, function (event) {
-					$(event.target).removeClass('active');
-				})
-
-			</script>
-			<script>
-				// ===== Scroll to Top ==== 
-				$(window).scroll(function() {
-				    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
-				        $('#pgup').fadeIn(200);    // Fade in the arrow
-				    } else {
-				        $('#pgup').fadeOut(200);   // Else fade out the arrow
-				    }
-				});
-		
 			</script>
 
 	</body>
