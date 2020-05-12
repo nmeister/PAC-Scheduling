@@ -243,7 +243,7 @@ def delete_schedule_alg(request: HttpResponse):
 
     all_requests = RehearsalRequest.objects.filter(scheduled=1)
     company1 = CompanyRequest.objects.filter(company_choice_num=1, scheduled=1)
-    company2 = CompanyRequest.objects.filter(coampany_choice_num=2, scheduled=1)
+    company2 = CompanyRequest.objects.filter(company_choice_num=2, scheduled=1)
     company3 = CompanyRequest.objects.filter(company_choice_num=3, scheduled=1)
 
     context = {}
