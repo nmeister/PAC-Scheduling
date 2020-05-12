@@ -706,11 +706,13 @@ function sendbook(id) {
     console.log('userid is ' + userid);
     console.log('user is ' + user);
     var openday = $('#d'+active).data('date');
+    var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     let url = 'updateBooking';
     request = $.ajax(
     {
-      type: "GET",
+      type: "POST",
       url: url,
+      headers: {'X-CSRFToken': csrftoken},
       data: {'studio': studioNum[0], // studio name 
              'date': date, // in the form of yyyy/mm/dd
              'starttime': hour, // int start time 

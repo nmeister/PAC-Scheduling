@@ -85,21 +85,21 @@ def updateBooking(request):
     if studentDets != None:
       firstname = studentDets['first_name']
     # these are all related to booking 
-    bookingdate = handleDateStr(request.GET.get('date'))
-    studio = request.GET.get('studio')
-    username = request.GET.get('name')
-    userid = request.GET.get('nameid')
-    starttime = request.GET.get('starttime')
-    endtime = request.GET.get('endtime')
-    weekdaybooked = request.GET.get('day')
+    bookingdate = handleDateStr(request.POST['date'])
+    studio = request.POST['studio']
+    username = request.POST['name']
+    userid = request.POST['nameid']
+    starttime = request.POST['starttime']
+    endtime = request.POST['endtime']
+    weekdaybooked = request.POST['day']
     # try to make a booking in the table 
     # returns 0 upon FAIL and 1 upon SUCCESS
     success = create_booking(bookingdate, studio, username, userid, starttime, endtime, weekdaybooked, profile)
     print(success)
     # this is the current week start on 
-    startdate = handleDateStr(request.GET.get('currweek'))
-    groups = handleGroup(request.GET.get('groups'))
-    openday = handleDateStr(request.GET.get('openday'))
+    startdate = handleDateStr(request.POST['currweek'])
+    groups = handleGroup(request.POST['groups'])
+    openday = handleDateStr(request.POST['openday'])
 
     context = createContext(startdate, groups)
     context['openday'] = openday.strftime('%w')

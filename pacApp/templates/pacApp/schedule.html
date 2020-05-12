@@ -27,6 +27,7 @@
                 <span style="font-size:1em">Click an empty slot to book. Click your reserved slot to delete reservation.</span>
               </header>
             </div>
+            <!-- NAVIGATION BAR --> 
             <nav id="nav">
               <ul>
                 <li><a href="homepage">Home</a></li>
@@ -51,14 +52,15 @@
         </div>
     </div>
 
-
+    <!-- CALENDAR --> 
     <div id="scheduletable" data-multi=0>
         {% csrf_token %}
               <!-- CALENDAR ITSELF --> 
               {% include 'templates/pacApp/tableElements/calendar.html' %}
-              <!-- GROUP SELECTION THING --> 
+              <!-- GROUP SELECTION --> 
               {% include 'templates/pacApp/tableElements/groupSelection.html' %}
     </div>
+    <!-- CALENDAR BOOK FORM --> 
     <div>
        <div id="myModal" class="modal"> 
         <!-- Modal content -->
