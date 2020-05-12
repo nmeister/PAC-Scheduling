@@ -38,7 +38,7 @@ function openDay(tab, id) {
   $('#curr').val($('#'+id).data('date')); 
   window.refresh = setInterval(function () {
           setupWeek('group');}
-          , 5000);
+          , 7000);
           console.log('window from open day - ', window.refresh); 
 }
 
@@ -275,7 +275,7 @@ function setupWeek(type) {
   
   window.refresh = setInterval(function () {
           setupWeek('group');window.req=0;}
-          , 5000);
+          , 7000);
           console.log('window setupweek - ', window.refresh);  
 }
 
