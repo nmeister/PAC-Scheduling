@@ -302,6 +302,15 @@ def delete_schedule_alg(request: HttpResponse):
     context['studios'] = Studio.objects.all()
     context['report'] = report
     context['newdate'] = start_date
+    # gets the netid
+    profile = request.user.uniauth_profile.get_display_id()
+    # gets via tiger book the info about person given netid
+    studentDets = studentInfo(profile)
+    context['firstname'] = profile
+    if studentDets != None:
+      first_name = studentDets['first_name']
+      context['firstname'] = first_name
+
     print(context['report'])
     return render(request, "templates/pacApp/form/adminForm.html", context)
 
@@ -354,6 +363,15 @@ def scheduling_alg(request: HttpResponse):
             context['studios'] = Studio.objects.all()
             context['has_report'] = 'True'
             context['success'] = 'False'
+            # gets the netid
+            profile = request.user.uniauth_profile.get_display_id()
+            # gets via tiger book the info about person given netid
+            studentDets = studentInfo(profile)
+            context['firstname'] = profile
+            if studentDets != None:
+                first_name = studentDets['first_name']
+                context['firstname'] = first_name
+
             context['report'] = report
             print(context['report'])
             return render(request, "templates/pacApp/form/adminForm.html", context)
@@ -382,6 +400,15 @@ def scheduling_alg(request: HttpResponse):
         context['studios'] = Studio.objects.all()
         context['has_report'] = 'True'
         context['report'] = report
+        # gets the netid
+        profile = request.user.uniauth_profile.get_display_id()
+        # gets via tiger book the info about person given netid
+        studentDets = studentInfo(profile)
+        context['firstname'] = profile
+        if studentDets != None:
+            first_name = studentDets['first_name']
+            context['firstname'] = first_name
+
         context['success'] = 'False'
         print(context['report'])
         return render(request, "templates/pacApp/form/adminForm.html", context)
@@ -404,6 +431,15 @@ def scheduling_alg(request: HttpResponse):
         context['success'] = 'False'
         context['report'] = report
         print(context['report'])
+        # gets the netid
+        profile = request.user.uniauth_profile.get_display_id()
+        # gets via tiger book the info about person given netid
+        studentDets = studentInfo(profile)
+        context['firstname'] = profile
+        if studentDets != None:
+            first_name = studentDets['first_name']
+            context['firstname'] = first_name
+
         return render(request, "templates/pacApp/form/adminForm.html", context)
 
 
@@ -749,6 +785,15 @@ def scheduling_alg(request: HttpResponse):
     context['studios'] = Studio.objects.all()
     context['has_report'] = 'True'
     context['report'] = report
+    # gets the netid
+    profile = request.user.uniauth_profile.get_display_id()
+    # gets via tiger book the info about person given netid
+    studentDets = studentInfo(profile)
+    context['firstname'] = profile
+    if studentDets != None:
+      first_name = studentDets['first_name']
+      context['firstname'] = first_name
+
     context['newdate'] = new_date
     print(context['report'])
 
