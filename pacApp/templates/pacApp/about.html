@@ -10,8 +10,12 @@
 </head>
 <style>
     .wrapper {
-    background: #fff;
-    padding: 4em 0 2em 0 !important;
+	    background: #fff;
+	    padding: 4em 0 2em 0 !important;
+	}
+	.navAb {
+		text-decoration: underline !important;
+		text-decoration-line: #df7366 !important;
 	}
 </style>
 
@@ -36,15 +40,15 @@
                  <li><a href="#">About</a></li>
                 <li><a href="">Booking</a>
                   <ul>
-                    <li><a href="schedule">Book Space</a></li>
-                    <li><a href="adminForm#">PAC Admin</a></li>
+                    <li><a class="navAb" href="schedule">Book Space</a></li>
+                    <li><a class="navAb" href="adminForm#">PAC Admin</a></li>
                   </ul>
                 </li>
                 {% if user != 'None' %} 
                 <li id="logoutButton">
                   <span>{{firstname}}</span>
                   <ul>
-                    <li><a href="logoutView">Logout</a></li>
+                    <li><a class="navAb" href="logoutView">Logout</a></li>
                   </ul>
                 </li>
                 {% endif %}
