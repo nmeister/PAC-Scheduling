@@ -110,9 +110,9 @@ function handleBadDate() {
 
 }
 
-function handleWeekInput() {
-
-  var timeout = null              //timer identifier
+function handleWeekInput(event) {
+  event.preventDefault();
+ /* var timeout = null              //timer identifier
   var doneTypingInterval = 3000;  //time in ms (2 seconds)
 
   //on keyup, start the countdown
@@ -124,7 +124,41 @@ function handleWeekInput() {
 
     // Make a new timeout set to go off in 1000ms (1 second)
     timeout = setTimeout(doneTyping, doneTypingInterval);
-  });
+  }); */ 
+  console.log('typing not allowed');
+
+  var msg = 'You are not allowed to type a date. <br><strong>  Please click down arrow next to date to view calendar or use arrows to go from week to week. </strong> ';
+  var buttonText = 'OK';
+  // handles all modal - make it seen 
+  var modal = document.getElementById("errorModal");
+  modal.style.display = "block";
+  $('#errorMsg').html(msg);
+
+  // Get the <span> element that closes the modal on the x button 
+  var span = document.getElementById("errorClose");
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // login button will show up and then if not already logged in
+  // should should login in button otherwise booking 
+  var option = document.getElementById("two");
+  $('#two').html(buttonText);
+  $('#one').css('display','none');
+  option.onclick = function() {
+    modal.style.display = "none";
+    $('#one').css('display','inline-block');
+  }
+  return false 
+
 }
 
 
