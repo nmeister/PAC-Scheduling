@@ -37,8 +37,8 @@ function openDay(tab, id) {
   $('#curr').val($('#'+id).data('date')); 
   window.refresh = setInterval(function () {
           setupWeek('group');}
-          , 5000);
-          console.log('window from open day - ', window.refresh); 
+          , 3000);
+          console.log('window', window.refresh); 
 }
 
 
@@ -237,15 +237,14 @@ function setupWeek(type) {
   
   window.refresh = setInterval(function () {
           setupWeek('group');}
-          , 5000);
-          console.log('window setupweek - ', window.refresh);  
+          , 3000);
+          console.log('window setupweek', window.refresh);  
 }
 
 
 function handleresponse(response) 
 {
-  console.log('handle after update in handle response');
-  console.log($.active);
+  console.log('handle after update');
   // updates the calendar
   $('#schedule').html(response);
 }

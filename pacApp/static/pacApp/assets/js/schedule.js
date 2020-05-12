@@ -1,10 +1,6 @@
 function openDay(tab, id) {
-   if (window.refresh != null) {
+  if (window.refresh != null) {
     clearInterval(window.refresh);
-    window.refresh = setInterval(function () {
-          setupWeek('group');}
-          , 7000);
-          console.log('window', window.refresh); 
   }
   // opens the tab content corresponding to clicked tab
   // Declare all variables
@@ -38,7 +34,10 @@ function openDay(tab, id) {
   $('#'+id+'date').html(reformatted);
   $('#'+id+'date').css('display','block');
   $('#curr').val($('#'+id).data('date')); 
-
+  window.refresh = setInterval(function () {
+          setupWeek('group');}
+          , 5000);
+          console.log('window from open day - ', window.refresh); 
 }
 
 
@@ -151,6 +150,9 @@ function doneTyping () {
 function setupWeek(type) {
   console.log('in update week calendar');
   var groups = setGroups();
+  if (window.refresh != null) {
+    clearInterval(window.refresh);
+  }
 
   console.log('type of call is: ' + type);
   
@@ -231,19 +233,18 @@ function setupWeek(type) {
     })
     ;
   }
-   if (window.refresh != null) {
-    clearInterval(window.refresh);
-    window.refresh = setInterval(function () {
+  
+  window.refresh = setInterval(function () {
           setupWeek('group');}
-          , 7000);
-          console.log('window setupweek', window.refresh); 
-  }  
+          , 5000);
+          console.log('window setupweek - ', window.refresh);  
 }
 
 
 function handleresponse(response) 
 {
-  console.log('handle after update');
+  console.log('handle after update in handle response');
+  console.log('active requests', $.active);
   // updates the calendar
   $('#schedule').html(response);
 }
