@@ -22,6 +22,7 @@ from .utils import studentInfo, handleDateStr, handleGroup, handledate, get_rang
 from .create import createContext, create_booking, delete_booking
 
 
+
 # displays the calendar schedule
 @login_required
 def schedule(request):
@@ -42,10 +43,10 @@ def schedule(request):
     return render(request, "templates/pacApp/schedule.html", context)
 
 
-def logout(request):
-    return render(request, '/accounts/logout')
-    # return redirect('%s?next=%s' % ('/accounts/logout', '/homepage'))
-
+def logoutView(request):
+    #return render(request, '/accounts/logout')
+    return redirect('%s?next=%s' % ('/accounts/logout/', '/homepage'))
+   
 
 # updates week
 def updateWeek(request):

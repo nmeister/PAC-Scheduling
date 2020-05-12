@@ -30,7 +30,7 @@ urlpatterns = [
     path('updateBooking', dancers.updateBooking, name='updateBooking'),
     path('updateDropping', dancers.updateDropping, name='updateDropping'),
     path('updateMulti', dancers.updateMulti, name='updateMulti'),
-    path('logout', dancers.logout, name='logout'), 
+    path('logoutView', dancers.logoutView, name='logoutView'), 
 ]
 
 handler404 = errors.error_404

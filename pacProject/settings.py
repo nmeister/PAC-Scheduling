@@ -17,6 +17,10 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
+LOGIN_URL = "/accounts/login/"
+UNIAUTH_LOGIN_DISPLAY_STANDARD = False
+UNIAUTH_LOGOUT_CAS_COMPLETELY = True
+UNIAUTH_LOGOUT_REDIRECT_URL = '/homepage'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -25,8 +29,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '59c!&ax&$m&aoy#!&((_l741@@-s6(86f4g8qxu1w!4^v!65d9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-#DEBUG = True
+#DEBUG = False
+DEBUG = True
 
 ADMINS = (
     ('admin'),
@@ -108,11 +112,6 @@ AUTHENTICATION_BACKENDS = [
     'uniauth.backends.CASBackend',
 ]
 
-LOGIN_URL = "/accounts/login/"
-#LOGOUT_URL = "/accounts/logout/"
-UNIAUTH_LOGOUT_REDIRECT_URL = '/homepage'
-UNIAUTH_LOGIN_DISPLAY_STANDARD = False
-UNIAUTH_LOGOUT_CAS_COMPLETELY = True
 
 #AUTH_USER_MODEL = 'account.Account'
 
