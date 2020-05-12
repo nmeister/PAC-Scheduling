@@ -29,6 +29,12 @@ def create_tigerbook_header(profile):
                   }
   return headers 
 
+# showing which studios are currently available 
+def carouselAvailable(notfree):
+    studioList = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    for i in notfree:
+        studioList[i.studio_id_id] = 0
+    return studioList
 
 # takes in string, returns type of object date
 def handleDateStr(date):

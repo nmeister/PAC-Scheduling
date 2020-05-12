@@ -19,22 +19,9 @@ from datetime import date, timedelta
 import calendar
 import json
 from .utils import studentInfo, handleDateStr, handleGroup, handledate, get_range, get_duration, must_be_pac
+from .utils import carouselAvailable
 from .create import createContext, create_booking, delete_booking
-# showing which studios are currently available 
-def carouselAvailable():
-    startdate = date.today()
-    currenttime = int(datetime.datetime.now().time().hour)
-    # print(currenttime)
-    notfree = Booking.objects.filter(start_time__exact=currenttime).filter(
-        booking_date__exact=startdate)
 
-    studioList = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    for i in notfree:
-        studioList[i.studio_id_id] = 0
-
-    # print(studioList)
-
-    return studioList
 
 # rendering the home page with today's date
 def homepage(request):
@@ -44,9 +31,12 @@ def homepage(request):
         profile = 'None'
     print(profile)
     starttoday = date.today()
+    currenttime = int(datetime.datetime.now().time().hour)
     groups = 'None'
     context = createContext(starttoday, groups)
-    context['available'] = carouselAvailable()
+    notfree = Booking.objects.filter(start_time__exact=currenttime).filter(
+        booking_date__exact=starttoday)
+    context['available'] = carouselAvailable(notfree)
     context['user'] = profile
     context['firstname'] = profile
     if profile != 'None':
