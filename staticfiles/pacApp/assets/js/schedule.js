@@ -215,7 +215,6 @@ function setupWeek(type) {
     // console.log('active day is ' + active);
     // var openeddate = $('#d'+active).data('date');
     var currweek = $('#curr').val();
-    console.log('currently opened date: ' + openeddate);
     console.log('current week starts on: ' + currweek);
     let url = 'updateGroupOnly';
     request = $.ajax(
