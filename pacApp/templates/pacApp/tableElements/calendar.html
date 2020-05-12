@@ -593,10 +593,6 @@
   function resetInterval() {
     if (window.refresh != null) {
     clearInterval(window.refresh);
-    window.refresh = setInterval(function () {
-          setupWeek('group');}
-          , 6000);
-          console.log('window calendar on render - ', window.refresh); 
     }
   }
 	// calls upon page load
