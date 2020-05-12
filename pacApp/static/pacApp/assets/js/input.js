@@ -74,6 +74,30 @@ function same_company(company_1, company_2)
   else {return false;}
 }
 
+function badCompanyTime(day, start_time, end_time)
+{
+  start_time = parseInt(start_time)
+  end_time = parseInt(end_time)
+  if ((day==='Sunday') || (day==='Saturday')) {
+    if ((start_time < 9) || (end_time< 10)) return true;
+  }
+  else {
+    if ((start_time < 4) || (end_time< 5)) return true;
+  }
+  return false;
+}
+
+function company_already_entered(group_id)
+{
+  var groups = document.getElementsByClassName('group')
+  console.log(groups);
+  var i = 0;
+  for (i = 0; i < groups.length; i++) {
+    if (parseInt(groups[i].id) == parseInt(group_id)) return true;
+  }
+  return false;
+}
+
 function validateResponse() 
 {
   var empty_inputs = []
@@ -107,7 +131,6 @@ function validateResponse()
   let rank_8 = document.getElementById("rank_8").value.trim();
   let rank_9 = document.getElementById("rank_9").value.trim();
   let rank_10 = document.getElementById("rank_10").value.trim();
-
 
   if (company=="Select Company Name") {
     alert('Please select a group name.');
@@ -164,18 +187,35 @@ function validateResponse()
 
   console.log(empty_inputs);
 
-  company_1 = [company_day_1, company_studio_1, company_start_time_1, company_end_time_1];
-  company_2 = [company_day_2, company_studio_2, company_start_time_2, company_end_time_2];
-  company_3 = [company_day_3, company_studio_3, company_start_time_3, company_end_time_3];
+  if (badCompanyTime(company_day_1, company_start_time_1, company_end_time_1))
+  {
+    alert('Please choose a valid company time for Preference 1. The company time must be between 4PM-Midnight on weekdays and 9AM-Midnight on weekends.');
+    return false;
+  }
+  if (badCompanyTime(company_day_2, company_start_time_2, company_end_time_2))
+  {
+    alert('Please choose a valid company time for Preference 2. The company time must be between 4PM-Midnight on weekdays and 9AM-Midnight on weekends.');
+    return false;
+  }
 
-  /*
+  if (badCompanyTime(company_day_3, company_start_time_3, company_end_time_3))
+  {
+    alert('Please choose a valid company time for Preference 3. The company time must be between 4PM-Midnight on weekdays and 9AM-Midnight on weekends.');
+    return false;
+  }
+
+ 
   // if company is already in the db
-  if (company_already_entered(company_name))
+  if (company_already_entered(company))
   {
     alert('The company you are trying to submit already has an entry in the database as displayed in step 2. Please either delete your existing entry in the database or enter a different company name.')
     return false;
-  }
-  */
+  } 
+
+  company_1 = [company_day_1, company_studio_1, company_start_time_1, company_end_time_1];
+  company_2 = [company_day_2, company_studio_2, company_start_time_2, company_end_time_2];
+  company_3 = [company_day_3, company_studio_3, company_start_time_3, company_end_time_3];
+  
 
   // ensure that the company 1 and 2 entries are unique
   if (same_company(company_1, company_2)) {
@@ -339,6 +379,28 @@ function call_schedule_alg(start_date, end_date)
   });
 }
 
+/* 
+function check_dup_group(group_id)
+{
+  // document.getElementById("loading").style.visibility = "visible"; 
+  $("#loading").css("visibility", "visible");
+  $('#msg').html('Scheduling all Groups');
+
+  var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  console.log('in call schedule');
+  url = 'scheduling_alg';
+  request = $.ajax(
+  {
+    type: "POST",
+    url: url,
+    headers: {'X-CSRFToken': csrftoken},
+    data: {
+      'start_date':start_date,
+      'end_date':end_date
+    },
+    success: handleresponse,
+  });
+} */
 
 function delete_scheduling_alg(start_date, end_date)
 {
@@ -365,6 +427,7 @@ function delete_scheduling_alg(start_date, end_date)
 function delete_ad_request(unique_id)
 {
   console.log(unique_id);
+  alert('This request will be deleted');
   let url = 'drop_ad_request';
   request = $.ajax(
               {
