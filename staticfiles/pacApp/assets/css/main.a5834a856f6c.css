@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic,600");
-@import url("fontawesome-all.min.css");
+@import url("fontawesome-all.min.dbf9d822cefe.css");
 
 /*
 	Helios by HTML5 UP
@@ -2190,7 +2190,7 @@ input, textarea {
 
 	#header {
 		position: relative;
-		background-image: url("../../images/header.jpg");
+		background-image: url("../../images/header.94066d9a805a.jpg");
 		background-size: cover;
 		background-position: center center;
 		background-attachment: fixed;
@@ -2559,7 +2559,7 @@ input, textarea {
 				position: absolute;
 				top: 50%;
 				margin: -1.5em 0 0 0;
-				background: url("images/arrow.svg") no-repeat center center;
+				background: url("images/arrow.5dc915558154.svg") no-repeat center center;
 			}
 
 			.carousel .forward:hover:before, .carousel .backward:hover:before {
@@ -2978,7 +2978,7 @@ input, textarea {
 					top: 0;
 					width: 100%;
 					height: 100%;
-					background: url("images/pic01.jpg");
+					background: url("images/pic01.5d07aab7ad71.jpg");
 					background-size: 128px 128px;
 				}
 
