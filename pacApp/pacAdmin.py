@@ -29,7 +29,7 @@ from .create import createContext, create_booking, delete_booking
 # Create your views here.
 # our home page
 
-
+# 
 def drop_ad_request(request: HttpResponse):
     request_id = request.GET.get('id')
     print(request_id)
@@ -121,7 +121,6 @@ def insert_ad_request(request: HttpResponse):
     company_end_time_2 = grab_time(request.POST['company_end_time_2'])
     company_start_time_3 = grab_time(request.POST['company_start_time_3'])
     company_end_time_3 = grab_time(request.POST['company_end_time_3'])
-
 
     current_datetime = str(datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"))
     name = groups_list[int(request.POST['company_name'])-1]
@@ -244,7 +243,7 @@ def delete_schedule_alg(request: HttpResponse):
 
     all_requests = RehearsalRequest.objects.filter(scheduled=1)
     company1 = CompanyRequest.objects.filter(company_choice_num=1, scheduled=1)
-    company2 = CompanyRequest.objects.filter(company_choice_num=2, scheduled=1)
+    company2 = CompanyRequest.objects.filter(coampany_choice_num=2, scheduled=1)
     company3 = CompanyRequest.objects.filter(company_choice_num=3, scheduled=1)
 
     context = {}
@@ -272,7 +271,7 @@ def delete_schedule_alg(request: HttpResponse):
             context['success'] = 'False'
         else:
 
-            report = ['Deleted all groups from ' + str(start_date) + ' to ' + str(end_date) + '. (' + str(weeks) + ' weeks). The requests will show up again in Step 2.' ]
+            report = ['Deleted all groups from ' + str(start_date) + ' to ' + str(end_date) + '. The requests will show up again in Step 2.' ]
             
             for group in all_requests:
                 (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=0)
@@ -538,9 +537,7 @@ def scheduling_alg(request: HttpResponse):
             'company_start_time_1')].values[0]
         end_time = int(group_info.iloc[:, df_request.columns.get_loc(
             'company_end_time_1')].values[0])
-        # if conflict --> conflict can just be a try/except thing
-        # cant do times from 23-1
-        # remove times from list
+        
 
         # if the company time is already booked
 
@@ -602,8 +599,7 @@ def scheduling_alg(request: HttpResponse):
 
     """Cycle through the list of requests until everyone's requests are filled"""
     bookable = True
-    # while there are still spaces to book
-    print(reho_count.values())
+    dd
     
     while (int(max(reho_count.values())) > 0):
         # randomize the order of groups
