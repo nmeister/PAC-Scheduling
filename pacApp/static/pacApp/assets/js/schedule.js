@@ -1,4 +1,6 @@
 function openDay(tab, id) {
+  console.log('changing views so updating window requests');
+  window.req += 1
   if (window.refresh != null) {
     clearInterval(window.refresh);
   }
@@ -158,6 +160,7 @@ function setupWeek(type) {
   
   // if by clicking on the date picker
   if (type == 'week') {
+    window.req = 0;
     var newdate = $('#curr').val();
     console.log('updating week to be: ' + newdate);
     let url = 'updateWeek';
@@ -175,6 +178,7 @@ function setupWeek(type) {
   }
   // by clicking the forward arrow 
   if (type == 'nextweek') {
+    window.req = 0;
     var currweek = $('#curr').val();
     nextdate = buildDate(new Date(new Date(currweek).getTime()+(8*24*60*60*1000)));
     console.log('the next week starts on: ' + nextdate);
@@ -196,6 +200,7 @@ function setupWeek(type) {
     // var active = document.getElementsByClassName('active')[0].id[1];
     // console.log(active);
     // var openeddate = $('#d'+active).data('date');
+    window.req = 0;
     var currweek = $('#curr').val();
     nextdate = buildDate(new Date(new Date(currweek).getTime()-(6*24*60*60*1000)));
     console.log('the lastweek starts on: ' + nextdate);
@@ -235,7 +240,7 @@ function setupWeek(type) {
   }
   
   window.refresh = setInterval(function () {
-          setupWeek('group');}
+          setupWeek('group');window.req=0;}
           , 5000);
           console.log('window setupweek - ', window.refresh);  
 }
@@ -245,8 +250,17 @@ function handleresponse(response)
 {
   console.log('handle after update in handle response');
   console.log('active requests', $.active);
+  /* console.log('window requests currently is', window.req);
+  if (window.req > 1) {
+    window.req = 0;
+    console.log('dont update yet waiting...');
+    return;
+  }
+  else { 
+  window.req-=1;*/ 
   // updates the calendar
   $('#schedule').html(response);
+  // }
 }
 
 // Checks where we are, if not schedule page, don't allow booking 
