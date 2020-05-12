@@ -12,15 +12,13 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from uniauth.decorators import login_required
 from django.conf.urls.static import static
-from . import models
 from .models import Booking, Group, Studio
-import datetime
-from datetime import date, timedelta
-import calendar
-import json
 from .utils import studentInfo, handleDateStr, handleGroup, handledate, get_range, get_duration, must_be_pac
 from .create import createContext, create_booking, delete_booking, carouselAvailable
-
+from datetime import date, timedelta
+import datetime
+import calendar
+import json
 
 # rendering the home page with today's date
 def homepage(request):
