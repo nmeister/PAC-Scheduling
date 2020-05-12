@@ -38,7 +38,6 @@ function openDay(tab, id) {
   $('#'+id+'date').html(reformatted);
   $('#'+id+'date').css('display','block');
   $('#curr').val($('#'+id).data('date')); 
-
 }
 
 
@@ -704,7 +703,11 @@ function sendbook(id) {
     // console.log(active);
     console.log('userid is ' + userid);
     console.log('user is ' + user);
+<<<<<<< HEAD
     // var openday = $('#d'+active).data('date');
+=======
+    var openday = $('#d'+active).data('date');
+>>>>>>> cdeaf7982992194f7e47b1cfaa85a8452836a136
     var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     let url = 'updateBooking';
     request = $.ajax(

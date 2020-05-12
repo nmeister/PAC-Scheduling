@@ -17,6 +17,7 @@ urlpatterns = [
     path('insert_ad_request/', pacAdmin.insert_ad_request, name='insert_ad_request'),
     path('scheduling_alg', pacAdmin.scheduling_alg, name='scheduling_alg'),
     path('adminForm', pacAdmin.adminForm, name='adminForm'),
+    path('renew_schedule', pacAdmin.renew_schedule, name='renew_schedule'),
    # path('create_booking', pacAdmin.create_booking, name='create_booking'),
    # path('delete_booking', pacAdmin.delete_booking, name='delete_booking'),
     path('drop_ad_request', pacAdmin.drop_ad_request, name='drop_ad_request'),

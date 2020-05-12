@@ -114,15 +114,18 @@
 	{% include 'templates/pacApp/form/ad_table.html' %} 
 	If this table contains old requests and you want to begin a new schedule, please click 'New Schedule'
 
-	<div class="input-group-append text-info"; style="text-align: left; display: flex; align-items: left; justify-content: left;">
-		<br>	
-
-		<span class="input-grou-text bg-white py-0">
-				<button type="submit" id="submit_button" class="btn btn-sm text-info" style="font-size: small;" >
-					New Schedule
-				</button>			
-		</span>
-	</div>
+	<form class="myform" method="POST" action="{% url 'renew_schedule' %}" autocomplete="=off" onsubmit="alert('The entries in this table will be deleted. You can now enter more entries for a new scheduling period! ')">
+		{% csrf_token %}
+		<div class="input-group-append text-info"; style="text-align: left; display: flex; align-items: left; justify-content: left;">
+			<br>	
+			<span class="input-grou-text bg-white py-0">
+					<button type="submit" id="submit_button" class="btn btn-sm text-info" 
+					style="font-size: small;" >
+						New Schedule
+					</button>			
+			</span>
+		</div>
+	</form>
 
 
 <p style="margin-left:auto; margin-right:auto;text-align:center;"><a href="#step3" class="scrolly"><i class="arrow down"></i></a></p>

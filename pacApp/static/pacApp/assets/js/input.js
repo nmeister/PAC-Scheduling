@@ -308,6 +308,14 @@ function wasClicked_Alg(event, type)
     event.preventDefault();
     return false; 
   } 
+  var currentDate = new Date();
+
+  if (new Date(start_date_val) < currentDate)
+  {
+    alert('Please do not schedule something in the past. Please fix the dates and resubmit. Thanks!');
+    event.preventDefault();
+    return false; 
+  }
 
   // schedule_wasClicked = localStorage.getItem('schedule_wasClicked');
 
@@ -427,18 +435,21 @@ function delete_scheduling_alg(start_date, end_date)
 function delete_ad_request(unique_id)
 {
   console.log(unique_id);
-  alert('This request will be deleted');
-  let url = 'drop_ad_request';
-  request = $.ajax(
-              {
-                type: "GET",
-                url: url,
-                data: {
-                    'id': unique_id, // request id to drop
-                },
-                // upon ajax request callback
-                success: handleresponse,
-              }
-          );
-
+  if (confirm('Are you sure you want to delete?')) {  
+    let url = 'drop_ad_request';
+    request = $.ajax(
+                {
+                  type: "GET",
+                  url: url,
+                  data: {
+                      'id': unique_id, // request id to drop
+                  },
+                  // upon ajax request callback
+                  success: handleresponse,
+                }
+            );
+  }
+  else {
+    return;
+  }
 }
