@@ -92,6 +92,15 @@ def check_dup_group(request: HttpResponse):
 
 '''
 
+def renew_schedule(request: HttpResponse):
+
+    CompanyRequest.objects.filter(company_choice_num=1, scheduled=0).update(scheduled=2)
+    CompanyRequest.objects.filter(company_choice_num=2, scheduled=0).update(scheduled=2)
+    CompanyRequest.objects.filter(company_choice_num=3, scheduled=0).update(scheduled=2)
+    RehearsalRequest.objects.filter(scheduled=0).update(scheduled=2)
+
+    return redirect('/adminForm')
+
 def insert_ad_request(request: HttpResponse):
 
     groups_list = ['BAC', 'Bhangra', 'BodyHype', 'Disiac', 'eXpressions', 'HighSteppers',
@@ -197,6 +206,8 @@ def adminForm(request):
     return render(request, "templates/pacApp/form/adminForm.html", context)
 
 
+
+
 def get_ranks(bloomberg_rank, dillon_dance_rank, dillon_mar_rank, dillon_mpr_rank, murphy_rank, ns_rank, ns_warmup_rank, ns_theatre_rank, whitman_rank, wilcox_rank):
     studio_ranking = {'bloomberg': bloomberg_rank, 'dillondance': dillon_dance_rank, 'dillonmar': dillon_mar_rank, 
     'dillonmpr': dillon_mpr_rank, 'murphy': murphy_rank, 'ns': ns_rank, 'nswarmup': ns_warmup_rank, 
@@ -235,6 +246,7 @@ def delete_schedule_alg(request: HttpResponse):
     weeks = abs(math.ceil(diff.days/7))
 
     delta = end_date_new - start_date_new       # as timedelta
+
 
     try:
         total_to_del = 0
@@ -347,6 +359,25 @@ def scheduling_alg(request: HttpResponse):
     company2 = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
     company3 = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
 
+    # no groups to schedule
+    if (RehearsalRequest.objects.filter(scheduled=0).count() == 0):
+        report = ['No groups to schedule. Please ensure that data is populated into Step 2.']
+        context = {}
+        context['start_date'] = start_date
+        context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
+        context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
+        context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+        context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
+        context['all_requests'] = ADRequest.objects.all()
+        context['groups'] = Group.objects.all()
+        context['studios'] = Studio.objects.all()
+        context['has_report'] = 'True'
+        context['report'] = report
+        context['success'] = 'False'
+        print(context['report'])
+        return render(request, "templates/pacApp/form/adminForm.html", context)
+
+
     # check if there are enough spaces to allocate
     enough_space = total_spaces(all_requests)
     if not enough_space:
@@ -361,16 +392,11 @@ def scheduling_alg(request: HttpResponse):
         context['groups'] = Group.objects.all()
         context['studios'] = Studio.objects.all()
         context['has_report'] = 'True'
+        context['success'] = 'False'
         context['report'] = report
         print(context['report'])
         return render(request, "templates/pacApp/form/adminForm.html", context)
 
-    if (RehearsalRequest.objects.count() == 0):
-         results = 'None'
-         context = {}
-         context['results'] = results
-         return render(request, "templates/pacApp/form/adminForm.html", context)
-    
 
     studioList = {'bloomberg': 0, 'dillondance': 1, 'dillonmar': 2, 'dillonmpr': 3,
                   'murphy': 4, 'ns': 5, 'nswarmup': 6, 'nstheatre': 7, 'whitman': 8, 'wilcox': 9}
@@ -560,6 +586,7 @@ def scheduling_alg(request: HttpResponse):
     bookable = True
     # while there are still spaces to book
     print(reho_count.values())
+    
     while (int(max(reho_count.values())) > 0):
         # randomize the order of groups
         for group in groups.sample(frac=1):
@@ -672,7 +699,7 @@ def scheduling_alg(request: HttpResponse):
     daysList = dict(zip(days_of_week, range(0, 7)))
 
     user_netid = request.user.uniauth_profile.get_display_id()
-    for week in range(weeks):
+    for week in range(weeks+1):
         for i, space in df_results.iterrows():
             book = Booking(studio_id_id=space['Studio'],
                         group_id_id=int(space['Name']),
