@@ -83,15 +83,13 @@ def updateGroupOnly(request):
 def updateBooking(request):
     print('in updating booking')
     # the booker for authentication
-    profile = request.user.uniauth_profile.get_display_id()
-    studentDets = studentInfo(profile)
-    if studentDets != None:
-      firstname = studentDets['first_name']
     # these are all related to booking 
     bookingdate = handleDateStr(request.POST['date'])
     studio = request.POST['studio']
     username = request.POST['name']
     userid = request.POST['nameid']
+    profile = request.user.uniauth_profile.get_display_id()
+    print(userid == profile)
     starttime = request.POST['starttime']
     endtime = request.POST['endtime']
     weekdaybooked = request.POST['day']
@@ -147,7 +145,6 @@ def updateDropping(request: HttpResponse):
     groups = handleGroup(request.POST['groups'])
     startdate = handleDateStr(request.POST['currweek'])
     openday = handleDateStr(request.POST['openday'])
-
     context = createContext(startdate, groups)
     context['openday'] = openday.strftime('%w')
     context['dropsuccess'] = success
