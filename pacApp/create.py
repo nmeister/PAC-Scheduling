@@ -5,6 +5,14 @@ from .models import Booking, Group, Studio
 import datetime
 from datetime import date, timedelta
 
+# showing which studios are currently available 
+def carouselAvailable(starttoday, currenttime):
+    notfree = Booking.objects.filter(start_time__exact=currenttime).filter(
+        booking_date__exact=starttoday)
+    studioList = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    for i in notfree:
+        studioList[i.studio_id_id] = 0
+    return studioList
 
 def createContext(startdate, groups):
     week = {}

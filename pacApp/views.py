@@ -19,8 +19,7 @@ from datetime import date, timedelta
 import calendar
 import json
 from .utils import studentInfo, handleDateStr, handleGroup, handledate, get_range, get_duration, must_be_pac
-from .utils import carouselAvailable
-from .create import createContext, create_booking, delete_booking
+from .create import createContext, create_booking, delete_booking, carouselAvailable
 
 
 # rendering the home page with today's date
@@ -34,9 +33,7 @@ def homepage(request):
     currenttime = int(datetime.datetime.now().time().hour)
     groups = 'None'
     context = createContext(starttoday, groups)
-    notfree = Booking.objects.filter(start_time__exact=currenttime).filter(
-        booking_date__exact=starttoday)
-    context['available'] = carouselAvailable(notfree)
+    context['available'] = carouselAvailable(starttoday, currenttime)
     context['user'] = profile
     context['firstname'] = profile
     if profile != 'None':
