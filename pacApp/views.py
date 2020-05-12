@@ -1,18 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.template.loader import render_to_string
-from django.template.defaulttags import register
-from django.contrib import messages
-import math
-#from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.models import Group
-from django.contrib.auth.models import User
-from uniauth.decorators import login_required
-from django.conf.urls.static import static
-from .models import Booking, Group, Studio
 from .utils import studentInfo, handleDateStr, handleGroup, handledate, get_range, get_duration, must_be_pac
 from .create import createContext, create_booking, delete_booking, carouselAvailable
 from datetime import date, timedelta
