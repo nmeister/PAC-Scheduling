@@ -128,7 +128,6 @@
 function display() {
 	var available = $('#carousel').data('available');
 	var list = {{available | safe }}
-	console.log("available")
 	if (list[9])
 		document.getElementById("wilcox").style.display = "inline-block";
 	if (list[0])
