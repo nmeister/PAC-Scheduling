@@ -6,12 +6,16 @@
       <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/> --> 
       <link rel="stylesheet" type="text/css" href="static/pacApp/assets/css/main.css">
       <link rel="stylesheet"  type="text/css" href="static/pacApp/assets/css/input.css">
-
-      
       <script type="application/javascript" src="static/pacApp/assets/js/input.js"></script> 
       <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
        <!-- <script src="static/pacApp/assets/js/main.js"></script> -->
-   	 
+   	  <style>
+        .navA:hover {
+          color:#df7366 !important;
+          text-decoration:underline !important;
+          text-decoration-line: #df7366 !important;
+        }
+      </style>
    </head>
 <div class = entire_page>
 
@@ -37,15 +41,15 @@
                    </li>
                    <li><a href="#">Booking</a>
                     <ul>
-                      <li><a href="schedule">Book Space</a></li>
-                      <li><a href="#">PAC Admin</a></li>
+                      <li><a class="navA" href="schedule">Book Space</a></li>
+                      <li><a class="navA" href="#">PAC Admin</a></li>
                     </ul>
                    </li>
                    {% if user != 'None' %} 
-                    <li id="logoutButton">
+                    <li id="logoutAdmin">
                       <span>{{firstname}}</span>
                       <ul>
-                        <li><a href="logoutView">Logout</a></li>
+                        <li><a class="navA" href="logoutView">Logout</a></li>
                       </ul>
                     </li>
                     {% endif %}

@@ -1,0 +1,190 @@
+@import url("fontawesome-all.min.7dd3499c32f8.css");
+
+input[type="text"],
+textarea {
+		-webkit-appearance: none;
+		display: block;
+		border: 0;
+		background: #fafafa;
+		width: 75%;
+		border-radius: 0.5em;
+		border: solid 1px #E5E5E5;
+		padding: 1em;
+    /* font-family: 'Arial'; */
+		-moz-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+		-webkit-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+		-ms-transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+		transition: background-color 0.35s ease-in-out, border-color 0.35s ease-in-out;
+}
+/*
+input::placeholder {
+	color: #B0B0B0;
+	color: red;
+	opacity: 1;
+} */
+
+table, th, td {
+  border: none;
+  width=100%;
+  white-space:nowrap;
+  table-layout: auto;
+  padding: 10px;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  padding: 6px 12px;
+  width:100%;
+  position:relative;
+  cursor: pointer !important;
+}
+
+
+
+/* Style the buttons that are used to open the tab content */
+input[type="text"] .tab .tablinks {
+  background-color: inherit;
+  float: left;
+  /* border: 1px solid #ccc; */
+  border: none; 
+  outline: none;
+  cursor: pointer !important; 
+
+  padding: 14px 16px;
+  transition: 0.3s;
+  /* font-family: 'Arial'; */
+}
+.tablinks:after {
+  content: '|';
+}
+.tablinks:last-child:after {
+  content: '';
+}
+
+
+/* Change background color of buttons on hover */
+.tab div:hover {
+  background-color: #ddd;
+  cursor: pointer !important; 
+  
+}
+
+
+
+/* Create an active/current tablink class */
+input[type="text"] .tab div.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 10px 30px;
+  border: 1px solid #ccc;
+  border-top: none;
+  width: 100%;
+  /* font-family: 'Font Awesome 5 Free'; */
+}
+
+.myList {
+  -webkit-appearance: default !important;
+  appearance: default !important;
+}
+
+
+
+.arrow {
+  border: solid #b76e79; 
+  border-width: 0 0.62em 0.62em 0;
+  display: inline-block;
+  padding: 0.42em;
+
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+#logoutAdmin {
+  border: 3em solid;
+  background-color: #df7366;
+  border-radius:0.2em !important;
+  cursor:pointer;
+}
+
+a:hover {
+  color:white;
+}
+
+#viewResults {
+  font-size: 1.05em;
+}
+#viewResults:hover {
+   color:white;
+
+}
+
+#pgup {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    background: rgba(223, 115, 102, 0.85);
+    width: 3em;
+    height: 3em;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 5em;
+    -moz-border-radius: 5em;
+    border-radius: 5em;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    z-index: 99;
+}
+#pgup i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 0.85em;
+    top: 0.5em;
+    font-size: 1.1em;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    z-index: 99;
+}
+#pgup:hover {
+   background: rgba(223, 115, 102, 1);
+}
+#pgup:hover i {
+    color: #fff;
+    top: 0.2em;
+}
+
+#nav a:hover {
+  color:#df7366 !important;
+}
