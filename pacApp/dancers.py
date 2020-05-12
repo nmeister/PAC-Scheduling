@@ -36,22 +36,23 @@ def schedule(request):
     context['user'] = profile
     context['firstname'] = profile
     if studentDets != None:
-      first_name = studentDets['first_name']
-      context['firstname'] = first_name
-    
+        first_name = studentDets['first_name']
+        context['firstname'] = first_name
+
     return render(request, "templates/pacApp/schedule.html", context)
 
+
 def logout(request):
-    return redirect('%s?next=%s' % ('/accounts/logout', '/homepage'))
+    return render(request, '/accounts/logout')
+    # return redirect('%s?next=%s' % ('/accounts/logout', '/homepage'))
 
 
-# updates week 
+# updates week
 def updateWeek(request):
     # we get something of type string in the form of yyyy-mm-dd
     # transform date string into DATE object
     newdate = request.GET.get('newdate')
     startdate = handleDateStr(newdate)
-    
 
     # getting groups, it is type string, if no groups selected will be 'None' (str)
     groups = handleGroup(request.GET.get('groups'))
@@ -62,11 +63,13 @@ def updateWeek(request):
 
     return render(request, "templates/pacApp/tableElements/calendar.html", context)
 
-# update when group checked 
+# update when group checked
+
+
 def updateGroupOnly(request):
-    # the opened day user is on 
+    # the opened day user is on
     openday = handleDateStr(request.GET.get('openday'))
-    # this is the current week user is on 
+    # this is the current week user is on
     startdate = handleDateStr(request.GET.get('currweek'))
     # getting groups, it is type string, if no groups selected will be 'None' (str)
 
@@ -79,11 +82,13 @@ def updateGroupOnly(request):
     return render(request, "templates/pacApp/tableElements/calendar.html", context)
 
 # for booking slot
-# creates a booking in table, updates with same current week and opened tab 
+# creates a booking in table, updates with same current week and opened tab
+
+
 def updateBooking(request):
     print('in updating booking')
     # the booker for authentication
-    # these are all related to booking 
+    # these are all related to booking
     bookingdate = handleDateStr(request.POST['date'])
     studio = request.POST['studio']
     username = request.POST['name']
@@ -93,11 +98,12 @@ def updateBooking(request):
     starttime = request.POST['starttime']
     endtime = request.POST['endtime']
     weekdaybooked = request.POST['day']
-    # try to make a booking in the table 
+    # try to make a booking in the table
     # returns 0 upon FAIL and 1 upon SUCCESS
-    success = create_booking(bookingdate, studio, username, userid, starttime, endtime, weekdaybooked, profile)
+    success = create_booking(bookingdate, studio, username,
+                             userid, starttime, endtime, weekdaybooked, profile)
     print(success)
-    # this is the current week start on 
+    # this is the current week start on
     startdate = handleDateStr(request.POST['currweek'])
     groups = handleGroup(request.POST['groups'])
     openday = handleDateStr(request.POST['openday'])
@@ -107,15 +113,17 @@ def updateBooking(request):
     context['booksuccess'] = success
     return render(request, "templates/pacApp/tableElements/calendar.html", context)
 
-# for multiple booking at a time 
+# for multiple booking at a time
+
+
 def updateMulti(request: HttpResponse):
     profile = request.user.uniauth_profile.get_display_id()
     slots = request.POST['slots[]']
     data = json.loads(slots)
     for i in data:
-      create_booking(handleDateStr(i['booking_date']), i['studio'], 
-        i['company_name'], i['company_id'], i['start_time'], 
-        i['end_time'], i['week_day'], i['user_netid'])
+        create_booking(handleDateStr(i['booking_date']), i['studio'],
+                       i['company_name'], i['company_id'], i['start_time'],
+                       i['end_time'], i['week_day'], i['user_netid'])
     startdate = handleDateStr(request.POST['currweek'])
     openday = handleDateStr(request.POST['openday'])
     groups = handleGroup(request.POST['groups'])
@@ -131,7 +139,7 @@ def updateDropping(request: HttpResponse):
     profile = request.user.uniauth_profile.get_display_id()
 
     # get variables from post resuts
-    # this is for dropping the space 
+    # this is for dropping the space
     studio = request.POST['studio']
     bookingdate = handleDateStr(request.POST['date'])  # booking date
     starttime = request.POST['starttime']
@@ -140,7 +148,8 @@ def updateDropping(request: HttpResponse):
     name = request.POST['name']
     nameid = request.POST['nameid']
     # delete the booking from the db
-    success = delete_booking(bookingdate, studio, name, nameid, starttime, endtime, day, profile)
+    success = delete_booking(bookingdate, studio, name,
+                             nameid, starttime, endtime, day, profile)
     print(success)
     groups = handleGroup(request.POST['groups'])
     startdate = handleDateStr(request.POST['currweek'])
