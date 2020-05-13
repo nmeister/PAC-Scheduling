@@ -61,9 +61,9 @@ def delete_ad_request(request_id):
         reho_req_to_del = RehearsalRequest.objects.get(request_id=request_id)
     
         print(reho_req_to_del.request_id)
-        co_req_1 = CompanyRequest.objects.get(request_id_id=request_id, company_choice_num=1)
-        co_req_2 = CompanyRequest.objects.filter(request_id_id=request_id, company_choice_num=2)
-        co_req_3 = CompanyRequest.objects.filter(request_id_id=request_id, company_choice_num=3)
+        co_req_1 = CompanyRequest.objects.get(request_id_id=request_id).filter(company_choice_num=1)
+        co_req_2 = CompanyRequest.objects.filter(request_id_id=request_id).filter(company_choice_num=2)
+        co_req_3 = CompanyRequest.objects.filter(request_id_id=request_id).filter(company_choice_num=3)
         
         print(co_req_1.request_id_id)
 
@@ -94,9 +94,9 @@ def check_dup_group(request: HttpResponse):
 
 def renew_schedule(request: HttpResponse):
 
-    CompanyRequest.objects.filter(company_choice_num=1, scheduled=0).update(scheduled=2)
-    CompanyRequest.objects.filter(company_choice_num=2, scheduled=0).update(scheduled=2)
-    CompanyRequest.objects.filter(company_choice_num=3, scheduled=0).update(scheduled=2)
+    CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0).update(scheduled=2)
+    CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0).update(scheduled=2)
+    CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0).update(scheduled=2)
     RehearsalRequest.objects.filter(scheduled=0).update(scheduled=2)
 
     return redirect('/adminForm')
@@ -193,9 +193,9 @@ def insert_ad_request(request: HttpResponse):
 def adminForm(request):
 
     context = {}
-    context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
-    context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
-    context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+    context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0)
+    context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0)
+    context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0)
     context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
@@ -242,9 +242,9 @@ def delete_schedule_alg(request: HttpResponse):
     end_date = request.POST['end_date']
 
     all_requests = RehearsalRequest.objects.filter(scheduled=1)
-    company1 = CompanyRequest.objects.filter(company_choice_num=1, scheduled=1)
-    company2 = CompanyRequest.objects.filter(company_choice_num=2, scheduled=1)
-    company3 = CompanyRequest.objects.filter(company_choice_num=3, scheduled=1)
+    company1 = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=1)
+    company2 = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=1)
+    company3 = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=1)
 
     context = {}
 
@@ -252,17 +252,20 @@ def delete_schedule_alg(request: HttpResponse):
     end_date_new = datetime.datetime.strptime(end_date, '%Y-%m-%d')
     print(start_date_new, end_date_new)
     diff = end_date_new-start_date_new
-    weeks = abs(math.ceil(diff.days/7))
+    # weeks = abs(math.ceil(diff.days/7))
 
     delta = end_date_new - start_date_new       # as timedelta
+    print(delta)
 
 
     try:
         total_to_del = 0
+        print('delta.day: ', delta.days)
         for i in range(delta.days + 1):
             day = start_date_new + timedelta(days=i)
             print(day)
-            slots_to_del = Booking.objects.filter(from_alg=1, booking_date = day)
+            day = day.strftime('%Y-%m-%d')
+            slots_to_del = Booking.objects.filter(from_alg=1).filter(booking_date__exact = day)
             total_to_del += slots_to_del.count()
             print(slots_to_del)
             slots_to_del.delete()
@@ -277,13 +280,13 @@ def delete_schedule_alg(request: HttpResponse):
                 (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=0)
 
             for group in company1:
-                CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=0)
+                CompanyRequest.objects.filter(company_choice_num=1).filter(request_id_id=group.request_id_id).update(scheduled=0)
 
             for group in company2:
-                CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=0)
+                CompanyRequest.objects.filter(company_choice_num=2).filter(request_id_id=group.request_id_id).update(scheduled=0)
 
             for group in company3:
-                CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=0) 
+                CompanyRequest.objects.filter(company_choice_num=3).filter(request_id_id=group.request_id_id).update(scheduled=0) 
             context['success'] = 'True'
         
     except:
@@ -293,9 +296,9 @@ def delete_schedule_alg(request: HttpResponse):
 
     context['start_date'] = start_date
     context['has_report'] = 'True'
-    context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
-    context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
-    context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+    context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0)
+    context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0)
+    context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0)
     context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
@@ -354,9 +357,9 @@ def scheduling_alg(request: HttpResponse):
             report = ['Spaces have already been scheduled for ' + str(day) + '. Please select a new date range.']
             context = {}
             context['start_date'] = start_date
-            context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
-            context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
-            context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+            context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0)
+            context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0)
+            context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0)
             context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
             context['all_requests'] = ADRequest.objects.all()
             context['groups'] = Group.objects.all()
@@ -382,18 +385,18 @@ def scheduling_alg(request: HttpResponse):
     
     # get everything in db
     all_requests = RehearsalRequest.objects.filter(scheduled=0)
-    company1 = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
-    company2 = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
-    company3 = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+    company1 = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0)
+    company2 = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0)
+    company3 = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0)
 
     # no groups to schedule
     if (RehearsalRequest.objects.filter(scheduled=0).count() == 0):
         report = ['No groups to schedule. Please ensure that data is populated into Step 2.']
         context = {}
         context['start_date'] = start_date
-        context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
-        context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
-        context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+        context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0)
+        context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0)
+        context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0)
         context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
         context['all_requests'] = ADRequest.objects.all()
         context['groups'] = Group.objects.all()
@@ -420,9 +423,9 @@ def scheduling_alg(request: HttpResponse):
         report = ['Not enough space to allocate, please request less space']
         context = {}
         context['start_date'] = start_date
-        context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
-        context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
-        context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+        context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0)
+        context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0)
+        context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0)
         context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
         context['all_requests'] = ADRequest.objects.all()
         context['groups'] = Group.objects.all()
@@ -536,7 +539,7 @@ def scheduling_alg(request: HttpResponse):
             for i in range(1, 9):
                 hours.remove(i)
         else:
-            for i in range(1, 16):
+            for i in range(1, 15):
                 hours.remove(i)
         avail[day] = copy.deepcopy(get_init_avail(copy.deepcopy(hours)))
     
@@ -613,7 +616,7 @@ def scheduling_alg(request: HttpResponse):
             if (int(time) not in avail[day][studio]): next_pref = 1
         
         if (next_pref):
-            report.append(groups_list[group-1] + " did not get any Company Preference. Please return back to Step 2 and ensure that " + groups_list[group-1] + "'s company preference does not conflict with anyone else. ")
+            report.append(groups_list[group-1] + " did not get any Company Preference. Please manually delete all the scheduled spaces. Please return back to Step 2 and ensure that " + groups_list[group-1] + "'s company preference does not conflict with anyone else. ")
             bookable=False
             reho_count = {'0': 0}
 
@@ -722,7 +725,33 @@ def scheduling_alg(request: HttpResponse):
                                                         report.append("No more spaces left.")
                                                         print('NO MORE SPACES LEFT. THROW ERROR')
                                                         bookable = False
-                                                        break
+                                                        context = {}
+                                                        context['start_date'] = start_date
+                                                        context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0)
+                                                        context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0)
+                                                        context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0)
+                                                        context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
+                                                        context['all_requests'] = ADRequest.objects.all()
+                                                        context['groups'] = Group.objects.all()
+                                                        context['studios'] = Studio.objects.all()
+                                                        context['has_report'] = 'True'
+                                                        context['report'] = report
+                                                        # gets the netid
+                                                        profile = request.user.uniauth_profile.get_display_id()
+                                                        # gets via tiger book the info about person given netid
+                                                        studentDets = studentInfo(profile)
+                                                        context['firstname'] = profile
+                                                        if studentDets != None:
+                                                            first_name = studentDets['first_name']
+                                                            context['firstname'] = first_name
+
+                                                        context['newdate'] = new_date
+                                                        print(context['report'])
+
+                                                        # for item in context['all_requests']:
+                                                        #	print(item.name)
+                                                        return render(request, "templates/pacApp/form/adminForm.html", context)
+                                                        
 
 
                 if bookable:
@@ -747,6 +776,10 @@ def scheduling_alg(request: HttpResponse):
     # studioList = dict(zip(dance_studios, list(range(0, 10))))
     daysList = dict(zip(days_of_week, range(0, 7)))
 
+    if start_date_new.weekday() == 6: 
+        days_to_get_sunday = 0
+    else: days_to_get_sunday =  int(start_date_new.weekday())+1 # get weekday where monday = 0 and sunday = 6
+
     user_netid = request.user.uniauth_profile.get_display_id()
     for week in range(weeks+1):
         for i, space in df_results.iterrows():
@@ -758,7 +791,7 @@ def scheduling_alg(request: HttpResponse):
                         end_time=space['End_Time'],
                         week_day=daysList[space['Day']],
                         user_netid=str(user_netid),
-                        booking_date=(start_date_new + timedelta(days=(week*6))))
+                        booking_date=(start_date_new - timedelta(int(days_to_get_sunday)) + timedelta(days=(week*7 + int(daysList[space['Day']]) ))))
             book.save()
 
 # RehearsalRequest.objects.filter(scheduled=0)
@@ -766,19 +799,19 @@ def scheduling_alg(request: HttpResponse):
         (RehearsalRequest.objects.filter(request_id=group.request_id)).update(scheduled=1)
 
     for group in company1:
-        CompanyRequest.objects.filter(company_choice_num=1, request_id_id=group.request_id_id).update(scheduled=1)
+        CompanyRequest.objects.filter(company_choice_num=1).filter(request_id_id=group.request_id_id).update(scheduled=1)
 
     for group in company2:
-        CompanyRequest.objects.filter(company_choice_num=2, request_id_id=group.request_id_id).update(scheduled=1)
+        CompanyRequest.objects.filter(company_choice_num=2).filter(request_id_id=group.request_id_id).update(scheduled=1)
 
     for group in company3:
-        CompanyRequest.objects.filter(company_choice_num=3, request_id_id=group.request_id_id).update(scheduled=1) 
+        CompanyRequest.objects.filter(company_choice_num=3).filter(request_id_id=group.request_id_id).update(scheduled=1) 
     
     context = {}
     context['start_date'] = start_date
-    context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1, scheduled=0)
-    context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2, scheduled=0)
-    context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3, scheduled=0)
+    context['company_req_1'] = CompanyRequest.objects.filter(company_choice_num=1).filter(scheduled=0)
+    context['company_req_2'] = CompanyRequest.objects.filter(company_choice_num=2).filter(scheduled=0)
+    context['company_req_3'] = CompanyRequest.objects.filter(company_choice_num=3).filter(scheduled=0)
     context['reho_req'] = RehearsalRequest.objects.filter(scheduled=0)
     context['all_requests'] = ADRequest.objects.all()
     context['groups'] = Group.objects.all()
